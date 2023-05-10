@@ -1,0 +1,80 @@
+import 'package:flutter/material.dart';
+
+class Home extends StatefulWidget {
+  const Home({super.key});
+
+  @override
+  State<Home> createState() => _HomeState();
+}
+
+class _HomeState extends State<Home> {
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      body: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: [
+          Stack(
+            children: const [
+              MenuBlock(
+                menuName: 'ค้นหาเมนู\n  อาหาร',
+                innerColor: Colors.yellow,
+                outerColor: Colors.greenAccent,
+              ),
+              Positioned(
+                  top: -20,
+                  right: 9,
+                  child: Icon(
+                    Icons.lightbulb,
+                    size: 100,
+                    color: Colors.yellow,
+                  ))
+            ],
+          ),
+          const MenuBlock(
+              menuName: 'ประวัติการ\nรับประทานอาหาร',
+              innerColor: Colors.yellowAccent,
+              outerColor: Colors.red),
+          const MenuBlock(
+              menuName: 'ธงโภชนาการ',
+              innerColor: Colors.white,
+              outerColor: Colors.blueAccent),
+        ],
+      ),
+    );
+  }
+}
+
+class MenuBlock extends StatelessWidget {
+  const MenuBlock(
+      {super.key, required this.menuName, this.innerColor, this.outerColor});
+  final String menuName;
+  final Color? innerColor;
+  final Color? outerColor;
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.all(20.0),
+      child: Container(
+        padding: const EdgeInsets.all(30),
+        decoration: BoxDecoration(
+          color: outerColor,
+          borderRadius: BorderRadius.circular(20),
+        ),
+        child: Container(
+          padding: const EdgeInsets.symmetric(horizontal: 50, vertical: 25),
+          decoration: BoxDecoration(
+            color: innerColor,
+            borderRadius: BorderRadius.circular(10),
+          ),
+          child: Text(
+            menuName,
+            style: const TextStyle(fontSize: 50, fontWeight: FontWeight.bold),
+          ),
+        ),
+      ),
+    );
+  }
+}

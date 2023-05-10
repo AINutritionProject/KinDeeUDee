@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:appfood2/pages/home.dart';
 
 class LogInForm extends StatefulWidget {
   const LogInForm({super.key});
@@ -18,6 +19,15 @@ class _LogInFormState extends State<LogInForm> {
   final _formKey = GlobalKey<FormState>();
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
+
+  void _onLogin() {
+    if (_formKey.currentState!.validate()) {
+      print('Email: ${_emailController.text}');
+      print('Password: ${_passwordController.text}');
+      Navigator.pushReplacement(
+          context, MaterialPageRoute(builder: (context) => const Home()));
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -65,7 +75,9 @@ class _LogInFormState extends State<LogInForm> {
               child: ElevatedButton(
                 style: ElevatedButton.styleFrom(
                     backgroundColor: Colors.orangeAccent),
-                onPressed: () {},
+                onPressed: () {
+                  _onLogin();
+                },
                 child: const Text(
                   "ลงชื่อเข้าใช้",
                   style: TextStyle(fontWeight: FontWeight.w200),
