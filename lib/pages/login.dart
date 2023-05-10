@@ -22,8 +22,6 @@ class _LogInFormState extends State<LogInForm> {
 
   void _onLogin() {
     if (_formKey.currentState!.validate()) {
-      print('Email: ${_emailController.text}');
-      print('Password: ${_passwordController.text}');
       Navigator.pushReplacement(
           context, MaterialPageRoute(builder: (context) => const Home()));
     }
