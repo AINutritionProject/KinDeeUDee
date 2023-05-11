@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:appfood2/pages/menu.dart';
+import 'package:appfood2/pages/flag_nutrition.dart';
+import 'package:appfood2/pages/eat_history.dart';
 
 class Home extends StatefulWidget {
   const Home({super.key});
@@ -11,35 +14,54 @@ class _HomeState extends State<Home> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(title: const Text("Home")),
       body: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
-          Stack(
-            children: const [
-              MenuBlock(
-                menuName: 'ค้นหาเมนู\n  อาหาร',
-                innerColor: Colors.yellow,
-                outerColor: Colors.greenAccent,
-              ),
-              Positioned(
-                  top: -20,
-                  right: 9,
-                  child: Icon(
-                    Icons.lightbulb,
-                    size: 100,
-                    color: Colors.yellow,
-                  ))
-            ],
+          GestureDetector(
+            onTap: () {
+              Navigator.push(context,
+                  MaterialPageRoute(builder: (context) => const MenuPage()));
+            },
+            child: Stack(
+              children: const [
+                MenuBlock(
+                  menuName: 'ค้นหาเมนู\n  อาหาร',
+                  innerColor: Colors.yellow,
+                  outerColor: Colors.greenAccent,
+                ),
+                Positioned(
+                    top: -20,
+                    right: 9,
+                    child: Icon(
+                      Icons.lightbulb,
+                      size: 100,
+                      color: Colors.yellow,
+                    ))
+              ],
+            ),
           ),
-          const MenuBlock(
-              menuName: 'ประวัติการ\nรับประทานอาหาร',
-              innerColor: Colors.yellowAccent,
-              outerColor: Colors.red),
-          const MenuBlock(
-              menuName: 'ธงโภชนาการ',
-              innerColor: Colors.white,
-              outerColor: Colors.blueAccent),
+          GestureDetector(
+            onTap: () {
+              Navigator.of(context).push(MaterialPageRoute(
+                  builder: (context) => const EatHistoryPage()));
+            },
+            child: const MenuBlock(
+                menuName: 'ประวัติการ\nรับประทานอาหาร',
+                innerColor: Colors.yellowAccent,
+                outerColor: Colors.red),
+          ),
+          GestureDetector(
+            onTap: () {
+              Navigator.of(context).push(MaterialPageRoute(
+                  builder: (context) => const FlagNutrition()));
+            },
+            child: const MenuBlock(
+                menuName: 'ธงโภชนาการ',
+                innerColor: Colors.white,
+                outerColor: Colors.blueAccent),
+          ),
         ],
       ),
     );
