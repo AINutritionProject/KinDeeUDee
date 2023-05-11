@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:appfood2/pages/menu.dart';
 
 class Home extends StatefulWidget {
   const Home({super.key});
@@ -15,22 +16,28 @@ class _HomeState extends State<Home> {
         mainAxisAlignment: MainAxisAlignment.center,
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
-          Stack(
-            children: const [
-              MenuBlock(
-                menuName: 'ค้นหาเมนู\n  อาหาร',
-                innerColor: Colors.yellow,
-                outerColor: Colors.greenAccent,
-              ),
-              Positioned(
-                  top: -20,
-                  right: 9,
-                  child: Icon(
-                    Icons.lightbulb,
-                    size: 100,
-                    color: Colors.yellow,
-                  ))
-            ],
+          GestureDetector(
+            onTap: () {
+              Navigator.push(context,
+                  MaterialPageRoute(builder: (context) => const MenuPage()));
+            },
+            child: Stack(
+              children: const [
+                MenuBlock(
+                  menuName: 'ค้นหาเมนู\n  อาหาร',
+                  innerColor: Colors.yellow,
+                  outerColor: Colors.greenAccent,
+                ),
+                Positioned(
+                    top: -20,
+                    right: 9,
+                    child: Icon(
+                      Icons.lightbulb,
+                      size: 100,
+                      color: Colors.yellow,
+                    ))
+              ],
+            ),
           ),
           const MenuBlock(
               menuName: 'ประวัติการ\nรับประทานอาหาร',
