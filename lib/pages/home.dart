@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:appfood2/pages/menu.dart';
+import 'package:appfood2/pages/flag_nutrition.dart';
 
 class Home extends StatefulWidget {
   const Home({super.key});
@@ -43,10 +44,16 @@ class _HomeState extends State<Home> {
               menuName: 'ประวัติการ\nรับประทานอาหาร',
               innerColor: Colors.yellowAccent,
               outerColor: Colors.red),
-          const MenuBlock(
-              menuName: 'ธงโภชนาการ',
-              innerColor: Colors.white,
-              outerColor: Colors.blueAccent),
+          GestureDetector(
+            onTap: () {
+              Navigator.of(context).push(MaterialPageRoute(
+                  builder: (context) => const FlagNutrition()));
+            },
+            child: const MenuBlock(
+                menuName: 'ธงโภชนาการ',
+                innerColor: Colors.white,
+                outerColor: Colors.blueAccent),
+          ),
         ],
       ),
     );
