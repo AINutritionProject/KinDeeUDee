@@ -15,16 +15,13 @@ class _HomeState extends State<Home> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text("Home"),
-        actions: [
-          IconButton(
-              onPressed: () async {
-                await Auth().signOut();
-              },
-              icon: Icon(Icons.sd))
-        ],
-      ),
+      appBar: AppBar(title: const Text("Home"), actions: [
+        IconButton(
+            onPressed: () async {
+              await Auth().signOut();
+            },
+            icon: const Icon(Icons.sd))
+      ]),
       body: SingleChildScrollView(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
