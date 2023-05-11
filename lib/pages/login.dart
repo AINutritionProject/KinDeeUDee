@@ -23,7 +23,7 @@ class _LogInFormState extends State<LogInForm> {
 
   void _onLogin() {
     if (_formKey.currentState!.validate()) {
-      Navigator.pushReplacement(
+      Navigator.push(
           context, MaterialPageRoute(builder: (context) => const Home()));
     }
   }
