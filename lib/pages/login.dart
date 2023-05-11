@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:appfood2/pages/home.dart';
+import 'package:appfood2/pages/register.dart';
 
 class LogInForm extends StatefulWidget {
   const LogInForm({super.key});
@@ -105,7 +106,10 @@ class _LogInFormState extends State<LogInForm> {
                   style: TextStyle(fontSize: 18, fontWeight: FontWeight.w600),
                 ),
                 GestureDetector(
-                  onTap: () {},
+                  onTap: () {
+                    Navigator.of(context).push(MaterialPageRoute(
+                        builder: (context) => const RegisterPage()));
+                  },
                   child: const Text(
                     " สร้างบัญชีผู้ใช้",
                     style: TextStyle(
