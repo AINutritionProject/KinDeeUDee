@@ -15,54 +15,56 @@ class _HomeState extends State<Home> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(title: const Text("Home")),
-      body: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        crossAxisAlignment: CrossAxisAlignment.center,
-        children: [
-          GestureDetector(
-            onTap: () {
-              Navigator.push(context,
-                  MaterialPageRoute(builder: (context) => const MenuPage()));
-            },
-            child: Stack(
-              children: const [
-                MenuBlock(
-                  menuName: 'ค้นหาเมนู\n  อาหาร',
-                  innerColor: Colors.yellow,
-                  outerColor: Colors.greenAccent,
-                ),
-                Positioned(
-                    top: -20,
-                    right: 9,
-                    child: Icon(
-                      Icons.lightbulb,
-                      size: 100,
-                      color: Colors.yellow,
-                    ))
-              ],
+      body: SingleChildScrollView(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            GestureDetector(
+              onTap: () {
+                Navigator.push(context,
+                    MaterialPageRoute(builder: (context) => const MenuPage()));
+              },
+              child: Stack(
+                children: const [
+                  MenuBlock(
+                    menuName: 'ค้นหาเมนู\n  อาหาร',
+                    innerColor: Colors.yellow,
+                    outerColor: Colors.greenAccent,
+                  ),
+                  Positioned(
+                      top: -20,
+                      right: 9,
+                      child: Icon(
+                        Icons.lightbulb,
+                        size: 100,
+                        color: Colors.yellow,
+                      ))
+                ],
+              ),
             ),
-          ),
-          GestureDetector(
-            onTap: () {
-              Navigator.of(context).push(MaterialPageRoute(
-                  builder: (context) => const EatHistoryPage()));
-            },
-            child: const MenuBlock(
-                menuName: 'ประวัติการ\nรับประทานอาหาร',
-                innerColor: Colors.yellowAccent,
-                outerColor: Colors.red),
-          ),
-          GestureDetector(
-            onTap: () {
-              Navigator.of(context).push(MaterialPageRoute(
-                  builder: (context) => const FlagNutrition()));
-            },
-            child: const MenuBlock(
-                menuName: 'ธงโภชนาการ',
-                innerColor: Colors.white,
-                outerColor: Colors.blueAccent),
-          ),
-        ],
+            GestureDetector(
+              onTap: () {
+                Navigator.of(context).push(MaterialPageRoute(
+                    builder: (context) => const EatHistoryPage()));
+              },
+              child: const MenuBlock(
+                  menuName: 'ประวัติการ\nรับประทานอาหาร',
+                  innerColor: Colors.yellowAccent,
+                  outerColor: Colors.red),
+            ),
+            GestureDetector(
+              onTap: () {
+                Navigator.of(context).push(MaterialPageRoute(
+                    builder: (context) => const FlagNutrition()));
+              },
+              child: const MenuBlock(
+                  menuName: 'ธงโภชนาการ',
+                  innerColor: Colors.white,
+                  outerColor: Colors.blueAccent),
+            ),
+          ],
+        ),
       ),
     );
   }
