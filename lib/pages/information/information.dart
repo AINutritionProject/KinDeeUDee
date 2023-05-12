@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:appfood2/pages/information/personal_information.dart';
 
 class InformationPage extends StatelessWidget {
   const InformationPage({super.key});
@@ -10,30 +11,8 @@ class InformationPage extends StatelessWidget {
         title: const Text("InformationPage"),
       ),
       body: const Center(
-        child: InformationStepper(),
+        child: PersonalInformation(),
       ),
     );
-  }
-}
-
-class InformationStepper extends StatefulWidget {
-  const InformationStepper({super.key});
-
-  @override
-  State<InformationStepper> createState() => _InformationStepperState();
-}
-
-class _InformationStepperState extends State<InformationStepper> {
-  late int _index;
-
-  @override
-  void initState() {
-    super.initState();
-    _index = 0;
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return const Text("InformationStepper");
   }
 }
