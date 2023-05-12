@@ -25,8 +25,8 @@ class _HomeState extends State<Home> {
                 Navigator.push(context,
                     MaterialPageRoute(builder: (context) => const MenuPage()));
               },
-              child: Stack(
-                children: const [
+              child: const Stack(
+                children: [
                   MenuBlock(
                     menuName: 'ค้นหาเมนู\n  อาหาร',
                     innerColor: Colors.yellow,
