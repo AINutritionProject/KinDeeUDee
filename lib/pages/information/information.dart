@@ -24,8 +24,16 @@ class InformationStepper extends StatefulWidget {
 }
 
 class _InformationStepperState extends State<InformationStepper> {
+  late int _index;
+
+  @override
+  void initState() {
+    super.initState();
+    _index = 0;
+  }
+
   @override
   Widget build(BuildContext context) {
-    return const Placeholder();
+    return const Text("InformationStepper");
   }
 }
