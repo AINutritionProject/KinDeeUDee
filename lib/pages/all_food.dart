@@ -8,12 +8,25 @@ class AllFoodPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(title: const Text("ALl Food Page")),
-      body: const Column(
+      body: Column(
         children: [
-          SizedBox(
-            width: double.infinity,
-            height: 30,
-          )
+          Center(
+            child: Container(
+              padding: const EdgeInsets.symmetric(horizontal: 30, vertical: 5),
+              decoration: const BoxDecoration(
+                color: Colors.pinkAccent,
+                borderRadius: BorderRadius.all(
+                  Radius.circular(30),
+                ),
+              ),
+              child: Text(
+                type == "Fruit" ? "ผลไม้" : "ข้าวแป้ง",
+                style: const TextStyle(
+                  fontSize: 30,
+                ),
+              ),
+            ),
+          ),
         ],
       ),
     );
