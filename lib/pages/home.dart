@@ -64,6 +64,23 @@ class _HomeState extends State<Home> {
                     )
                   ],
                 ),
+                const SizedBox(
+                  width: 40,
+                ),
+                const Column(
+                  children: [
+                    Text(
+                      "ยินต้อนรับ",
+                      style:
+                          TextStyle(fontSize: 25, fontWeight: FontWeight.bold),
+                    ),
+                    Text(
+                      '"คุณ บูม"',
+                      style:
+                          TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+                    )
+                  ],
+                )
               ],
             ),
             GestureDetector(
