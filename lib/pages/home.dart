@@ -45,6 +45,7 @@ class _HomeState extends State<Home> {
                         ),
                         child: const Center(
                           child: CircleAvatar(
+                            backgroundColor: Colors.white,
                             foregroundImage:
                                 AssetImage("assets/images/Fruit/fruit2.png"),
                             radius: 60,
