@@ -30,6 +30,41 @@ class _HomeState extends State<Home> {
           mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
+            Row(
+              children: [
+                Stack(
+                  children: [
+                    Padding(
+                      padding: const EdgeInsets.only(top: 10, left: 10),
+                      child: Container(
+                        width: 130,
+                        height: 130,
+                        decoration: BoxDecoration(
+                          shape: BoxShape.circle,
+                          color: Colors.green.shade200,
+                        ),
+                        child: const Center(
+                          child: CircleAvatar(
+                            foregroundImage:
+                                AssetImage("assets/images/Fruit/fruit2.png"),
+                            radius: 60,
+                          ),
+                        ),
+                      ),
+                    ),
+                    const Positioned(
+                      bottom: 10,
+                      right: 3,
+                      child: Icon(
+                        Icons.edit_square,
+                        size: 30,
+                        color: Colors.grey,
+                      ),
+                    )
+                  ],
+                ),
+              ],
+            ),
             GestureDetector(
               onTap: () {
                 Navigator.push(context,
