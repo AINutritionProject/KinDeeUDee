@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:appfood2/pages/camera.dart';
 import 'package:appfood2/pages/all_food.dart';
-import 'package:appfood2/pages/all_food.dart';
 
 class MenuPage extends StatelessWidget {
   const MenuPage({super.key});
