@@ -58,7 +58,19 @@ class _RegisterFormState extends State<RegisterForm> {
                       isAccept = newValue;
                     });
                   }),
-              const Text("ฉันยอมรับข้อตกลงและเงื่อนไข นโยบายความเป็นส่วนตัว"),
+              GestureDetector(
+                onTap: () {
+                  showModalBottomSheet(
+                      context: context,
+                      builder: (context) {
+                        return const SizedBox(height: 400);
+                      });
+                },
+                child: const Text(
+                  "ฉันยอมรับข้อตกลงและเงื่อนไข นโยบายความเป็นส่วนตัว",
+                  style: TextStyle(color: Colors.blue),
+                ),
+              ),
             ],
           )
         ],
