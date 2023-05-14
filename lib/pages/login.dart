@@ -1,6 +1,8 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:appfood2/pages/home.dart';
 import 'package:appfood2/pages/register.dart';
+import 'package:google_sign_in/google_sign_in.dart';
 
 class LogInForm extends StatefulWidget {
   const LogInForm({super.key});
@@ -126,6 +128,23 @@ class _LogInFormState extends State<LogInForm> {
 }
 
 class _LoginPageState extends State<LoginPage> {
+  final GoogleSignIn _googleSignIn = GoogleSignIn();
+  Future<void> _handleSignIn() async {
+    try {
+      GoogleSignInAccount? user = await _googleSignIn.signIn();
+      GoogleSignInAuthentication? userAuth = await user?.authentication;
+      print(userAuth);
+      final credential = GoogleAuthProvider.credential(
+        accessToken: userAuth?.accessToken,
+        idToken: userAuth?.idToken,
+      );
+      await FirebaseAuth.instance.signInWithCredential(credential);
+      print(FirebaseAuth.instance.currentUser);
+    } catch (error) {
+      print(error);
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -149,6 +168,16 @@ class _LoginPageState extends State<LoginPage> {
               child: const LogInForm(),
             ),
           ),
+          Row(
+            children: [
+              ElevatedButton(
+                onPressed: () async {
+                  _handleSignIn();
+                },
+                child: const Text("Google"),
+              )
+            ],
+          )
         ],
       ),
     );
