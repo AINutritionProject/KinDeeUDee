@@ -29,27 +29,41 @@ class _RegisterFormState extends State<RegisterForm> {
   final TextEditingController _passwordController = TextEditingController();
   final TextEditingController _phoneNumberController = TextEditingController();
   final TextEditingController _usernameController = TextEditingController();
+  bool? isAccept = false;
   @override
   Widget build(BuildContext context) {
     return Form(
-        key: _formKey,
-        child: Column(
-          children: [
-            TextFormSlot(controller: _emailController, name: "อีเมล"),
-            TextFormSlot(
-              controller: _phoneNumberController,
-              name: "หมายเลขโทรศัพท์",
-            ),
-            TextFormSlot(
-              controller: _usernameController,
-              name: "ชื่อผู้ใช้",
-            ),
-            TextFormSlot(
-              controller: _passwordController,
-              name: "รหัสผ่าน",
-            )
-          ],
-        ));
+      key: _formKey,
+      child: Column(
+        children: [
+          TextFormSlot(controller: _emailController, name: "อีเมล"),
+          TextFormSlot(
+            controller: _phoneNumberController,
+            name: "หมายเลขโทรศัพท์",
+          ),
+          TextFormSlot(
+            controller: _usernameController,
+            name: "ชื่อผู้ใช้",
+          ),
+          TextFormSlot(
+            controller: _passwordController,
+            name: "รหัสผ่าน",
+          ),
+          Row(
+            children: [
+              Checkbox(
+                  value: isAccept,
+                  onChanged: (newValue) {
+                    setState(() {
+                      isAccept = newValue;
+                    });
+                  }),
+              const Text("ฉันยอมรับข้อตกลงและเงื่อนไข นโยบายความเป็นส่วนตัว"),
+            ],
+          )
+        ],
+      ),
+    );
   }
 }
 
