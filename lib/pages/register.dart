@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:appfood2/pages/register_success.dart';
 
 class RegisterPage extends StatelessWidget {
   const RegisterPage({super.key});
@@ -29,6 +30,13 @@ class _RegisterFormState extends State<RegisterForm> {
   final TextEditingController _passwordController = TextEditingController();
   final TextEditingController _phoneNumberController = TextEditingController();
   final TextEditingController _usernameController = TextEditingController();
+  void _onRegistry() {
+    if (_formKey.currentState!.validate()) {
+      Navigator.push(context,
+          MaterialPageRoute(builder: (context) => const RegisterSuccesPage()));
+    }
+  }
+
   bool? isAccept = false;
   @override
   Widget build(BuildContext context) {
@@ -72,7 +80,12 @@ class _RegisterFormState extends State<RegisterForm> {
                 ),
               ),
             ],
-          )
+          ),
+          ElevatedButton(
+              onPressed: () {
+                _onRegistry();
+              },
+              child: Text("ลงทะเบียน"))
         ],
       ),
     );
