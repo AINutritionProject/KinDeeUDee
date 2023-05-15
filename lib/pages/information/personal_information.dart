@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:appfood2/pages/home.dart';
 
 class PersonalInformation extends StatelessWidget {
   const PersonalInformation({super.key});
@@ -10,8 +11,8 @@ class PersonalInformation extends StatelessWidget {
       return SingleChildScrollView(
         child: SizedBox(
           height: MediaQuery.of(context).size.height,
-          child: Column(
-            children: const [
+          child: const Column(
+            children: [
               PersonalHeader(),
               PersonalBody(),
             ],
@@ -108,13 +109,7 @@ class _PersonalHeaderState extends State<PersonalHeader> {
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
-          Expanded(
-            flex: 1,
-            child: Container(
-              alignment: Alignment.center,
-              child: const Text("profile pic"),
-            ),
-          ),
+          const UserAvatar(),
           Expanded(
             flex: 1,
             child: Column(
