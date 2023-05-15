@@ -62,7 +62,9 @@ class _PersonalBodyState extends State<PersonalBody> {
           child:
               Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
             OneChildTextField(
-                textController: _nameTextController, textName: "ชื่อ-นามสกุล"),
+                textController: _nameTextController,
+                textName: "ชื่อ-นามสกุล",
+                textHint: "ฟ้าใส ใจดี"),
             ElevatedButton(
               onPressed: () {
                 setState(() {
@@ -81,13 +83,13 @@ class _PersonalBodyState extends State<PersonalBody> {
 class OneChildTextField extends StatelessWidget {
   final TextEditingController textController;
   final String textName;
-  final String textHint;
+  String textHint;
 
   const OneChildTextField({
     super.key,
     required this.textController,
     required this.textName,
-    this.textHint = "",
+    requited this.textHint = "",
   });
 
   @override

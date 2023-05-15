@@ -30,45 +30,14 @@ class _HomeState extends State<Home> {
           mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            Row(
+            const Row(
               children: [
-                Stack(
-                  children: [
-                    Padding(
-                      padding: const EdgeInsets.only(top: 10, left: 10),
-                      child: Container(
-                        width: 130,
-                        height: 130,
-                        decoration: BoxDecoration(
-                          shape: BoxShape.circle,
-                          color: Colors.green.shade200,
-                        ),
-                        child: const Center(
-                          child: CircleAvatar(
-                            backgroundColor: Colors.white,
-                            foregroundImage:
-                                AssetImage("assets/images/Fruit/fruit2.png"),
-                            radius: 60,
-                          ),
-                        ),
-                      ),
-                    ),
-                    const Positioned(
-                      bottom: 10,
-                      right: 3,
-                      child: Icon(
-                        Icons.edit_square,
-                        size: 30,
-                        color: Colors.grey,
-                      ),
-                    )
-                  ],
-                ),
-                const SizedBox(
+                UserAvatar(),
+                SizedBox(
                   width: 40,
                 ),
                 Column(
-                  children: const [
+                  children: [
                     Text(
                       "ยินต้อนรับ",
                       style:
@@ -88,8 +57,8 @@ class _HomeState extends State<Home> {
                 Navigator.push(context,
                     MaterialPageRoute(builder: (context) => const MenuPage()));
               },
-              child: Stack(
-                children: const [
+              child: const Stack(
+                children: [
                   MenuBlock(
                     menuName: 'ค้นหาเมนู\n  อาหาร',
                     innerColor: Colors.yellow,
@@ -133,6 +102,47 @@ class _HomeState extends State<Home> {
   }
 }
 
+class UserAvatar extends StatelessWidget {
+  const UserAvatar({
+    super.key,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Stack(
+      children: [
+        Padding(
+          padding: const EdgeInsets.only(top: 10, left: 10),
+          child: Container(
+            width: 130,
+            height: 130,
+            decoration: BoxDecoration(
+              shape: BoxShape.circle,
+              color: Colors.green.shade200,
+            ),
+            child: const Center(
+              child: CircleAvatar(
+                backgroundColor: Colors.white,
+                foregroundImage: AssetImage("assets/images/Fruit/fruit2.png"),
+                radius: 60,
+              ),
+            ),
+          ),
+        ),
+        const Positioned(
+          bottom: 10,
+          right: 3,
+          child: Icon(
+            Icons.edit_square,
+            size: 30,
+            color: Colors.grey,
+          ),
+        )
+      ],
+    );
+  }
+}
+
 class MenuBlock extends StatelessWidget {
   const MenuBlock(
       {super.key, required this.menuName, this.innerColor, this.outerColor});
@@ -165,3 +175,4 @@ class MenuBlock extends StatelessWidget {
     );
   }
 }
+
