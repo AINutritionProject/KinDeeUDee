@@ -37,6 +37,7 @@ dependencies:
   cupertino_icons: ^1.0.2
   firebase_core: ^2.12.0
   font_awesome_flutter: ^10.4.0
+  csv: ^5.0.2
 
 dev_dependencies:
   flutter_test:
@@ -72,6 +73,7 @@ flutter:
     - assets/images/drink_eat/
     - assets/images/RealFruit/
     - assets/images/RealFlour/
+    - assets/food_detailed.csv
   #   - images/a_dot_burr.jpeg
   #   - images/a_dot_ham.jpeg
 
