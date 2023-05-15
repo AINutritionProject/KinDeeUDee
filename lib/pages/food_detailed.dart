@@ -68,9 +68,31 @@ class FoodDetailPage extends StatelessWidget {
                   ),
                 ),
                 Container(
-                    margin: const EdgeInsets.symmetric(
-                        horizontal: 10, vertical: 10),
-                    child: Text(detail.benefit))
+                  margin:
+                      const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
+                  child: Text(detail.benefit),
+                ),
+              ],
+            ),
+          ),
+          const SizedBox(
+            height: 15,
+          ),
+          Container(
+            decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(30), color: Colors.white),
+            padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 5),
+            child: const Column(
+              children: [
+                Text(
+                  "กดที่นี่",
+                  style: TextStyle(
+                      decoration: TextDecoration.underline,
+                      fontSize: 25,
+                      fontWeight: FontWeight.bold),
+                ),
+                Text("เพื่อดูข้อมูลทางโภชนาการเพิ่มเติม",
+                    style: TextStyle(fontSize: 20))
               ],
             ),
           )
