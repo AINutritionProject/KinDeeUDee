@@ -22,7 +22,7 @@ class _HomeState extends State<Home> {
               onPressed: () async {
                 await Auth().signOut();
               },
-              icon: const Icon(Icons.sd))
+              icon: const Icon(Icons.tv))
         ],
       ),
       body: SingleChildScrollView(
