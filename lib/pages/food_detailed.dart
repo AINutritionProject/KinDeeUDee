@@ -3,6 +3,15 @@ import 'package:flutter/material.dart';
 class FoodDetailPage extends StatelessWidget {
   const FoodDetailPage({super.key, required this.detail});
   final FoodNutritionDetail detail;
+  Color _getGIColor(double giIndex) {
+    if (giIndex < 55) {
+      return Colors.green.shade100;
+    } else if (giIndex < 70 && giIndex >= 55) {
+      return Colors.yellow.shade100;
+    } else {
+      return Colors.red.shade200;
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -10,6 +19,7 @@ class FoodDetailPage extends StatelessWidget {
       appBar: AppBar(
         title: const Text("FoodDetailPage"),
       ),
+      backgroundColor: _getGIColor(detail.giIndex),
       body: Column(children: [
         Container(
             margin: const EdgeInsets.symmetric(vertical: 20),
