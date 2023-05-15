@@ -83,13 +83,13 @@ class _PersonalBodyState extends State<PersonalBody> {
 class OneChildTextField extends StatelessWidget {
   final TextEditingController textController;
   final String textName;
-  String textHint;
+  final String textHint;
 
   const OneChildTextField({
     super.key,
     required this.textController,
     required this.textName,
-    requited this.textHint = "",
+    this.textHint = "",
   });
 
   @override
