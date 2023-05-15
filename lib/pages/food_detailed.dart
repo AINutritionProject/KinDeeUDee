@@ -34,10 +34,15 @@ class FoodDetailPage extends StatelessWidget {
                 fontWeight: FontWeight.bold,
               ),
             )),
-        Image.asset(
-          detail.realImageAssetPath ?? "assets/cameraFrame.png",
-          width: 300,
-          height: 300,
+        ClipRRect(
+          borderRadius: BorderRadius.circular(20),
+          child: SizedBox.fromSize(
+            size: const Size.fromRadius(48 * 3),
+            child: Image.asset(
+              detail.realImageAssetPath ?? "assets/cameraFrame.png",
+              fit: BoxFit.cover,
+            ),
+          ),
         ),
         ChemicalDetail(
             power: detail.power, fiber: detail.fiber, sugar: detail.sugar),
