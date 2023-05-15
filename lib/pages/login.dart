@@ -1,3 +1,4 @@
+import 'package:appfood2/auth.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:appfood2/pages/home.dart';
@@ -23,10 +24,9 @@ class _LogInFormState extends State<LogInForm> {
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
 
-  void _onLogin() {
+  Future<void> _onLogin() async {
     if (_formKey.currentState!.validate()) {
-      Navigator.push(
-          context, MaterialPageRoute(builder: (context) => const Home()));
+      await Auth().signInAnonymously();
     }
   }
 
@@ -129,21 +129,6 @@ class _LogInFormState extends State<LogInForm> {
 
 class _LoginPageState extends State<LoginPage> {
   final GoogleSignIn _googleSignIn = GoogleSignIn();
-  Future<void> _handleSignIn() async {
-    try {
-      GoogleSignInAccount? user = await _googleSignIn.signIn();
-      GoogleSignInAuthentication? userAuth = await user?.authentication;
-      print(userAuth);
-      final credential = GoogleAuthProvider.credential(
-        accessToken: userAuth?.accessToken,
-        idToken: userAuth?.idToken,
-      );
-      await FirebaseAuth.instance.signInWithCredential(credential);
-      print(FirebaseAuth.instance.currentUser);
-    } catch (error) {
-      print(error);
-    }
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -172,7 +157,7 @@ class _LoginPageState extends State<LoginPage> {
             children: [
               ElevatedButton(
                 onPressed: () async {
-                  _handleSignIn();
+                  await Auth().signInWithGoogle(_googleSignIn);
                 },
                 child: const Text("Google"),
               )
