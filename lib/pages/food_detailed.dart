@@ -39,6 +39,8 @@ class FoodDetailPage extends StatelessWidget {
           width: 300,
           height: 300,
         ),
+        ChemicalDetail(
+            power: detail.power, fiber: detail.fiber, sugar: detail.sugar),
         Container(
           decoration: BoxDecoration(
               color: Colors.white, borderRadius: BorderRadius.circular(30)),
@@ -71,14 +73,95 @@ class FoodDetailPage extends StatelessWidget {
   }
 }
 
+class ChemicalDetail extends StatelessWidget {
+  const ChemicalDetail({
+    super.key,
+    required this.power,
+    required this.fiber,
+    required this.sugar,
+  });
+  final int power;
+  final double fiber;
+  final int sugar;
+
+  @override
+  Widget build(BuildContext context) {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: [
+        Container(
+          padding: const EdgeInsets.all(30),
+          decoration: const BoxDecoration(
+            color: Colors.white,
+            shape: BoxShape.circle,
+          ),
+          child: Column(
+            children: [
+              const Text("พลังงาน"),
+              Text(
+                "$power",
+                style: const TextStyle(
+                    color: Colors.indigo, fontWeight: FontWeight.w900),
+              ),
+              const Text("กโลแคลอรี่"),
+            ],
+          ),
+        ),
+        Container(
+          padding: const EdgeInsets.all(30),
+          decoration: const BoxDecoration(
+            color: Colors.white,
+            shape: BoxShape.circle,
+          ),
+          child: Column(
+            children: [
+              const Text("ใยอาหาร"),
+              Text(
+                "$fiber",
+                style: const TextStyle(
+                    color: Colors.indigo, fontWeight: FontWeight.w900),
+              ),
+              const Text("กรัม"),
+            ],
+          ),
+        ),
+        Container(
+          padding: const EdgeInsets.all(30),
+          decoration: const BoxDecoration(
+            color: Colors.white,
+            shape: BoxShape.circle,
+          ),
+          child: Column(
+            children: [
+              const Text("น้ำตาล"),
+              Text(
+                "$sugar",
+                style: const TextStyle(
+                    color: Colors.deepOrange, fontWeight: FontWeight.w900),
+              ),
+              const Text("กรัม"),
+            ],
+          ),
+        ),
+      ],
+    );
+  }
+}
+
 class FoodNutritionDetail {
   const FoodNutritionDetail(
       {required this.name,
       required this.giIndex,
       this.realImageAssetPath,
-      required this.benefit});
+      required this.benefit,
+      required this.power,
+      required this.fiber,
+      required this.sugar});
   final String name;
   final String? realImageAssetPath;
   final double giIndex;
   final String benefit;
+  final int power;
+  final double fiber;
+  final int sugar;
 }
