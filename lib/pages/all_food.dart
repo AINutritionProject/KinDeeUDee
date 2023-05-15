@@ -27,18 +27,44 @@ class AllFoodPage extends StatelessWidget {
               ),
             ),
           ),
-          const Center(
-            child: FoodIcons(
-                food: Food(
-                    name: "กล้วยไข่",
-                    type: "Fruit",
-                    imageAssetPath: "assets/images/Fruit/fruit2.png")),
-          )
+          Expanded(
+            child: GridView.count(
+              crossAxisCount: 2,
+              children: foodData
+                  .map(
+                    (food) => FoodIcons(food: food),
+                  )
+                  .toList(),
+            ),
+          ),
         ],
       ),
     );
   }
 }
+
+const foodData = [
+  Food(
+      name: "bana",
+      type: "Fruit",
+      imageAssetPath: "assets/images/Fruit/fruit2.png"),
+  Food(
+      name: "Yee",
+      type: "Fruit",
+      imageAssetPath: "assets/images/Fruit/fruit3.png"),
+  Food(
+      name: "Mango",
+      type: "Fruit",
+      imageAssetPath: "assets/images/Fruit/fruit4.png"),
+  Food(
+      name: "Pineapple",
+      type: "Fruit",
+      imageAssetPath: "assets/images/Fruit/fruit5.png"),
+  Food(
+      name: "Strawberry",
+      type: "Fruit",
+      imageAssetPath: "assets/images/Fruit/fruit6.png"),
+];
 
 class MenuTypeIcon extends StatelessWidget {
   const MenuTypeIcon({super.key});
