@@ -94,7 +94,7 @@ class FoodIcons extends StatelessWidget {
           padding: const EdgeInsets.all(8.0),
           child: Container(
             decoration: BoxDecoration(
-                color: Colors.red, borderRadius: BorderRadius.circular(40)),
+                color: Colors.white, borderRadius: BorderRadius.circular(40)),
             child: const SizedBox(
               width: 160,
               height: 160,
