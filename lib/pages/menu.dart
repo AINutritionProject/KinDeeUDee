@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:appfood2/pages/information/information.dart';
 import 'package:appfood2/pages/camera.dart';
 import 'package:appfood2/pages/information/information.dart';
 
