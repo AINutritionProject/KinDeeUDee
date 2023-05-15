@@ -22,7 +22,7 @@ class _HomeState extends State<Home> {
               onPressed: () async {
                 await Auth().signOut();
               },
-              icon: Icon(Icons.sd))
+              icon: const Icon(Icons.sd))
         ],
       ),
       body: SingleChildScrollView(
@@ -67,8 +67,8 @@ class _HomeState extends State<Home> {
                 const SizedBox(
                   width: 40,
                 ),
-                const Column(
-                  children: [
+                Column(
+                  children: const [
                     Text(
                       "ยินต้อนรับ",
                       style:

@@ -60,18 +60,8 @@ class _PersonalBodyState extends State<PersonalBody> {
           padding: const EdgeInsets.symmetric(vertical: 20, horizontal: 20),
           child:
               Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-            const Padding(
-              padding: EdgeInsets.symmetric(vertical: 8, horizontal: 0),
-              child: Text("ชื่อ - นามสกุล"),
-            ),
-            TextField(
-              controller: _nameTextController,
-              decoration: const InputDecoration(
-                filled: true,
-                fillColor: Colors.white,
-                hintText: "ฟ้าใส ใจดี",
-              ),
-            ),
+            OneChildTextField(
+                textController: _nameTextController, textName: "ชื่อ-นามสกุล"),
             ElevatedButton(
               onPressed: () {
                 setState(() {
@@ -83,6 +73,40 @@ class _PersonalBodyState extends State<PersonalBody> {
           ]),
         ),
       ),
+    );
+  }
+}
+
+class OneChildTextField extends StatelessWidget {
+  final TextEditingController textController;
+  final String textName;
+  final String textHint;
+
+  const OneChildTextField({
+    super.key,
+    required this.textController,
+    required this.textName,
+    this.textHint = "",
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Padding(
+          padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 0),
+          child: Text(textName),
+        ),
+        TextField(
+          controller: textController,
+          decoration: InputDecoration(
+            filled: true,
+            fillColor: Colors.white,
+            hintText: textHint,
+          ),
+        ),
+      ],
     );
   }
 }
