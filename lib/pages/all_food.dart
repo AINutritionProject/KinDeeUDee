@@ -33,7 +33,9 @@ class AllFoodPage extends StatelessWidget {
               crossAxisCount: 2,
               children: foodData
                   .map(
-                    (food) => FoodIcons(food: food),
+                    (food) => Container(
+                        margin: const EdgeInsets.all(10),
+                        child: FoodIcons(food: food)),
                   )
                   .toList(),
             ),
