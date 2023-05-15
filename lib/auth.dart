@@ -16,10 +16,10 @@ class Auth {
       if (user == null) {
         return;
       }
-      GoogleSignInAuthentication? userAuth = await user?.authentication;
+      GoogleSignInAuthentication? userAuth = await user.authentication;
       final credential = GoogleAuthProvider.credential(
-        accessToken: userAuth?.accessToken,
-        idToken: userAuth?.idToken,
+        accessToken: userAuth.accessToken,
+        idToken: userAuth.idToken,
       );
       await _firebaseAuth.signInWithCredential(credential);
     } catch (error) {
