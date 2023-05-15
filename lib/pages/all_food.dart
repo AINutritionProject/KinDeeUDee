@@ -8,6 +8,7 @@ class AllFoodPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(title: const Text("ALl Food Page")),
+      backgroundColor: Colors.yellow.shade100,
       body: Column(
         children: [
           Center(
