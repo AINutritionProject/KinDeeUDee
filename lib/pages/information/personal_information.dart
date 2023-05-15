@@ -5,23 +5,20 @@ class PersonalInformation extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      debugShowCheckedModeBanner: false,
-      title: "Personal",
-      home: Scaffold(
-        body: CustomScrollView(slivers: [
-          SliverFillRemaining(
-            hasScrollBody: false,
-            child: Column(
-              children: const [
-                PersonalHeader(),
-                PersonalBody(),
-              ],
-            ),
+    return LayoutBuilder(
+        builder: (BuildContext context, BoxConstraints constraints) {
+      return SingleChildScrollView(
+        child: SizedBox(
+          height: MediaQuery.of(context).size.height,
+          child: Column(
+            children: const [
+              PersonalHeader(),
+              PersonalBody(),
+            ],
           ),
-        ]),
-      ),
-    );
+        ),
+      );
+    });
   }
 }
 
@@ -63,7 +60,10 @@ class _PersonalBodyState extends State<PersonalBody> {
           padding: const EdgeInsets.symmetric(vertical: 20, horizontal: 20),
           child:
               Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-            const Text("ชื่อ - นามสกุล"),
+            const Padding(
+              padding: EdgeInsets.symmetric(vertical: 8, horizontal: 0),
+              child: Text("ชื่อ - นามสกุล"),
+            ),
             TextField(
               controller: _nameTextController,
               decoration: const InputDecoration(
@@ -80,7 +80,6 @@ class _PersonalBodyState extends State<PersonalBody> {
               },
               child: const Text("Submit"),
             ),
-            Text(name),
           ]),
         ),
       ),
