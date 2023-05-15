@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:appfood2/pages/food_detailed.dart';
 
 class AllFoodPage extends StatelessWidget {
   const AllFoodPage({super.key, required this.type});
@@ -35,7 +36,18 @@ class AllFoodPage extends StatelessWidget {
                   .map(
                     (food) => Container(
                         margin: const EdgeInsets.all(10),
-                        child: FoodIcons(food: food)),
+                        child: GestureDetector(
+                            onTap: () {
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (context) => FoodDetailPage(
+                                    detail: food.detail,
+                                  ),
+                                ),
+                              );
+                            },
+                            child: FoodIcons(food: food))),
                   )
                   .toList(),
             ),
@@ -48,24 +60,33 @@ class AllFoodPage extends StatelessWidget {
 
 const foodData = [
   Food(
-      name: "bana",
+      name: "กล้วยไข่",
       type: "Fruit",
+      detail: FoodNutritionDetail(
+        name: "กล้วยไข่,สุก",
+        giIndex: 300,
+        realImageAssetPath: "assets/images/RealFruit/Y1.jpg",
+      ),
       imageAssetPath: "assets/images/Fruit/fruit2.png"),
   Food(
-      name: "Yee",
+      name: "กล้วยน้ำว้า",
       type: "Fruit",
+      detail: FoodNutritionDetail(name: "กล้วยไข่,สุก", giIndex: 300),
       imageAssetPath: "assets/images/Fruit/fruit3.png"),
   Food(
-      name: "Mango",
+      name: "กล้วยหอม",
       type: "Fruit",
+      detail: FoodNutritionDetail(name: "กล้วยไข่,สุก", giIndex: 300),
       imageAssetPath: "assets/images/Fruit/fruit4.png"),
   Food(
-      name: "Pineapple",
+      name: "ขนุนสุก",
       type: "Fruit",
+      detail: FoodNutritionDetail(name: "กล้วยไข่,สุก", giIndex: 300),
       imageAssetPath: "assets/images/Fruit/fruit5.png"),
   Food(
-      name: "Strawberry",
+      name: "แก้วมังกรขาว",
       type: "Fruit",
+      detail: FoodNutritionDetail(name: "กล้วยไข่,สุก", giIndex: 300),
       imageAssetPath: "assets/images/Fruit/fruit6.png"),
 ];
 
@@ -139,8 +160,10 @@ class Food {
     required this.name,
     required this.type,
     required this.imageAssetPath,
+    required this.detail,
   });
   final String name;
   final String type;
   final String imageAssetPath;
+  final FoodNutritionDetail detail;
 }
