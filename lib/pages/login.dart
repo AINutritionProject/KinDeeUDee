@@ -1,6 +1,7 @@
+import 'package:appfood2/auth.dart';
 import 'package:flutter/material.dart';
-import 'package:appfood2/pages/home.dart';
 import 'package:appfood2/pages/register.dart';
+import 'package:google_sign_in/google_sign_in.dart';
 
 class LogInForm extends StatefulWidget {
   const LogInForm({super.key});
@@ -21,10 +22,9 @@ class _LogInFormState extends State<LogInForm> {
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
 
-  void _onLogin() {
+  Future<void> _onLogin() async {
     if (_formKey.currentState!.validate()) {
-      Navigator.push(
-          context, MaterialPageRoute(builder: (context) => const Home()));
+      await Auth().signInAnonymously();
     }
   }
 
@@ -126,6 +126,8 @@ class _LogInFormState extends State<LogInForm> {
 }
 
 class _LoginPageState extends State<LoginPage> {
+  final GoogleSignIn _googleSignIn = GoogleSignIn();
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -149,6 +151,16 @@ class _LoginPageState extends State<LoginPage> {
               child: const LogInForm(),
             ),
           ),
+          Row(
+            children: [
+              ElevatedButton(
+                onPressed: () async {
+                  await Auth().signInWithGoogle(_googleSignIn);
+                },
+                child: const Text("Google"),
+              )
+            ],
+          )
         ],
       ),
     );
