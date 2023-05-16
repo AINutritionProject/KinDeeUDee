@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:appfood2/pages/information/information.dart';
 import 'package:appfood2/pages/camera.dart';
 import 'package:appfood2/pages/all_food.dart';
+import 'package:appfood2/pages/information/information.dart';
 
 class MenuPage extends StatelessWidget {
   const MenuPage({super.key});
@@ -34,7 +36,16 @@ class MenuPage extends StatelessWidget {
                   Navigator.of(context).push(MaterialPageRoute(
                       builder: (context) => const AllFoodPage(type: "Flour")));
                 },
-                icon: const Icon(Icons.tv))
+                icon: const Icon(Icons.tv)),
+            ElevatedButton(
+              onPressed: () {
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => const InformationPage()));
+              },
+              child: const Text("information"),
+            )
           ],
         ),
         body: Center(

@@ -3,12 +3,53 @@ import 'package:appfood2/pages/menu.dart';
 import 'package:appfood2/pages/flag_nutrition.dart';
 import 'package:appfood2/pages/eat_history.dart';
 import 'package:appfood2/auth.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:appfood2/pages/login_success.dart';
 
 class Home extends StatefulWidget {
   const Home({super.key});
 
   @override
   State<Home> createState() => _HomeState();
+}
+
+class HomePage extends StatefulWidget {
+  const HomePage({super.key});
+
+  @override
+  State<HomePage> createState() => _HomePageState();
+}
+
+class _HomePageState extends State<HomePage> {
+  Future<bool> _checkIfUserHasData() async {
+    final user = FirebaseAuth.instance.currentUser;
+    final userData = await FirebaseFirestore.instance
+        .collection("users")
+        .where("uid", isEqualTo: user!.uid)
+        .get();
+    return userData.docs.first.get("hasData");
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return FutureBuilder(
+      builder: (context, snapshot) {
+        if (snapshot.hasData) {
+          if (snapshot.data == true) {
+            return const Home();
+          } else {
+            return const LoginSuccessPage();
+          }
+        } else {
+          return const Center(
+            child: CircularProgressIndicator(),
+          );
+        }
+      },
+      future: _checkIfUserHasData(),
+    );
+  }
 }
 
 class _HomeState extends State<Home> {
@@ -22,14 +63,37 @@ class _HomeState extends State<Home> {
               onPressed: () async {
                 await Auth().signOut();
               },
-              icon: Icon(Icons.sd))
+              icon: const Icon(Icons.tv))
         ],
       ),
+      backgroundColor: Colors.yellow.shade50,
       body: SingleChildScrollView(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
+            const Row(
+              children: [
+                UserAvatar(),
+                SizedBox(
+                  width: 40,
+                ),
+                Column(
+                  children: [
+                    Text(
+                      "ยินต้อนรับ",
+                      style:
+                          TextStyle(fontSize: 25, fontWeight: FontWeight.bold),
+                    ),
+                    Text(
+                      '"คุณ บูม"',
+                      style:
+                          TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+                    )
+                  ],
+                )
+              ],
+            ),
             GestureDetector(
               onTap: () {
                 Navigator.push(context,
@@ -76,6 +140,49 @@ class _HomeState extends State<Home> {
           ],
         ),
       ),
+    );
+  }
+}
+
+class UserAvatar extends StatelessWidget {
+  const UserAvatar({
+    super.key,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Stack(
+      children: [
+        Padding(
+          padding: const EdgeInsets.only(top: 10, left: 10),
+          child: Container(
+            width: 130,
+            height: 130,
+            decoration: BoxDecoration(
+              shape: BoxShape.circle,
+              color: Colors.green.shade200,
+            ),
+            child: Center(
+              child: CircleAvatar(
+                backgroundColor: Colors.white,
+                foregroundImage: NetworkImage(FirebaseAuth
+                        .instance.currentUser?.photoURL ??
+                    "https://avatars.githubusercontent.com/u/124413969?v=4"),
+                radius: 60,
+              ),
+            ),
+          ),
+        ),
+        const Positioned(
+          bottom: 10,
+          right: 3,
+          child: Icon(
+            Icons.edit_square,
+            size: 30,
+            color: Colors.grey,
+          ),
+        )
+      ],
     );
   }
 }
