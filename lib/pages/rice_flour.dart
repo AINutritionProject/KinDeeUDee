@@ -133,11 +133,28 @@ class RiceFlourPage extends StatelessWidget {
                   ),
                   Align(
                     alignment: const AlignmentDirectional(0, 0.4),
-                    child: Container(
+                    child: SizedBox(
                       width: MediaQuery.of(context).size.width * 0.8,
                       height: 100,
-                      decoration: BoxDecoration(
-                        color: Colors.amber[600]
+                      child: Stack(
+                        children: [
+                          Align(
+                            alignment: const AlignmentDirectional(-0.65, 0),
+                            child: Image.asset(
+                              'assets/images/FlagNutrition/flour.png',
+                              width: 120,
+                              height: 80,
+                            ),
+                          ),
+                          Align(
+                            alignment: const AlignmentDirectional(0.65, 0),
+                            child: Image.asset(
+                              'assets/images/FlagNutrition/rice.png',
+                              width: 120,
+                              height: 80,
+                            ),
+                          )
+                        ],
                       ),
                     ),
                   )
