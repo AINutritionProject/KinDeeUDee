@@ -44,7 +44,21 @@ class _RegisterFormState extends State<RegisterForm> {
       key: _formKey,
       child: Column(
         children: [
-          TextFormSlot(controller: _emailController, name: "อีเมล"),
+          Align(
+              alignment: Alignment.centerLeft,
+              child: Text(
+                "ลงทะเบียน",
+                style: TextStyle(fontSize: 40, fontWeight: FontWeight.w700),
+              )),
+          const Align(
+              alignment: Alignment.centerLeft,
+              child: Text(
+                "กรุณากรอกข้อมูลให้ครบถ้วน",
+                style: TextStyle(fontSize: 18, fontWeight: FontWeight.w700),
+              )),
+          Align(
+              alignment: Alignment.centerLeft,
+              child: TextFormSlot(controller: _emailController, name: "อีเมล")),
           TextFormSlot(
             controller: _phoneNumberController,
             name: "หมายเลขโทรศัพท์",
@@ -101,8 +115,12 @@ class TextFormSlot extends StatelessWidget {
   Widget build(BuildContext context) {
     return Column(
       children: [
-        Text(name,
-            style: const TextStyle(fontSize: 26), textAlign: TextAlign.left),
+        Align(
+            alignment: Alignment.centerLeft,
+            child: Text(
+              name,
+              style: const TextStyle(fontSize: 26, fontWeight: FontWeight.w500),
+            )),
         TextFormField(
           controller: controller,
           style: const TextStyle(fontSize: 24),
