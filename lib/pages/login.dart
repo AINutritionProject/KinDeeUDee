@@ -131,37 +131,14 @@ class _LogInFormState extends State<LogInForm> {
 
 class _LoginPageState extends State<LoginPage> {
   final GoogleSignIn _googleSignIn = GoogleSignIn();
-  Color _color = Colors.white;
-  Color _color2 = Colors.black;
-  late Timer _timer;
 
   // function to random color
-  void _randomColor() {
-    setState(() {
-      _color = Colors.primaries[Random().nextInt(Colors.primaries.length)];
-      _color2 = Colors.primaries[Random().nextInt(Colors.primaries.length)];
-    });
-  }
 
   // random backgroundColor every 0.2 second when start Widget
   @override
-  void initState() {
-    _timer = Timer.periodic(const Duration(milliseconds: 50), (timer) {
-      _randomColor();
-    });
-    super.initState();
-  }
-
-  @override
-  void dispose() {
-    _timer.cancel();
-    super.dispose();
-  }
-
-  @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: _color,
+      backgroundColor: Colors.red,
       body: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         mainAxisAlignment: MainAxisAlignment.center,
@@ -176,9 +153,9 @@ class _LoginPageState extends State<LoginPage> {
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 12),
             child: Container(
-              decoration: BoxDecoration(
-                  color: _color2,
-                  borderRadius: const BorderRadius.all(Radius.circular(30))),
+              decoration: const BoxDecoration(
+                  color: Colors.green,
+                  borderRadius: BorderRadius.all(Radius.circular(30))),
               child: const LogInForm(),
             ),
           ),
