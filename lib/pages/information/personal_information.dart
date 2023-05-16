@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:appfood2/pages/home.dart';
-import 'package:flutter/services.dart';
+import 'package:appfood2/widgets/dropdown.dart';
 
 class PersonalInformation extends StatelessWidget {
   const PersonalInformation({super.key});
@@ -47,11 +47,6 @@ class _PersonalBodyState extends State<PersonalBody> {
   @override
   void initState() {
     super.initState();
-    name = "";
-    gender = "";
-    age = -1;
-    weight = -1;
-    height = -1;
   }
 
   @override
@@ -97,6 +92,7 @@ class _PersonalBodyState extends State<PersonalBody> {
               leftTextInputType: TextInputType.number,
               rightTextInputType: TextInputType.number,
             ),
+            const WideDropDown(data: ["1", "2"]),
             ElevatedButton(
               onPressed: () {
                 setState(() {
@@ -112,7 +108,7 @@ class _PersonalBodyState extends State<PersonalBody> {
   }
 }
 
-class TwoChildTextField extends StatelessWidget {
+class TwoChildTextField extends StatefulWidget {
   final TextEditingController rightTextController;
   final TextEditingController leftTextController;
   final String leftTextName;
@@ -134,6 +130,11 @@ class TwoChildTextField extends StatelessWidget {
   });
 
   @override
+  State<TwoChildTextField> createState() => _TwoChildTextFieldState();
+}
+
+class _TwoChildTextFieldState extends State<TwoChildTextField> {
+  @override
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 0),
@@ -149,7 +150,7 @@ class TwoChildTextField extends StatelessWidget {
                   padding:
                       const EdgeInsets.symmetric(vertical: 8, horizontal: 10),
                   child: Text(
-                    leftTextName,
+                    widget.leftTextName,
                     style: const TextStyle(
                       fontSize: 24,
                     ),
@@ -158,8 +159,8 @@ class TwoChildTextField extends StatelessWidget {
                 Padding(
                   padding: const EdgeInsets.only(right: 30),
                   child: TextField(
-                    controller: leftTextController,
-                    keyboardType: leftTextInputType,
+                    controller: widget.leftTextController,
+                    keyboardType: widget.leftTextInputType,
                     style: const TextStyle(fontSize: 18),
                     decoration: InputDecoration(
                       contentPadding: const EdgeInsets.symmetric(
@@ -170,7 +171,7 @@ class TwoChildTextField extends StatelessWidget {
                       ),
                       filled: true,
                       fillColor: Colors.white,
-                      hintText: leftTextHint,
+                      hintText: widget.leftTextHint,
                     ),
                   ),
                 ),
@@ -190,7 +191,7 @@ class TwoChildTextField extends StatelessWidget {
                   padding:
                       const EdgeInsets.symmetric(vertical: 8, horizontal: 10),
                   child: Text(
-                    rightTextName,
+                    widget.rightTextName,
                     style: const TextStyle(
                       fontSize: 24,
                     ),
@@ -199,8 +200,8 @@ class TwoChildTextField extends StatelessWidget {
                 Padding(
                   padding: const EdgeInsets.only(right: 30),
                   child: TextField(
-                    controller: rightTextController,
-                    keyboardType: rightTextInputType,
+                    controller: widget.rightTextController,
+                    keyboardType: widget.rightTextInputType,
                     style: const TextStyle(fontSize: 18),
                     decoration: InputDecoration(
                       contentPadding: const EdgeInsets.symmetric(
@@ -211,7 +212,7 @@ class TwoChildTextField extends StatelessWidget {
                       ),
                       filled: true,
                       fillColor: Colors.white,
-                      hintText: rightTextHint,
+                      hintText: widget.rightTextHint,
                     ),
                   ),
                 ),
@@ -224,7 +225,7 @@ class TwoChildTextField extends StatelessWidget {
   }
 }
 
-class OneChildTextField extends StatelessWidget {
+class OneChildTextField extends StatefulWidget {
   final TextEditingController textController;
   final String textName;
   final String textHint;
@@ -238,6 +239,11 @@ class OneChildTextField extends StatelessWidget {
   });
 
   @override
+  State<OneChildTextField> createState() => _OneChildTextFieldState();
+}
+
+class _OneChildTextFieldState extends State<OneChildTextField> {
+  @override
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 0),
@@ -247,15 +253,15 @@ class OneChildTextField extends StatelessWidget {
           Padding(
             padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 10),
             child: Text(
-              textName,
+              widget.textName,
               style: const TextStyle(
                 fontSize: 24,
               ),
             ),
           ),
           TextField(
-            keyboardType: textInputType,
-            controller: textController,
+            keyboardType: widget.textInputType,
+            controller: widget.textController,
             style: const TextStyle(fontSize: 18),
             decoration: InputDecoration(
               contentPadding:
@@ -266,7 +272,7 @@ class OneChildTextField extends StatelessWidget {
               ),
               filled: true,
               fillColor: Colors.white,
-              hintText: textHint,
+              hintText: widget.textHint,
             ),
           ),
         ],
