@@ -7,8 +7,17 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:appfood2/pages/login_success.dart';
 import 'package:appfood2/pages/eat_history.dart';
 
+class UserHome {
+  bool hasData = false;
+  String? username;
+}
+
 class Home extends StatefulWidget {
-  const Home({super.key});
+  final String username;
+  const Home({
+    super.key,
+    required this.username,
+  });
 
   @override
   State<Home> createState() => _HomeState();
@@ -22,13 +31,16 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  Future<bool> _checkIfUserHasData() async {
+  Future<Map<String, dynamic>> _checkIfUserHasData() async {
     final user = FirebaseAuth.instance.currentUser;
     final userData = await FirebaseFirestore.instance
         .collection("users")
         .where("uid", isEqualTo: user!.uid)
         .get();
-    return userData.docs.first.get("hasData");
+    return {
+      'hasData': userData.docs.first.get("hasData"),
+      'username': userData.docs.first.get("username")
+    };
   }
 
   @override
@@ -36,8 +48,9 @@ class _HomePageState extends State<HomePage> {
     return FutureBuilder(
       builder: (context, snapshot) {
         if (snapshot.hasData) {
-          if (snapshot.data == true) {
-            return const Home();
+          if (snapshot.data?['hasData'] == true) {
+            //TODO:check that map value is not null
+            return Home(username: snapshot.data?['username']);
           } else {
             return const LoginSuccessPage();
           }
@@ -72,23 +85,23 @@ class _HomeState extends State<Home> {
           mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            const Row(
+            Row(
               children: [
-                UserAvatar(),
-                SizedBox(
+                const UserAvatar(),
+                const SizedBox(
                   width: 40,
                 ),
                 Column(
                   children: [
-                    Text(
+                    const Text(
                       "ยินต้อนรับ",
                       style:
                           TextStyle(fontSize: 25, fontWeight: FontWeight.bold),
                     ),
                     Text(
-                      '"คุณ บูม"',
-                      style:
-                          TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+                      widget.username,
+                      style: const TextStyle(
+                          fontSize: 20, fontWeight: FontWeight.bold),
                     )
                   ],
                 )
