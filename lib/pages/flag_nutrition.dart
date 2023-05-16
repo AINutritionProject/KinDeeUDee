@@ -87,7 +87,7 @@ class FlagNutrition extends StatelessWidget {
                                               maxHeight: 380,
                                             ),
                                             decoration: BoxDecoration(
-                                                color: Colors.greenAccent[100],
+                                                color: const Color.fromRGBO(238, 215, 171, 1),
                                                 border: Border.all(
                                                     color: Colors.white,
                                                     width: 7)),
