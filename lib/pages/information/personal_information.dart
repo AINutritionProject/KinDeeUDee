@@ -92,71 +92,68 @@ class _PersonalBodyState extends State<PersonalBody> {
   Widget build(BuildContext context) {
     return Container(
       margin: const EdgeInsets.only(bottom: 20),
-      child: Expanded(
-        flex: 4,
-        child: Container(
-          margin: const EdgeInsets.symmetric(horizontal: 10),
-          decoration: BoxDecoration(
-            color: const Color(0xFFF8FFDD),
-            borderRadius: BorderRadius.circular(30),
-          ),
-          child: Padding(
-            padding: const EdgeInsets.symmetric(vertical: 20, horizontal: 20),
-            child:
-                Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-              OneChildTextField(
-                  textController: _nameTextController,
-                  textName: "ชื่อ-นามสกุล",
-                  textHint: "ฟ้าใส ใจดี"),
-              TwoChildTextField(
-                leftTextController: _genderTextController,
-                leftTextName: "เพศ",
-                rightTextController: _ageTextController,
-                rightTextName: "อายุ",
-                rightTextInputType: TextInputType.number,
-              ),
-              TwoChildTextField(
-                leftTextController: _weightTextController,
-                rightTextController: _heightTextController,
-                leftTextName: "น้ำหนัก",
-                rightTextName: "ส่วนสูง",
-                leftTextInputType: TextInputType.number,
-                rightTextInputType: TextInputType.number,
-              ),
-              WideDropDown(data: careers, title: "อาชีพ"),
-              WideDropDown(data: chronicDiseases, title: "โรคประจำตัว"),
-              OneChildTextField(
-                  textController: _foodAllergyTextController,
-                  textName: "ประวัติการแพ้อาหาร",
-                  textHint: "แพ้กุ้ง,แพ้ปู,แพ้ปลา,แพ้หมู,แพ้แมว"),
-              Center(
-                child: Container(
-                  margin: const EdgeInsets.only(top: 100),
-                  child: ElevatedButton(
-                    style: ButtonStyle(
-                        backgroundColor:
-                            const MaterialStatePropertyAll(Color(0xFFED7E7E)),
-                        shape: MaterialStateProperty.all(RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(30),
-                        ))),
-                    onPressed: () {
-                      setState(() {
-                        name = _nameTextController.text;
-                      });
-                    },
-                    child: const Padding(
-                      padding:
-                          EdgeInsets.symmetric(vertical: 3, horizontal: 15),
-                      child: Text(
-                        "ถัดไป",
-                        style: TextStyle(fontSize: 32),
-                      ),
+      child: Container(
+        margin: const EdgeInsets.symmetric(horizontal: 10),
+        decoration: BoxDecoration(
+          color: const Color(0xFFF8FFDD),
+          borderRadius: BorderRadius.circular(30),
+        ),
+        child: Padding(
+          padding: const EdgeInsets.symmetric(vertical: 20, horizontal: 20),
+          child:
+              Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
+            OneChildTextField(
+                textController: _nameTextController,
+                textName: "ชื่อ-นามสกุล",
+                textHint: "ฟ้าใส ใจดี"),
+            TwoChildTextField(
+              leftTextController: _genderTextController,
+              leftTextName: "เพศ",
+              rightTextController: _ageTextController,
+              rightTextName: "อายุ",
+              rightTextInputType: TextInputType.number,
+            ),
+            TwoChildTextField(
+              leftTextController: _weightTextController,
+              rightTextController: _heightTextController,
+              leftTextName: "น้ำหนัก",
+              rightTextName: "ส่วนสูง",
+              leftTextInputType: TextInputType.number,
+              rightTextInputType: TextInputType.number,
+            ),
+            WideDropDown(data: careers, title: "อาชีพ"),
+            WideDropDown(data: chronicDiseases, title: "โรคประจำตัว"),
+            OneChildTextField(
+                textController: _foodAllergyTextController,
+                textName: "ประวัติการแพ้อาหาร",
+                textHint: "แพ้กุ้ง,แพ้ปู,แพ้ปลา,แพ้หมู,แพ้แมว"),
+            Center(
+              child: Container(
+                margin: const EdgeInsets.only(top: 100),
+                child: ElevatedButton(
+                  style: ButtonStyle(
+                      backgroundColor:
+                          const MaterialStatePropertyAll(Color(0xFFED7E7E)),
+                      shape: MaterialStateProperty.all(RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(30),
+                      ))),
+                  onPressed: () {
+                    setState(() {
+                      name = _nameTextController.text;
+                    });
+                  },
+                  child: const Padding(
+                    padding:
+                        EdgeInsets.symmetric(vertical: 3, horizontal: 15),
+                    child: Text(
+                      "ถัดไป",
+                      style: TextStyle(fontSize: 32),
                     ),
                   ),
                 ),
               ),
-            ]),
-          ),
+            ),
+          ]),
         ),
       ),
     );
