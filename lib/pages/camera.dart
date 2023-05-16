@@ -20,6 +20,15 @@ class _CameraPageState extends State<CameraPage> {
     await controller.initialize();
   }
 
+  Future<void> takePicture() async {
+    XFile image = await controller.takePicture();
+    if (!context.mounted) {
+      return;
+    }
+    Navigator.of(context).push(
+        MaterialPageRoute(builder: (context) => EatConfirmPage(image: image)));
+  }
+
   @override
   void dispose() {
     controller.dispose();
