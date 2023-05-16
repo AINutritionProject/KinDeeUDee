@@ -1,13 +1,20 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
-Future<QueryDocumentSnapshot> getUser() async {
+Future<User> getUser() async {
   final user = FirebaseAuth.instance.currentUser;
   final userData = await FirebaseFirestore.instance
       .collection("users")
       .where("uid", isEqualTo: user!.uid)
       .get();
-  return userData.docs.first;
+  final doc = userData.docs.first;
+  return User(doc.get("email"), doc.get("username"), doc.get("hasData"));
 }
 
-class User {}
+class User {
+  final String email;
+  final bool hasData;
+  final String username;
+
+  User(this.email, this.username, this.hasData);
+}
