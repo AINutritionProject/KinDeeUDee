@@ -31,3 +31,18 @@ class Auth {
     await _firebaseAuth.signOut();
   }
 }
+
+class AppFoodUser {
+  AppFoodUser({
+    required this.uid,
+    required this.username,
+    required this.email,
+    required this.photoUrl,
+    required this.firstName,
+    required this.lastName,
+    required this.phoneNumber,
+    required this.hasData,
+  });
+  String uid, username, email, photoUrl, firstName, lastName, phoneNumber;
+  bool hasData;
+}
