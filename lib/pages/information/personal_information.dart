@@ -2,6 +2,29 @@ import 'package:flutter/material.dart';
 import 'package:appfood2/pages/home.dart';
 import 'package:appfood2/widgets/dropdown.dart';
 
+List<String> careers = <String>[
+  "------------",
+  "รับข้าราชการ",
+  "ข้าราชการบำนาญ",
+  "เกษตรกร",
+  "ธุรกิจส่วนตัว",
+  "นักข่าว",
+  "จิตกร",
+  "ศิลปิน"
+];
+
+List<String> chronicDiseases = <String>[
+  "-------------",
+  "โรคเบาหวาน",
+  "โรคความดัยโลหิตสูง",
+  "โรคหัวใจ",
+  "โรคโลหิตจาง",
+  "โรคไต",
+  "โรคภูมิแพ้",
+  "โรคหอบหืด",
+  "โรคอ้วน",
+];
+
 class PersonalInformation extends StatelessWidget {
   const PersonalInformation({super.key});
 
@@ -10,13 +33,15 @@ class PersonalInformation extends StatelessWidget {
     return LayoutBuilder(
         builder: (BuildContext context, BoxConstraints constraints) {
       return SingleChildScrollView(
-        child: SizedBox(
-          height: MediaQuery.of(context).size.height,
-          child: const Column(
-            children: [
-              PersonalHeader(),
-              PersonalBody(),
-            ],
+        child: ConstrainedBox(
+          constraints: BoxConstraints(minHeight: constraints.maxHeight),
+          child: const IntrinsicHeight(
+            child: Column(
+              children: [
+                PersonalHeader(),
+                PersonalBody(),
+              ],
+            ),
           ),
         ),
       );
@@ -38,11 +63,14 @@ class _PersonalBodyState extends State<PersonalBody> {
   final TextEditingController _ageTextController = TextEditingController();
   final TextEditingController _weightTextController = TextEditingController();
   final TextEditingController _heightTextController = TextEditingController();
+  final TextEditingController _foodAllergyTextController =
+      TextEditingController();
   late String name;
   late String gender;
   late int age;
   late double weight;
   late double height;
+  late String foodAllergy;
 
   @override
   void initState() {
@@ -56,52 +84,79 @@ class _PersonalBodyState extends State<PersonalBody> {
     _ageTextController.dispose();
     _weightTextController.dispose();
     _heightTextController.dispose();
+    _foodAllergyTextController.dispose();
     super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
-    return Expanded(
-      flex: 3,
-      child: Container(
-        margin: const EdgeInsets.symmetric(horizontal: 10),
-        decoration: BoxDecoration(
-          color: const Color(0xFFF8FFDD),
-          borderRadius: BorderRadius.circular(30),
-        ),
-        child: Padding(
-          padding: const EdgeInsets.symmetric(vertical: 20, horizontal: 20),
-          child:
-              Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-            OneChildTextField(
-                textController: _nameTextController,
-                textName: "ชื่อ-นามสกุล",
-                textHint: "ฟ้าใส ใจดี"),
-            TwoChildTextField(
-              leftTextController: _genderTextController,
-              leftTextName: "เพศ",
-              rightTextController: _ageTextController,
-              rightTextName: "อายุ",
-              rightTextInputType: TextInputType.number,
-            ),
-            TwoChildTextField(
-              leftTextController: _weightTextController,
-              rightTextController: _heightTextController,
-              leftTextName: "น้ำหนัก",
-              rightTextName: "ส่วนสูง",
-              leftTextInputType: TextInputType.number,
-              rightTextInputType: TextInputType.number,
-            ),
-            const WideDropDown(data: ["1", "2"]),
-            ElevatedButton(
-              onPressed: () {
-                setState(() {
-                  name = _nameTextController.text;
-                });
-              },
-              child: const Text("Submit"),
-            ),
-          ]),
+    return Container(
+      margin: const EdgeInsets.only(bottom: 20),
+      child: Expanded(
+        flex: 4,
+        child: Container(
+          margin: const EdgeInsets.symmetric(horizontal: 10),
+          decoration: BoxDecoration(
+            color: const Color(0xFFF8FFDD),
+            borderRadius: BorderRadius.circular(30),
+          ),
+          child: Padding(
+            padding: const EdgeInsets.symmetric(vertical: 20, horizontal: 20),
+            child:
+                Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
+              OneChildTextField(
+                  textController: _nameTextController,
+                  textName: "ชื่อ-นามสกุล",
+                  textHint: "ฟ้าใส ใจดี"),
+              TwoChildTextField(
+                leftTextController: _genderTextController,
+                leftTextName: "เพศ",
+                rightTextController: _ageTextController,
+                rightTextName: "อายุ",
+                rightTextInputType: TextInputType.number,
+              ),
+              TwoChildTextField(
+                leftTextController: _weightTextController,
+                rightTextController: _heightTextController,
+                leftTextName: "น้ำหนัก",
+                rightTextName: "ส่วนสูง",
+                leftTextInputType: TextInputType.number,
+                rightTextInputType: TextInputType.number,
+              ),
+              WideDropDown(data: careers, title: "อาชีพ"),
+              WideDropDown(data: chronicDiseases, title: "โรคประจำตัว"),
+              OneChildTextField(
+                  textController: _foodAllergyTextController,
+                  textName: "ประวัติการแพ้อาหาร",
+                  textHint: "แพ้กุ้ง,แพ้ปู,แพ้ปลา,แพ้หมู,แพ้แมว"),
+              Center(
+                child: Container(
+                  margin: const EdgeInsets.only(top: 70),
+                  child: ElevatedButton(
+                    style: ButtonStyle(
+                        backgroundColor:
+                            const MaterialStatePropertyAll(Color(0xFFED7E7E)),
+                        shape: MaterialStateProperty.all(RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(30),
+                        ))),
+                    onPressed: () {
+                      setState(() {
+                        name = _nameTextController.text;
+                      });
+                    },
+                    child: const Padding(
+                      padding:
+                          EdgeInsets.symmetric(vertical: 3, horizontal: 15),
+                      child: Text(
+                        "ถัดไป",
+                        style: TextStyle(fontSize: 32),
+                      ),
+                    ),
+                  ),
+                ),
+              ),
+            ]),
+          ),
         ),
       ),
     );

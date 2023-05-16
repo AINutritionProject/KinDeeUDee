@@ -51,7 +51,7 @@ class AppFoodUser {
     this.username,
     required this.email,
     this.photoUrl,
-    required this.fullName,
+    this.fullName,
     this.phoneNumber,
     required this.hasData,
   });
