@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:appfood2/pages/menu.dart';
 import 'package:appfood2/pages/flag_nutrition.dart';
-import 'package:appfood2/pages/eat_history.dart';
 import 'package:appfood2/auth.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:appfood2/pages/login_success.dart';
+import 'package:appfood2/pages/eat_history.dart';
 
 class Home extends StatefulWidget {
   const Home({super.key});
