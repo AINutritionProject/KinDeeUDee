@@ -30,15 +30,20 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
+  image_picker:
 
 
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.
   cupertino_icons: ^1.0.2
   firebase_core: ^2.12.0
+  font_awesome_flutter: ^10.4.0
+  dotted_border: ^2.0.0+3
+  csv: ^5.0.2
   google_sign_in: ^6.1.0
   firebase_auth: ^4.6.0
-  font_awesome_flutter: ^10.4.0
+  camera: ^0.10.5
+  cloud_firestore: ^4.7.0
 
 dev_dependencies:
   flutter_test:
@@ -72,6 +77,9 @@ flutter:
     - assets/images/NutritionImg/
     - assets/images/RiceFlour/
     - assets/images/drink_eat/
+    - assets/images/RealFruit/
+    - assets/images/RealFlour/
+    - assets/food_detailed.csv
   #   - images/a_dot_burr.jpeg
   #   - images/a_dot_ham.jpeg
 
