@@ -101,8 +101,12 @@ class TextFormSlot extends StatelessWidget {
   Widget build(BuildContext context) {
     return Column(
       children: [
-        Text(name),
-        TextFormField(controller: controller),
+        Text(name,
+            style: const TextStyle(fontSize: 26), textAlign: TextAlign.left),
+        TextFormField(
+          controller: controller,
+          style: const TextStyle(fontSize: 24),
+        ),
       ],
     );
   }
