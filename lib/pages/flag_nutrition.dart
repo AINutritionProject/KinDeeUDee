@@ -56,7 +56,7 @@ class FlagNutrition extends StatelessWidget {
                         children: [
                           Expanded(
                             flex: 3,
-                            child: Container(
+                            child: SizedBox(
                               width: MediaQuery.of(context).size.width,
                               child: Column(
                                 mainAxisSize: MainAxisSize.max,
