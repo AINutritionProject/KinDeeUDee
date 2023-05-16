@@ -29,6 +29,19 @@ class _CameraPageState extends State<CameraPage> {
         MaterialPageRoute(builder: (context) => EatConfirmPage(image: image)));
   }
 
+  Future<void> getImageFromGallery() async {
+    XFile? image = await ImagePicker().pickImage(source: ImageSource.gallery);
+    if (image == null) {
+      print("Not get image");
+      return;
+    }
+    if (!context.mounted) {
+      return;
+    }
+    Navigator.of(context).push(
+        MaterialPageRoute(builder: (context) => EatConfirmPage(image: image)));
+  }
+
   @override
   void dispose() {
     controller.dispose();
@@ -40,17 +53,7 @@ class _CameraPageState extends State<CameraPage> {
     return Scaffold(
         floatingActionButton: FloatingActionButton(
           onPressed: () async {
-            XFile? image =
-                await ImagePicker().pickImage(source: ImageSource.gallery);
-            if (image == null) {
-              print("Not get image");
-              return;
-            }
-            if (!context.mounted) {
-              return;
-            }
-            Navigator.of(context).push(MaterialPageRoute(
-                builder: (context) => EatConfirmPage(image: image)));
+            await getImageFromGallery();
           },
           child: const Icon(Icons.image),
         ),
