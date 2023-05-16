@@ -22,12 +22,13 @@ class LoginPage extends StatefulWidget {
 
 class _LogInFormState extends State<LogInForm> {
   final _formKey = GlobalKey<FormState>();
-  final TextEditingController _emailController = TextEditingController();
+  final TextEditingController _usernameController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
 
   Future<void> _onLogin() async {
     if (_formKey.currentState!.validate()) {
-      await Auth().signInAnonymously();
+      await Auth().signInWithUsername(
+          _usernameController.text, _passwordController.text);
     }
   }
 
@@ -50,7 +51,7 @@ class _LogInFormState extends State<LogInForm> {
               ),
             ),
             TextFormField(
-              controller: _emailController,
+              controller: _usernameController,
               cursorHeight: 30,
               decoration: const InputDecoration(
                 border: UnderlineInputBorder(),
