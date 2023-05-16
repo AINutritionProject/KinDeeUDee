@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 class FoodDetailPage extends StatelessWidget {
   const FoodDetailPage({super.key, required this.detail});
   final FoodNutritionDetail detail;
-  Color _getGIColor(double giIndex) {
+  Color _getGIColor(num giIndex) {
     if (giIndex < 55) {
       return Colors.green.shade100;
     } else if (giIndex < 70 && giIndex >= 55) {
@@ -109,9 +109,9 @@ class ChemicalDetail extends StatelessWidget {
     required this.fiber,
     required this.sugar,
   });
-  final int power;
-  final double fiber;
-  final int sugar;
+  final num power;
+  final num fiber;
+  final num sugar;
 
   @override
   Widget build(BuildContext context) {
@@ -188,9 +188,9 @@ class FoodNutritionDetail {
       required this.sugar});
   final String name;
   final String? realImageAssetPath;
-  final double giIndex;
+  final num giIndex;
   final String benefit;
-  final int power;
-  final double fiber;
-  final int sugar;
+  final num power;
+  final num fiber;
+  final num sugar;
 }
