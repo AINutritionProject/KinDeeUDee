@@ -10,7 +10,7 @@ class RegisterPage extends StatelessWidget {
       appBar: AppBar(
         title: const Text("Register"),
       ),
-      body: const Center(
+      body: const SingleChildScrollView(
         child: RegisterForm(),
       ),
     );
@@ -44,7 +44,7 @@ class _RegisterFormState extends State<RegisterForm> {
       key: _formKey,
       child: Column(
         children: [
-          Align(
+          const Align(
               alignment: Alignment.centerLeft,
               child: Text(
                 "ลงทะเบียน",
@@ -56,50 +56,58 @@ class _RegisterFormState extends State<RegisterForm> {
                 "กรุณากรอกข้อมูลให้ครบถ้วน",
                 style: TextStyle(fontSize: 18, fontWeight: FontWeight.w700),
               )),
-          Align(
-              alignment: Alignment.centerLeft,
-              child: TextFormSlot(controller: _emailController, name: "อีเมล")),
-          TextFormSlot(
-            controller: _phoneNumberController,
-            name: "หมายเลขโทรศัพท์",
-          ),
-          TextFormSlot(
-            controller: _usernameController,
-            name: "ชื่อผู้ใช้",
-          ),
-          TextFormSlot(
-            controller: _passwordController,
-            name: "รหัสผ่าน",
-          ),
-          Row(
-            children: [
-              Checkbox(
-                  value: isAccept,
-                  onChanged: (newValue) {
-                    setState(() {
-                      isAccept = newValue;
-                    });
-                  }),
-              GestureDetector(
-                onTap: () {
-                  showModalBottomSheet(
-                      context: context,
-                      builder: (context) {
-                        return const SizedBox(height: 400);
-                      });
-                },
-                child: const Text(
-                  "ฉันยอมรับข้อตกลงและเงื่อนไข นโยบายความเป็นส่วนตัว",
-                  style: TextStyle(color: Colors.blue),
+          Container(
+              margin:
+                  const EdgeInsets.symmetric(vertical: 18.0, horizontal: 12.0),
+              height: 653,
+              width: double.infinity,
+              decoration: BoxDecoration(
+                  color: const Color.fromRGBO(174, 254, 196, 0.65),
+                  borderRadius: BorderRadius.circular(10)),
+              child: Column(children: [
+                TextFormSlot(controller: _emailController, name: "อีเมล"),
+                TextFormSlot(
+                  controller: _phoneNumberController,
+                  name: "หมายเลขโทรศัพท์",
                 ),
-              ),
-            ],
-          ),
-          ElevatedButton(
-              onPressed: () {
-                _onRegistry();
-              },
-              child: const Text("ลงทะเบียน"))
+                TextFormSlot(
+                  controller: _usernameController,
+                  name: "ชื่อผู้ใช้",
+                ),
+                TextFormSlot(
+                  controller: _passwordController,
+                  name: "รหัสผ่าน",
+                ),
+                Row(
+                  children: [
+                    Checkbox(
+                        value: isAccept,
+                        onChanged: (newValue) {
+                          setState(() {
+                            isAccept = newValue;
+                          });
+                        }),
+                    GestureDetector(
+                      onTap: () {
+                        showModalBottomSheet(
+                            context: context,
+                            builder: (context) {
+                              return const SizedBox(height: 400);
+                            });
+                      },
+                      child: const Text(
+                        "ฉันยอมรับข้อตกลงและเงื่อนไข นโยบายความเป็นส่วนตัว",
+                        style: TextStyle(color: Colors.blue),
+                      ),
+                    ),
+                  ],
+                ),
+                ElevatedButton(
+                    onPressed: () {
+                      _onRegistry();
+                    },
+                    child: const Text("ลงทะเบียน"))
+              ])),
         ],
       ),
     );
