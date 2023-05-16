@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:appfood2/pages/home.dart';
 import 'package:appfood2/widgets/dropdown.dart';
+import 'package:appfood2/db.dart';
 
 List<String> careers = <String>[
   "------------",
@@ -143,8 +144,7 @@ class _PersonalBodyState extends State<PersonalBody> {
                     });
                   },
                   child: const Padding(
-                    padding:
-                        EdgeInsets.symmetric(vertical: 3, horizontal: 15),
+                    padding: EdgeInsets.symmetric(vertical: 3, horizontal: 15),
                     child: Text(
                       "ถัดไป",
                       style: TextStyle(fontSize: 32),
@@ -336,10 +336,7 @@ class _OneChildTextFieldState extends State<OneChildTextField> {
 class PersonalHeader extends StatefulWidget {
   const PersonalHeader({
     super.key,
-    this.username = "PAFF",
   });
-
-  final String username;
 
   @override
   State<PersonalHeader> createState() => _PersonalHeaderState();
@@ -375,11 +372,18 @@ class _PersonalHeaderState extends State<PersonalHeader> {
                   child: Container(
                     alignment: Alignment.center,
                     margin: const EdgeInsets.all(8.0),
-                    child: Text(
-                      "\"${widget.username}\"",
-                      style: const TextStyle(
-                        fontSize: 24,
-                      ),
+                    child: FutureBuilder(
+                      builder: (context, snapshot) {
+                        if (snapshot.hasData) {
+                          return Text(
+                            "\"${snapshot.data!.username}\"",
+                            style: const TextStyle(fontSize: 24),
+                          );
+                        } else {
+                          return const Text("");
+                        }
+                      },
+                      future: getUser(),
                     ),
                   ),
                 ),
