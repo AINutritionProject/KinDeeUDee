@@ -7,11 +7,6 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:appfood2/pages/login_success.dart';
 import 'package:appfood2/pages/eat_history.dart';
 
-class UserHome {
-  bool hasData = false;
-  String? username;
-}
-
 class Home extends StatefulWidget {
   final String username;
   const Home({
