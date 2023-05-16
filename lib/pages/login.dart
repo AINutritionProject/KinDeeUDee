@@ -3,11 +3,17 @@ import 'package:flutter/material.dart';
 import 'package:appfood2/pages/register.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 <<<<<<< HEAD
+<<<<<<< HEAD
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 =======
 import 'dart:math';
 import 'dart:async';
 >>>>>>> 5a03cf59639a6f95a12b4f527480b09c0da7d7df
+=======
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'dart:math';
+import 'dart:async';
+>>>>>>> 067c2ca2baf64fe9116974cb74cbd4044871a7fc
 
 class LogInForm extends StatefulWidget {
   const LogInForm({super.key});
@@ -25,12 +31,13 @@ class LoginPage extends StatefulWidget {
 
 class _LogInFormState extends State<LogInForm> {
   final _formKey = GlobalKey<FormState>();
-  final TextEditingController _emailController = TextEditingController();
+  final TextEditingController _usernameController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
 
   Future<void> _onLogin() async {
     if (_formKey.currentState!.validate()) {
-      await Auth().signInAnonymously();
+      await Auth().signInWithUsername(
+          _usernameController.text, _passwordController.text);
     }
   }
 
@@ -53,7 +60,7 @@ class _LogInFormState extends State<LogInForm> {
               ),
             ),
             TextFormField(
-              controller: _emailController,
+              controller: _usernameController,
               cursorHeight: 30,
               decoration: const InputDecoration(
                 border: UnderlineInputBorder(),

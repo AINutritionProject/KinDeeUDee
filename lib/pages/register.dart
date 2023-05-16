@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:appfood2/pages/register_success.dart';
+import 'package:appfood2/auth.dart';
 
 class RegisterPage extends StatelessWidget {
   const RegisterPage({super.key});
@@ -30,11 +31,22 @@ class _RegisterFormState extends State<RegisterForm> {
   final TextEditingController _passwordController = TextEditingController();
   final TextEditingController _phoneNumberController = TextEditingController();
   final TextEditingController _usernameController = TextEditingController();
-  void _onRegistry() {
-    if (_formKey.currentState!.validate()) {
-      Navigator.push(context,
-          MaterialPageRoute(builder: (context) => const RegisterSuccesPage()));
+  Future<void> _onRegistry() async {
+    if (!_formKey.currentState!.validate()) {
+      return;
     }
+    await Auth().createUserWithEmailAndPassword(
+      _usernameController.text,
+      _passwordController.text,
+      _phoneNumberController.text,
+      _emailController.text,
+    );
+    Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (context) => const RegisterSuccesPage(),
+      ),
+    );
   }
 
   bool? isAccept = false;
@@ -132,6 +144,7 @@ class TextFormSlot extends StatelessWidget {
         TextFormField(
           controller: controller,
           style: const TextStyle(fontSize: 24),
+          obscureText: name == "รหัสผ่าน" ? true : false,
         ),
       ],
     );

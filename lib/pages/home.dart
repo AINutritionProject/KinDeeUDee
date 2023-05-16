@@ -4,7 +4,7 @@ import 'package:appfood2/pages/flag_nutrition.dart';
 import 'package:appfood2/auth.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:appfood2/pages/login_success.dart';
+import 'package:appfood2/pages/register_success.dart';
 import 'package:appfood2/pages/eat_history.dart';
 
 class Home extends StatefulWidget {
@@ -39,7 +39,7 @@ class _HomePageState extends State<HomePage> {
           if (snapshot.data == true) {
             return const Home();
           } else {
-            return const LoginSuccessPage();
+            return const RegisterSuccesPage();
           }
         } else {
           return const Center(
