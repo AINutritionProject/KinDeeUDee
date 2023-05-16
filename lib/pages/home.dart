@@ -3,6 +3,7 @@ import 'package:appfood2/pages/menu.dart';
 import 'package:appfood2/pages/flag_nutrition.dart';
 import 'package:appfood2/pages/eat_history.dart';
 import 'package:appfood2/auth.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 
 class Home extends StatefulWidget {
   const Home({super.key});
@@ -120,10 +121,12 @@ class UserAvatar extends StatelessWidget {
               shape: BoxShape.circle,
               color: Colors.green.shade200,
             ),
-            child: const Center(
+            child: Center(
               child: CircleAvatar(
                 backgroundColor: Colors.white,
-                foregroundImage: AssetImage("assets/images/Fruit/fruit2.png"),
+                foregroundImage: NetworkImage(FirebaseAuth
+                        .instance.currentUser?.photoURL ??
+                    "https://avatars.githubusercontent.com/u/124413969?v=4"),
                 radius: 60,
               ),
             ),
