@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:appfood2/pages/menu.dart';
 import 'package:appfood2/pages/flag_nutrition.dart';
 import 'package:appfood2/pages/eat_history.dart';
+import 'package:appfood2/auth.dart';
 
 class Home extends StatefulWidget {
   const Home({super.key});
@@ -14,7 +15,16 @@ class _HomeState extends State<Home> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text("Home")),
+      appBar: AppBar(
+        title: const Text("Home"),
+        actions: [
+          IconButton(
+              onPressed: () async {
+                await Auth().signOut();
+              },
+              icon: Icon(Icons.sd))
+        ],
+      ),
       body: SingleChildScrollView(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
