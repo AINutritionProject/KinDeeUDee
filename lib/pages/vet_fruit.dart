@@ -118,7 +118,8 @@ class VetFruitPage extends StatelessWidget {
                                       'วันละ 3 ทัพพี',
                                       style: TextStyle(
                                         fontSize: 24,
-                                        fontWeight: FontWeight.bold
+                                        fontWeight: FontWeight.bold,
+                                        color: Color.fromRGBO(68, 126, 98, 1)
                                       ),
                                     ),
                                   ),
@@ -128,7 +129,8 @@ class VetFruitPage extends StatelessWidget {
                                       'ผลไม้',
                                       style: TextStyle(
                                         fontSize: 24,
-                                        fontWeight: FontWeight.bold
+                                        fontWeight: FontWeight.bold,
+                                        color: Color.fromRGBO(255, 94, 84, 1)
                                       ),
                                     ),
                                   ),
@@ -138,7 +140,8 @@ class VetFruitPage extends StatelessWidget {
                                       '2-4 ส่วน',
                                       style: TextStyle(
                                         fontSize: 24,
-                                        fontWeight: FontWeight.bold
+                                        fontWeight: FontWeight.bold,
+                                        color: Color.fromRGBO(253, 97, 172, 1)
                                       ),
                                     ),
                                   ),
