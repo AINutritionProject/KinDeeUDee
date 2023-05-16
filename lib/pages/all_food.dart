@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:appfood2/pages/food_detailed.dart';
 
 class AllFoodPage extends StatelessWidget {
   const AllFoodPage({super.key, required this.type});
@@ -35,7 +36,18 @@ class AllFoodPage extends StatelessWidget {
                   .map(
                     (food) => Container(
                         margin: const EdgeInsets.all(10),
-                        child: FoodIcons(food: food)),
+                        child: GestureDetector(
+                            onTap: () {
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (context) => FoodDetailPage(
+                                    detail: food.detail,
+                                  ),
+                                ),
+                              );
+                            },
+                            child: FoodIcons(food: food))),
                   )
                   .toList(),
             ),
@@ -48,24 +60,66 @@ class AllFoodPage extends StatelessWidget {
 
 const foodData = [
   Food(
-      name: "bana",
-      type: "Fruit",
-      imageAssetPath: "assets/images/Fruit/fruit2.png"),
+    name: "กล้วยไข่",
+    type: "Fruit",
+    detail: FoodNutritionDetail(
+        name: "กล้วยไข่,สุก",
+        giIndex: 30,
+        realImageAssetPath: "assets/images/RealFruit/Y1.jpg",
+        benefit:
+            "Lorem ipsum dolor sit amet, officia excepteur ex fugiat reprehenderit enim labore culpa sint ad nisi Lorem pariatur mollit ex esse exercitation amet. Nisi anim cupidatat excepteur officia. Reprehenderit nostrud nostrud ipsum Lorem est aliquip amet voluptate voluptate dolor minim nulla est proident. Nostrud officia pariatur ut officia. Sit irure elit esse ea nulla sunt ex occaecat reprehenderit commodo officia dolor Lorem duis laboris cupidatat officia voluptate. Culpa proident adipisicing id nulla nisi laboris ex in Lorem sunt duis officia eiusmod. Aliqua reprehenderit commodo ex non excepteur duis sunt velit enim. Voluptate laboris sint cupidatat ullamco ut ea consectetur et est culpa et culpa duis.",
+        power: 57,
+        fiber: 4.5,
+        sugar: 8),
+    imageAssetPath: "assets/images/Fruit/fruit2.png",
+  ),
   Food(
-      name: "Yee",
+      name: "กล้วยน้ำว้า",
       type: "Fruit",
+      detail: FoodNutritionDetail(
+          name: "กล้วยไข่,สุก",
+          giIndex: 300,
+          benefit:
+              "Lorem ipsum dolor sit amet, qui minim labore adipisicing minim sint cillum sint consectetur cupidatat.",
+          power: 57,
+          fiber: 1.9,
+          sugar: 9),
       imageAssetPath: "assets/images/Fruit/fruit3.png"),
   Food(
-      name: "Mango",
+      name: "กล้วยหอม",
       type: "Fruit",
+      detail: FoodNutritionDetail(
+          name: "กล้วยไข่,สุก",
+          giIndex: 300,
+          benefit:
+              "Lorem ipsum dolor sit amet, qui minim labore adipisicing minim sint cillum sint consectetur cupidatat.",
+          power: 79,
+          fiber: 1.6,
+          sugar: 12),
       imageAssetPath: "assets/images/Fruit/fruit4.png"),
   Food(
-      name: "Pineapple",
+      name: "ขนุนสุก",
       type: "Fruit",
+      detail: FoodNutritionDetail(
+          name: "กล้วยไข่,สุก",
+          giIndex: 300,
+          benefit:
+              "Lorem ipsum dolor sit amet, qui minim labore adipisicing minim sint cillum sint consectetur cupidatat.",
+          power: 200,
+          sugar: 200,
+          fiber: 22.92),
       imageAssetPath: "assets/images/Fruit/fruit5.png"),
   Food(
-      name: "Strawberry",
+      name: "แก้วมังกรขาว",
       type: "Fruit",
+      detail: FoodNutritionDetail(
+          name: "กล้วยไข่,สุก",
+          giIndex: 300,
+          benefit:
+              "Lorem ipsum dolor sit amet, qui minim labore adipisicing minim sint cillum sint consectetur cupidatat.",
+          power: 9000,
+          sugar: 2,
+          fiber: 224.02),
       imageAssetPath: "assets/images/Fruit/fruit6.png"),
 ];
 
@@ -139,8 +193,10 @@ class Food {
     required this.name,
     required this.type,
     required this.imageAssetPath,
+    required this.detail,
   });
   final String name;
   final String type;
   final String imageAssetPath;
+  final FoodNutritionDetail detail;
 }
