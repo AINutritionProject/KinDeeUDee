@@ -4,12 +4,52 @@ import 'package:appfood2/pages/flag_nutrition.dart';
 import 'package:appfood2/pages/eat_history.dart';
 import 'package:appfood2/auth.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:appfood2/pages/login_success.dart';
 
 class Home extends StatefulWidget {
   const Home({super.key});
 
   @override
   State<Home> createState() => _HomeState();
+}
+
+class HomePage extends StatefulWidget {
+  const HomePage({super.key});
+
+  @override
+  State<HomePage> createState() => _HomePageState();
+}
+
+class _HomePageState extends State<HomePage> {
+  Future<bool> _checkIfUserHasData() async {
+    final user = FirebaseAuth.instance.currentUser;
+    final userData = await FirebaseFirestore.instance
+        .collection("users")
+        .where("uid", isEqualTo: user!.uid)
+        .get();
+    return userData.docs.first.get("hasData");
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return FutureBuilder(
+      builder: (context, snapshot) {
+        if (snapshot.hasData) {
+          if (snapshot.data == true) {
+            return const Home();
+          } else {
+            return const LoginSuccessPage();
+          }
+        } else {
+          return const Center(
+            child: CircularProgressIndicator(),
+          );
+        }
+      },
+      future: _checkIfUserHasData(),
+    );
+  }
 }
 
 class _HomeState extends State<Home> {
