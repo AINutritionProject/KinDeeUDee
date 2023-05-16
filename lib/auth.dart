@@ -33,6 +33,25 @@ class Auth {
     }
   }
 
+  Future<void> signInWithUsername(String username, String password) async {
+    try {
+      // get email from username
+      QuerySnapshot<Map<String, dynamic>> querySnapshot =
+          await FirebaseFirestore.instance
+              .collection("users")
+              .where("username", isEqualTo: username)
+              .get();
+      String email = querySnapshot.docs.first.get("email");
+
+      UserCredential firebaseUser = await _firebaseAuth
+          .signInWithEmailAndPassword(email: email, password: password);
+      print(firebaseUser.user!.uid);
+    } catch (error) {
+      print("Got error when sign in with username & password");
+      print(error);
+    }
+  }
+
   Future<void> signInWithGoogle(GoogleSignIn googleSignIn) async {
     try {
       GoogleSignInAccount? user = await googleSignIn.signIn();
