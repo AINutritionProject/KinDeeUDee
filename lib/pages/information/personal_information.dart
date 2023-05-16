@@ -131,7 +131,7 @@ class _PersonalBodyState extends State<PersonalBody> {
                   textHint: "แพ้กุ้ง,แพ้ปู,แพ้ปลา,แพ้หมู,แพ้แมว"),
               Center(
                 child: Container(
-                  margin: const EdgeInsets.only(top: 70),
+                  margin: const EdgeInsets.only(top: 100),
                   child: ElevatedButton(
                     style: ButtonStyle(
                         backgroundColor:
