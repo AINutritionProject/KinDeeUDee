@@ -218,7 +218,7 @@ class FlagNutrition extends StatelessWidget {
                                                           AlignmentDirectional(
                                                               0.55, 0),
                                                       child: Text(
-                                                        'Hello',
+                                                        'ผลไม้',
                                                         style: TextStyle(
                                                             fontSize: 20),
                                                       ),
@@ -285,9 +285,9 @@ class FlagNutrition extends StatelessWidget {
                                                           AlignmentDirectional(
                                                               0, 0.7),
                                                       child: Text(
-                                                        'Hello',
+                                                        'กลุ่มนม',
                                                         style: TextStyle(
-                                                            fontSize: 20),
+                                                            fontSize: 18),
                                                       ),
                                                     ),
                                                     Align(
@@ -337,9 +337,9 @@ class FlagNutrition extends StatelessWidget {
                                                           AlignmentDirectional(
                                                               0, 0.7),
                                                       child: Text(
-                                                        'Hello',
+                                                        'เนื้อสัตว์',
                                                         style: TextStyle(
-                                                            fontSize: 20),
+                                                            fontSize: 18),
                                                       ),
                                                     ),
                                                     Align(
@@ -397,7 +397,7 @@ class FlagNutrition extends StatelessWidget {
                                             const Align(
                                               alignment:
                                                   AlignmentDirectional(0, 0.3),
-                                              child: Text('Hello World',
+                                              child: Text('น้ำมัน',
                                                   style: TextStyle(
                                                       fontSize: 18,
                                                       fontWeight:
@@ -406,7 +406,7 @@ class FlagNutrition extends StatelessWidget {
                                             const Align(
                                               alignment:
                                                   AlignmentDirectional(0, 0.8),
-                                              child: Text('World',
+                                              child: Text('เครื่องปรุง',
                                                   style: TextStyle(
                                                       fontSize: 18,
                                                       fontWeight:
@@ -448,10 +448,10 @@ class FlagNutrition extends StatelessWidget {
                                   Align(
                                     alignment: const AlignmentDirectional(0, -0.45),
                                     child: Container(
-                                      width: MediaQuery.of(context).size.width * 0.7,
+                                      width: MediaQuery.of(context).size.width * 0.8,
                                       height: 100,
                                       decoration: BoxDecoration(
-                                        color: Colors.amberAccent[400]
+                                        color: Colors.amberAccent[100]
                                       ),
                                       constraints: const BoxConstraints(
                                         maxWidth: 300,
@@ -462,16 +462,83 @@ class FlagNutrition extends StatelessWidget {
                                   Align(
                                     alignment: const AlignmentDirectional(0, 0.45),
                                     child: Container(
-                                      width: MediaQuery.of(context).size.width * 0.7,
-                                      height: MediaQuery.of(context).size.height * 0.2,
+                                      width: MediaQuery.of(context).size.width * 0.8,
+                                      height: 150,
                                       decoration: BoxDecoration(
-                                        color: Colors.amberAccent[600]
+                                        color: Colors.amberAccent[200]
                                       ),
                                       constraints: const BoxConstraints(
-                                        maxWidth: 200
+                                        maxHeight: 200
                                       ),
                                       child: Stack(
-                                        children: const [],
+                                        children: [
+                                          Align(
+                                            alignment: const AlignmentDirectional(0, -0.9),
+                                            child: Row(
+                                              mainAxisSize: MainAxisSize.max ,
+                                              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                                              children: [
+                                                Image.asset(
+                                                  'assets/images/FlagNutrition/Untitled-Artwork 29.png',
+                                                  width: 70,
+                                                  height: 80,
+                                                  fit: BoxFit.cover,
+                                                ),
+                                                Image.asset(
+                                                  'assets/images/FlagNutrition/Untitled-Artwork 29.png',
+                                                  width: 70,
+                                                  height: 80,
+                                                  fit: BoxFit.cover,
+                                                ),
+                                                Image.asset(
+                                                  'assets/images/FlagNutrition/Untitled-Artwork 29.png',
+                                                  width: 70,
+                                                  height: 80,
+                                                  fit: BoxFit.cover,
+                                                ),
+                                                Image.asset(
+                                                  'assets/images/FlagNutrition/Untitled-Artwork 29.png',
+                                                  width: 70,
+                                                  height: 80,
+                                                  fit: BoxFit.cover,
+                                                ),
+                                              ],
+                                            ),
+                                          ),
+                                          Align(
+                                            alignment: const AlignmentDirectional(0, 0.9),
+                                            child: Row(
+                                              mainAxisSize: MainAxisSize.max ,
+                                              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                                              children: [
+                                                Image.asset(
+                                                  'assets/images/FlagNutrition/Untitled-Artwork 29.png',
+                                                  width: 70,
+                                                  height: 80,
+                                                  fit: BoxFit.cover,
+                                                ),
+                                                Image.asset(
+                                                  'assets/images/FlagNutrition/Untitled-Artwork 29.png',
+                                                  width: 70,
+                                                  height: 80,
+                                                  fit: BoxFit.cover,
+                                                ),
+                                                Image.asset(
+                                                  'assets/images/FlagNutrition/Untitled-Artwork 29.png',
+                                                  width: 70,
+                                                  height: 80,
+                                                  fit: BoxFit.cover,
+                                                ),
+                                                Image.asset(
+                                                  'assets/images/FlagNutrition/Untitled-Artwork 29.png',
+                                                  width: 70,
+                                                  height: 80,
+                                                  fit: BoxFit.cover,
+                                                ),
+                                              ],
+                                            ),
+                                          )
+                                        ],
                                       ),
                                     ),
                                   )

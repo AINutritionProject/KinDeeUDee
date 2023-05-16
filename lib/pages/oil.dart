@@ -7,6 +7,15 @@ class OilPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(title: const Text("Oil Page")),
+      body: Column(
+        mainAxisSize: MainAxisSize.max,
+        children: [
+          Expanded(
+            flex: 1,
+            child: Container(),
+          )
+        ],
+      ),
     );
   }
 }
