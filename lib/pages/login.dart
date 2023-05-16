@@ -2,18 +2,9 @@ import 'package:appfood2/auth.dart';
 import 'package:flutter/material.dart';
 import 'package:appfood2/pages/register.dart';
 import 'package:google_sign_in/google_sign_in.dart';
-<<<<<<< HEAD
-<<<<<<< HEAD
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-=======
-import 'dart:math';
-import 'dart:async';
->>>>>>> 5a03cf59639a6f95a12b4f527480b09c0da7d7df
-=======
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'dart:math';
 import 'dart:async';
->>>>>>> 067c2ca2baf64fe9116974cb74cbd4044871a7fc
 
 class LogInForm extends StatefulWidget {
   const LogInForm({super.key});
