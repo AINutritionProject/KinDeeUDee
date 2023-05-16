@@ -144,6 +144,7 @@ class TextFormSlot extends StatelessWidget {
         TextFormField(
           controller: controller,
           style: const TextStyle(fontSize: 24),
+          obscureText: name == "รหัสผ่าน" ? true : false,
         ),
       ],
     );
