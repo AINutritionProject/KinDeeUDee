@@ -2,6 +2,7 @@ import 'package:appfood2/auth.dart';
 import 'package:flutter/material.dart';
 import 'package:appfood2/pages/register.dart';
 import 'package:google_sign_in/google_sign_in.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 class LogInForm extends StatefulWidget {
   const LogInForm({super.key});
@@ -151,15 +152,20 @@ class _LoginPageState extends State<LoginPage> {
               child: const LogInForm(),
             ),
           ),
-          Row(
-            children: [
-              ElevatedButton(
-                onPressed: () async {
-                  await Auth().signInWithGoogle(_googleSignIn);
-                },
-                child: const Text("Google"),
-              )
-            ],
+          Container(
+            margin: EdgeInsets.only(top: 10),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                GestureDetector(
+                  onTap: () async {
+                    await Auth().signInWithGoogle(_googleSignIn);
+                  },
+                  child: const FaIcon(FontAwesomeIcons.google,
+                      color: Colors.deepOrange),
+                )
+              ],
+            ),
           )
         ],
       ),
