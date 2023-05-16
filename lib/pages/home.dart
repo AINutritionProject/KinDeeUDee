@@ -26,6 +26,7 @@ class _HomeState extends State<Home> {
               icon: const Icon(Icons.tv))
         ],
       ),
+      backgroundColor: Colors.yellow.shade50,
       body: SingleChildScrollView(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
