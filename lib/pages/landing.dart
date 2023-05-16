@@ -16,7 +16,7 @@ class _LandingPageState extends State<LandingPage> {
     return StreamBuilder(
       builder: (context, snapshot) {
         if (snapshot.hasData) {
-          return const Home();
+          return const HomePage();
         } else {
           return const LoginPage();
         }
