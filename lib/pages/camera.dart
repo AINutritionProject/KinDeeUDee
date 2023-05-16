@@ -60,13 +60,37 @@ class _CameraPageState extends State<CameraPage> {
         appBar: AppBar(
           title: const Text("Camera Page"),
         ),
+        backgroundColor: Colors.black,
         body: FutureBuilder(
           future: _initCamera(),
           builder: (context, snapshot) {
             if (snapshot.connectionState == ConnectionState.done) {
-              return CameraPreview(controller);
+              return Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Expanded(
+                    flex: 1,
+                    child: Center(
+                      child: CameraPreview(controller),
+                    ),
+                  ),
+                  Container(
+                    margin: const EdgeInsets.only(top: 10),
+                    decoration: const BoxDecoration(
+                        shape: BoxShape.circle, color: Colors.white70),
+                    child: IconButton(
+                        onPressed: () async {
+                          await takePicture();
+                        },
+                        icon: const Icon(Icons.camera_alt_rounded,
+                            color: Colors.white)),
+                  )
+                ],
+              );
             } else {
-              return const Center(child: CircularProgressIndicator());
+              return const Center(
+                child: CircularProgressIndicator(),
+              );
             }
           },
         ));
