@@ -138,7 +138,7 @@ class _LoginPageState extends State<LoginPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.red,
+      backgroundColor: Color.fromRGBO(255, 251, 242, 1),
       body: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         mainAxisAlignment: MainAxisAlignment.center,
@@ -154,7 +154,7 @@ class _LoginPageState extends State<LoginPage> {
             padding: const EdgeInsets.symmetric(horizontal: 12),
             child: Container(
               decoration: const BoxDecoration(
-                  color: Colors.green,
+                  color: Color.fromRGBO(254, 246, 174, 1),
                   borderRadius: BorderRadius.all(Radius.circular(30))),
               child: const LogInForm(),
             ),
