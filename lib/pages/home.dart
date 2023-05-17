@@ -120,8 +120,8 @@ class _HomeState extends State<Home> {
               },
               child: const MenuBlock(
                   menuName: 'ประวัติการรับประทานอาหาร',
-                  innerColor: Colors.yellowAccent,
-                  outerColor: Colors.red),
+                  innerColor: Color.fromRGBO(255, 238, 225, 1),
+                  outerColor: Color.fromRGBO(240, 164, 164, 1)),
             ),
             GestureDetector(
               onTap: () {
@@ -131,7 +131,7 @@ class _HomeState extends State<Home> {
               child: const MenuBlock(
                   menuName: 'ธงโภชนาการ',
                   innerColor: Colors.white,
-                  outerColor: Colors.blueAccent),
+                  outerColor: Color.fromRGBO(197, 235, 246,1)),
             ),
           ],
         ),
