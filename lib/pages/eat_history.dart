@@ -112,12 +112,25 @@ class HistorySlot extends StatefulWidget {
   const HistorySlot({super.key, required this.number, required this.image});
   final int number;
   final String image;
+  final String foodName = "ข้าวผัดกะเพรา";
+  final int quantity = 1;
+  final int timestamp = 1627777777;
+  final String unit = "จาน";
 
   @override
   State<HistorySlot> createState() => _HistorySlotState();
 }
 
 class _HistorySlotState extends State<HistorySlot> {
+  late String showTime;
+
+  @override
+  void initState() {
+    DateTime dateTime = DateTime.fromMillisecondsSinceEpoch(widget.timestamp);
+    showTime = "${dateTime.hour}:${dateTime.minute.toString().padLeft(2, "0")}";
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -147,6 +160,24 @@ class _HistorySlotState extends State<HistorySlot> {
                 image: NetworkImage(widget.image),
                 fit: BoxFit.cover,
               ),
+            ),
+          ),
+          Container(
+            margin: const EdgeInsets.symmetric(horizontal: 30),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Text(
+                  "${widget.foodName} ${widget.quantity} ${widget.unit}",
+                  style: const TextStyle(
+                      fontSize: 20, fontWeight: FontWeight.bold),
+                ),
+                Text(
+                  "เวลา $showTime น.",
+                  style: const TextStyle(
+                      fontWeight: FontWeight.bold, fontSize: 20),
+                )
+              ],
             ),
           )
         ],
