@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:appfood2/pages/camera.dart';
+import 'package:appfood2/pages/eat_confirm.dart';
+import 'package:image_picker/image_picker.dart';
 
 class AddEatHistoryPage extends StatefulWidget {
   const AddEatHistoryPage({super.key});
@@ -127,20 +129,36 @@ class _AddEatHistoryPageState extends State<AddEatHistoryPage> {
             ),
             Align(
               alignment: Alignment.centerLeft,
-              child: Container(
-                decoration: BoxDecoration(
-                    color: Colors.red.shade200,
-                    borderRadius: BorderRadius.circular(30)),
-                padding: const EdgeInsets.symmetric(horizontal: 5, vertical: 5),
-                child: const Row(
-                  mainAxisSize: MainAxisSize.min,
-                  children: [
-                    FaIcon(FontAwesomeIcons.arrowDown),
-                    SizedBox(
-                      width: 10,
-                    ),
-                    Text("นำเข้ารูปภาพ")
-                  ],
+              child: GestureDetector(
+                onTap: () async {
+                  final ImagePicker picker = ImagePicker();
+                  final XFile? image = await picker.pickImage(
+                    source: ImageSource.gallery,
+                    maxWidth: 800,
+                    maxHeight: 800,
+                  );
+                  if (image == null) {
+                    return;
+                  }
+                  Navigator.of(context).push(MaterialPageRoute(
+                      builder: (context) => EatConfirmPage(image: image)));
+                },
+                child: Container(
+                  decoration: BoxDecoration(
+                      color: Colors.red.shade200,
+                      borderRadius: BorderRadius.circular(30)),
+                  padding:
+                      const EdgeInsets.symmetric(horizontal: 5, vertical: 5),
+                  child: const Row(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      FaIcon(FontAwesomeIcons.arrowDown),
+                      SizedBox(
+                        width: 10,
+                      ),
+                      Text("นำเข้ารูปภาพ")
+                    ],
+                  ),
                 ),
               ),
             ),
