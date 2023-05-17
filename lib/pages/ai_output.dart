@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:image_picker/image_picker.dart';
 
 class AIOutputPage extends StatelessWidget {
-  const AIOutputPage({super.key});
+  const AIOutputPage({super.key, required this.foodImage});
+  final XFile? foodImage;
 
   @override
   Widget build(BuildContext context) {
