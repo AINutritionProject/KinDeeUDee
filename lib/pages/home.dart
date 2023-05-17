@@ -99,22 +99,10 @@ class _HomeState extends State<Home> {
                 Navigator.push(context,
                     MaterialPageRoute(builder: (context) => const MenuPage()));
               },
-              child: const Stack(
-                children: [
-                  MenuBlock(
-                    menuName: 'ค้นหาเมนู\n  อาหาร',
-                    innerColor: Colors.yellow,
-                    outerColor: Colors.greenAccent,
-                  ),
-                  Positioned(
-                      top: -20,
-                      right: 9,
-                      child: Icon(
-                        Icons.lightbulb,
-                        size: 100,
-                        color: Colors.yellow,
-                      ))
-                ],
+              child: MenuBlock(
+                menuName: 'ค้นหาเมนู\n  อาหาร',
+                innerColor: Colors.yellow.shade100,
+                outerColor: Colors.greenAccent.shade100,
               ),
             ),
             GestureDetector(
@@ -123,7 +111,7 @@ class _HomeState extends State<Home> {
                     builder: (context) => const EatHistoryPage()));
               },
               child: const MenuBlock(
-                  menuName: 'ประวัติการ\nรับประทานอาหาร',
+                  menuName: 'ประวัติการรับประทานอาหาร',
                   innerColor: Colors.yellowAccent,
                   outerColor: Colors.red),
             ),
@@ -183,23 +171,27 @@ class MenuBlock extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.all(20.0),
+    return Container(
+      margin: const EdgeInsets.only(top: 10, bottom: 5, left: 20, right: 20),
+      padding: const EdgeInsets.all(15),
+      decoration: BoxDecoration(
+        color: outerColor,
+        borderRadius: BorderRadius.circular(30),
+      ),
       child: Container(
-        padding: const EdgeInsets.all(30),
+        padding: const EdgeInsets.symmetric(vertical: 25),
         decoration: BoxDecoration(
-          color: outerColor,
-          borderRadius: BorderRadius.circular(20),
+          color: innerColor,
+          borderRadius: BorderRadius.circular(30),
         ),
-        child: Container(
-          padding: const EdgeInsets.symmetric(horizontal: 50, vertical: 25),
-          decoration: BoxDecoration(
-            color: innerColor,
-            borderRadius: BorderRadius.circular(10),
-          ),
-          child: Text(
-            menuName,
-            style: const TextStyle(fontSize: 50, fontWeight: FontWeight.bold),
+        child: Align(
+          alignment: Alignment.center,
+          child: Container(
+            margin: const EdgeInsets.symmetric(horizontal: 20),
+            child: Text(
+              menuName,
+              style: const TextStyle(fontSize: 30, fontWeight: FontWeight.bold),
+            ),
           ),
         ),
       ),
