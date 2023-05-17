@@ -54,7 +54,7 @@ class RegisterSuccesPage extends StatelessWidget {
                   Navigator.of(context).push(MaterialPageRoute(
                       builder: (context) => const InformationPage()));
                 },
-                child: const Icon(Icons.logout),
+                child: const FaIcon(FontAwesomeIcons.angleRight),
               )),
         ],
       ),
