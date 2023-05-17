@@ -16,7 +16,7 @@ class _AddEatHistoryPageState extends State<AddEatHistoryPage> {
   final TextEditingController _foodNameController = TextEditingController();
   final TextEditingController _quantityController = TextEditingController();
   String _unit = "1";
-  final List<String> _radioValues = ["1", "2", "3", "4"];
+  final List<String> _radioValues = ["ผล", "ส่วน", "กรัม", "ขนาดพอคำ"];
 
   @override
   Widget build(BuildContext context) {
@@ -62,8 +62,8 @@ class _AddEatHistoryPageState extends State<AddEatHistoryPage> {
                   ),
                   const Text("ปริมาณ"),
                   TextFormField(
-                    controller: _quantityController,
-                  ),
+                      controller: _quantityController,
+                      keyboardType: TextInputType.number),
                   Column(
                     children: [
                       ListTile(
@@ -129,7 +129,11 @@ class _AddEatHistoryPageState extends State<AddEatHistoryPage> {
                     return;
                   }
                   Navigator.of(context).push(MaterialPageRoute(
-                      builder: (context) => EatConfirmPage(image: image)));
+                      builder: (context) => EatConfirmPage(
+                          image: image,
+                          name: _foodNameController.text,
+                          quantity: int.parse(_quantityController.text),
+                          unit: _unit)));
                 },
                 child: Container(
                   decoration: BoxDecoration(
@@ -156,8 +160,11 @@ class _AddEatHistoryPageState extends State<AddEatHistoryPage> {
               child: IconButton(
                 onPressed: () {
                   Navigator.of(context).push(MaterialPageRoute(
-                      builder: (context) =>
-                          const CameraPage(replaceWhenNavigate: true)));
+                      builder: (context) => CameraPage(
+                          replaceWhenNavigate: true,
+                          foodName: _foodNameController.text,
+                          quantiy: int.parse(_quantityController.text),
+                          unit: _unit)));
                 },
                 icon: const Icon(Icons.camera_alt, color: Colors.white),
               ),
