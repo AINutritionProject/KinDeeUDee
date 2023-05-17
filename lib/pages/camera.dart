@@ -4,7 +4,8 @@ import 'package:appfood2/pages/eat_confirm.dart';
 import 'package:camera/camera.dart';
 
 class CameraPage extends StatefulWidget {
-  const CameraPage({super.key});
+  const CameraPage({super.key, required this.replaceWhenNavigate});
+  final bool replaceWhenNavigate;
 
   @override
   State<CameraPage> createState() => _CameraPageState();
