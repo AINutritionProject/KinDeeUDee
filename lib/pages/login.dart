@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:appfood2/pages/register.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'dart:math';
 import 'dart:async';
 
 class LogInForm extends StatefulWidget {
@@ -119,7 +118,7 @@ class _LogInFormState extends State<LogInForm> {
                     style: TextStyle(
                         fontSize: 18,
                         fontWeight: FontWeight.w600,
-                        color: Colors.pinkAccent),
+                        color: Colors.deepOrange),
                   ),
                 )
               ],
@@ -138,7 +137,7 @@ class _LoginPageState extends State<LoginPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Color.fromRGBO(255, 251, 242, 1),
+      backgroundColor: const Color.fromRGBO(255, 251, 242, 1),
       body: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         mainAxisAlignment: MainAxisAlignment.center,
@@ -160,16 +159,40 @@ class _LoginPageState extends State<LoginPage> {
             ),
           ),
           Container(
-            margin: const EdgeInsets.only(top: 10),
+            margin: const EdgeInsets.symmetric(vertical: 10, horizontal: 20),
             child: Row(
-              mainAxisAlignment: MainAxisAlignment.center,
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              mainAxisSize: MainAxisSize.max,
               children: [
+                const FaIcon(
+                  FontAwesomeIcons.line,
+                  color: Colors.green,
+                  size: 35,
+                ),
+                const FaIcon(
+                  FontAwesomeIcons.squareFacebook,
+                  color: Colors.blue,
+                  size: 37,
+                ),
+                const FaIcon(
+                  FontAwesomeIcons.instagram,
+                  color: Colors.deepOrangeAccent,
+                  size: 37,
+                ),
                 GestureDetector(
                   onTap: () async {
                     await Auth().signInWithGoogle(_googleSignIn);
                   },
-                  child: const FaIcon(FontAwesomeIcons.google,
-                      color: Colors.deepOrange),
+                  child: const FaIcon(
+                    FontAwesomeIcons.google,
+                    color: Colors.deepOrange,
+                    size: 34,
+                  ),
+                ),
+                const FaIcon(
+                  FontAwesomeIcons.envelope,
+                  color: Colors.indigo,
+                  size: 37,
                 )
               ],
             ),
