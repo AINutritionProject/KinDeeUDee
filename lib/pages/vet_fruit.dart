@@ -233,10 +233,10 @@ class VetFruitPage extends StatelessWidget {
                               alignment: const AlignmentDirectional(-0.6, -0.4),
                               child: GestureDetector(
                                 onTap: () {
-                                  Navigator.of(context).push(MaterialPageRoute(
-                                      builder: (context) => const VetABPage(
-                                            type: "A",
-                                          )));
+                                Navigator.of(context).push(MaterialPageRoute(
+                                    builder: (context) => const VetABPage(
+                                          type: "A",
+                                        )));
                                 },
                                 child: Container(
                                   width: MediaQuery.of(context).size.width * 0.28,
@@ -271,10 +271,10 @@ class VetFruitPage extends StatelessWidget {
                               alignment: const AlignmentDirectional(0.6, -0.4),
                               child: GestureDetector(
                                 onTap: () {
-                                  Navigator.of(context).push(MaterialPageRoute(
-                                      builder: (context) => const VetABPage(
-                                            type: "A",
-                                          )));
+                                Navigator.of(context).push(MaterialPageRoute(
+                                    builder: (context) => const VetABPage(
+                                          type: "B",
+                                        )));
                                 },
                                 child: Container(
                                   width: MediaQuery.of(context).size.width * 0.28,
