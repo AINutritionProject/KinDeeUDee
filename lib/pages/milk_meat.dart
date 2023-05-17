@@ -30,7 +30,8 @@ class MilkMeatPage extends StatelessWidget {
                           width: MediaQuery.of(context).size.width * 0.52,
                           height: MediaQuery.of(context).size.height * 0.085,
                           decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(20)
+                            borderRadius: BorderRadius.circular(20),
+                            color: const Color.fromRGBO(223, 170, 177, 1)
                           ),
                           child: 
                           const Align(
