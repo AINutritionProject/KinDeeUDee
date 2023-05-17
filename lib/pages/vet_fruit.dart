@@ -104,8 +104,46 @@ class VetFruitPage extends StatelessWidget {
                                         style: TextStyle(
                                             fontSize: 24,
                                             fontWeight: FontWeight.bold),
+                      Expanded(
+                        flex: 4,
+                        child: SizedBox(
+                          width: MediaQuery.of(context).size.width,
+                          height: 100,
+                          child: Align(
+                            alignment: const AlignmentDirectional(0, 0),
+                            child: DottedBorder(
+                              color: const Color.fromRGBO(195, 241, 142, 1),
+                              strokeWidth: 5,
+                              dashPattern: const [10, 10],
+                              borderType: BorderType.RRect,
+                              radius: const Radius.circular(20),
+                              child: Container(
+                                width: MediaQuery.of(context).size.width * 0.8,
+                                height:
+                                    MediaQuery.of(context).size.height * 0.5,
+                                decoration: BoxDecoration(
+                                    color: Colors.white,
+                                    borderRadius: BorderRadius.circular(20)),
+                                child: Stack(
+                                  children: [
+                                    const Align(
+                                      alignment: AlignmentDirectional(0, -0.9),
+                                      child: Text(
+                                        'ผัก',
+                                        style: TextStyle(
+                                            fontSize: 24,
+                                            fontWeight: FontWeight.bold),
                                       ),
                                     ),
+                                    const Align(
+                                      alignment: AlignmentDirectional(0, -0.65),
+                                      child: Text(
+                                        'วันละ 3 ทัพพี',
+                                        style: TextStyle(
+                                            fontSize: 24,
+                                            fontWeight: FontWeight.bold,
+                                            color:
+                                                Color.fromRGBO(68, 126, 98, 1)),
                                     const Align(
                                       alignment: AlignmentDirectional(0, -0.65),
                                       child: Text(
@@ -126,6 +164,15 @@ class VetFruitPage extends StatelessWidget {
                                             fontWeight: FontWeight.bold,
                                             color:
                                                 Color.fromRGBO(255, 94, 84, 1)),
+                                    const Align(
+                                      alignment: AlignmentDirectional(0, -0.4),
+                                      child: Text(
+                                        'ผลไม้',
+                                        style: TextStyle(
+                                            fontSize: 24,
+                                            fontWeight: FontWeight.bold,
+                                            color:
+                                                Color.fromRGBO(255, 94, 84, 1)),
                                       ),
                                     ),
                                     const Align(
@@ -137,8 +184,37 @@ class VetFruitPage extends StatelessWidget {
                                             fontWeight: FontWeight.bold,
                                             color: Color.fromRGBO(
                                                 253, 97, 172, 1)),
+                                    const Align(
+                                      alignment: AlignmentDirectional(0, -0.15),
+                                      child: Text(
+                                        '2-4 ส่วน',
+                                        style: TextStyle(
+                                            fontSize: 24,
+                                            fontWeight: FontWeight.bold,
+                                            color: Color.fromRGBO(
+                                                253, 97, 172, 1)),
                                       ),
                                     ),
+                                    Align(
+                                      alignment:
+                                          const AlignmentDirectional(0, 0.7),
+                                      child: SizedBox(
+                                        width:
+                                            MediaQuery.of(context).size.width *
+                                                0.7,
+                                        height:
+                                            MediaQuery.of(context).size.height *
+                                                0.17,
+                                        child: const Column(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.center,
+                                          mainAxisSize: MainAxisSize.max,
+                                          children: [
+                                            Text(
+                                              'รับประทานปริมาณรองลง',
+                                              style: TextStyle(
+                                                  fontSize: 24,
+                                                  fontWeight: FontWeight.bold),
                                     Align(
                                       alignment:
                                           const AlignmentDirectional(0, 0.7),
@@ -171,7 +247,26 @@ class VetFruitPage extends StatelessWidget {
                                                       fontSize: 24,
                                                       fontWeight:
                                                           FontWeight.bold),
+                                            Row(
+                                              mainAxisSize: MainAxisSize.max,
+                                              mainAxisAlignment:
+                                                  MainAxisAlignment.center,
+                                              children: [
+                                                Text(
+                                                  'มาเพื่อให้ได้รับ',
+                                                  style: TextStyle(
+                                                      fontSize: 24,
+                                                      fontWeight:
+                                                          FontWeight.bold),
                                                 ),
+                                                Text(
+                                                  'วิตามิน',
+                                                  style: TextStyle(
+                                                      fontSize: 24,
+                                                      fontWeight:
+                                                          FontWeight.bold,
+                                                      color: Color.fromRGBO(
+                                                          21, 160, 60, 1)),
                                                 Text(
                                                   'วิตามิน',
                                                   style: TextStyle(
@@ -215,8 +310,49 @@ class VetFruitPage extends StatelessWidget {
                                   style: TextStyle(
                                       fontSize: 20,
                                       fontWeight: FontWeight.bold),
+                                              ],
+                                            ),
+                                            Text(
+                                              'แร่ธาตุ และใยอาหาร',
+                                              style: TextStyle(
+                                                  fontSize: 24,
+                                                  fontWeight: FontWeight.bold,
+                                                  color: Color.fromRGBO(
+                                                      21, 160, 60, 1)),
+                                            )
+                                          ],
+                                        ),
+                                      ),
+                                    )
+                                  ],
                                 ),
                               ),
+                            ),
+                          ),
+                        ),
+                      ),
+                      Expanded(
+                        flex: 4,
+                        child: SizedBox(
+                          width: MediaQuery.of(context).size.width,
+                          child: Stack(
+                            children: [
+                              const Align(
+                                alignment: AlignmentDirectional(0, -0.9),
+                                child: Text(
+                                  'ผักจัดแบ่งเป็น 2 ประเภท',
+                                  style: TextStyle(
+                                      fontSize: 20,
+                                      fontWeight: FontWeight.bold),
+                                ),
+                              ),
+                              const Align(
+                                alignment: AlignmentDirectional(0, -0.78),
+                                child: Text(
+                                  'ที่ให้พลังงานแตกต่างกัน',
+                                  style: TextStyle(
+                                      fontSize: 20,
+                                      fontWeight: FontWeight.bold),
                               const Align(
                                 alignment: AlignmentDirectional(0, -0.78),
                                 child: Text(
@@ -305,6 +441,48 @@ class VetFruitPage extends StatelessWidget {
                                   ),
                                 ),
                               ),
+                              Align(
+                                alignment: const AlignmentDirectional(0, 0.65),
+                                child: SizedBox(
+                                  width:
+                                      MediaQuery.of(context).size.width * 0.7,
+                                  height:
+                                      MediaQuery.of(context).size.height * 0.12,
+                                  child: Stack(
+                                    children: [
+                                      Align(
+                                        alignment:
+                                            const AlignmentDirectional(-0.6, 0),
+                                        child: Image.asset(
+                                          'assets/images/FlagNutrition/vegetable2.png',
+                                          width: 120,
+                                          height: 120,
+                                        ),
+                                      ),
+                                      Align(
+                                        alignment:
+                                            const AlignmentDirectional(0.6, 0),
+                                        child: Image.asset(
+                                          'assets/images/FlagNutrition/vegetable1.png',
+                                          width: 120,
+                                          height: 120,
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                              )
+                            ],
+                          ),
+                        ),
+                      )
+                    ],
+                  ),
+                ),
+              ],
+            ),
+          ),
+        ));
                               Align(
                                 alignment: const AlignmentDirectional(0, 0.65),
                                 child: SizedBox(
