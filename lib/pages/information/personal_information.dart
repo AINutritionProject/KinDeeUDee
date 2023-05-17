@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:appfood2/pages/home.dart';
 import 'package:appfood2/widgets/dropdown.dart';
 import 'package:appfood2/db.dart';
+import 'package:appfood2/pages/information/activity_form.dart';
 
 List<String> careers = <String>[
   "------------",
@@ -139,6 +140,9 @@ class _PersonalBodyState extends State<PersonalBody> {
                   onPressed: () {
                     setState(() {
                       name = _nameTextController.text;
+
+                      Navigator.of(context).push(MaterialPageRoute(
+                          builder: (context) => const ActivityForm()));
                     });
                   },
                   child: const Padding(
