@@ -68,7 +68,7 @@ class Auth {
       if (firebaseUser.additionalUserInfo!.isNewUser) {
         AppFoodUser appFoodUser = AppFoodUser(
             uid: firebaseUser.user!.uid,
-            username: null,
+            username: "",
             email: firebaseUser.user!.email ?? "email boom",
             fullName: firebaseUser.user!.displayName,
             hasData: false);
@@ -104,7 +104,6 @@ class AppFoodUser {
     return {
       "uid": uid,
       "email": email,
-      "photoUrl": photoUrl,
       "fullName": fullName,
       "phoneNumber": phoneNumber,
       "username": username,
