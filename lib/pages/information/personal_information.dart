@@ -17,7 +17,7 @@ List<String> careers = <String>[
 List<String> chronicDiseases = <String>[
   "-------------",
   "โรคเบาหวาน",
-  "โรคความดัยโลหิตสูง",
+  "โรคความดันโลหิตสูง",
   "โรคหัวใจ",
   "โรคโลหิตจาง",
   "โรคไต",
@@ -36,13 +36,11 @@ class PersonalInformation extends StatelessWidget {
       return SingleChildScrollView(
         child: ConstrainedBox(
           constraints: BoxConstraints(minHeight: constraints.maxHeight),
-          child: const IntrinsicHeight(
-            child: Column(
-              children: [
-                PersonalHeader(),
-                PersonalBody(),
-              ],
-            ),
+          child: const Column(
+            children: [
+              PersonalHeader(),
+              PersonalBody(),
+            ],
           ),
         ),
       );
@@ -345,8 +343,8 @@ class PersonalHeader extends StatefulWidget {
 class _PersonalHeaderState extends State<PersonalHeader> {
   @override
   Widget build(BuildContext context) {
-    return Expanded(
-      flex: 1,
+    return SizedBox(
+      height: 200,
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         crossAxisAlignment: CrossAxisAlignment.stretch,
