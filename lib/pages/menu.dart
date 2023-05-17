@@ -26,7 +26,7 @@ class MenuPage extends StatelessWidget {
             IconButton(
                 onPressed: () {
                   Navigator.of(context).push(MaterialPageRoute(
-                      builder: (context) => const AllFoodPage(
+                      builder: (context) => const RealAllFoodPage(
                             type: "Fruit",
                           )));
                 },
@@ -34,7 +34,8 @@ class MenuPage extends StatelessWidget {
             IconButton(
                 onPressed: () {
                   Navigator.of(context).push(MaterialPageRoute(
-                      builder: (context) => const AllFoodPage(type: "Flour")));
+                      builder: (context) =>
+                          const RealAllFoodPage(type: "Flour")));
                 },
                 icon: const Icon(Icons.tv)),
             ElevatedButton(
@@ -57,7 +58,8 @@ class MenuPage extends StatelessWidget {
                   onTap: () {
                     Navigator.of(context).push(
                       MaterialPageRoute(
-                        builder: (context) => const AllFoodPage(type: "Fruit"),
+                        builder: (context) =>
+                            const RealAllFoodPage(type: "Fruit"),
                       ),
                     );
                   },
@@ -65,7 +67,7 @@ class MenuPage extends StatelessWidget {
                     onTap: () {
                       Navigator.of(context).push(MaterialPageRoute(
                           builder: (context) =>
-                              const AllFoodPage(type: "Fruit")));
+                              const RealAllFoodPage(type: "Fruit")));
                     },
                     child: MenuTypeIcon(
                       name: "ผลไม้",
@@ -78,7 +80,8 @@ class MenuPage extends StatelessWidget {
                   onTap: () {
                     Navigator.of(context).push(
                       MaterialPageRoute(
-                        builder: (context) => const AllFoodPage(type: "Flour"),
+                        builder: (context) =>
+                            const RealAllFoodPage(type: "Flour"),
                       ),
                     );
                   },
