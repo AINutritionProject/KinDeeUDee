@@ -11,6 +11,47 @@ class Auth {
     await _firebaseAuth.signInAnonymously();
   }
 
+  Future<void> createUserWithEmailAndPassword(
+      String username, password, phoneNumber, email) async {
+    try {
+      UserCredential firebaseUser = await _firebaseAuth
+          .createUserWithEmailAndPassword(email: email, password: password);
+
+      AppFoodUser appFoodUser = AppFoodUser(
+        uid: firebaseUser.user!.uid,
+        email: email,
+        hasData: false,
+        username: username,
+        phoneNumber: phoneNumber,
+      );
+      await FirebaseFirestore.instance.collection("users").add(
+            appFoodUser.toMap(),
+          );
+    } catch (error) {
+      print("Got error when create user with email & password");
+      print(error);
+    }
+  }
+
+  Future<void> signInWithUsername(String username, String password) async {
+    try {
+      // get email from username
+      QuerySnapshot<Map<String, dynamic>> querySnapshot =
+          await FirebaseFirestore.instance
+              .collection("users")
+              .where("username", isEqualTo: username)
+              .get();
+      String email = querySnapshot.docs.first.get("email");
+
+      UserCredential firebaseUser = await _firebaseAuth
+          .signInWithEmailAndPassword(email: email, password: password);
+      print(firebaseUser.user!.uid);
+    } catch (error) {
+      print("Got error when sign in with username & password");
+      print(error);
+    }
+  }
+
   Future<void> signInWithGoogle(GoogleSignIn googleSignIn) async {
     try {
       GoogleSignInAccount? user = await googleSignIn.signIn();
