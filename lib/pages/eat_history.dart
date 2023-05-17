@@ -22,7 +22,14 @@ class _EatHistoryPageState extends State<EatHistoryPage> {
     List<HistorySlot> historySlots = [];
     for (var i = 0; i < historyData.docs.length; i++) {
       final history = historyData.docs[i];
-      historySlots.add(HistorySlot(number: i, image: history["foodPhoto"]));
+      historySlots.add(HistorySlot(
+        number: i,
+        image: history["foodPhoto"],
+        unit: history["unit"],
+        foodName: history["foodName"],
+        quantity: history["quantity"],
+        timestamp: history["timestamp"],
+      ));
     }
     return historySlots;
   }
@@ -109,13 +116,20 @@ class EatHistoryComponent extends StatelessWidget {
 }
 
 class HistorySlot extends StatefulWidget {
-  const HistorySlot({super.key, required this.number, required this.image});
+  const HistorySlot(
+      {super.key,
+      required this.number,
+      required this.image,
+      required this.foodName,
+      required this.quantity,
+      required this.timestamp,
+      required this.unit});
   final int number;
   final String image;
-  final String foodName = "ข้าวผัดกะเพรา";
-  final int quantity = 1;
-  final int timestamp = 1627777777;
-  final String unit = "จาน";
+  final String foodName;
+  final int quantity;
+  final int timestamp;
+  final String unit;
 
   @override
   State<HistorySlot> createState() => _HistorySlotState();
