@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:appfood2/pages/add_eat_history.dart';
 
 class EatHistoryPage extends StatelessWidget {
   const EatHistoryPage({super.key});
@@ -47,7 +48,10 @@ class EatHistoryPage extends StatelessWidget {
                     width: 10,
                   ),
                   GestureDetector(
-                    onTap: () {},
+                    onTap: () {
+                      Navigator.of(context).push(MaterialPageRoute(
+                          builder: (context) => const AddEatHistoryPage()));
+                    },
                     child: const Row(
                       children: [
                         FaIcon(
