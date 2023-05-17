@@ -119,7 +119,7 @@ class _LogInFormState extends State<LogInForm> {
                     style: TextStyle(
                         fontSize: 18,
                         fontWeight: FontWeight.w600,
-                        color: Colors.pinkAccent),
+                        color: Colors.deepOrange),
                   ),
                 )
               ],
