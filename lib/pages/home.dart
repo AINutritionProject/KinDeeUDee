@@ -6,6 +6,9 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:appfood2/pages/register_success.dart';
 import 'package:appfood2/pages/eat_history.dart';
+import 'package:firebase_storage/firebase_storage.dart';
+import 'package:image_picker/image_picker.dart';
+import 'dart:io';
 
 class Home extends StatefulWidget {
   final String username;
@@ -131,7 +134,7 @@ class _HomeState extends State<Home> {
               child: const MenuBlock(
                   menuName: 'ธงโภชนาการ',
                   innerColor: Colors.white,
-                  outerColor: Color.fromRGBO(197, 235, 246,1)),
+                  outerColor: Color.fromRGBO(197, 235, 246, 1)),
             ),
           ],
         ),
@@ -140,10 +143,30 @@ class _HomeState extends State<Home> {
   }
 }
 
-class UserAvatar extends StatelessWidget {
+class UserAvatar extends StatefulWidget {
   const UserAvatar({
     super.key,
   });
+
+  @override
+  State<UserAvatar> createState() => _UserAvatarState();
+}
+
+class _UserAvatarState extends State<UserAvatar> {
+  Future<void> _updateProfilePicture() async {
+    final picker = ImagePicker();
+    final filename = FirebaseAuth.instance.currentUser!.uid;
+    final pickedFile = await picker.pickImage(source: ImageSource.gallery);
+    if (pickedFile == null) return;
+    // get storage reference
+    final ref = FirebaseStorage.instance.ref().child("profile_pictures");
+    // upload file to storage
+    await ref.child(filename).putFile(File(pickedFile.path));
+    // get url
+    final url = await ref.child(filename).getDownloadURL();
+    // update user profile
+    await FirebaseAuth.instance.currentUser!.updatePhotoURL(url);
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -156,13 +179,19 @@ class UserAvatar extends StatelessWidget {
           shape: BoxShape.circle,
           color: Colors.green.shade200,
         ),
-        child: Center(
-          child: CircleAvatar(
-            backgroundColor: Colors.white,
-            foregroundImage: NetworkImage(
-                FirebaseAuth.instance.currentUser?.photoURL ??
-                    "https://avatars.githubusercontent.com/u/124413969?v=4"),
-            radius: 60,
+        child: GestureDetector(
+          onTap: () async {
+            await _updateProfilePicture();
+            setState(() {});
+          },
+          child: Center(
+            child: CircleAvatar(
+              backgroundColor: Colors.white,
+              foregroundImage: NetworkImage(
+                  FirebaseAuth.instance.currentUser?.photoURL ??
+                      "https://avatars.githubusercontent.com/u/124413969?v=4"),
+              radius: 60,
+            ),
           ),
         ),
       ),
