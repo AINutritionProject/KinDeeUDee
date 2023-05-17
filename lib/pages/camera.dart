@@ -26,8 +26,14 @@ class _CameraPageState extends State<CameraPage> {
     if (!context.mounted) {
       return;
     }
-    Navigator.of(context).push(
-        MaterialPageRoute(builder: (context) => EatConfirmPage(image: image)));
+    if (widget.replaceWhenNavigate) {
+      Navigator.of(context).pushReplacement(MaterialPageRoute(
+          builder: (context) => EatConfirmPage(image: image)));
+      return;
+    } else {
+      Navigator.of(context).push(MaterialPageRoute(
+          builder: (context) => EatConfirmPage(image: image)));
+    }
   }
 
   Future<void> getImageFromGallery() async {

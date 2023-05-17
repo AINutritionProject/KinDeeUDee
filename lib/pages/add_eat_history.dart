@@ -27,8 +27,9 @@ class _AddEatHistoryPageState extends State<AddEatHistoryPage> {
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
-          Navigator.of(context).push(
-              MaterialPageRoute(builder: (context) => const CameraPage()));
+          Navigator.of(context).push(MaterialPageRoute(
+              builder: (context) =>
+                  const CameraPage(replaceWhenNavigate: true)));
         },
         backgroundColor: Colors.orange,
         child: const Icon(
