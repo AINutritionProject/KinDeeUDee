@@ -71,7 +71,6 @@ class Auth {
             username: "",
             email: firebaseUser.user!.email ?? "email boom",
             fullName: firebaseUser.user!.displayName,
-            photoUrl: firebaseUser.user!.photoURL,
             hasData: false);
         await FirebaseFirestore.instance
             .collection("users")
@@ -105,7 +104,6 @@ class AppFoodUser {
     return {
       "uid": uid,
       "email": email,
-      "photoUrl": photoUrl,
       "fullName": fullName,
       "phoneNumber": phoneNumber,
       "username": username,
