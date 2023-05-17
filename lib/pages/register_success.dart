@@ -9,19 +9,52 @@ class RegisterSuccesPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(title: const Text("Register Success Page")),
-      body: Align(
-          alignment: Alignment.center,
-          child: FaIcon(
-            FontAwesomeIcons.circleCheck,
-            
-            color: Color.fromRGBO(65, 199, 175, 1),
-            size: 210,
-          )),
-      floatingActionButton: FloatingActionButton(
-        onPressed: () async {
-          Auth().signOut();
-        },
-        child: Icon(Icons.logout),
+      body: Column(
+        children: [
+          const Padding(
+            padding: EdgeInsets.only(top: 160),
+            child: FaIcon(
+              FontAwesomeIcons.circleCheck,
+              color: Color.fromRGBO(65, 199, 175, 1),
+              size: 190,
+            ),
+          ),
+          const Padding(
+              padding: EdgeInsets.only(top: 20),
+              child: Align(
+                  alignment: Alignment.center,
+                  child: Text("ลงทะเบียนสำเร็จ",
+                      style: TextStyle(
+                          color: Color.fromRGBO(118, 183, 68, 1),
+                          fontSize: 35,
+                          fontWeight: FontWeight.w600)))),
+          const Padding(
+              padding: EdgeInsets.only(top: 50, left: 30, right: 30),
+              child: SizedBox(
+                  width: double.infinity,
+                  height: 104,
+                  child: DecoratedBox(
+                    decoration: BoxDecoration(
+                      color: Color.fromRGBO(254, 158, 158, 1),
+                    ),
+                    child: Align(
+                      alignment: Alignment.center,
+                      child: Text(
+                        "กรอกข้อมูลส่วนตัว",
+                        style: TextStyle(
+                            fontSize: 35, fontWeight: FontWeight.w600),
+                      ),
+                    ),
+                  ))),
+          Padding(
+              padding: const EdgeInsets.only(top: 30),
+              child: ElevatedButton(
+                onPressed: () async {
+                  Auth().signOut();
+                },
+                child: const Icon(Icons.logout),
+              )),
+        ],
       ),
     );
   }
