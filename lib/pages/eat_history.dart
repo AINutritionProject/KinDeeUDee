@@ -1,79 +1,107 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:appfood2/pages/add_eat_history.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 
-class EatHistoryPage extends StatelessWidget {
+class EatHistoryPage extends StatefulWidget {
   const EatHistoryPage({super.key});
+
+  @override
+  State<EatHistoryPage> createState() => _EatHistoryPageState();
+}
+
+class _EatHistoryPageState extends State<EatHistoryPage> {
+  Future<List<HistorySlot>> _getHistoryData() async {
+    final uid = FirebaseAuth.instance.currentUser!.uid;
+    final historyData = await FirebaseFirestore.instance
+        .collection("eatHistory")
+        .where("uid", isEqualTo: uid)
+        .get();
+
+    List<HistorySlot> historySlots = [];
+    for (var i = 0; i < historyData.docs.length; i++) {
+      final history = historyData.docs[i];
+      historySlots.add(HistorySlot(number: i, image: history["foodPhoto"]));
+    }
+    return historySlots;
+  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(title: const Text("Eat History")),
-      body: SingleChildScrollView(
-        child: Column(
-          children: [
-            const HistorySlot(
-              number: 1,
-              image:
-                  "https://firebasestorage.googleapis.com/v0/b/app-food-60480.appspot.com/o/profile_pictures%2FiFUvBOrQo3QrChfhyTWsLYvJTrG3?alt=media&token=149d605b-903b-47af-9183-d93828195326",
-            ),
-            const HistorySlot(
-              number: 2,
-              image:
-                  "https://firebasestorage.googleapis.com/v0/b/app-food-60480.appspot.com/o/profile_pictures%2FiFUvBOrQo3QrChfhyTWsLYvJTrG3?alt=media&token=149d605b-903b-47af-9183-d93828195326",
-            ),
-            const HistorySlot(
-              number: 11,
-              image:
-                  "https://firebasestorage.googleapis.com/v0/b/app-food-60480.appspot.com/o/profile_pictures%2FiFUvBOrQo3QrChfhyTWsLYvJTrG3?alt=media&token=149d605b-903b-47af-9183-d93828195326",
-            ),
-            Container(
-              width: MediaQuery.of(context).size.width,
-              height: MediaQuery.of(context).size.height * 0.15,
-              color: Colors.red,
-              child: Row(
-                children: [
-                  Container(
-                    padding: const EdgeInsets.all(10),
-                    margin: const EdgeInsets.all(10),
-                    decoration: const BoxDecoration(
-                        shape: BoxShape.circle, color: Colors.white),
-                    child: const Text(
-                      "3",
-                      style:
-                          TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
-                    ),
+      body: FutureBuilder(
+        builder: (context, snapshot) {
+          if (snapshot.hasData) {
+            return EatHistoryComponent(historySlots: snapshot.data!);
+          } else if (snapshot.hasError) {
+            return Text("${snapshot.error} ?? `ERR`");
+          } else {
+            return const Center(child: CircularProgressIndicator());
+          }
+        },
+        future: _getHistoryData(),
+      ),
+    );
+  }
+}
+
+class EatHistoryComponent extends StatelessWidget {
+  const EatHistoryComponent({super.key, required this.historySlots});
+  final List<HistorySlot> historySlots;
+
+  @override
+  Widget build(BuildContext context) {
+    return SingleChildScrollView(
+      child: Column(
+        children: [
+          ...historySlots,
+          Container(
+            width: MediaQuery.of(context).size.width,
+            height: MediaQuery.of(context).size.height * 0.15,
+            color: Colors.red,
+            child: Row(
+              children: [
+                Container(
+                  padding: const EdgeInsets.all(10),
+                  margin: const EdgeInsets.all(10),
+                  decoration: const BoxDecoration(
+                      shape: BoxShape.circle, color: Colors.white),
+                  child: const Text(
+                    "3",
+                    style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
                   ),
-                  const SizedBox(
-                    width: 10,
+                ),
+                const SizedBox(
+                  width: 10,
+                ),
+                GestureDetector(
+                  onTap: () {
+                    Navigator.of(context).push(MaterialPageRoute(
+                        builder: (context) => const AddEatHistoryPage()));
+                  },
+                  child: const Row(
+                    children: [
+                      FaIcon(
+                        FontAwesomeIcons.plus,
+                        size: 35,
+                      ),
+                      SizedBox(
+                        width: 10,
+                      ),
+                      Text(
+                        "เพิ่มข้อมูล",
+                        style: TextStyle(
+                            fontSize: 30, fontWeight: FontWeight.bold),
+                      ),
+                    ],
                   ),
-                  GestureDetector(
-                    onTap: () {
-                      Navigator.of(context).push(MaterialPageRoute(
-                          builder: (context) => const AddEatHistoryPage()));
-                    },
-                    child: const Row(
-                      children: [
-                        FaIcon(
-                          FontAwesomeIcons.plus,
-                          size: 35,
-                        ),
-                        SizedBox(
-                          width: 10,
-                        ),
-                        Text(
-                          "เพิ่มข้อมูล",
-                          style: TextStyle(
-                              fontSize: 30, fontWeight: FontWeight.bold),
-                        ),
-                      ],
-                    ),
-                  )
-                ],
-              ),
-            )
-          ],
-        ),
+                )
+              ],
+            ),
+          )
+        ],
       ),
     );
   }
