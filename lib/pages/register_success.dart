@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:appfood2/auth.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:appfood2/pages/information/information.dart';
 
 class RegisterSuccesPage extends StatelessWidget {
   const RegisterSuccesPage({super.key});
@@ -35,8 +36,8 @@ class RegisterSuccesPage extends StatelessWidget {
                   height: 104,
                   child: DecoratedBox(
                     decoration: BoxDecoration(
-                      color: Color.fromRGBO(254, 158, 158, 1),
-                    ),
+                        color: Color.fromRGBO(254, 158, 158, 1),
+                        borderRadius: BorderRadius.all(Radius.circular(30))),
                     child: Align(
                       alignment: Alignment.center,
                       child: Text(
@@ -49,10 +50,11 @@ class RegisterSuccesPage extends StatelessWidget {
           Padding(
               padding: const EdgeInsets.only(top: 30),
               child: ElevatedButton(
-                onPressed: () async {
-                  Auth().signOut();
+                onPressed: () {
+                  Navigator.of(context).push(MaterialPageRoute(
+                      builder: (context) => const InformationPage()));
                 },
-                child: const Icon(Icons.logout),
+                child: const FaIcon(FontAwesomeIcons.angleRight),
               )),
         ],
       ),
