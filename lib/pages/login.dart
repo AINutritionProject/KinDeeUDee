@@ -2,7 +2,7 @@ import 'package:appfood2/auth.dart';
 import 'package:flutter/material.dart';
 import 'package:appfood2/pages/register.dart';
 import 'package:google_sign_in/google_sign_in.dart';
-import 'dart:math';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'dart:async';
 
 class LogInForm extends StatefulWidget {
@@ -21,12 +21,13 @@ class LoginPage extends StatefulWidget {
 
 class _LogInFormState extends State<LogInForm> {
   final _formKey = GlobalKey<FormState>();
-  final TextEditingController _emailController = TextEditingController();
+  final TextEditingController _usernameController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
 
   Future<void> _onLogin() async {
     if (_formKey.currentState!.validate()) {
-      await Auth().signInAnonymously();
+      await Auth().signInWithUsername(
+          _usernameController.text, _passwordController.text);
     }
   }
 
@@ -49,7 +50,7 @@ class _LogInFormState extends State<LogInForm> {
               ),
             ),
             TextFormField(
-              controller: _emailController,
+              controller: _usernameController,
               cursorHeight: 30,
               decoration: const InputDecoration(
                 border: UnderlineInputBorder(),
@@ -117,7 +118,7 @@ class _LogInFormState extends State<LogInForm> {
                     style: TextStyle(
                         fontSize: 18,
                         fontWeight: FontWeight.w600,
-                        color: Colors.pinkAccent),
+                        color: Colors.deepOrange),
                   ),
                 )
               ],
@@ -129,37 +130,14 @@ class _LogInFormState extends State<LogInForm> {
 
 class _LoginPageState extends State<LoginPage> {
   final GoogleSignIn _googleSignIn = GoogleSignIn();
-  Color _color = Colors.white;
-  Color _color2 = Colors.black;
-  late Timer _timer;
 
   // function to random color
-  void _randomColor() {
-    setState(() {
-      _color = Colors.primaries[Random().nextInt(Colors.primaries.length)];
-      _color2 = Colors.primaries[Random().nextInt(Colors.primaries.length)];
-    });
-  }
 
   // random backgroundColor every 0.2 second when start Widget
   @override
-  void initState() {
-    _timer = Timer.periodic(const Duration(milliseconds: 50), (timer) {
-      _randomColor();
-    });
-    super.initState();
-  }
-
-  @override
-  void dispose() {
-    _timer.cancel();
-    super.dispose();
-  }
-
-  @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: _color,
+      backgroundColor: const Color.fromRGBO(255, 251, 242, 1),
       body: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         mainAxisAlignment: MainAxisAlignment.center,
@@ -174,21 +152,50 @@ class _LoginPageState extends State<LoginPage> {
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 12),
             child: Container(
-              decoration: BoxDecoration(
-                  color: _color2,
-                  borderRadius: const BorderRadius.all(Radius.circular(30))),
+              decoration: const BoxDecoration(
+                  color: Color.fromRGBO(254, 246, 174, 1),
+                  borderRadius: BorderRadius.all(Radius.circular(30))),
               child: const LogInForm(),
             ),
           ),
-          Row(
-            children: [
-              ElevatedButton(
-                onPressed: () async {
-                  await Auth().signInWithGoogle(_googleSignIn);
-                },
-                child: const Text("Google"),
-              )
-            ],
+          Container(
+            margin: const EdgeInsets.symmetric(vertical: 10, horizontal: 20),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              mainAxisSize: MainAxisSize.max,
+              children: [
+                const FaIcon(
+                  FontAwesomeIcons.line,
+                  color: Colors.green,
+                  size: 35,
+                ),
+                const FaIcon(
+                  FontAwesomeIcons.squareFacebook,
+                  color: Colors.blue,
+                  size: 37,
+                ),
+                const FaIcon(
+                  FontAwesomeIcons.instagram,
+                  color: Colors.deepOrangeAccent,
+                  size: 37,
+                ),
+                GestureDetector(
+                  onTap: () async {
+                    await Auth().signInWithGoogle(_googleSignIn);
+                  },
+                  child: const FaIcon(
+                    FontAwesomeIcons.google,
+                    color: Colors.deepOrange,
+                    size: 34,
+                  ),
+                ),
+                const FaIcon(
+                  FontAwesomeIcons.envelope,
+                  color: Colors.indigo,
+                  size: 37,
+                )
+              ],
+            ),
           )
         ],
       ),

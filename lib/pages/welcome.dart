@@ -62,9 +62,9 @@ class WelcomePage extends StatelessWidget {
             const ImageLogo(),
             const AppLogo(),
             Container(
-              decoration: BoxDecoration(
-                  color: Colors.green.shade400,
-                  borderRadius: BorderRadius.circular(20)),
+              decoration: const BoxDecoration(
+                  color: Colors.lightGreen,
+                  borderRadius: BorderRadius.all(Radius.elliptical(300, 150))),
               padding: const EdgeInsets.all(10),
               child: GestureDetector(
                 onTap: () {
