@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:appfood2/pages/camera.dart';
 
 class AddEatHistoryPage extends StatefulWidget {
   const AddEatHistoryPage({super.key});
@@ -23,7 +24,10 @@ class _AddEatHistoryPageState extends State<AddEatHistoryPage> {
         title: const Text("Add eat history page"),
       ),
       floatingActionButton: FloatingActionButton(
-        onPressed: () {},
+        onPressed: () {
+          Navigator.of(context).push(
+              MaterialPageRoute(builder: (context) => const CameraPage()));
+        },
         backgroundColor: Colors.orange,
         child: const Icon(
           Icons.camera_alt,
