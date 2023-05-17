@@ -68,9 +68,10 @@ class EatHistoryComponent extends StatelessWidget {
                   margin: const EdgeInsets.all(10),
                   decoration: const BoxDecoration(
                       shape: BoxShape.circle, color: Colors.white),
-                  child: const Text(
-                    "3",
-                    style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+                  child: Text(
+                    historySlots.length.toString(),
+                    style: const TextStyle(
+                        fontSize: 20, fontWeight: FontWeight.bold),
                   ),
                 ),
                 const SizedBox(
