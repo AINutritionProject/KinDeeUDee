@@ -25,19 +25,6 @@ class _AddEatHistoryPageState extends State<AddEatHistoryPage> {
       appBar: AppBar(
         title: const Text("Add eat history page"),
       ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: () {
-          Navigator.of(context).push(MaterialPageRoute(
-              builder: (context) =>
-                  const CameraPage(replaceWhenNavigate: true)));
-        },
-        backgroundColor: Colors.orange,
-        child: const Icon(
-          Icons.camera_alt,
-          size: 35,
-        ),
-      ),
-      floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
       body: Container(
         margin: const EdgeInsets.symmetric(horizontal: 10),
         child: Column(
@@ -163,6 +150,18 @@ class _AddEatHistoryPageState extends State<AddEatHistoryPage> {
                 ),
               ),
             ),
+            Container(
+              decoration: const BoxDecoration(
+                  color: Colors.orange, shape: BoxShape.circle),
+              child: IconButton(
+                onPressed: () {
+                  Navigator.of(context).push(MaterialPageRoute(
+                      builder: (context) =>
+                          const CameraPage(replaceWhenNavigate: true)));
+                },
+                icon: const Icon(Icons.camera_alt, color: Colors.white),
+              ),
+            )
           ],
         ),
       ),
