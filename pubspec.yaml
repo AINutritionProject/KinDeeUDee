@@ -42,6 +42,8 @@ dependencies:
   csv: ^5.0.2
   google_sign_in: ^6.1.0
   firebase_auth: ^4.6.0
+
+
   camera: ^0.10.5
   cloud_firestore: ^4.7.0
 

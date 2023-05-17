@@ -4,7 +4,7 @@ import 'package:appfood2/pages/flag_nutrition.dart';
 import 'package:appfood2/auth.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:appfood2/pages/login_success.dart';
+import 'package:appfood2/pages/register_success.dart';
 import 'package:appfood2/pages/eat_history.dart';
 
 class Home extends StatefulWidget {
@@ -47,7 +47,7 @@ class _HomePageState extends State<HomePage> {
             //TODO:check that map value is not null
             return Home(username: snapshot.data?['username']);
           } else {
-            return const LoginSuccessPage();
+            return const RegisterSuccesPage();
           }
         } else {
           return const Center(
@@ -107,22 +107,10 @@ class _HomeState extends State<Home> {
                 Navigator.push(context,
                     MaterialPageRoute(builder: (context) => const MenuPage()));
               },
-              child: const Stack(
-                children: [
-                  MenuBlock(
-                    menuName: 'ค้นหาเมนู\n  อาหาร',
-                    innerColor: Colors.yellow,
-                    outerColor: Colors.greenAccent,
-                  ),
-                  Positioned(
-                      top: -20,
-                      right: 9,
-                      child: Icon(
-                        Icons.lightbulb,
-                        size: 100,
-                        color: Colors.yellow,
-                      ))
-                ],
+              child: MenuBlock(
+                menuName: 'ค้นหาเมนู\n  อาหาร',
+                innerColor: Colors.yellow.shade100,
+                outerColor: Colors.greenAccent.shade100,
               ),
             ),
             GestureDetector(
@@ -131,9 +119,9 @@ class _HomeState extends State<Home> {
                     builder: (context) => const EatHistoryPage()));
               },
               child: const MenuBlock(
-                  menuName: 'ประวัติการ\nรับประทานอาหาร',
-                  innerColor: Colors.yellowAccent,
-                  outerColor: Colors.red),
+                  menuName: 'ประวัติการรับประทานอาหาร',
+                  innerColor: Color.fromRGBO(255, 238, 225, 1),
+                  outerColor: Color.fromRGBO(240, 164, 164, 1)),
             ),
             GestureDetector(
               onTap: () {
@@ -143,7 +131,7 @@ class _HomeState extends State<Home> {
               child: const MenuBlock(
                   menuName: 'ธงโภชนาการ',
                   innerColor: Colors.white,
-                  outerColor: Colors.blueAccent),
+                  outerColor: Color.fromRGBO(197, 235, 246,1)),
             ),
           ],
         ),
@@ -159,38 +147,25 @@ class UserAvatar extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Stack(
-      children: [
-        Padding(
-          padding: const EdgeInsets.only(top: 10, left: 10),
-          child: Container(
-            width: 130,
-            height: 130,
-            decoration: BoxDecoration(
-              shape: BoxShape.circle,
-              color: Colors.green.shade200,
-            ),
-            child: Center(
-              child: CircleAvatar(
-                backgroundColor: Colors.white,
-                foregroundImage: NetworkImage(FirebaseAuth
-                        .instance.currentUser?.photoURL ??
+    return Padding(
+      padding: const EdgeInsets.only(top: 10, left: 10),
+      child: Container(
+        width: 130,
+        height: 130,
+        decoration: BoxDecoration(
+          shape: BoxShape.circle,
+          color: Colors.green.shade200,
+        ),
+        child: Center(
+          child: CircleAvatar(
+            backgroundColor: Colors.white,
+            foregroundImage: NetworkImage(
+                FirebaseAuth.instance.currentUser?.photoURL ??
                     "https://avatars.githubusercontent.com/u/124413969?v=4"),
-                radius: 60,
-              ),
-            ),
+            radius: 60,
           ),
         ),
-        const Positioned(
-          bottom: 10,
-          right: 3,
-          child: Icon(
-            Icons.edit_square,
-            size: 30,
-            color: Colors.grey,
-          ),
-        )
-      ],
+      ),
     );
   }
 }
@@ -204,23 +179,27 @@ class MenuBlock extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.all(20.0),
+    return Container(
+      margin: const EdgeInsets.only(top: 10, bottom: 5, left: 20, right: 20),
+      padding: const EdgeInsets.all(15),
+      decoration: BoxDecoration(
+        color: outerColor,
+        borderRadius: BorderRadius.circular(30),
+      ),
       child: Container(
-        padding: const EdgeInsets.all(30),
+        padding: const EdgeInsets.symmetric(vertical: 25),
         decoration: BoxDecoration(
-          color: outerColor,
-          borderRadius: BorderRadius.circular(20),
+          color: innerColor,
+          borderRadius: BorderRadius.circular(30),
         ),
-        child: Container(
-          padding: const EdgeInsets.symmetric(horizontal: 50, vertical: 25),
-          decoration: BoxDecoration(
-            color: innerColor,
-            borderRadius: BorderRadius.circular(10),
-          ),
-          child: Text(
-            menuName,
-            style: const TextStyle(fontSize: 50, fontWeight: FontWeight.bold),
+        child: Align(
+          alignment: Alignment.center,
+          child: Container(
+            margin: const EdgeInsets.symmetric(horizontal: 20),
+            child: Text(
+              menuName,
+              style: const TextStyle(fontSize: 30, fontWeight: FontWeight.bold),
+            ),
           ),
         ),
       ),
