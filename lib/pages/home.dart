@@ -151,38 +151,25 @@ class UserAvatar extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Stack(
-      children: [
-        Padding(
-          padding: const EdgeInsets.only(top: 10, left: 10),
-          child: Container(
-            width: 130,
-            height: 130,
-            decoration: BoxDecoration(
-              shape: BoxShape.circle,
-              color: Colors.green.shade200,
-            ),
-            child: Center(
-              child: CircleAvatar(
-                backgroundColor: Colors.white,
-                foregroundImage: NetworkImage(FirebaseAuth
-                        .instance.currentUser?.photoURL ??
+    return Padding(
+      padding: const EdgeInsets.only(top: 10, left: 10),
+      child: Container(
+        width: 130,
+        height: 130,
+        decoration: BoxDecoration(
+          shape: BoxShape.circle,
+          color: Colors.green.shade200,
+        ),
+        child: Center(
+          child: CircleAvatar(
+            backgroundColor: Colors.white,
+            foregroundImage: NetworkImage(
+                FirebaseAuth.instance.currentUser?.photoURL ??
                     "https://avatars.githubusercontent.com/u/124413969?v=4"),
-                radius: 60,
-              ),
-            ),
+            radius: 60,
           ),
         ),
-        const Positioned(
-          bottom: 10,
-          right: 3,
-          child: Icon(
-            Icons.edit_square,
-            size: 30,
-            color: Colors.grey,
-          ),
-        )
-      ],
+      ),
     );
   }
 }
