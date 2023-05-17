@@ -164,12 +164,31 @@ class _LoginPageState extends State<LoginPage> {
             child: Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
+                const FaIcon(
+                  FontAwesomeIcons.line,
+                  color: Colors.green,
+                ),
+                const FaIcon(
+                  FontAwesomeIcons.squareFacebook,
+                  color: Colors.blue,
+                  size: 27,
+                ),
+                const FaIcon(
+                  FontAwesomeIcons.instagram,
+                  color: Colors.deepOrangeAccent,
+                  size: 27,
+                ),
                 GestureDetector(
                   onTap: () async {
                     await Auth().signInWithGoogle(_googleSignIn);
                   },
                   child: const FaIcon(FontAwesomeIcons.google,
                       color: Colors.deepOrange),
+                ),
+                const FaIcon(
+                  FontAwesomeIcons.envelope,
+                  color: Colors.indigo,
+                  size: 27,
                 )
               ],
             ),
