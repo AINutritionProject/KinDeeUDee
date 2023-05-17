@@ -231,29 +231,37 @@ class VetFruitPage extends StatelessWidget {
                             ),
                             Align(
                               alignment: const AlignmentDirectional(-0.6, -0.4),
-                              child: Container(
-                                width: MediaQuery.of(context).size.width * 0.28,
-                                height: MediaQuery.of(context).size.height * 0.092,
-                                decoration: BoxDecoration(
-                                  color: const Color.fromRGBO(176, 243, 183, 1),
-                                  boxShadow: const [
-                                    BoxShadow(
-                                    blurRadius: 0,
-                                    color: Color.fromRGBO(141, 202, 147, 1),
-                                    offset: Offset(7, -7),
-                                    spreadRadius: 2.7
-                                    )
-                                  ],
-                                  borderRadius: BorderRadius.circular(20),
-                                  //shape: BoxShape.rectangle
-                                ),
-                                child: const Align(
-                                  alignment: AlignmentDirectional(0, -0.35),
-                                  child: Text(
-                                    'ผัก ก',
-                                    style: TextStyle(
-                                      fontSize: 32,
-                                      fontWeight: FontWeight.bold
+                              child: GestureDetector(
+                                onTap: () {
+                                  Navigator.of(context).push(MaterialPageRoute(
+                                      builder: (context) => const VetABPage(
+                                            type: "A",
+                                          )));
+                                },
+                                child: Container(
+                                  width: MediaQuery.of(context).size.width * 0.28,
+                                  height: MediaQuery.of(context).size.height * 0.092,
+                                  decoration: BoxDecoration(
+                                    color: const Color.fromRGBO(176, 243, 183, 1),
+                                    boxShadow: const [
+                                      BoxShadow(
+                                      blurRadius: 0,
+                                      color: Color.fromRGBO(141, 202, 147, 1),
+                                      offset: Offset(7, -7),
+                                      spreadRadius: 2.7
+                                      )
+                                    ],
+                                    borderRadius: BorderRadius.circular(20),
+                                    //shape: BoxShape.rectangle
+                                  ),
+                                  child: const Align(
+                                    alignment: AlignmentDirectional(0, -0.35),
+                                    child: Text(
+                                      'ผัก ก',
+                                      style: TextStyle(
+                                        fontSize: 32,
+                                        fontWeight: FontWeight.bold
+                                      ),
                                     ),
                                   ),
                                 ),
@@ -261,29 +269,37 @@ class VetFruitPage extends StatelessWidget {
                             ),
                             Align(
                               alignment: const AlignmentDirectional(0.6, -0.4),
-                              child: Container(
-                                width: MediaQuery.of(context).size.width * 0.28,
-                                height: MediaQuery.of(context).size.height * 0.092,
-                                decoration: BoxDecoration(
-                                  color: const Color.fromRGBO(245, 239, 178, 1),
-                                  boxShadow: const [
-                                    BoxShadow(
-                                    blurRadius: 0,
-                                    color: Color.fromRGBO(216, 210, 148, 1),
-                                    offset: Offset(7, -7),
-                                    spreadRadius: 2.7
-                                    )
-                                  ],
-                                  borderRadius: BorderRadius.circular(20),
-                                  
-                                ),
-                                child: const Align(
-                                  alignment: AlignmentDirectional(0, -0.45),
-                                  child: Text(
-                                    'ผัก ข',
-                                    style: TextStyle(
-                                      fontSize: 32,
-                                      fontWeight: FontWeight.bold
+                              child: GestureDetector(
+                                onTap: () {
+                                  Navigator.of(context).push(MaterialPageRoute(
+                                      builder: (context) => const VetABPage(
+                                            type: "A",
+                                          )));
+                                },
+                                child: Container(
+                                  width: MediaQuery.of(context).size.width * 0.28,
+                                  height: MediaQuery.of(context).size.height * 0.092,
+                                  decoration: BoxDecoration(
+                                    color: const Color.fromRGBO(245, 239, 178, 1),
+                                    boxShadow: const [
+                                      BoxShadow(
+                                      blurRadius: 0,
+                                      color: Color.fromRGBO(216, 210, 148, 1),
+                                      offset: Offset(7, -7),
+                                      spreadRadius: 2.7
+                                      )
+                                    ],
+                                    borderRadius: BorderRadius.circular(20),
+                                    
+                                  ),
+                                  child: const Align(
+                                    alignment: AlignmentDirectional(0, -0.45),
+                                    child: Text(
+                                      'ผัก ข',
+                                      style: TextStyle(
+                                        fontSize: 32,
+                                        fontWeight: FontWeight.bold
+                                      ),
                                     ),
                                   ),
                                 ),
