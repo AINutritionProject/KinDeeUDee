@@ -1,6 +1,7 @@
 import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:appfood2/pages/ai_output.dart';
 
 class EatConfirmPage extends StatelessWidget {
   const EatConfirmPage({super.key, required this.image});
@@ -31,7 +32,10 @@ class EatConfirmPage extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.spaceAround,
             children: [
               ElevatedButton(
-                onPressed: () {},
+                onPressed: () {
+                  Navigator.of(context).push(MaterialPageRoute(
+                      builder: (context) => const AIOutputPage()));
+                },
                 child: const Text("ใช่"),
               ),
               ElevatedButton(
