@@ -57,7 +57,7 @@ class EatConfirmPage extends StatelessWidget {
               ElevatedButton(
                 onPressed: () async {
                   await _saveEatHistory();
-                  Navigator.of(context).push(MaterialPageRoute(
+                  Navigator.of(context).pushReplacement(MaterialPageRoute(
                       builder: (context) => AIOutputPage(foodImage: image)));
                 },
                 child: const Text("ใช่"),
