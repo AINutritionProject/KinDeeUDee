@@ -36,8 +36,8 @@ class RegisterSuccesPage extends StatelessWidget {
                   height: 104,
                   child: DecoratedBox(
                     decoration: BoxDecoration(
-                      color: Color.fromRGBO(254, 158, 158, 1),
-                    ),
+                        color: Color.fromRGBO(254, 158, 158, 1),
+                        borderRadius: BorderRadius.all(Radius.circular(30))),
                     child: Align(
                       alignment: Alignment.center,
                       child: Text(
