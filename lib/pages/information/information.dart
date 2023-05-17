@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:appfood2/pages/information/personal_information.dart';
 import 'package:appfood2/pages/information/milk.dart';
+import 'package:appfood2/pages/information/bmi.dart';
 
 class InformationPage extends StatelessWidget {
   const InformationPage({super.key});
@@ -21,7 +22,13 @@ class InformationPage extends StatelessWidget {
               );
             },
             icon: const Icon(Icons.ten_k),
-          )
+          ),
+          IconButton(
+              onPressed: () {
+                Navigator.of(context).push(
+                    MaterialPageRoute(builder: (context) => const BMIPage()));
+              },
+              icon: const Icon(Icons.light_sharp))
         ],
       ),
       body: const Center(
