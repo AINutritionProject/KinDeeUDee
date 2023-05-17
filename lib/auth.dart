@@ -71,6 +71,7 @@ class Auth {
             username: "",
             email: firebaseUser.user!.email ?? "email boom",
             fullName: firebaseUser.user!.displayName,
+            photoUrl: firebaseUser.user!.photoURL,
             hasData: false);
         await FirebaseFirestore.instance
             .collection("users")
