@@ -31,7 +31,7 @@ class _AddEatHistoryPageState extends State<AddEatHistoryPage> {
             Align(
               alignment: Alignment.center,
               child: Padding(
-                padding: EdgeInsets.only(left: 55, right: 54, top: 5),
+                padding: const EdgeInsets.only(left: 55, right: 54, top: 5),
                 child: Container(
                   alignment: Alignment.bottomCenter,
                   width: double.infinity,
@@ -81,6 +81,7 @@ class _AddEatHistoryPageState extends State<AddEatHistoryPage> {
                       padding: const EdgeInsets.only(left: 52, right: 52),
                       child: TextFormField(
                         controller: _foodNameController,
+                        style: const TextStyle(fontSize: 20),
                       )),
                   Padding(
                     padding:
@@ -102,9 +103,12 @@ class _AddEatHistoryPageState extends State<AddEatHistoryPage> {
                   Padding(
                       padding: const EdgeInsets.only(left: 52, right: 52),
                       child: TextFormField(
-                          controller: _quantityController,
-                          keyboardType: TextInputType.number)),
+                        controller: _quantityController,
+                        keyboardType: TextInputType.number,
+                        style: const TextStyle(fontSize: 20),
+                      )),
                   Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       ListTile(
                         title: const Text("ผล"),
@@ -168,6 +172,7 @@ class _AddEatHistoryPageState extends State<AddEatHistoryPage> {
                   if (image == null) {
                     return;
                   }
+                  // ignore: use_build_context_synchronously
                   Navigator.of(context).push(MaterialPageRoute(
                       builder: (context) => EatConfirmPage(
                           image: image,
