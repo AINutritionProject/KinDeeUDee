@@ -42,6 +42,7 @@ class _RegisterFormState extends State<RegisterForm> {
       _phoneNumberController.text,
       _emailController.text,
     );
+    // ignore: use_build_context_synchronously
     Navigator.push(
       context,
       MaterialPageRoute(

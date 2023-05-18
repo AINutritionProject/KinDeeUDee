@@ -25,45 +25,85 @@ class _AddEatHistoryPageState extends State<AddEatHistoryPage> {
       appBar: AppBar(
         title: const Text("Add eat history page"),
       ),
-      body: Container(
-        margin: const EdgeInsets.symmetric(horizontal: 10),
+      body: SingleChildScrollView(
         child: Column(
           children: [
             Align(
               alignment: Alignment.center,
-              child: Container(
-                padding:
-                    const EdgeInsets.symmetric(vertical: 5, horizontal: 20),
-                decoration: BoxDecoration(
-                    color: Colors.lightBlue.shade100,
-                    borderRadius: BorderRadius.circular(20)),
-                child: const Column(
-                  children: [
-                    Text(
-                      "เพิ่มประวัติการ",
-                      style:
-                          TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
-                    ),
-                    Text(
-                      "รับประทานอาหาร",
-                      style:
-                          TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
-                    ),
-                  ],
+              child: Padding(
+                padding: EdgeInsets.only(left: 55, right: 54, top: 5),
+                child: Container(
+                  alignment: Alignment.bottomCenter,
+                  width: double.infinity,
+                  height: 116,
+                  decoration: BoxDecoration(
+                      color: const Color.fromRGBO(175, 236, 255, 1),
+                      borderRadius: BorderRadius.circular(50)),
+                  child: const Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Text(
+                        "เพิ่มประวัติการ",
+                        style: TextStyle(
+                            fontSize: 30, fontWeight: FontWeight.bold),
+                      ),
+                      Text(
+                        "รับประทานอาหาร",
+                        style: TextStyle(
+                            fontSize: 30, fontWeight: FontWeight.bold),
+                      ),
+                    ],
+                  ),
                 ),
               ),
             ),
             Form(
               child: Column(
                 children: [
-                  const Text("ชื่ออาหาร"),
-                  TextFormField(
-                    controller: _foodNameController,
+                  Padding(
+                    padding:
+                        const EdgeInsets.only(top: 28, left: 30, right: 200),
+                    child: Container(
+                      alignment: Alignment.center,
+                      width: double.infinity,
+                      height: 69,
+                      decoration: BoxDecoration(
+                          color: const Color.fromRGBO(255, 169, 90, 1),
+                          borderRadius: BorderRadius.circular(20.0)),
+                      child: const Text(
+                        "ชื่ออาหาร",
+                        style: TextStyle(
+                            fontSize: 30, fontWeight: FontWeight.w700),
+                      ),
+                    ),
                   ),
-                  const Text("ปริมาณ"),
-                  TextFormField(
-                      controller: _quantityController,
-                      keyboardType: TextInputType.number),
+                  Padding(
+                      padding: const EdgeInsets.only(left: 52, right: 52),
+                      child: TextFormField(
+                        controller: _foodNameController,
+                      )),
+                  Padding(
+                    padding:
+                        const EdgeInsets.only(top: 28, left: 30, right: 200),
+                    child: Container(
+                      alignment: Alignment.center,
+                      width: double.infinity,
+                      height: 69,
+                      decoration: BoxDecoration(
+                          color: const Color.fromRGBO(136, 158, 238, 1),
+                          borderRadius: BorderRadius.circular(20.0)),
+                      child: const Text(
+                        "ปริมาณ",
+                        style: TextStyle(
+                            fontSize: 30, fontWeight: FontWeight.w700),
+                      ),
+                    ),
+                  ),
+                  Padding(
+                      padding: const EdgeInsets.only(left: 52, right: 52),
+                      child: TextFormField(
+                          controller: _quantityController,
+                          keyboardType: TextInputType.number)),
                   Column(
                     children: [
                       ListTile(
