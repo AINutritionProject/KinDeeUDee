@@ -59,6 +59,7 @@ class _AddEatHistoryPageState extends State<AddEatHistoryPage> {
               ),
             ),
             Form(
+              key: _formKey,
               child: Column(
                 children: [
                   Padding(
@@ -164,6 +165,10 @@ class _AddEatHistoryPageState extends State<AddEatHistoryPage> {
               alignment: Alignment.centerLeft,
               child: GestureDetector(
                 onTap: () async {
+                  // validate form
+                  if (!_formKey.currentState!.validate()) {
+                    return;
+                  }
                   final ImagePicker picker = ImagePicker();
                   final XFile? image = await picker.pickImage(
                     source: ImageSource.gallery,
@@ -205,6 +210,10 @@ class _AddEatHistoryPageState extends State<AddEatHistoryPage> {
                   color: Colors.orange, shape: BoxShape.circle),
               child: IconButton(
                 onPressed: () {
+                  // validate form
+                  if (!_formKey.currentState!.validate()) {
+                    return;
+                  }
                   Navigator.of(context).push(MaterialPageRoute(
                       builder: (context) => CameraPage(
                           replaceWhenNavigate: true,
