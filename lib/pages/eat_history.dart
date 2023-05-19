@@ -57,17 +57,19 @@ class _EatHistoryPageState extends State<EatHistoryPage> {
 class EatHistoryComponent extends StatelessWidget {
   const EatHistoryComponent({super.key, required this.historySlots});
   final List<HistorySlot> historySlots;
-
   @override
   Widget build(BuildContext context) {
     return SingleChildScrollView(
       child: Column(
         children: [
+          
           ...historySlots,
           Container(
             width: MediaQuery.of(context).size.width,
             height: MediaQuery.of(context).size.height * 0.15,
-            color: Colors.red,
+            color: historySlots.length % 2 == 0
+                ? Colors.yellow.shade100
+                : Colors.green.shade200,
             child: Row(
               children: [
                 Container(

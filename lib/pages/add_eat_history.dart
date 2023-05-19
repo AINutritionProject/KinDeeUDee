@@ -14,8 +14,8 @@ class AddEatHistoryPage extends StatefulWidget {
 class _AddEatHistoryPageState extends State<AddEatHistoryPage> {
   final _formKey = GlobalKey<FormState>();
   final TextEditingController _foodNameController = TextEditingController();
-  final TextEditingController _quantityController =
-      TextEditingController(text: "1");
+  final TextEditingController _quantityController = TextEditingController();
+  String _unit = "1";
   final List<String> _radioValues = ["ผล", "ส่วน", "กรัม", "ขนาดพอคำ"];
   String _unit = "ผล";
 
@@ -82,9 +82,10 @@ class _AddEatHistoryPageState extends State<AddEatHistoryPage> {
                   Padding(
                       padding: const EdgeInsets.only(left: 52, right: 52),
                       child: TextFormField(
-                        controller: _foodNameController,
-                        style: const TextStyle(fontSize: 20),
-                      )),
+                          controller: _foodNameController,
+                          style: const TextStyle(fontSize: 20),
+                          decoration: const InputDecoration(
+                              contentPadding: EdgeInsets.only(left: 12)))),
                   Padding(
                     padding:
                         const EdgeInsets.only(top: 28, left: 30, right: 200),
@@ -105,10 +106,11 @@ class _AddEatHistoryPageState extends State<AddEatHistoryPage> {
                   Padding(
                       padding: const EdgeInsets.only(left: 52, right: 52),
                       child: TextFormField(
-                        controller: _quantityController,
-                        keyboardType: TextInputType.number,
-                        style: const TextStyle(fontSize: 20),
-                      )),
+                          controller: _quantityController,
+                          keyboardType: TextInputType.number,
+                          style: const TextStyle(fontSize: 20),
+                          decoration: const InputDecoration(
+                              contentPadding: EdgeInsets.only(left: 12)))),
                   Column(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
@@ -165,10 +167,6 @@ class _AddEatHistoryPageState extends State<AddEatHistoryPage> {
               alignment: Alignment.centerLeft,
               child: GestureDetector(
                 onTap: () async {
-                  // validate form
-                  if (!_formKey.currentState!.validate()) {
-                    return;
-                  }
                   final ImagePicker picker = ImagePicker();
                   final XFile? image = await picker.pickImage(
                     source: ImageSource.gallery,
@@ -206,6 +204,9 @@ class _AddEatHistoryPageState extends State<AddEatHistoryPage> {
               ),
             ),
             Container(
+              width: 100,
+              height: 100,
+              margin: EdgeInsets.only(bottom: 80),
               decoration: const BoxDecoration(
                   color: Colors.orange, shape: BoxShape.circle),
               child: IconButton(
@@ -221,7 +222,11 @@ class _AddEatHistoryPageState extends State<AddEatHistoryPage> {
                           quantiy: int.parse(_quantityController.text),
                           unit: _unit)));
                 },
-                icon: const Icon(Icons.camera_alt, color: Colors.white),
+                icon: const Icon(
+                  Icons.camera_alt,
+                  color: Colors.white,
+                  size: 75,
+                ),
               ),
             )
           ],
