@@ -16,8 +16,8 @@ class _AddEatHistoryPageState extends State<AddEatHistoryPage> {
   final TextEditingController _foodNameController = TextEditingController();
   final TextEditingController _quantityController =
       TextEditingController(text: "1");
-  String _unit = "1";
   final List<String> _radioValues = ["ผล", "ส่วน", "กรัม", "ขนาดพอคำ"];
+  String _unit = "ผล";
 
   @override
   Widget build(BuildContext context) {
