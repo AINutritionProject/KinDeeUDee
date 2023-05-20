@@ -7,14 +7,14 @@ class AppLogo extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      height: 500,
+      height: 325,
       width: 700,
       child: Stack(
         alignment: Alignment.center,
         children: [
           Positioned(
-            top: 175,
-            left: 150,
+            top: 105,
+            left: 130,
             child: Text(
               "กินดี",
               textAlign: TextAlign.left,
@@ -25,16 +25,20 @@ class AppLogo extends StatelessWidget {
               ),
             ),
           ),
-          const SizedBox(
-            width: 150,
-            child: Divider(
-              thickness: 3,
-              color: Colors.black,
-            ),
-          ),
+          Positioned(
+              top: 170,
+              left: 110,
+              child: Container(
+                width: 155,
+                alignment: Alignment.center,
+                child: const Divider(
+                  thickness: 3,
+                  color: Colors.black,
+                ),
+              )),
           const Positioned(
-            top: 225,
-            left: 250,
+            top: 155,
+            left: 215,
             child: Text(
               "อยู่ดี",
               style: TextStyle(
@@ -55,7 +59,8 @@ class WelcomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Container(
+        body: SafeArea(
+      child: Container(
         color: const Color(0xFFFAFFE6),
         child: Column(
           children: [
@@ -64,7 +69,7 @@ class WelcomePage extends StatelessWidget {
             Container(
               decoration: const BoxDecoration(
                   color: Colors.lightGreen,
-                  borderRadius: BorderRadius.all(Radius.elliptical(300, 150))),
+                  borderRadius: BorderRadius.all(Radius.elliptical(300, 220))),
               padding: const EdgeInsets.all(10),
               child: GestureDetector(
                 onTap: () {
@@ -83,7 +88,7 @@ class WelcomePage extends StatelessWidget {
           ],
         ),
       ),
-    );
+    ));
   }
 }
 
@@ -103,7 +108,7 @@ class ImageLogo extends StatelessWidget {
           ),
         ),
         Padding(
-          padding: const EdgeInsets.only(top: 25),
+          padding: const EdgeInsets.only(top: 25, left: 20),
           child: Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
@@ -119,8 +124,8 @@ class ImageLogo extends StatelessWidget {
               ),
               Image.asset(
                 "assets/images/mahidol.png",
-                width: 60,
-                height: 60,
+                width: 90,
+                height: 90,
               )
             ],
           ),
