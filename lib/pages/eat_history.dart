@@ -18,7 +18,6 @@ class _EatHistoryPageState extends State<EatHistoryPage> {
         .collection("eatHistory")
         .where("uid", isEqualTo: uid)
         .get();
-
     List<HistorySlot> historySlots = [];
     for (var i = 0; i < historyData.docs.length; i++) {
       final history = historyData.docs[i];
@@ -60,16 +59,126 @@ class EatHistoryComponent extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SingleChildScrollView(
-      child: Column(
+        child: SizedBox(
+            child: Column(children: [
+      SizedBox(
+          height: 122,
+          width: double.infinity,
+          child: DecoratedBox(
+              decoration:
+                  const BoxDecoration(color: Color.fromRGBO(255, 214, 113, 1)),
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.end,
+                children: [
+                  Row(
+                    children: [
+                      Padding(
+                        padding: const EdgeInsets.only(left: 15, right: 6),
+                        child: Container(
+                          width: 48,
+                          height: 48,
+                          decoration: const BoxDecoration(
+                              color: Color.fromRGBO(18, 109, 104, 1),
+                              shape: BoxShape.circle),
+                          child: const Icon(
+                            Icons.skip_previous,
+                            color: Colors.white,
+                            size: 35,
+                          ),
+                        ),
+                      ),
+                      Container(
+                          alignment: Alignment.center,
+                          width: 109,
+                          height: 41,
+                          decoration: BoxDecoration(
+                              color: const Color.fromRGBO(125, 144, 243, 1),
+                              borderRadius: BorderRadius.circular(20.0)),
+                          child: const Align(
+                            alignment: Alignment.center,
+                            child: Text(
+                              "เมนู",
+                              style: TextStyle(
+                                  fontSize: 24,
+                                  fontWeight: FontWeight.bold,
+                                  color: Colors.white),
+                            ),
+                          )),
+                    ],
+                  ),
+                  Padding(
+                    padding:
+                        const EdgeInsets.only(left: 44, right: 35, top: 10),
+                    child: Container(
+                        alignment: Alignment.center,
+                        width: double.infinity,
+                        height: 60,
+                        decoration: BoxDecoration(
+                            color: Colors.white,
+                            borderRadius: BorderRadius.circular(20.0)),
+                        child: const Align(
+                          alignment: Alignment.center,
+                          child: Text(
+                            "ประวัติการรับประทานอาหาร",
+                            style: TextStyle(
+                                fontSize: 24, fontWeight: FontWeight.bold),
+                          ),
+                        )),
+                  ),
+                ],
+              ))),
+      const SizedBox(
+          width: double.infinity,
+          height: 88,
+          child: DecoratedBox(
+            decoration: BoxDecoration(color: Color.fromRGBO(200, 211, 239, 1)),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Expanded(
+                    flex: 1,
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Text("วันที่",
+                            style: TextStyle(
+                                fontSize: 22, fontWeight: FontWeight.w700)),
+                      ],
+                    )),
+                Expanded(
+                    flex: 1,
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Text("เดือน",
+                            style: TextStyle(
+                                fontSize: 22, fontWeight: FontWeight.w700))
+                      ],
+                    )),
+                Expanded(
+                    flex: 1,
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Text(
+                          "ปี",
+                          style: TextStyle(
+                              fontSize: 22, fontWeight: FontWeight.w700),
+                        )
+                      ],
+                    ))
+              ],
+            ),
+          )),
+      Column(
         children: [
-          
           ...historySlots,
           Container(
-            width: MediaQuery.of(context).size.width,
-            height: MediaQuery.of(context).size.height * 0.15,
+            width: double.infinity,
+            height: 125,
             color: historySlots.length % 2 == 0
-                ? Colors.yellow.shade100
-                : Colors.green.shade200,
+                ? const Color.fromRGBO(134, 251, 166, 0.65)
+                : const Color.fromRGBO(221, 255, 231, 0.65),
             child: Row(
               children: [
                 Container(
@@ -78,7 +187,7 @@ class EatHistoryComponent extends StatelessWidget {
                   decoration: const BoxDecoration(
                       shape: BoxShape.circle, color: Colors.white),
                   child: Text(
-                    historySlots.length.toString(),
+                    (historySlots.length + 1).toString(),
                     style: const TextStyle(
                         fontSize: 20, fontWeight: FontWeight.bold),
                   ),
@@ -110,10 +219,10 @@ class EatHistoryComponent extends StatelessWidget {
                 )
               ],
             ),
-          )
+          ),
         ],
       ),
-    );
+    ])));
   }
 }
 
@@ -151,11 +260,11 @@ class _HistorySlotState extends State<HistorySlot> {
   Widget build(BuildContext context) {
     return Container(
       padding: const EdgeInsets.symmetric(vertical: 10),
-      width: MediaQuery.of(context).size.width * 1,
-      height: MediaQuery.of(context).size.height * 0.15,
+      width: double.infinity,
+      height: 125,
       color: widget.number % 2 == 0
-          ? Colors.yellow.shade100
-          : Colors.green.shade200,
+          ? const Color.fromRGBO(134, 251, 166, 0.65)
+          : const Color.fromRGBO(221, 255, 231, 0.65),
       child: Row(
         children: [
           Container(
@@ -164,7 +273,7 @@ class _HistorySlotState extends State<HistorySlot> {
             decoration: const BoxDecoration(
                 color: Colors.white, shape: BoxShape.circle),
             child: Text(
-              widget.number.toString(),
+              (widget.number + 1).toString(),
               style: const TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
             ),
           ),

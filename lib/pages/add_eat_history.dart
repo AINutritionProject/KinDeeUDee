@@ -17,8 +17,6 @@ class _AddEatHistoryPageState extends State<AddEatHistoryPage> {
   final TextEditingController _quantityController = TextEditingController();
   String _unit = "1";
   final List<String> _radioValues = ["ผล", "ส่วน", "กรัม", "ขนาดพอคำ"];
-  String _unit = "ผล";
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -36,7 +34,7 @@ class _AddEatHistoryPageState extends State<AddEatHistoryPage> {
                 child: Container(
                   alignment: Alignment.bottomCenter,
                   width: double.infinity,
-                  height: 116,
+                  height: 110,
                   decoration: BoxDecoration(
                       color: const Color.fromRGBO(175, 236, 255, 1),
                       borderRadius: BorderRadius.circular(50)),
@@ -63,12 +61,12 @@ class _AddEatHistoryPageState extends State<AddEatHistoryPage> {
               child: Column(
                 children: [
                   Padding(
-                    padding:
-                        const EdgeInsets.only(top: 28, left: 30, right: 200),
+                    padding: const EdgeInsets.only(
+                        top: 28, left: 30, right: 200, bottom: 15),
                     child: Container(
                       alignment: Alignment.center,
                       width: double.infinity,
-                      height: 69,
+                      height: 60,
                       decoration: BoxDecoration(
                           color: const Color.fromRGBO(255, 169, 90, 1),
                           borderRadius: BorderRadius.circular(20.0)),
@@ -87,12 +85,12 @@ class _AddEatHistoryPageState extends State<AddEatHistoryPage> {
                           decoration: const InputDecoration(
                               contentPadding: EdgeInsets.only(left: 12)))),
                   Padding(
-                    padding:
-                        const EdgeInsets.only(top: 28, left: 30, right: 200),
+                    padding: const EdgeInsets.only(
+                        top: 28, left: 30, right: 200, bottom: 15),
                     child: Container(
                       alignment: Alignment.center,
                       width: double.infinity,
-                      height: 69,
+                      height: 60,
                       decoration: BoxDecoration(
                           color: const Color.fromRGBO(136, 158, 238, 1),
                           borderRadius: BorderRadius.circular(20.0)),
@@ -114,50 +112,91 @@ class _AddEatHistoryPageState extends State<AddEatHistoryPage> {
                   Column(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      ListTile(
-                        title: const Text("ผล"),
-                        leading: Radio(
-                            value: _radioValues[0],
-                            groupValue: _unit,
-                            onChanged: (value) {
-                              setState(() {
-                                _unit = value.toString();
-                              });
-                            }),
-                      ),
-                      ListTile(
-                        title: const Text("ส่วน"),
-                        leading: Radio(
-                            value: _radioValues[1],
-                            groupValue: _unit,
-                            onChanged: (value) {
-                              setState(() {
-                                _unit = value.toString();
-                              });
-                            }),
-                      ),
-                      ListTile(
-                        title: const Text("กรัม"),
-                        leading: Radio(
-                            value: _radioValues[2],
-                            groupValue: _unit,
-                            onChanged: (value) {
-                              setState(() {
-                                _unit = value.toString();
-                              });
-                            }),
-                      ),
-                      ListTile(
-                        title: const Text("ขนาดพอคำ"),
-                        leading: Radio(
-                            value: _radioValues[3],
-                            groupValue: _unit,
-                            onChanged: (value) {
-                              setState(() {
-                                _unit = value.toString();
-                              });
-                            }),
-                      ),
+                      Padding(
+                          padding: const EdgeInsets.only(right: 50, top: 15),
+                          child: SizedBox(
+                            width: 150,
+                            child: ListTile(
+                              title: const Text(
+                                "ผล",
+                                style: TextStyle(
+                                    fontSize: 25, fontWeight: FontWeight.w700),
+                              ),
+                              leading: Radio(
+                                  activeColor: Colors.black,
+                                  value: _radioValues[0],
+                                  groupValue: _unit,
+                                  onChanged: (value) {
+                                    setState(() {
+                                      _unit = value.toString();
+                                    });
+                                  }),
+                            ),
+                          )),
+                      Padding(
+                          padding: const EdgeInsets.only(right: 50),
+                          child: SizedBox(
+                            width: 151,
+                            child: ListTile(
+                              title: const Text(
+                                "ส่วน",
+                                style: TextStyle(
+                                    fontSize: 25, fontWeight: FontWeight.w700),
+                              ),
+                              leading: Radio(
+                                  activeColor: Colors.black,
+                                  value: _radioValues[1],
+                                  groupValue: _unit,
+                                  onChanged: (value) {
+                                    setState(() {
+                                      _unit = value.toString();
+                                    });
+                                  }),
+                            ),
+                          )),
+                      Padding(
+                          padding: const EdgeInsets.only(right: 50),
+                          child: SizedBox(
+                            width: 151,
+                            child: ListTile(
+                              title: const Text(
+                                "กรัม",
+                                style: TextStyle(
+                                    fontSize: 25, fontWeight: FontWeight.w700),
+                              ),
+                              leading: Radio(
+                                  activeColor: Colors.black,
+                                  value: _radioValues[2],
+                                  groupValue: _unit,
+                                  onChanged: (value) {
+                                    setState(() {
+                                      _unit = value.toString();
+                                    });
+                                  }),
+                            ),
+                          )),
+                      Padding(
+                          padding: const EdgeInsets.only(left: 25, bottom: 15),
+                          child: Container(
+                            alignment: Alignment.bottomLeft,
+                            width: 225,
+                            child: ListTile(
+                              title: const Text(
+                                "ขนาดพอคำ",
+                                style: TextStyle(
+                                    fontSize: 25, fontWeight: FontWeight.w700),
+                              ),
+                              leading: Radio(
+                                  activeColor: Colors.black,
+                                  value: _radioValues[3],
+                                  groupValue: _unit,
+                                  onChanged: (value) {
+                                    setState(() {
+                                      _unit = value.toString();
+                                    });
+                                  }),
+                            ),
+                          )),
                     ],
                   )
                 ],
@@ -166,47 +205,56 @@ class _AddEatHistoryPageState extends State<AddEatHistoryPage> {
             Align(
               alignment: Alignment.centerLeft,
               child: GestureDetector(
-                onTap: () async {
-                  final ImagePicker picker = ImagePicker();
-                  final XFile? image = await picker.pickImage(
-                    source: ImageSource.gallery,
-                    maxWidth: 800,
-                    maxHeight: 800,
-                  );
-                  if (image == null) {
-                    return;
-                  }
-                  // ignore: use_build_context_synchronously
-                  Navigator.of(context).push(MaterialPageRoute(
-                      builder: (context) => EatConfirmPage(
-                          image: image,
-                          name: _foodNameController.text,
-                          quantity: int.parse(_quantityController.text),
-                          unit: _unit)));
-                },
-                child: Container(
-                  decoration: BoxDecoration(
-                      color: Colors.red.shade200,
-                      borderRadius: BorderRadius.circular(30)),
-                  padding:
-                      const EdgeInsets.symmetric(horizontal: 5, vertical: 5),
-                  child: const Row(
-                    mainAxisSize: MainAxisSize.min,
-                    children: [
-                      FaIcon(FontAwesomeIcons.arrowDown),
-                      SizedBox(
-                        width: 10,
+                  onTap: () async {
+                    final ImagePicker picker = ImagePicker();
+                    final XFile? image = await picker.pickImage(
+                      source: ImageSource.gallery,
+                      maxWidth: 800,
+                      maxHeight: 800,
+                    );
+                    if (image == null) {
+                      return;
+                    }
+                    // ignore: use_build_context_synchronously
+                    Navigator.of(context).push(MaterialPageRoute(
+                        builder: (context) => EatConfirmPage(
+                            image: image,
+                            name: _foodNameController.text,
+                            quantity: int.parse(_quantityController.text),
+                            unit: _unit)));
+                  },
+                  child: Padding(
+                    padding: const EdgeInsets.only(left: 63, bottom: 49),
+                    child: Container(
+                      width: 213,
+                      height: 48,
+                      alignment: Alignment.center,
+                      decoration: BoxDecoration(
+                          color: Colors.red.shade200,
+                          borderRadius: BorderRadius.circular(30)),
+                      padding: const EdgeInsets.symmetric(
+                          horizontal: 5, vertical: 5),
+                      child: const Row(
+                        mainAxisSize: MainAxisSize.min,
+                        children: [
+                          Padding(
+                            padding: EdgeInsets.only(right: 10),
+                            child: FaIcon(FontAwesomeIcons.arrowDown),
+                          ),
+                          Text(
+                            "นำเข้ารูปภาพ",
+                            style: TextStyle(
+                                fontSize: 25, fontWeight: FontWeight.w700),
+                          )
+                        ],
                       ),
-                      Text("นำเข้ารูปภาพ")
-                    ],
-                  ),
-                ),
-              ),
+                    ),
+                  )),
             ),
             Container(
               width: 100,
               height: 100,
-              margin: EdgeInsets.only(bottom: 80),
+              margin: EdgeInsets.only(bottom: 70),
               decoration: const BoxDecoration(
                   color: Colors.orange, shape: BoxShape.circle),
               child: IconButton(
