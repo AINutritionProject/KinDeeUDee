@@ -37,7 +37,7 @@ class Nutrition extends StatelessWidget {
       'imgTypeNutritionPath': "assets/images/NutritionImg/peanutcut.png"
     },
     {
-      'name':'เนื้อสัตว- ไข่',
+      'name':'เนื้อสัตว-ไข่',
       'nameAmount': 'ข้อนโต้ะ',
       'amountWiget': {
         7:SevenMeat(),
@@ -224,7 +224,7 @@ class SectionNutrition extends StatelessWidget {
                 //const Text('')
               ],
             ),
-            nameTypeNutrition == 'ข้าว-แป้ง' ? const Text('ไข่ 1 ฟอง = เนื้อสัตว์ 2 ช้อนโต๊ะ', style: TextStyle(fontSize: 20, fontWeight: FontWeight.w500),) : const SizedBox()
+            nameTypeNutrition == 'นื้อสัตว- ไข่' ? const Text('ไข่ 1 ฟอง = เนื้อสัตว์ 2 ช้อนโต๊ะ', style: TextStyle(fontSize: 20, fontWeight: FontWeight.w500),) : const SizedBox()
           ],
         )
         
