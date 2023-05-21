@@ -14,8 +14,9 @@ class AddEatHistoryPage extends StatefulWidget {
 class _AddEatHistoryPageState extends State<AddEatHistoryPage> {
   final _formKey = GlobalKey<FormState>();
   final TextEditingController _foodNameController = TextEditingController();
-  final TextEditingController _quantityController = TextEditingController();
-  String _unit = "1";
+  final TextEditingController _quantityController =
+      TextEditingController(text: '1');
+  String _unit = "ผล";
   final List<String> _radioValues = ["ผล", "ส่วน", "กรัม", "ขนาดพอคำ"];
   @override
   Widget build(BuildContext context) {
