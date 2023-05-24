@@ -1,3 +1,4 @@
+import 'package:appfood2/db.dart';
 import 'package:flutter/material.dart';
 import 'package:appfood2/pages/information/personal_information.dart';
 import 'package:appfood2/pages/information/milk.dart';
@@ -31,8 +32,17 @@ class InformationPage extends StatelessWidget {
               icon: const Icon(Icons.light_sharp))
         ],
       ),
-      body: const Center(
-        child: PersonalInformation(),
+      body: Center(
+        child: FutureBuilder(
+          builder: (context, snapshot) {
+            if (snapshot.hasData) {
+              return PersonalInformation(user: snapshot.data!);
+            } else {
+              return const Text("Loading wait a bit bro\nDon't be hasty wtf");
+            }
+          },
+          future: getUser(),
+        ),
       ),
     );
   }

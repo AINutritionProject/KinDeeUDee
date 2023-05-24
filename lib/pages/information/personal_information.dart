@@ -28,7 +28,11 @@ List<String> chronicDiseases = <String>[
 ];
 
 class PersonalInformation extends StatelessWidget {
-  const PersonalInformation({super.key});
+  final User user;
+  const PersonalInformation({
+    super.key,
+    required this.user,
+  });
 
   @override
   Widget build(BuildContext context) {
