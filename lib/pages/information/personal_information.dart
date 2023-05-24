@@ -71,12 +71,8 @@ class _PersonalBodyState extends State<PersonalBody> {
   final TextEditingController _heightTextController = TextEditingController();
   final TextEditingController _foodAllergyTextController =
       TextEditingController();
-  late String name;
-  late String gender;
-  late int age;
-  late double weight;
-  late double height;
-  late String foodAllergy;
+  String selectedCareer = "";
+  String selectedChronicDisease = "";
 
   @override
   void initState() {
@@ -124,8 +120,23 @@ class _PersonalBodyState extends State<PersonalBody> {
             leftTextInputType: TextInputType.number,
             rightTextInputType: TextInputType.number,
           ),
-          WideDropDown(data: careers, title: "อาชีพ"),
-          WideDropDown(data: chronicDiseases, title: "โรคประจำตัว"),
+          WideDropDown(
+              data: careers,
+              title: "อาชีพ",
+              setSelectedItem: (String val) {
+                setState(() {
+                  selectedCareer = val;
+                });
+              }),
+          WideDropDown(
+            data: chronicDiseases,
+            title: "โรคประจำตัว",
+            setSelectedItem: (String val) {
+              setState(() {
+                selectedChronicDisease = val;
+              });
+            },
+          ),
           OneChildTextField(
               textController: _foodAllergyTextController,
               textName: "ประวัติการแพ้อาหาร",
@@ -142,8 +153,14 @@ class _PersonalBodyState extends State<PersonalBody> {
                     ))),
                 onPressed: () {
                   setState(() {
-                    name = _nameTextController.text;
-
+                    widget.user.fullname = _nameTextController.text;
+                    widget.user.gender = _genderTextController.text;
+                    widget.user.age = int.parse(_ageTextController.text);
+                    widget.user.weight =
+                        double.parse(_weightTextController.text);
+                    widget.user.height =
+                        double.parse(_heightTextController.text);
+                    widget.user.foodAllergy = _foodAllergyTextController.text;
                     Navigator.of(context).push(MaterialPageRoute(
                         builder: (context) => const ActivityForm()));
                   });

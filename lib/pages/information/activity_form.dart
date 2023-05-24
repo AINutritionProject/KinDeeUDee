@@ -3,7 +3,7 @@ import 'package:appfood2/widgets/small_dropdown.dart';
 import 'package:appfood2/widgets/wide_dropdown.dart';
 
 List<String> frequency = ["1", "2", "3", "4", "5", "6", "7"];
-List<String> lightActivty = ["ดูโทรทัศน์", "นอนหลับ", "สวดมนต์"];
+List<String> lightActivities = ["ดูโทรทัศน์", "นอนหลับ", "สวดมนต์"];
 
 class ActivityForm extends StatefulWidget {
   const ActivityForm({super.key});
@@ -46,6 +46,10 @@ class ActivityFormBody extends StatefulWidget {
 
 class _ActivityFormBodyState extends State<ActivityFormBody> {
   String freq1 = frequency.first;
+  String lightActivity = "";
+  String mediumActivity = "";
+  String hardActivity = "";
+
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -65,8 +69,13 @@ class _ActivityFormBodyState extends State<ActivityFormBody> {
                 ),
               ),
               WideDropDown(
-                data: lightActivty,
+                data: lightActivities,
                 color: const Color(0xFFFFD7D7),
+                setSelectedItem: (String val) {
+                  setState(() {
+                    lightActivity = val;
+                  });
+                },
               ),
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
@@ -114,8 +123,13 @@ class _ActivityFormBodyState extends State<ActivityFormBody> {
                 ),
               ),
               WideDropDown(
-                data: lightActivty,
+                data: lightActivities,
                 color: const Color(0xFFFFD7D7),
+                setSelectedItem: (String val) {
+                  setState(() {
+                    mediumActivity = val;
+                  });
+                },
               ),
               const Align(
                 alignment: Alignment.centerLeft,
@@ -128,8 +142,13 @@ class _ActivityFormBodyState extends State<ActivityFormBody> {
                 ),
               ),
               WideDropDown(
-                data: lightActivty,
+                data: lightActivities,
                 color: const Color(0xFFFFD7D7),
+                setSelectedItem: (String val) {
+                  setState(() {
+                    hardActivity = val;
+                  });
+                },
               ),
             ],
           )
