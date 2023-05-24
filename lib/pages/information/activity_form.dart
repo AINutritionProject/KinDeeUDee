@@ -20,7 +20,7 @@ class _ActivityFormState extends State<ActivityForm> {
         return SingleChildScrollView(
           child: ConstrainedBox(
             constraints: BoxConstraints(minHeight: constraints.maxHeight),
-            child: Column(
+            child: const Column(
               children: [
                 ActivityFormHeader(),
                 ActivityFormBody(),
