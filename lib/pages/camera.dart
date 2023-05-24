@@ -4,7 +4,16 @@ import 'package:appfood2/pages/eat_confirm.dart';
 import 'package:camera/camera.dart';
 
 class CameraPage extends StatefulWidget {
-  const CameraPage({super.key});
+  const CameraPage(
+      {super.key,
+      required this.replaceWhenNavigate,
+      this.quantiy,
+      this.foodName,
+      this.unit});
+  final bool replaceWhenNavigate;
+  final int? quantiy;
+  final String? foodName;
+  final String? unit;
 
   @override
   State<CameraPage> createState() => _CameraPageState();
@@ -25,8 +34,22 @@ class _CameraPageState extends State<CameraPage> {
     if (!context.mounted) {
       return;
     }
-    Navigator.of(context).push(
-        MaterialPageRoute(builder: (context) => EatConfirmPage(image: image)));
+    if (widget.replaceWhenNavigate) {
+      Navigator.of(context).pushReplacement(MaterialPageRoute(
+          builder: (context) => EatConfirmPage(
+              image: image,
+              name: widget.foodName,
+              quantity: widget.quantiy,
+              unit: widget.unit)));
+      return;
+    } else {
+      Navigator.of(context).push(MaterialPageRoute(
+          builder: (context) => EatConfirmPage(
+              image: image,
+              name: widget.foodName,
+              quantity: widget.quantiy,
+              unit: widget.unit)));
+    }
   }
 
   Future<void> getImageFromGallery() async {
@@ -38,8 +61,13 @@ class _CameraPageState extends State<CameraPage> {
     if (!context.mounted) {
       return;
     }
-    Navigator.of(context).push(
-        MaterialPageRoute(builder: (context) => EatConfirmPage(image: image)));
+    Navigator.of(context).push(MaterialPageRoute(
+        builder: (context) => EatConfirmPage(
+              image: image,
+              quantity: widget.quantiy,
+              name: widget.foodName,
+              unit: widget.unit,
+            )));
   }
 
   @override
