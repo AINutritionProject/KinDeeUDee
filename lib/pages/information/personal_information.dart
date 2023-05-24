@@ -41,10 +41,10 @@ class PersonalInformation extends StatelessWidget {
       return SingleChildScrollView(
         child: ConstrainedBox(
           constraints: BoxConstraints(minHeight: constraints.maxHeight),
-          child: const Column(
+          child: Column(
             children: [
-              PersonalHeader(),
-              PersonalBody(),
+              PersonalHeader(user: user),
+              PersonalBody(user: user),
             ],
           ),
         ),
@@ -54,8 +54,10 @@ class PersonalInformation extends StatelessWidget {
 }
 
 class PersonalBody extends StatefulWidget {
+  final User user;
   const PersonalBody({
     super.key,
+    required this.user,
   });
   @override
   State<PersonalBody> createState() => _PersonalBodyState();
@@ -336,8 +338,10 @@ class _OneChildTextFieldState extends State<OneChildTextField> {
 }
 
 class PersonalHeader extends StatefulWidget {
+  final User user;
   const PersonalHeader({
     super.key,
+    required this.user,
   });
 
   @override
@@ -372,22 +376,12 @@ class _PersonalHeaderState extends State<PersonalHeader> {
                 Expanded(
                   flex: 1,
                   child: Container(
-                    alignment: Alignment.center,
-                    margin: const EdgeInsets.all(8.0),
-                    child: FutureBuilder(
-                      builder: (context, snapshot) {
-                        if (snapshot.hasData) {
-                          return Text(
-                            "\"${snapshot.data!.username}\"",
-                            style: const TextStyle(fontSize: 24),
-                          );
-                        } else {
-                          return const Text("");
-                        }
-                      },
-                      future: getUser(),
-                    ),
-                  ),
+                      alignment: Alignment.center,
+                      margin: const EdgeInsets.all(8.0),
+                      child: Text(
+                        "\"${widget.user.username}\"",
+                        style: const TextStyle(fontSize: 24),
+                      )),
                 ),
                 Expanded(
                   flex: 2,
