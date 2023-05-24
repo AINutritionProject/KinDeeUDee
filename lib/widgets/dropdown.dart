@@ -3,10 +3,12 @@ import 'package:flutter/material.dart';
 class WideDropDown extends StatefulWidget {
   final List<String> data;
   final String title;
+  final Color color;
   const WideDropDown({
     super.key,
     required this.data,
-    required this.title,
+    this.title = "",
+    this.color = Colors.white,
   });
 
   @override
@@ -18,32 +20,33 @@ class _WideDropDownState extends State<WideDropDown> {
   bool boxOpen = false;
 
   @override
-  void initState() {
-    selectedItem = widget.data.first;
-    super.initState();
-  }
-
-  @override
   Widget build(BuildContext context) {
     return Center(
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Padding(
-            padding:
-                const EdgeInsets.only(top: 20, left: 10, right: 10, bottom: 8),
-            child: Text(
-              widget.title,
-              style: const TextStyle(
-                fontSize: 24,
-              ),
-            ),
-          ),
+          LayoutBuilder(
+              builder: (BuildContext context, BoxConstraints constraints) {
+            if (widget.title != "") {
+              return Padding(
+                padding: const EdgeInsets.only(
+                    top: 20, left: 10, right: 10, bottom: 8),
+                child: Text(
+                  widget.title,
+                  style: const TextStyle(
+                    fontSize: 24,
+                  ),
+                ),
+              );
+            } else {
+              return Container();
+            }
+          }),
           ElevatedButton(
             style: ButtonStyle(
               shape: MaterialStatePropertyAll(RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(20))),
-              backgroundColor: const MaterialStatePropertyAll(Colors.white),
+              backgroundColor: MaterialStatePropertyAll(widget.color),
               elevation: const MaterialStatePropertyAll(0),
             ),
             onPressed: () {
@@ -70,9 +73,10 @@ class _WideDropDownState extends State<WideDropDown> {
                 child: Container(
                   width: constraint.maxWidth,
                   height: 200,
-                  decoration: const BoxDecoration(
-                      color: Colors.white,
-                      borderRadius: BorderRadius.all(Radius.circular(20))),
+                  decoration: BoxDecoration(
+                      color: widget.color,
+                      borderRadius:
+                          const BorderRadius.all(Radius.circular(20))),
                   child: Padding(
                     padding:
                         const EdgeInsets.only(right: 15, top: 10, bottom: 10),
@@ -85,12 +89,12 @@ class _WideDropDownState extends State<WideDropDown> {
                         itemCount: widget.data.length,
                         itemBuilder: (BuildContext context, int index) {
                           return ElevatedButton(
-                            style: const ButtonStyle(
-                              overlayColor:
-                                  MaterialStatePropertyAll(Color(0x11000000)),
-                              elevation: MaterialStatePropertyAll(0),
+                            style: ButtonStyle(
+                              overlayColor: const MaterialStatePropertyAll(
+                                  Color(0x11000000)),
+                              elevation: const MaterialStatePropertyAll(0),
                               backgroundColor:
-                                  MaterialStatePropertyAll(Colors.white),
+                                  MaterialStatePropertyAll(widget.color),
                               splashFactory: InkRipple.splashFactory,
                             ),
                             onPressed: () async {
@@ -126,5 +130,11 @@ class _WideDropDownState extends State<WideDropDown> {
         ],
       ),
     );
+  }
+
+  @override
+  void initState() {
+    selectedItem = widget.data.first;
+    super.initState();
   }
 }
