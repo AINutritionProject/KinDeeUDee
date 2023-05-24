@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:appfood2/pages/home.dart';
-import 'package:appfood2/widgets/dropdown.dart';
+import 'package:appfood2/widgets/wide_dropdown.dart';
 import 'package:appfood2/db.dart';
 import 'package:appfood2/pages/information/activity_form.dart';
 

@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:appfood2/widgets/dropdown.dart';
+import 'package:appfood2/widgets/wide_dropdown.dart';
 
 List<String> lightActivty = ["ดูโทรทัศน์", "นอนหลับ", "สวดมนต์"];
 
