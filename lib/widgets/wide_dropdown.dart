@@ -4,11 +4,13 @@ class WideDropDown extends StatefulWidget {
   final List<String> data;
   final String title;
   final Color color;
+  final Function(String val) setSelectedItem;
   const WideDropDown({
     super.key,
     required this.data,
     this.title = "",
     this.color = Colors.white,
+    required this.setSelectedItem,
   });
 
   @override
@@ -98,6 +100,7 @@ class _WideDropDownState extends State<WideDropDown> {
                               splashFactory: InkRipple.splashFactory,
                             ),
                             onPressed: () async {
+                              widget.setSelectedItem(widget.data[index]);
                               setState(() async {
                                 selectedItem = widget.data[index];
                                 Future.delayed(
