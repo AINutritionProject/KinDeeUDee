@@ -45,6 +45,7 @@ class ActivityFormBody extends StatefulWidget {
 }
 
 class _ActivityFormBodyState extends State<ActivityFormBody> {
+  String freq1 = frequency.first;
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -69,12 +70,37 @@ class _ActivityFormBodyState extends State<ActivityFormBody> {
               ),
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
-                crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  SmallDropDown(
-                    data: frequency,
-                    color: const Color(0xFFFFEBEB),
+                  Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Container(
+                      height: 40,
+                      color: const Color(0xFFFFEBEB),
+                      child: DropdownButton(
+                        icon: const Icon(Icons.arrow_drop_down),
+                        dropdownColor: const Color(0xFFFFEBEB),
+                        underline: Container(),
+                        elevation: 10,
+                        value: freq1,
+                        onChanged: (String? value) {
+                          setState(() {
+                            freq1 = value!;
+                          });
+                        },
+                        items: frequency
+                            .map<DropdownMenuItem<String>>((String value) {
+                          return DropdownMenuItem<String>(
+                            value: value,
+                            child: Text(value),
+                          );
+                        }).toList(),
+                      ),
+                    ),
                   ),
+                  // SmallDropDown(
+                  //   data: frequency,
+                  //   color: const Color(0xFFFFEBEB),
+                  // ),
                   const Text("ครั้ง/สัปดาห์"),
                 ],
               ),
