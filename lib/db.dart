@@ -20,14 +20,14 @@ class User {
   final bool hasData;
   final String username;
 
-  final String fullname;
-  final String gender;
-  final int age;
-  final double weight;
-  final double height;
-  final String career;
-  final String chronicDisease;
-  final String foodAllergy;
+  String fullname;
+  String gender;
+  int age;
+  double weight;
+  double height;
+  String career;
+  String chronicDisease;
+  String foodAllergy;
 
   User({
     required this.email,
