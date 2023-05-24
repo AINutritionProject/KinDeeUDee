@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:appfood2/widgets/dropdown.dart';
+
+List<String> lightActivty = ["ดูโทรทัศน์", "นอนหลับ", "สวดมนต์"];
 
 class ActivityForm extends StatefulWidget {
   const ActivityForm({super.key});
@@ -17,10 +20,10 @@ class _ActivityFormState extends State<ActivityForm> {
         return SingleChildScrollView(
           child: ConstrainedBox(
             constraints: BoxConstraints(minHeight: constraints.maxHeight),
-            child: const Column(
+            child: Column(
               children: [
-                Header(),
-                Body(),
+                ActivityFormHeader(),
+                ActivityFormBody(),
               ],
             ),
           ),
@@ -30,24 +33,75 @@ class _ActivityFormState extends State<ActivityForm> {
   }
 }
 
-class Body extends StatefulWidget {
-  const Body({
+class ActivityFormBody extends StatefulWidget {
+  const ActivityFormBody({
     super.key,
   });
 
   @override
-  State<Body> createState() => _BodyState();
+  State<ActivityFormBody> createState() => _ActivityFormBodyState();
 }
 
-class _BodyState extends State<Body> {
+class _ActivityFormBodyState extends State<ActivityFormBody> {
   @override
   Widget build(BuildContext context) {
-    return Text("Body");
+    return Padding(
+      padding: const EdgeInsets.all(20),
+      child: Column(
+        children: [
+          Column(
+            children: [
+              const Align(
+                alignment: Alignment.centerLeft,
+                child: Row(
+                  children: [
+                    Text("1. กิจกรรมระดับเบามาก",
+                        style: TextStyle(fontSize: 22)),
+                    Icon(Icons.question_mark_outlined),
+                  ],
+                ),
+              ),
+              WideDropDown(
+                data: lightActivty,
+                color: const Color(0xFFFFD7D7),
+              ),
+              const Align(
+                alignment: Alignment.centerLeft,
+                child: Row(
+                  children: [
+                    Text("2. กิจกรรมระดับเบา", style: TextStyle(fontSize: 22)),
+                    Icon(Icons.question_mark_outlined),
+                  ],
+                ),
+              ),
+              WideDropDown(
+                data: lightActivty,
+                color: const Color(0xFFFFD7D7),
+              ),
+              const Align(
+                alignment: Alignment.centerLeft,
+                child: Row(
+                  children: [
+                    Text("3. กิจกรรมระดับปานกลาง",
+                        style: TextStyle(fontSize: 22)),
+                    Icon(Icons.question_mark_outlined),
+                  ],
+                ),
+              ),
+              WideDropDown(
+                data: lightActivty,
+                color: const Color(0xFFFFD7D7),
+              ),
+            ],
+          )
+        ],
+      ),
+    );
   }
 }
 
-class Header extends StatelessWidget {
-  const Header({
+class ActivityFormHeader extends StatelessWidget {
+  const ActivityFormHeader({
     super.key,
   });
 
