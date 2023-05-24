@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:appfood2/widgets/small_dropdown.dart';
 import 'package:appfood2/widgets/wide_dropdown.dart';
 
+List<String> frequency = ["1", "2", "3", "4", "5", "6", "7"];
 List<String> lightActivty = ["ดูโทรทัศน์", "นอนหลับ", "สวดมนต์"];
 
 class ActivityForm extends StatefulWidget {
@@ -64,6 +66,17 @@ class _ActivityFormBodyState extends State<ActivityFormBody> {
               WideDropDown(
                 data: lightActivty,
                 color: const Color(0xFFFFD7D7),
+              ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  SmallDropDown(
+                    data: frequency,
+                    color: const Color(0xFFFFEBEB),
+                  ),
+                  const Text("ครั้ง/สัปดาห์"),
+                ],
               ),
               const Align(
                 alignment: Alignment.centerLeft,
