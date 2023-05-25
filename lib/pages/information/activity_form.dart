@@ -276,41 +276,38 @@ class ActivityFormHeader extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.all(8.0),
-      child: SizedBox(
-          height: 200,
-          child: Column(
-            children: [
-              Expanded(
-                  flex: 2,
-                  child: Align(
-                    alignment: Alignment.bottomCenter,
-                    child: Container(
-                      margin: const EdgeInsets.only(bottom: 10),
-                      decoration: BoxDecoration(
-                        color: const Color(0xFF1E807A),
-                        borderRadius: BorderRadius.circular(50),
-                      ),
-                      child: const Padding(
-                        padding:
-                            EdgeInsets.symmetric(vertical: 15, horizontal: 71),
-                        child: Text(
-                          "บันทึกกิจกรรม",
-                          style: TextStyle(color: Colors.white, fontSize: 36),
-                        ),
+    return SizedBox(
+        height: 170,
+        child: Column(
+          children: [
+            Expanded(
+                flex: 2,
+                child: Align(
+                  alignment: Alignment.bottomCenter,
+                  child: Container(
+                    margin: const EdgeInsets.only(bottom: 10),
+                    decoration: BoxDecoration(
+                      color: const Color(0xFF1E807A),
+                      borderRadius: BorderRadius.circular(50),
+                    ),
+                    child: const Padding(
+                      padding:
+                          EdgeInsets.symmetric(vertical: 15, horizontal: 71),
+                      child: Text(
+                        "บันทึกกิจกรรม",
+                        style: TextStyle(color: Colors.white, fontSize: 36),
                       ),
                     ),
-                  )),
-              const Expanded(
-                  flex: 1,
-                  child: Center(
-                      child: Text(
-                    "ของคุณ\"แจ่มใส\"",
-                    style: TextStyle(fontSize: 28),
-                  ))),
-            ],
-          )),
-    );
+                  ),
+                )),
+            const Expanded(
+                flex: 1,
+                child: Center(
+                    child: Text(
+                  "ของคุณ\"แจ่มใส\"",
+                  style: TextStyle(fontSize: 28),
+                ))),
+          ],
+        ));
   }
 }
