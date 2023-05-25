@@ -118,58 +118,77 @@ class ChemicalDetail extends StatelessWidget {
     return Row(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
-        Container(
-          padding: const EdgeInsets.all(30),
-          decoration: const BoxDecoration(
-            color: Colors.white,
-            shape: BoxShape.circle,
-          ),
-          child: Column(
-            children: [
-              const Text("พลังงาน"),
-              Text(
-                "$power",
-                style: const TextStyle(
-                    color: Colors.indigo, fontWeight: FontWeight.w900),
-              ),
-              const Text("กโลแคลอรี่"),
-            ],
-          ),
-        ),
-        Container(
-          padding: const EdgeInsets.all(30),
-          decoration: const BoxDecoration(
-            color: Colors.white,
-            shape: BoxShape.circle,
-          ),
-          child: Column(
-            children: [
-              const Text("ใยอาหาร"),
-              Text(
-                "$fiber",
-                style: const TextStyle(
-                    color: Colors.indigo, fontWeight: FontWeight.w900),
-              ),
-              const Text("กรัม"),
-            ],
+        Padding(
+          padding: const EdgeInsets.symmetric(vertical: 8 ,horizontal: 12),
+          child: Container(
+            //padding: const EdgeInsets.all(30),
+            
+            width: 100,
+            height: 100,
+            decoration: const BoxDecoration(
+              color: Colors.white,
+              shape: BoxShape.circle,
+            ),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                const Text("พลังงาน"),
+                Text(
+                  "$power",
+                  style: const TextStyle(
+                      color: Color.fromRGBO(9, 183, 173, 1), fontWeight: FontWeight.w900),
+                ),
+                const Text("กโลแคลอรี่"),
+              ],
+            ),
           ),
         ),
-        Container(
-          padding: const EdgeInsets.all(30),
-          decoration: const BoxDecoration(
-            color: Colors.white,
-            shape: BoxShape.circle,
+        Padding(
+          padding: const EdgeInsets.symmetric(vertical: 8 ,horizontal: 12),
+          child: Container(
+            //padding: const EdgeInsets.all(30),
+            width: 100,
+            height: 100,
+            decoration: const BoxDecoration(
+              color: Colors.white,
+              shape: BoxShape.circle,
+            ),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                const Text("ใยอาหาร"),
+                Text(
+                  "$fiber",
+                  style: const TextStyle(
+                      color: Color.fromRGBO(9, 183, 173, 1), fontWeight: FontWeight.w900),
+                ),
+                const Text("กรัม"),
+              ],
+            ),
           ),
-          child: Column(
-            children: [
-              const Text("น้ำตาล"),
-              Text(
-                "$sugar",
-                style: const TextStyle(
-                    color: Colors.deepOrange, fontWeight: FontWeight.w900),
-              ),
-              const Text("กรัม"),
-            ],
+        ),
+        Padding(
+          padding: const EdgeInsets.symmetric(vertical: 8 ,horizontal: 12),
+          child: Container(
+            //padding: const EdgeInsets.all(30),
+            width: 100,
+            height: 100,
+            decoration: const BoxDecoration(
+              color: Colors.white,
+              shape: BoxShape.circle,
+            ),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                const Text("น้ำตาล"),
+                Text(
+                  "$sugar",
+                  style: const TextStyle(
+                      color: Color.fromRGBO(255, 141, 35, 1), fontWeight: FontWeight.w900),
+                ),
+                const Text("กรัม"),
+              ],
+            ),
           ),
         ),
       ],

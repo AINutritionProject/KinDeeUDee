@@ -13,8 +13,9 @@ class MenuPage extends StatelessWidget {
         floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
         floatingActionButton: FloatingActionButton(
           onPressed: () {
-            Navigator.of(context).push(
-                MaterialPageRoute(builder: (context) => const CameraPage()));
+            Navigator.of(context).push(MaterialPageRoute(
+                builder: (context) =>
+                    const CameraPage(replaceWhenNavigate: false)));
           },
           child: const Icon(
             Icons.camera_alt,
