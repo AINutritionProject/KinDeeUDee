@@ -201,7 +201,7 @@ class _ActivityFormBodyState extends State<ActivityFormBody> {
               ),
             ),
             SizedBox(
-              width: 180,
+              width: 200,
               child: FloatingActionButton.extended(
                 icon:
                     const Icon(CupertinoIcons.plus_circle, color: Colors.black),
@@ -214,62 +214,87 @@ class _ActivityFormBodyState extends State<ActivityFormBody> {
                       context: context,
                       builder: (BuildContext context) {
                         return Dialog(
-                          backgroundColor: const Color(0xFFFFD18B),
+                          backgroundColor: const Color(0x00FFFFFF),
                           shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(30),
                           ),
-                          child: Padding(
-                            padding: const EdgeInsets.all(20.0),
-                            child: SizedBox(
-                              height: 214,
-                              child: Column(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceEvenly,
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  const Text(
-                                    "กิจกรรมที่ทำ",
-                                    style: TextStyle(fontSize: 22),
-                                  ),
-                                  const Padding(
-                                    padding:
-                                        EdgeInsets.symmetric(horizontal: 8.0),
-                                    child: TextField(
-                                      keyboardType: TextInputType.text,
-                                      style: TextStyle(fontSize: 18),
-                                      decoration: InputDecoration(
-                                          contentPadding: EdgeInsets.symmetric(
-                                              vertical: 0, horizontal: 20),
-                                          border: OutlineInputBorder(
-                                            borderSide: BorderSide.none,
-                                          ),
-                                          filled: true,
-                                          fillColor: Colors.white,
-                                          hintText: "พาสุนัขไปเดินเล่น",
-                                          hintStyle:
-                                              TextStyle(color: Colors.red)),
+                          child: Column(
+                            mainAxisSize: MainAxisSize.min,
+                            children: [
+                              Container(
+                                padding: const EdgeInsets.all(20.0),
+                                decoration: BoxDecoration(
+                                  color: const Color(0xFFFFD18B),
+                                  borderRadius: BorderRadius.circular(30),
+                                ),
+                                height: 200,
+                                child: Column(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceEvenly,
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    const Text(
+                                      "กิจกรรมที่ทำ",
+                                      style: TextStyle(fontSize: 22),
                                     ),
-                                  ),
-                                  Row(
-                                    mainAxisAlignment: MainAxisAlignment.start,
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.center,
-                                    children: [
-                                      const Text("จำนวน"),
-                                      SmallDropDown(
-                                          data: frequency,
-                                          setSelectedItem: (String val) {
-                                            setState(() {
-                                              tempActivity.frequency =
-                                                  int.parse(val);
-                                            });
-                                          }),
-                                      const Text("ครั้ง/สัปดาห์"),
-                                    ],
-                                  )
-                                ],
+                                    const Padding(
+                                      padding: EdgeInsets.symmetric(
+                                          horizontal: 8.0, vertical: 10),
+                                      child: TextField(
+                                        keyboardType: TextInputType.text,
+                                        style: TextStyle(fontSize: 18),
+                                        decoration: InputDecoration(
+                                            contentPadding:
+                                                EdgeInsets.symmetric(
+                                                    vertical: 0,
+                                                    horizontal: 20),
+                                            border: OutlineInputBorder(
+                                              borderSide: BorderSide.none,
+                                            ),
+                                            filled: true,
+                                            fillColor: Colors.white,
+                                            hintText: "พาสุนัขไปเดินเล่น",
+                                            hintStyle:
+                                                TextStyle(color: Colors.red)),
+                                      ),
+                                    ),
+                                    Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.start,
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.center,
+                                      children: [
+                                        const Text("จำนวน"),
+                                        SmallDropDown(
+                                            data: frequency,
+                                            setSelectedItem: (String val) {
+                                              setState(() {
+                                                tempActivity.frequency =
+                                                    int.parse(val);
+                                              });
+                                            }),
+                                        const Text("ครั้ง/สัปดาห์"),
+                                      ],
+                                    ),
+                                  ],
+                                ),
                               ),
-                            ),
+                              Padding(
+                                padding: const EdgeInsets.only(top: 20.0),
+                                child: ElevatedButton(
+                                    style: ButtonStyle(
+                                      shape: MaterialStatePropertyAll(
+                                          RoundedRectangleBorder(
+                                        borderRadius: BorderRadius.circular(20),
+                                      )),
+                                      backgroundColor:
+                                          const MaterialStatePropertyAll(
+                                              Color(0xFF7D90F3)),
+                                    ),
+                                    onPressed: () {},
+                                    child: const Text("เพิ่ม")),
+                              )
+                            ],
                           ),
                         );
                       });
