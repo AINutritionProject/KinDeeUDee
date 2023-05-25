@@ -126,35 +126,31 @@ class FoodIcons extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      decoration: const BoxDecoration(
-        color: Colors.white,
-        borderRadius: BorderRadius.all(
-          Radius.circular(30),
-        ),
-      ),
-      child: Stack(children: [
-        Padding(
-          padding: const EdgeInsets.all(8.0),
-          child: Container(
-            decoration: BoxDecoration(
-                color: Colors.white, borderRadius: BorderRadius.circular(40)),
-            child: const SizedBox(
-              width: 160,
-              height: 160,
+    return Column(
+      children: [
+        Container(
+          decoration: const BoxDecoration(
+            color: Colors.white,
+            borderRadius: BorderRadius.all(
+              Radius.circular(30),
             ),
           ),
+          child: Column(children: [
+            Align(
+              child: Container(
+                margin: EdgeInsets.only(top: 12, bottom: 12),
+                width: 100,
+                height: 100,
+                child: Image.asset(
+                  food.imageAssetPath,
+                  fit: BoxFit.scaleDown,
+                ),
+              ),
+            ),
+          ]),
         ),
-        Positioned(
-          height: 320,
-          width: 420,
-          left: -97,
-          top: -95,
-          child: Image.asset(food.imageAssetPath),
-        ),
-        Positioned(
-          bottom: -0,
-          left: 20,
+        Align(
+          alignment: const AlignmentDirectional(0, 1),
           child: Container(
             padding: const EdgeInsets.symmetric(horizontal: 40, vertical: 5),
             decoration: BoxDecoration(
@@ -171,7 +167,7 @@ class FoodIcons extends StatelessWidget {
             ),
           ),
         )
-      ]),
+      ],
     );
   }
 }
