@@ -50,6 +50,9 @@ class _ActivityFormBodyState extends State<ActivityFormBody> {
   String lightActivity = "";
   String mediumActivity = "";
   String hardActivity = "";
+  int lightFrequency = 1;
+  int mediumFrequency = 1;
+  int hardFrequency = 1;
 
   @override
   Widget build(BuildContext context) {
@@ -81,19 +84,26 @@ class _ActivityFormBodyState extends State<ActivityFormBody> {
                     });
                   },
                 ),
-                SmallDropDown(
-                  data: frequency,
-                  dropdownColor: const Color(0xFFFFEBEB),
-                  buttonColor: const Color(0xFFFFEBEB),
-                  setSelectedItem: (String val) {
-                    setState(() {
-                      lightActivity = val;
-                    });
-                  },
-                ),
-                const Text(
-                  "ครั้ง/สัปดาห์",
-                  style: TextStyle(fontSize: 22),
+                Padding(
+                  padding: const EdgeInsets.only(left: 40.0),
+                  child: Row(
+                    children: [
+                      SmallDropDown(
+                        data: frequency,
+                        dropdownColor: const Color(0xFFFFEBEB),
+                        buttonColor: const Color(0xFFFFEBEB),
+                        setSelectedItem: (String val) {
+                          setState(() {
+                            mediumFrequency = int.parse(val);
+                          });
+                        },
+                      ),
+                      const Text(
+                        "ครั้ง/สัปดาห์",
+                        style: TextStyle(fontSize: 22),
+                      ),
+                    ],
+                  ),
                 ),
               ],
             ),
@@ -118,6 +128,27 @@ class _ActivityFormBodyState extends State<ActivityFormBody> {
                 });
               },
             ),
+            Padding(
+              padding: const EdgeInsets.only(left: 40.0),
+              child: Row(
+                children: [
+                  SmallDropDown(
+                    data: frequency,
+                    dropdownColor: const Color(0xFFFFEBEB),
+                    buttonColor: const Color(0xFFFFEBEB),
+                    setSelectedItem: (String val) {
+                      setState(() {
+                        mediumFrequency = int.parse(val);
+                      });
+                    },
+                  ),
+                  const Text(
+                    "ครั้ง/สัปดาห์",
+                    style: TextStyle(fontSize: 22),
+                  ),
+                ],
+              ),
+            ),
             const Padding(
               padding: EdgeInsets.only(top: 10, bottom: 15),
               child: Align(
@@ -136,9 +167,30 @@ class _ActivityFormBodyState extends State<ActivityFormBody> {
               color: const Color(0xFFFFD7D7),
               setSelectedItem: (String val) {
                 setState(() {
-                  hardActivity = val;
+                  hardFrequency = int.parse(val);
                 });
               },
+            ),
+            Padding(
+              padding: const EdgeInsets.only(left: 40.0),
+              child: Row(
+                children: [
+                  SmallDropDown(
+                    data: frequency,
+                    dropdownColor: const Color(0xFFFFEBEB),
+                    buttonColor: const Color(0xFFFFEBEB),
+                    setSelectedItem: (String val) {
+                      setState(() {
+                        lightActivity = val;
+                      });
+                    },
+                  ),
+                  const Text(
+                    "ครั้ง/สัปดาห์",
+                    style: TextStyle(fontSize: 22),
+                  ),
+                ],
+              ),
             ),
             SizedBox(
               width: 180,
