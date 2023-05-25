@@ -1,6 +1,6 @@
-import 'package:flutter/material.dart';
-import 'package:appfood2/widgets/small_dropdown.dart';
 import 'package:appfood2/widgets/wide_dropdown.dart';
+import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 
 List<String> frequency = ["1", "2", "3", "4", "5", "6", "7"];
 List<String> lightActivities = ["ดูโทรทัศน์", "นอนหลับ", "สวดมนต์"];
@@ -58,14 +58,17 @@ class _ActivityFormBodyState extends State<ActivityFormBody> {
         children: [
           Column(
             children: [
-              const Align(
-                alignment: Alignment.centerLeft,
-                child: Row(
-                  children: [
-                    Text("1. กิจกรรมระดับเบามาก",
-                        style: TextStyle(fontSize: 22)),
-                    Icon(Icons.question_mark_outlined),
-                  ],
+              const Padding(
+                padding: EdgeInsets.only(top: 10, bottom: 15),
+                child: Align(
+                  alignment: Alignment.centerLeft,
+                  child: Row(
+                    children: [
+                      Text("1. กิจกรรมระดับเบามาก",
+                          style: TextStyle(fontSize: 22)),
+                      Icon(Icons.question_mark_outlined),
+                    ],
+                  ),
                 ),
               ),
               WideDropDown(
@@ -77,49 +80,60 @@ class _ActivityFormBodyState extends State<ActivityFormBody> {
                   });
                 },
               ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: Container(
-                      height: 40,
-                      color: const Color(0xFFFFEBEB),
-                      child: DropdownButton(
-                        icon: const Icon(Icons.arrow_drop_down),
-                        dropdownColor: const Color(0xFFFFEBEB),
-                        underline: Container(),
-                        elevation: 10,
-                        value: freq1,
-                        onChanged: (String? value) {
-                          setState(() {
-                            freq1 = value!;
-                          });
-                        },
-                        items: frequency
-                            .map<DropdownMenuItem<String>>((String value) {
-                          return DropdownMenuItem<String>(
-                            value: value,
-                            child: Text(value),
-                          );
-                        }).toList(),
+              Padding(
+                padding: const EdgeInsets.only(left: 30.0),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  children: [
+                    Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: Container(
+                        height: 40,
+                        color: const Color(0xFFFFEBEB),
+                        child: DropdownButton(
+                          padding: const EdgeInsets.all(7),
+                          icon: const Icon(Icons.arrow_drop_down),
+                          dropdownColor: const Color(0xFFFFEBEB),
+                          underline: Container(),
+                          elevation: 10,
+                          value: freq1,
+                          onChanged: (String? value) {
+                            setState(() {
+                              freq1 = value!;
+                            });
+                          },
+                          items: frequency
+                              .map<DropdownMenuItem<String>>((String value) {
+                            return DropdownMenuItem<String>(
+                              value: value,
+                              child: Text(value),
+                            );
+                          }).toList(),
+                        ),
                       ),
                     ),
-                  ),
-                  // SmallDropDown(
-                  //   data: frequency,
-                  //   color: const Color(0xFFFFEBEB),
-                  // ),
-                  const Text("ครั้ง/สัปดาห์"),
-                ],
-              ),
-              const Align(
-                alignment: Alignment.centerLeft,
-                child: Row(
-                  children: [
-                    Text("2. กิจกรรมระดับเบา", style: TextStyle(fontSize: 22)),
-                    Icon(Icons.question_mark_outlined),
+                    // SmallDropDown(
+                    //   data: frequency,
+                    //   color: const Color(0xFFFFEBEB),
+                    // ),
+                    const Text(
+                      "ครั้ง/สัปดาห์",
+                      style: TextStyle(fontSize: 22),
+                    ),
                   ],
+                ),
+              ),
+              const Padding(
+                padding: EdgeInsets.only(top: 10, bottom: 15),
+                child: Align(
+                  alignment: Alignment.centerLeft,
+                  child: Row(
+                    children: [
+                      Text("2. กิจกรรมระดับเบา",
+                          style: TextStyle(fontSize: 22)),
+                      Icon(Icons.question_mark_outlined),
+                    ],
+                  ),
                 ),
               ),
               WideDropDown(
@@ -131,14 +145,17 @@ class _ActivityFormBodyState extends State<ActivityFormBody> {
                   });
                 },
               ),
-              const Align(
-                alignment: Alignment.centerLeft,
-                child: Row(
-                  children: [
-                    Text("3. กิจกรรมระดับปานกลาง",
-                        style: TextStyle(fontSize: 22)),
-                    Icon(Icons.question_mark_outlined),
-                  ],
+              const Padding(
+                padding: EdgeInsets.only(top: 10, bottom: 15),
+                child: Align(
+                  alignment: Alignment.centerLeft,
+                  child: Row(
+                    children: [
+                      Text("3. กิจกรรมระดับปานกลาง",
+                          style: TextStyle(fontSize: 22)),
+                      Icon(Icons.question_mark_outlined),
+                    ],
+                  ),
                 ),
               ),
               WideDropDown(
@@ -150,6 +167,22 @@ class _ActivityFormBodyState extends State<ActivityFormBody> {
                   });
                 },
               ),
+              SizedBox(
+                width: 180,
+                child: FloatingActionButton.extended(
+                  icon: const Icon(CupertinoIcons.plus_circle,
+                      color: Colors.black),
+                  foregroundColor: const Color(0x11FFD18B),
+                  splashColor: const Color(0x11FFD18B),
+                  elevation: 0,
+                  backgroundColor: const Color(0x00000000),
+                  onPressed: () {},
+                  label: const Text(
+                    "เพิ่มกิจกรรม",
+                    style: TextStyle(color: Colors.black, fontSize: 22),
+                  ),
+                ),
+              )
             ],
           )
         ],
