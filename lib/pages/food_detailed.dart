@@ -45,57 +45,91 @@ class FoodDetailPage extends StatelessWidget {
               ),
             ),
           ),
-          ChemicalDetail(
-              power: detail.power, fiber: detail.fiber, sugar: detail.sugar),
-          Container(
-            decoration: BoxDecoration(
-                color: Colors.white, borderRadius: BorderRadius.circular(30)),
-            child: Column(
-              children: [
-                Container(
-                  padding:
-                      const EdgeInsets.symmetric(horizontal: 20, vertical: 5),
-                  decoration: BoxDecoration(
-                    color: Colors.pinkAccent,
-                    borderRadius: BorderRadius.circular(30),
-                  ),
-                  child: const Text(
-                    "ประโยชน์",
-                    style: TextStyle(
-                      fontWeight: FontWeight.bold,
-                      fontSize: 20,
+          const Padding(
+              padding: EdgeInsets.only(top: 10),
+              child: Text(
+                "ข้อมูลโภชนาการ",
+                style: TextStyle(
+                    fontSize: 28,
+                    fontWeight: FontWeight.w600,
+                    color: Color.fromRGBO(76, 36, 29, 1)),
+              )),
+          Padding(
+              padding: const EdgeInsets.only(top: 30),
+              child: ChemicalDetail(
+                  power: detail.power,
+                  fiber: detail.fiber,
+                  sugar: detail.sugar)),
+          Padding(
+              padding: const EdgeInsets.only(left: 13, right: 13, top: 30),
+              child: Container(
+                width: double.infinity,
+                decoration: BoxDecoration(
+                    color: Colors.white,
+                    borderRadius: BorderRadius.circular(30)),
+                child: Column(
+                  children: [
+                    Padding(
+                        padding: const EdgeInsets.only(top: 5),
+                        child: Container(
+                          padding: const EdgeInsets.symmetric(
+                              horizontal: 20, vertical: 5),
+                          decoration: BoxDecoration(
+                            color: const Color.fromRGBO(255, 194, 227, 1),
+                            borderRadius: BorderRadius.circular(30),
+                          ),
+                          child: const Text(
+                            "ประโยชน์",
+                            style: TextStyle(
+                              fontWeight: FontWeight.bold,
+                              fontSize: 22,
+                            ),
+                          ),
+                        )),
+                    Padding(
+                      padding: const EdgeInsets.only(bottom: 5),
+                      child: Container(
+                        margin: const EdgeInsets.symmetric(
+                            horizontal: 10, vertical: 10),
+                        child: Text(detail.benefit,
+                            style: const TextStyle(
+                                fontSize: 18,
+                                height: 1.75,
+                                fontWeight: FontWeight.w700),
+                            textAlign: TextAlign.center),
+                      ),
                     ),
-                  ),
+                  ],
                 ),
-                Container(
-                  margin:
-                      const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
-                  child: Text(detail.benefit),
+              )),
+          Padding(
+              padding: const EdgeInsets.only(
+                  left: 13, right: 13, top: 15, bottom: 18),
+              child: Container(
+                width: double.infinity,
+                decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(30),
+                    color: Colors.white),
+                padding: const EdgeInsets.only(
+                    top: 10, left: 20, right: 20, bottom: 20),
+                child: const Column(
+                  children: [
+                    Padding(
+                      padding: EdgeInsets.only(bottom: 10),
+                      child: Text(
+                        "กดที่นี่",
+                        style: TextStyle(
+                            decoration: TextDecoration.underline,
+                            fontSize: 20,
+                            fontWeight: FontWeight.bold),
+                      ),
+                    ),
+                    Text("เพื่อดูข้อมูลทางโภชนาการเพิ่มเติม",
+                        style: TextStyle(
+                            fontSize: 18, fontWeight: FontWeight.w600))
+                  ],
                 ),
-              ],
-            ),
-          ),
-          const SizedBox(
-            height: 15,
-          ),
-          Container(
-            decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(30), color: Colors.white),
-            padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 5),
-            child: const Column(
-              children: [
-                Text(
-                  "กดที่นี่",
-                  style: TextStyle(
-                      decoration: TextDecoration.underline,
-                      fontSize: 25,
-                      fontWeight: FontWeight.bold),
-                ),
-                Text("เพื่อดูข้อมูลทางโภชนาการเพิ่มเติม",
-                    style: TextStyle(fontSize: 20))
-              ],
-            ),
-          )
+              ))
         ]),
       ),
     );
@@ -115,64 +149,141 @@ class ChemicalDetail extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.center,
-      children: [
-        Container(
-          padding: const EdgeInsets.all(30),
-          decoration: const BoxDecoration(
-            color: Colors.white,
-            shape: BoxShape.circle,
+    return Padding(
+      padding: const EdgeInsets.only(left: 5, right: 5),
+      child: Row(
+        children: <Widget>[
+          Expanded(
+            flex: 1,
+            child: Container(
+                padding: const EdgeInsets.all(10),
+                child: Container(
+                  width: 126,
+                  height: 126,
+                  decoration: const BoxDecoration(
+                    color: Colors.white,
+                    shape: BoxShape.circle,
+                  ),
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      const Text(
+                        "พลังงาน",
+                        style: TextStyle(
+                            fontSize: 18, fontWeight: FontWeight.w700),
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.only(top: 5),
+                        child: Text(
+                          "$power",
+                          style: const TextStyle(
+                              color: Color.fromRGBO(9, 183, 173, 1),
+                              fontWeight: FontWeight.w900,
+                              fontSize: 26),
+                        ),
+                      ),
+                      const Padding(
+                        padding: EdgeInsets.only(bottom: 10),
+                        child: Text(
+                          "กิโลแคลอรี่",
+                          style: TextStyle(
+                              fontSize: 18, fontWeight: FontWeight.w700),
+                        ),
+                      ),
+                    ],
+                  ),
+                )),
           ),
-          child: Column(
-            children: [
-              const Text("พลังงาน"),
-              Text(
-                "$power",
-                style: const TextStyle(
-                    color: Colors.indigo, fontWeight: FontWeight.w900),
-              ),
-              const Text("กโลแคลอรี่"),
-            ],
+          Expanded(
+            flex: 1,
+            child: Container(
+                padding: const EdgeInsets.all(10),
+                child: Container(
+                  width: 126,
+                  height: 126,
+                  decoration: const BoxDecoration(
+                    color: Colors.white,
+                    shape: BoxShape.circle,
+                  ),
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      const Padding(
+                        padding: EdgeInsets.only(top: 5),
+                        child: Text(
+                          "ใยอาหาร",
+                          style: TextStyle(
+                              fontSize: 18, fontWeight: FontWeight.w700),
+                        ),
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.only(bottom: 2, top: 2),
+                        child: Text(
+                          "$fiber",
+                          style: const TextStyle(
+                              color: Color.fromRGBO(9, 183, 173, 1),
+                              fontWeight: FontWeight.w900,
+                              fontSize: 26),
+                        ),
+                      ),
+                      const Padding(
+                        padding: EdgeInsets.only(bottom: 5),
+                        child: Text(
+                          "กรัม",
+                          style: TextStyle(
+                              fontSize: 18, fontWeight: FontWeight.w700),
+                        ),
+                      ),
+                    ],
+                  ),
+                )),
           ),
-        ),
-        Container(
-          padding: const EdgeInsets.all(30),
-          decoration: const BoxDecoration(
-            color: Colors.white,
-            shape: BoxShape.circle,
+          Expanded(
+            flex: 1,
+            child: Container(
+                padding: const EdgeInsets.all(10),
+                child: Container(
+                  width: 126,
+                  height: 126,
+                  decoration: const BoxDecoration(
+                    color: Colors.white,
+                    shape: BoxShape.circle,
+                  ),
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      const Padding(
+                        padding: EdgeInsets.only(top: 5),
+                        child: Text(
+                          "น้ำตาล",
+                          style: TextStyle(
+                              fontSize: 18, fontWeight: FontWeight.w700),
+                        ),
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.only(bottom: 2, top: 2),
+                        child: Text(
+                          "$sugar",
+                          style: const TextStyle(
+                              color: Color.fromRGBO(255, 141, 35, 1),
+                              fontWeight: FontWeight.w900,
+                              fontSize: 26),
+                        ),
+                      ),
+                      const Padding(
+                        padding: EdgeInsets.only(bottom: 10),
+                        child: Text(
+                          "กรัม",
+                          style: TextStyle(
+                              fontSize: 18, fontWeight: FontWeight.w700),
+                        ),
+                      ),
+                    ],
+                  ),
+                )),
           ),
-          child: Column(
-            children: [
-              const Text("ใยอาหาร"),
-              Text(
-                "$fiber",
-                style: const TextStyle(
-                    color: Colors.indigo, fontWeight: FontWeight.w900),
-              ),
-              const Text("กรัม"),
-            ],
-          ),
-        ),
-        Container(
-          padding: const EdgeInsets.all(30),
-          decoration: const BoxDecoration(
-            color: Colors.white,
-            shape: BoxShape.circle,
-          ),
-          child: Column(
-            children: [
-              const Text("น้ำตาล"),
-              Text(
-                "$sugar",
-                style: const TextStyle(
-                    color: Colors.deepOrange, fontWeight: FontWeight.w900),
-              ),
-              const Text("กรัม"),
-            ],
-          ),
-        ),
-      ],
+        ],
+      ),
     );
   }
 }
