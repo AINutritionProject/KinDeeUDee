@@ -60,6 +60,7 @@ class _ActivityFormBodyState extends State<ActivityFormBody> {
     Activity(name: "", frequency: 1),
     Activity(name: "", frequency: 1),
   ];
+  Activity tempActivity = Activity(name: "", frequency: 1);
 
   @override
   Widget build(BuildContext context) {
@@ -257,7 +258,12 @@ class _ActivityFormBodyState extends State<ActivityFormBody> {
                                       const Text("จำนวน"),
                                       SmallDropDown(
                                           data: frequency,
-                                          setSelectedItem: setSelectedItem),
+                                          setSelectedItem: (String val) {
+                                            setState(() {
+                                              tempActivity.frequency =
+                                                  int.parse(val);
+                                            });
+                                          }),
                                       const Text("ครั้ง/สัปดาห์"),
                                     ],
                                   )

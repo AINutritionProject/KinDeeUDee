@@ -99,9 +99,9 @@ class _WideDropDownState extends State<WideDropDown> {
                                   MaterialStatePropertyAll(widget.color),
                               splashFactory: InkRipple.splashFactory,
                             ),
-                            onPressed: () async {
+                            onPressed: () {
                               widget.setSelectedItem(widget.data[index]);
-                              setState(() async {
+                              setState(() {
                                 selectedItem = widget.data[index];
                                 Future.delayed(
                                     const Duration(milliseconds: 100), () {
