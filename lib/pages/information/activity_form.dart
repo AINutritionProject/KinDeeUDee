@@ -1,4 +1,5 @@
 import 'package:appfood2/widgets/wide_dropdown.dart';
+import 'package:appfood2/widgets/small_dropdown.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
@@ -53,141 +54,166 @@ class _ActivityFormBodyState extends State<ActivityFormBody> {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.all(20),
-      child: Column(
-        children: [
-          Column(
-            children: [
-              const Padding(
-                padding: EdgeInsets.only(top: 10, bottom: 15),
-                child: Align(
-                  alignment: Alignment.centerLeft,
-                  child: Row(
-                    children: [
-                      Text("1. กิจกรรมระดับเบามาก",
-                          style: TextStyle(fontSize: 22)),
-                      Icon(Icons.question_mark_outlined),
-                    ],
+        padding: const EdgeInsets.all(20),
+        child: Column(
+          children: [
+            Column(
+              children: [
+                const Padding(
+                  padding: EdgeInsets.only(top: 10, bottom: 15),
+                  child: Align(
+                    alignment: Alignment.centerLeft,
+                    child: Row(
+                      children: [
+                        Text("1. กิจกรรมระดับเบามาก",
+                            style: TextStyle(fontSize: 22)),
+                        Icon(Icons.question_mark_outlined),
+                      ],
+                    ),
                   ),
                 ),
-              ),
-              WideDropDown(
-                data: lightActivities,
-                color: const Color(0xFFFFD7D7),
-                setSelectedItem: (String val) {
-                  setState(() {
-                    lightActivity = val;
-                  });
-                },
-              ),
-              Padding(
-                padding: const EdgeInsets.only(left: 30.0),
+                WideDropDown(
+                  data: lightActivities,
+                  color: const Color(0xFFFFD7D7),
+                  setSelectedItem: (String val) {
+                    setState(() {
+                      lightActivity = val;
+                    });
+                  },
+                ),
+                SmallDropDown(
+                  data: frequency,
+                  dropdownColor: const Color(0xFFFFEBEB),
+                  buttonColor: const Color(0xFFFFEBEB),
+                  setSelectedItem: (String val) {
+                    setState(() {
+                      lightActivity = val;
+                    });
+                  },
+                ),
+                const Text(
+                  "ครั้ง/สัปดาห์",
+                  style: TextStyle(fontSize: 22),
+                ),
+              ],
+            ),
+            const Padding(
+              padding: EdgeInsets.only(top: 10, bottom: 15),
+              child: Align(
+                alignment: Alignment.centerLeft,
                 child: Row(
-                  mainAxisAlignment: MainAxisAlignment.start,
                   children: [
-                    Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: Container(
-                        height: 40,
-                        color: const Color(0xFFFFEBEB),
-                        child: DropdownButton(
-                          padding: const EdgeInsets.all(7),
-                          icon: const Icon(Icons.arrow_drop_down),
-                          dropdownColor: const Color(0xFFFFEBEB),
-                          underline: Container(),
-                          elevation: 10,
-                          value: freq1,
-                          onChanged: (String? value) {
-                            setState(() {
-                              freq1 = value!;
-                            });
-                          },
-                          items: frequency
-                              .map<DropdownMenuItem<String>>((String value) {
-                            return DropdownMenuItem<String>(
-                              value: value,
-                              child: Text(value),
-                            );
-                          }).toList(),
-                        ),
-                      ),
-                    ),
-                    // SmallDropDown(
-                    //   data: frequency,
-                    //   color: const Color(0xFFFFEBEB),
-                    // ),
-                    const Text(
-                      "ครั้ง/สัปดาห์",
-                      style: TextStyle(fontSize: 22),
-                    ),
+                    Text("2. กิจกรรมระดับเบา", style: TextStyle(fontSize: 22)),
+                    Icon(Icons.question_mark_outlined),
                   ],
                 ),
               ),
-              const Padding(
-                padding: EdgeInsets.only(top: 10, bottom: 15),
-                child: Align(
-                  alignment: Alignment.centerLeft,
-                  child: Row(
-                    children: [
-                      Text("2. กิจกรรมระดับเบา",
-                          style: TextStyle(fontSize: 22)),
-                      Icon(Icons.question_mark_outlined),
-                    ],
-                  ),
+            ),
+            WideDropDown(
+              data: lightActivities,
+              color: const Color(0xFFFFD7D7),
+              setSelectedItem: (String val) {
+                setState(() {
+                  mediumActivity = val;
+                });
+              },
+            ),
+            const Padding(
+              padding: EdgeInsets.only(top: 10, bottom: 15),
+              child: Align(
+                alignment: Alignment.centerLeft,
+                child: Row(
+                  children: [
+                    Text("3. กิจกรรมระดับปานกลาง",
+                        style: TextStyle(fontSize: 22)),
+                    Icon(Icons.question_mark_outlined),
+                  ],
                 ),
               ),
-              WideDropDown(
-                data: lightActivities,
-                color: const Color(0xFFFFD7D7),
-                setSelectedItem: (String val) {
-                  setState(() {
-                    mediumActivity = val;
-                  });
+            ),
+            WideDropDown(
+              data: lightActivities,
+              color: const Color(0xFFFFD7D7),
+              setSelectedItem: (String val) {
+                setState(() {
+                  hardActivity = val;
+                });
+              },
+            ),
+            SizedBox(
+              width: 180,
+              child: FloatingActionButton.extended(
+                icon:
+                    const Icon(CupertinoIcons.plus_circle, color: Colors.black),
+                foregroundColor: const Color(0xFFFFD18B),
+                splashColor: const Color(0xFFFFD18B),
+                elevation: 0,
+                backgroundColor: const Color(0x00000000),
+                onPressed: () {
+                  showDialog(
+                      context: context,
+                      builder: (BuildContext context) {
+                        return Dialog(
+                          backgroundColor: const Color(0xFFFFD18B),
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(30),
+                          ),
+                          child: const Padding(
+                            padding: EdgeInsets.all(20.0),
+                            child: SizedBox(
+                              height: 214,
+                              child: Column(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceEvenly,
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Text(
+                                    "กิจกรรมที่ทำ",
+                                    style: TextStyle(fontSize: 22),
+                                  ),
+                                  Padding(
+                                    padding:
+                                        EdgeInsets.symmetric(horizontal: 8.0),
+                                    child: TextField(
+                                      keyboardType: TextInputType.text,
+                                      style: TextStyle(fontSize: 18),
+                                      decoration: InputDecoration(
+                                          contentPadding: EdgeInsets.symmetric(
+                                              vertical: 0, horizontal: 20),
+                                          border: OutlineInputBorder(
+                                            borderSide: BorderSide.none,
+                                          ),
+                                          filled: true,
+                                          fillColor: Colors.white,
+                                          hintText: "พาสุนัขไปเดินเล่น",
+                                          hintStyle:
+                                              TextStyle(color: Colors.red)),
+                                    ),
+                                  ),
+                                  Row(
+                                    mainAxisAlignment: MainAxisAlignment.start,
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.center,
+                                    children: [
+                                      Text("จำนวน"),
+                                      Text("ครั้ง/สัปดาห์")
+                                    ],
+                                  )
+                                ],
+                              ),
+                            ),
+                          ),
+                        );
+                      });
                 },
-              ),
-              const Padding(
-                padding: EdgeInsets.only(top: 10, bottom: 15),
-                child: Align(
-                  alignment: Alignment.centerLeft,
-                  child: Row(
-                    children: [
-                      Text("3. กิจกรรมระดับปานกลาง",
-                          style: TextStyle(fontSize: 22)),
-                      Icon(Icons.question_mark_outlined),
-                    ],
-                  ),
+                label: const Text(
+                  "เพิ่มกิจกรรม",
+                  style: TextStyle(color: Colors.black, fontSize: 22),
                 ),
               ),
-              WideDropDown(
-                data: lightActivities,
-                color: const Color(0xFFFFD7D7),
-                setSelectedItem: (String val) {
-                  setState(() {
-                    hardActivity = val;
-                  });
-                },
-              ),
-              SizedBox(
-                width: 180,
-                child: FloatingActionButton.extended(
-                  icon: const Icon(CupertinoIcons.plus_circle,
-                      color: Colors.black),
-                  foregroundColor: const Color(0x11FFD18B),
-                  splashColor: const Color(0x11FFD18B),
-                  elevation: 0,
-                  backgroundColor: const Color(0x00000000),
-                  onPressed: () {},
-                  label: const Text(
-                    "เพิ่มกิจกรรม",
-                    style: TextStyle(color: Colors.black, fontSize: 22),
-                  ),
-                ),
-              )
-            ],
-          )
-        ],
-      ),
-    );
+            )
+          ],
+        ));
   }
 }
 
