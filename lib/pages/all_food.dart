@@ -63,8 +63,7 @@ class AllFoodPage extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(title: const Text("ALl Food Page")),
       backgroundColor: Colors.yellow.shade100,
-      body: GridView.count(
-        crossAxisCount: 2,
+      body: Column(
         children: [
           Center(
             child: Container(
@@ -83,24 +82,31 @@ class AllFoodPage extends StatelessWidget {
               ),
             ),
           ),
-          ...foodData
-              .map(
-                (food) => Container(
-                    margin: const EdgeInsets.all(10),
-                    child: GestureDetector(
-                        onTap: () {
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                              builder: (context) => FoodDetailPage(
-                                detail: food.detail,
-                              ),
-                            ),
-                          );
-                        },
-                        child: FoodIcons(food: food))),
-              )
-              .toList()
+          Expanded(
+            child: GridView.count(
+              crossAxisCount: 2,
+              children: [
+                ...foodData
+                    .map(
+                      (food) => Container(
+                          margin: const EdgeInsets.all(10),
+                          child: GestureDetector(
+                              onTap: () {
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                    builder: (context) => FoodDetailPage(
+                                      detail: food.detail,
+                                    ),
+                                  ),
+                                );
+                              },
+                              child: FoodIcons(food: food))),
+                    )
+                    .toList()
+              ],
+            ),
+          ),
         ],
       ),
     );
