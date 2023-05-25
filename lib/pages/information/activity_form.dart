@@ -45,14 +45,21 @@ class ActivityFormBody extends StatefulWidget {
   State<ActivityFormBody> createState() => _ActivityFormBodyState();
 }
 
+class Activity {
+  String name;
+  int frequency;
+  Activity({
+    required this.name,
+    required this.frequency,
+  });
+}
+
 class _ActivityFormBodyState extends State<ActivityFormBody> {
-  String freq1 = frequency.first;
-  String lightActivity = "";
-  String mediumActivity = "";
-  String hardActivity = "";
-  int lightFrequency = 1;
-  int mediumFrequency = 1;
-  int hardFrequency = 1;
+  List<Activity> activities = [
+    Activity(name: "", frequency: 1),
+    Activity(name: "", frequency: 1),
+    Activity(name: "", frequency: 1),
+  ];
 
   @override
   Widget build(BuildContext context) {
@@ -80,7 +87,7 @@ class _ActivityFormBodyState extends State<ActivityFormBody> {
                   color: const Color(0xFFFFD7D7),
                   setSelectedItem: (String val) {
                     setState(() {
-                      lightActivity = val;
+                      activities[0].name = val;
                     });
                   },
                 ),
@@ -94,7 +101,7 @@ class _ActivityFormBodyState extends State<ActivityFormBody> {
                         buttonColor: const Color(0xFFFFEBEB),
                         setSelectedItem: (String val) {
                           setState(() {
-                            mediumFrequency = int.parse(val);
+                            activities[0].frequency = int.parse(val);
                           });
                         },
                       ),
@@ -124,7 +131,7 @@ class _ActivityFormBodyState extends State<ActivityFormBody> {
               color: const Color(0xFFFFD7D7),
               setSelectedItem: (String val) {
                 setState(() {
-                  mediumActivity = val;
+                  activities[1].name = val;
                 });
               },
             ),
@@ -138,7 +145,7 @@ class _ActivityFormBodyState extends State<ActivityFormBody> {
                     buttonColor: const Color(0xFFFFEBEB),
                     setSelectedItem: (String val) {
                       setState(() {
-                        mediumFrequency = int.parse(val);
+                        activities[1].frequency = int.parse(val);
                       });
                     },
                   ),
@@ -167,7 +174,7 @@ class _ActivityFormBodyState extends State<ActivityFormBody> {
               color: const Color(0xFFFFD7D7),
               setSelectedItem: (String val) {
                 setState(() {
-                  hardFrequency = int.parse(val);
+                  activities[2].name = val;
                 });
               },
             ),
@@ -181,7 +188,7 @@ class _ActivityFormBodyState extends State<ActivityFormBody> {
                     buttonColor: const Color(0xFFFFEBEB),
                     setSelectedItem: (String val) {
                       setState(() {
-                        lightActivity = val;
+                        activities[2].frequency = int.parse(val);
                       });
                     },
                   ),
@@ -210,8 +217,8 @@ class _ActivityFormBodyState extends State<ActivityFormBody> {
                           shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(30),
                           ),
-                          child: const Padding(
-                            padding: EdgeInsets.all(20.0),
+                          child: Padding(
+                            padding: const EdgeInsets.all(20.0),
                             child: SizedBox(
                               height: 214,
                               child: Column(
@@ -219,11 +226,11 @@ class _ActivityFormBodyState extends State<ActivityFormBody> {
                                     MainAxisAlignment.spaceEvenly,
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
-                                  Text(
+                                  const Text(
                                     "กิจกรรมที่ทำ",
                                     style: TextStyle(fontSize: 22),
                                   ),
-                                  Padding(
+                                  const Padding(
                                     padding:
                                         EdgeInsets.symmetric(horizontal: 8.0),
                                     child: TextField(
@@ -247,8 +254,11 @@ class _ActivityFormBodyState extends State<ActivityFormBody> {
                                     crossAxisAlignment:
                                         CrossAxisAlignment.center,
                                     children: [
-                                      Text("จำนวน"),
-                                      Text("ครั้ง/สัปดาห์")
+                                      const Text("จำนวน"),
+                                      SmallDropDown(
+                                          data: frequency,
+                                          setSelectedItem: setSelectedItem),
+                                      const Text("ครั้ง/สัปดาห์"),
                                     ],
                                   )
                                 ],
