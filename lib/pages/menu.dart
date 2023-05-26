@@ -1,8 +1,9 @@
+import 'dart:ffi';
+
 import 'package:flutter/material.dart';
 import 'package:appfood2/pages/information/information.dart';
 import 'package:appfood2/pages/camera.dart';
 import 'package:appfood2/pages/all_food.dart';
-import 'package:appfood2/pages/information/information.dart';
 
 class MenuPage extends StatelessWidget {
   const MenuPage({super.key});
@@ -11,13 +12,16 @@ class MenuPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
         floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
-        floatingActionButton: FloatingActionButton(
+        floatingActionButton: FloatingActionButton.large(
+          backgroundColor: const Color.fromARGB(255, 255, 120, 63),
+          hoverColor: const Color.fromRGBO(255, 120, 63, 0.5),
           onPressed: () {
             Navigator.of(context).push(MaterialPageRoute(
                 builder: (context) =>
                     const CameraPage(replaceWhenNavigate: false)));
           },
           child: const Icon(
+            size: 65.0,
             Icons.camera_alt,
           ),
         ),
@@ -50,51 +54,101 @@ class MenuPage extends StatelessWidget {
             )
           ],
         ),
-        body: Center(
-          child: Column(children: [
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                GestureDetector(
-                  onTap: () {
-                    Navigator.of(context).push(
-                      MaterialPageRoute(
-                        builder: (context) =>
-                            const RealAllFoodPage(type: "Fruit"),
-                      ),
-                    );
-                  },
-                  child: GestureDetector(
-                    onTap: () {
-                      Navigator.of(context).push(MaterialPageRoute(
-                          builder: (context) =>
-                              const RealAllFoodPage(type: "Fruit")));
-                    },
-                    child: MenuTypeIcon(
-                      name: "ผลไม้",
-                      color: Colors.green.shade100,
-                      imageAssetPath: "assets/images/Fruit/fruit2.png",
-                    ),
-                  ),
+        body: Container(
+          color: const Color.fromRGBO(234, 255, 241, 1),
+          child: Column(
+            children: [
+              Row(
+                children: [
+                  Padding(
+                      padding:
+                          const EdgeInsets.only(left: 30, top: 10, bottom: 24),
+                      child: GestureDetector(
+                        onTap: () {
+                          Navigator.pop(context);
+                        },
+                        child: Container(
+                          width: 212,
+                          height: 41,
+                          decoration: const BoxDecoration(
+                              color: Color.fromRGBO(91, 158, 130, 1),
+                              borderRadius: BorderRadius.all(
+                                Radius.circular(30),
+                              )),
+                          child: const Text(
+                            "กลับสู่เมนูหลัก",
+                            style: TextStyle(
+                                color: Colors.white,
+                                fontSize: 26,
+                                fontWeight: FontWeight.bold),
+                            textAlign: TextAlign.center,
+                          ),
+                        ),
+                      )),
+                ],
+              ),
+              Padding(
+                padding: const EdgeInsets.only(left: 31, right: 32),
+                child: Container(
+                    width: double.infinity,
+                    height: 53,
+                    decoration: const BoxDecoration(
+                        color: Colors.white,
+                        borderRadius: BorderRadius.all(
+                          Radius.circular(50),
+                        )),
+                    child: const TextFieldExample()),
+              ),
+              Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: SizedBox(
+                  height: 160,
+                  child: Row(children: [
+                    Expanded(
+                        flex: 1,
+                        child: GestureDetector(
+                          onTap: () {
+                            Navigator.of(context).push(
+                              MaterialPageRoute(
+                                builder: (context) =>
+                                    const RealAllFoodPage(type: "Fruit"),
+                              ),
+                            );
+                          },
+                          child: GestureDetector(
+                            onTap: () {
+                              Navigator.of(context).push(MaterialPageRoute(
+                                  builder: (context) =>
+                                      const RealAllFoodPage(type: "Fruit")));
+                            },
+                            child: MenuTypeIcon(
+                              name: "ผลไม้",
+                              color: Colors.green.shade100,
+                              colorIcon: const Color.fromRGBO(167, 222, 189, 1),
+                              imageAssetPath: "assets/images/Menu/fruit.png",
+                            ),
+                          ),
+                        )),
+                    Expanded(
+                        flex: 1,
+                        child: GestureDetector(
+                          onTap: () {
+                            Navigator.of(context).push(MaterialPageRoute(
+                                builder: (context) =>
+                                    const RealAllFoodPage(type: "Flour")));
+                          },
+                          child: const MenuTypeIcon(
+                            name: "ข้าวแป้ง",
+                            color: Colors.white,
+                            colorIcon: Color.fromRGBO(243, 222, 179, 1),
+                            imageAssetPath: "assets/images/Menu/rice.png",
+                          ),
+                        )),
+                  ]),
                 ),
-                GestureDetector(
-                  onTap: () {
-                    Navigator.of(context).push(
-                      MaterialPageRoute(
-                        builder: (context) =>
-                            const RealAllFoodPage(type: "Flour"),
-                      ),
-                    );
-                  },
-                  child: MenuTypeIcon(
-                    name: "ข้าวแป้ง",
-                    color: Colors.yellow.shade300,
-                    imageAssetPath: "assets/images/RiceFlour/Flour2.png",
-                  ),
-                ),
-              ],
-            )
-          ]),
+              ),
+            ],
+          ),
         ));
   }
 }
@@ -104,10 +158,12 @@ class MenuTypeIcon extends StatelessWidget {
       {super.key,
       required this.name,
       required this.color,
-      required this.imageAssetPath});
+      required this.imageAssetPath,
+      required this.colorIcon});
   final String name;
   final Color color;
   final String imageAssetPath;
+  final Color colorIcon;
 
   @override
   Widget build(BuildContext context) {
@@ -115,34 +171,102 @@ class MenuTypeIcon extends StatelessWidget {
       decoration: BoxDecoration(
           color: color,
           borderRadius: const BorderRadius.all(Radius.circular(30))),
-      margin: const EdgeInsets.only(left: 30, top: 30),
+      margin: const EdgeInsets.only(left: 10, right: 10),
       padding: const EdgeInsets.all(10),
-      height: 120,
-      width: 160,
+      height: double.infinity,
+      width: double.infinity,
       child: Container(
-        decoration: const BoxDecoration(
-          color: Colors.white,
-          borderRadius: BorderRadius.all(
-            Radius.circular(30),
+          decoration: const BoxDecoration(
+            color: Colors.white,
+            borderRadius: BorderRadius.all(
+              Radius.circular(30),
+            ),
+          ),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Padding(
+                padding:
+                    const EdgeInsets.symmetric(vertical: 5, horizontal: 15),
+                child: Container(
+                    width: double.infinity,
+                    height: 30,
+                    decoration: BoxDecoration(
+                      color: colorIcon,
+                      borderRadius: const BorderRadius.all(
+                        Radius.circular(30),
+                      ),
+                    ),
+                    child: Center(
+                      child: Text(
+                        name,
+                        textAlign: TextAlign.center,
+                        style: TextStyle(
+                            fontSize: 16, fontWeight: FontWeight.w700),
+                      ),
+                    )),
+              ),
+              Center(child: Image.asset(imageAssetPath)),
+            ],
+          )),
+    );
+  }
+}
+
+class TextFieldExample extends StatefulWidget {
+  const TextFieldExample({super.key});
+
+  @override
+  State<TextFieldExample> createState() => _TextFieldExampleState();
+}
+
+class _TextFieldExampleState extends State<TextFieldExample> {
+  late TextEditingController _controller;
+
+  @override
+  void initState() {
+    super.initState();
+    _controller = TextEditingController();
+  }
+
+  @override
+  void dispose() {
+    _controller.dispose();
+    super.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Row(children: [
+      Expanded(
+          flex: 5,
+          child: Container(
+              padding: const EdgeInsets.only(left: 15),
+              width: double.infinity,
+              child: TextField(
+                  decoration: InputDecoration(
+                    hintText: "พิมพ์ชื่ออาหารตรงนี้สิ",
+                    enabledBorder: OutlineInputBorder(
+                      borderSide: const BorderSide(
+                          width: 3, color: Colors.white), //<-- SEE HERE
+                      borderRadius: BorderRadius.circular(50.0),
+                    ),
+                  ),
+                  style: const TextStyle(fontSize: 20)))),
+      Expanded(
+        flex: 1,
+        child: SizedBox(
+          width: double.infinity,
+          child: IconButton(
+            icon: const Icon(Icons.search),
+            onPressed: () {
+              setState(
+                () {},
+              );
+            },
           ),
         ),
-        child: Stack(
-          children: [
-            Positioned(
-              left: 48,
-              top: 10,
-              child: Container(
-                decoration: BoxDecoration(color: color),
-                child: Text(
-                  name,
-                  textAlign: TextAlign.center,
-                ),
-              ),
-            ),
-            Center(child: Image.asset(imageAssetPath)),
-          ],
-        ),
-      ),
-    );
+      )
+    ]);
   }
 }
