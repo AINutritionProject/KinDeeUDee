@@ -23,6 +23,7 @@ class CameraPage extends StatefulWidget {
 class _CameraPageState extends State<CameraPage> {
   late List<CameraDescription> cameras;
   late CameraController camController;
+  FlashMode _flashMode = FlashMode.off;
 
   Future<void> _initCamera() async {
     cameras = await availableCameras();
@@ -123,7 +124,14 @@ class _CameraPageState extends State<CameraPage> {
                                   ),
                                 ),
                                 IconButton(
-                                    onPressed: () {},
+                                    onPressed: () {
+                                      if (_flashMode == FlashMode.off) {
+                                        _flashMode = FlashMode.torch;
+                                      } else {
+                                        _flashMode = FlashMode.off;
+                                      }
+                                      camController.setFlashMode(_flashMode);
+                                    },
                                     icon: const Icon(
                                       Icons.flash_auto_sharp,
                                       color: Colors.white,
