@@ -85,22 +85,16 @@ class MenuPage extends StatelessWidget {
                 ],
               ),
               Padding(
-                padding: EdgeInsets.only(left: 31, right: 32),
+                padding: const EdgeInsets.only(left: 31, right: 32),
                 child: Container(
                     width: double.infinity,
                     height: 53,
                     decoration: const BoxDecoration(
                         color: Colors.white,
                         borderRadius: BorderRadius.all(
-                          Radius.circular(30),
+                          Radius.circular(50),
                         )),
-                    child: const TextField(
-                      obscureText: true,
-                      decoration: InputDecoration(
-                        border: OutlineInputBorder(),
-                        labelText: 'Password',
-                      ),
-                    )),
+                    child: const TextFieldExample()),
               ),
               Padding(
                 padding: const EdgeInsets.all(8.0),
@@ -214,46 +208,60 @@ class MenuTypeIcon extends StatelessWidget {
   }
 }
 
-class MyApp extends StatefulWidget {
+class TextFieldExample extends StatefulWidget {
+  const TextFieldExample({super.key});
+
   @override
-  _MyAppState createState() => _MyAppState();
+  State<TextFieldExample> createState() => _TextFieldExampleState();
 }
 
-class _MyAppState extends State<MyApp> {
-  TextEditingController nameController = TextEditingController();
-  String fullName = '';
+class _TextFieldExampleState extends State<TextFieldExample> {
+  late TextEditingController _controller;
+
+  @override
+  void initState() {
+    super.initState();
+    _controller = TextEditingController();
+  }
+
+  @override
+  void dispose() {
+    _controller.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      home: Scaffold(
-          appBar: AppBar(
-            title: Text('Flutter - tutorialkart.com'),
-          ),
-          body: Center(
-              child: Column(children: <Widget>[
-            Container(
-                margin: EdgeInsets.all(20),
-                child: TextField(
-                  controller: nameController,
+    return Row(children: [
+      Expanded(
+          flex: 4,
+          child: Container(
+              padding: const EdgeInsets.only(left: 15),
+              width: double.infinity,
+              child: TextField(
                   decoration: InputDecoration(
-                    border: OutlineInputBorder(),
-                    labelText: 'Full Name',
+                    hintText: "พิมพ์ชื่ออาหารตรงนี้สิ",
+                    enabledBorder: OutlineInputBorder(
+                      borderSide: const BorderSide(
+                          width: 3, color: Colors.white), //<-- SEE HERE
+                      borderRadius: BorderRadius.circular(50.0),
+                    ),
                   ),
-                  onChanged: (text) {
-                    setState(() {
-                      fullName = text;
-                      //you can access nameController in its scope to get
-                      // the value of text entered as shown below
-                      //fullName = nameController.text;
-                    });
-                  },
-                )),
-            Container(
-              margin: EdgeInsets.all(20),
-              child: Text(fullName),
-            )
-          ]))),
-    );
+                  style: const TextStyle(fontSize: 20)))),
+      Expanded(
+        flex: 1,
+        child: Container(
+          width: double.infinity,
+          child: IconButton(
+            icon: const Icon(Icons.search),
+            onPressed: () {
+              setState(
+                () {},
+              );
+            },
+          ),
+        ),
+      )
+    ]);
   }
 }
