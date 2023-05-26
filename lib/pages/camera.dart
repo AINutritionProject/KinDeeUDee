@@ -99,7 +99,15 @@ class _CameraPageState extends State<CameraPage> {
                   Expanded(
                     flex: 1,
                     child: Center(
-                      child: CameraPreview(camController),
+                      child: CameraPreview(
+                        camController,
+                        child: Center(
+                          child: SizedBox(
+                              height: MediaQuery.of(context).size.height * 0.7,
+                              width: MediaQuery.of(context).size.width * 0.7,
+                              child: Image.asset("assets/cameraFrame.png")),
+                        ),
+                      ),
                     ),
                   ),
                   Container(
