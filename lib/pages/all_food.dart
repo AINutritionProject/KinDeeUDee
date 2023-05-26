@@ -13,7 +13,8 @@ class RealAllFoodPage extends StatefulWidget {
 
 class _RealAllFoodPageState extends State<RealAllFoodPage> {
   Future<List<Food>> getFoodByTypeFromCSV(String type) async {
-    final rawData = await rootBundle.loadString("assets/food_detailed.csv");
+    final rawData = await rootBundle.loadString(
+        "assets/${widget.type == 'Fruit' ? 'fruit' : 'flour'}_detailed.csv");
     List<List<dynamic>> dataAsList =
         const CsvToListConverter().convert(rawData);
     print(dataAsList.length);

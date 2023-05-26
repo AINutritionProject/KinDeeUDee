@@ -83,7 +83,6 @@ flutter:
     - assets/images/drink_eat/
     - assets/images/RealFruit/
     - assets/images/RealFlour/
-    - assets/food_detailed.csv
   #   - images/a_dot_burr.jpeg
   #   - images/a_dot_ham.jpeg
 
