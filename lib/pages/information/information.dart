@@ -1,7 +1,9 @@
+import 'package:appfood2/db.dart';
 import 'package:flutter/material.dart';
 import 'package:appfood2/pages/information/personal_information.dart';
 import 'package:appfood2/pages/information/milk.dart';
 import 'package:appfood2/pages/information/bmi.dart';
+import 'package:loading_animation_widget/loading_animation_widget.dart';
 
 class InformationPage extends StatelessWidget {
   const InformationPage({super.key});
@@ -31,8 +33,18 @@ class InformationPage extends StatelessWidget {
               icon: const Icon(Icons.light_sharp))
         ],
       ),
-      body: const Center(
-        child: PersonalInformation(),
+      body: Center(
+        child: FutureBuilder(
+          builder: (context, snapshot) {
+            if (snapshot.hasData) {
+              return PersonalInformation(user: snapshot.data!);
+            } else {
+              return LoadingAnimationWidget.prograssiveDots(
+                  color: Colors.black, size: 150);
+            }
+          },
+          future: getUser(),
+        ),
       ),
     );
   }
