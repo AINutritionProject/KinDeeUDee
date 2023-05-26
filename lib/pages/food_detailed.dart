@@ -1,41 +1,21 @@
 import 'package:flutter/material.dart';
+import 'package:appfood2/pages/ai_output.dart';
 
 class FoodDetailPage extends StatelessWidget {
   const FoodDetailPage({super.key, required this.detail});
   final FoodNutritionDetail detail;
   Color _getGIColor(num giIndex) {
     if (giIndex < 55) {
-      return Colors.green.shade100;
+      return const Color.fromRGBO(233, 255, 223, 1);
     } else if (giIndex < 70 && giIndex >= 55) {
-      return Colors.yellow.shade100;
+      return const Color.fromRGBO(250, 248, 232, 1);
     } else {
-      return Colors.red.shade200;
+      return const Color.fromRGBO(255, 228, 228, 1);
     }
   }
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: const Text("FoodDetailPage"),
-      ),
-      backgroundColor: _getGIColor(detail.giIndex),
-      body: SingleChildScrollView(
-        child: Column(children: [
-          Container(
-              margin: const EdgeInsets.symmetric(vertical: 20),
-              padding: const EdgeInsets.symmetric(horizontal: 30, vertical: 5),
-              decoration: const BoxDecoration(
-                  color: Colors.white,
-                  borderRadius: BorderRadius.all(Radius.circular(30))),
-              child: Text(
-                detail.name,
-                style: const TextStyle(
-                  fontSize: 30,
-                  fontWeight: FontWeight.bold,
-                ),
-              )),
-          ClipRRect(
+//detail.realImageAssetPath ?? "assets/cameraFrame.png",
+/*
+ClipRRect(
             borderRadius: BorderRadius.circular(20),
             child: SizedBox.fromSize(
               size: const Size.fromRadius(48 * 3),
@@ -45,96 +25,74 @@ class FoodDetailPage extends StatelessWidget {
               ),
             ),
           ),
-          const Padding(
-              padding: EdgeInsets.only(top: 10),
-              child: Text(
-                "ข้อมูลโภชนาการ",
-                style: TextStyle(
-                    fontSize: 28,
-                    fontWeight: FontWeight.w600,
-                    color: Color.fromRGBO(76, 36, 29, 1)),
-              )),
-          Padding(
-              padding: const EdgeInsets.only(top: 30),
-              child: ChemicalDetail(
-                  power: detail.power,
-                  fiber: detail.fiber,
-                  sugar: detail.sugar)),
-          Padding(
-              padding: const EdgeInsets.only(left: 13, right: 13, top: 30),
-              child: Container(
-                width: double.infinity,
+*/
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      backgroundColor: const Color.fromRGBO(233, 255, 223, 1),
+      appBar: AppBar(title: const Text("Food detail")),
+      body: SingleChildScrollView(
+        child: Center(
+          child: Column(
+            children: [
+              TitleHeaderBox(textTitle: detail.name,),
+              Container(
+                padding: const EdgeInsets.all(15),
                 decoration: BoxDecoration(
-                    color: Colors.white,
-                    borderRadius: BorderRadius.circular(30)),
-                child: Column(
-                  children: [
-                    Padding(
-                        padding: const EdgeInsets.only(top: 5),
-                        child: Container(
-                          padding: const EdgeInsets.symmetric(
-                              horizontal: 20, vertical: 5),
-                          decoration: BoxDecoration(
-                            color: const Color.fromRGBO(255, 194, 227, 1),
-                            borderRadius: BorderRadius.circular(30),
-                          ),
-                          child: const Text(
-                            "ประโยชน์",
-                            style: TextStyle(
-                              fontWeight: FontWeight.bold,
-                              fontSize: 22,
-                            ),
-                          ),
-                        )),
-                    Padding(
-                      padding: const EdgeInsets.only(bottom: 5),
-                      child: Container(
-                        margin: const EdgeInsets.symmetric(
-                            horizontal: 10, vertical: 10),
-                        child: Text(detail.benefit,
-                            style: const TextStyle(
-                                fontSize: 18,
-                                height: 1.75,
-                                fontWeight: FontWeight.w700),
-                            textAlign: TextAlign.center),
-                      ),
-                    ),
-                  ],
-                ),
-              )),
-          Padding(
-              padding: const EdgeInsets.only(
-                  left: 13, right: 13, top: 15, bottom: 18),
-              child: Container(
-                width: double.infinity,
-                decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(30),
-                    color: Colors.white),
-                padding: const EdgeInsets.only(
-                    top: 10, left: 20, right: 20, bottom: 20),
-                child: const Column(
-                  children: [
-                    Padding(
-                      padding: EdgeInsets.only(bottom: 10),
-                      child: Text(
-                        "กดที่นี่",
-                        style: TextStyle(
-                            decoration: TextDecoration.underline,
-                            fontSize: 20,
-                            fontWeight: FontWeight.bold),
-                      ),
-                    ),
-                    Text("เพื่อดูข้อมูลทางโภชนาการเพิ่มเติม",
-                        style: TextStyle(
-                            fontSize: 18, fontWeight: FontWeight.w600))
-                  ],
-                ),
-              ))
-        ]),
+            color: Colors.greenAccent.shade100,
+            borderRadius:
+                const BorderRadius.all(Radius.circular(20))),
+        width: MediaQuery.of(context).size.width * 0.6,
+        height: MediaQuery.of(context).size.width * 0.6,
+        child: ClipRRect(
+          borderRadius: const BorderRadius.all(Radius.circular(30)),
+          child: Image.asset(
+            detail.realImageAssetPath ?? "assets/cameraFrame.png",
+            fit: BoxFit.cover,
+          ),
+        )),
+              const TextDataNutrition(),
+              AmountDetailObject(textAmountOfObj: '${detail.name}\n 1 ส่วน 120 กรัม', colorBox: const Color.fromRGBO(255, 255, 255, 1),),
+              Padding(
+                padding: const EdgeInsets.fromLTRB(0, 20, 0, 20),
+                child: ChemicalDetail(power: detail.power, fiber: detail.fiber, sugar: detail.sugar),
+              ),
+              const BenefitDetailContainer(textBenefitDetail: "ช่วยป้องกันการเกิดโรคหลอดเลือดหัวใจ\nช่วยให้ผนังหลอดเลือดแข็งแรง\nป้องกันการเกิดโรคต้อกระจก\nลดกรดในกระเพาะอาหาร ช่วยละลายเสมหะ\nลดความดันโลหิต ช่วยบำรุงหัวใจ",),
+              const ClickHereContainer(),
+            ],
+          ),
+        ),
       ),
     );
   }
 }
+
+/*
+Widget build(BuildContext context) {
+    return Scaffold(
+      backgroundColor: const Color.fromRGBO(233, 255, 223, 1),
+      appBar: AppBar(title: const Text("AI Output Page")),
+      body: const SingleChildScrollView(
+        child: Center(
+          child: Column(
+            children: [
+              TitleHeaderBox(textTitle: 'แอปเปิ้ลแดงฟูจิ',),
+              ImageContainer(pathImage: "assets/images/RealFruit/10.jpg",),
+              TextDataNutrition(),
+              AmountDetailObject(textAmountOfObj: 'แอปเปิ้ล\n 1 ส่วน 120 กรัม',),
+              Padding(
+                padding: EdgeInsets.fromLTRB(0, 10, 0, 0),
+                child: ChemicalDetail(power: 24, fiber: 30, sugar: 34),
+              ),
+              BenefitDetailContainer(textBenefitDetail: "ช่วยป้องกันการเกิดโรคหลอดเลือดหัวใจ\nช่วยให้ผนังหลอดเลือดแข็งแรง\nป้องกันการเกิดโรคต้อกระจก\nลดกรดในกระเพาะอาหาร ช่วยละลายเสมหะ\nลดความดันโลหิต ช่วยบำรุงหัวใจ",),
+              ClickHereContainer(),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+*/
 
 class ChemicalDetail extends StatelessWidget {
   const ChemicalDetail({
@@ -166,13 +124,13 @@ class ChemicalDetail extends StatelessWidget {
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                const Text("พลังงาน"),
+                const Text("พลังงาน", style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
                 Text(
                   "$power",
                   style: const TextStyle(
-                      color: Color.fromRGBO(9, 183, 173, 1), fontWeight: FontWeight.w900),
+                      color: Color.fromRGBO(9, 183, 173, 1), fontWeight: FontWeight.w900, fontSize: 18),
                 ),
-                const Text("กโลแคลอรี่"),
+                const Text("กิโลแคลอรี่", style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
               ],
             ),
           ),
@@ -190,13 +148,13 @@ class ChemicalDetail extends StatelessWidget {
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                const Text("ใยอาหาร"),
+                const Text("ใยอาหาร", style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
                 Text(
                   "$fiber",
                   style: const TextStyle(
-                      color: Color.fromRGBO(9, 183, 173, 1), fontWeight: FontWeight.w900),
+                      color: Color.fromRGBO(9, 183, 173, 1), fontWeight: FontWeight.w900, fontSize: 18),
                 ),
-                const Text("กรัม"),
+                const Text("กรัม" , style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
               ],
             ),
           ),
@@ -214,13 +172,13 @@ class ChemicalDetail extends StatelessWidget {
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                const Text("น้ำตาล"),
+                const Text("น้ำตาล", style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),),
                 Text(
                   "$sugar",
                   style: const TextStyle(
-                      color: Color.fromRGBO(255, 141, 35, 1), fontWeight: FontWeight.w900),
+                      color: Color.fromRGBO(255, 141, 35, 1), fontWeight: FontWeight.w900, fontSize: 18),
                 ),
-                const Text("กรัม"),
+                const Text("กรัม", style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
               ],
             ),
           ),
