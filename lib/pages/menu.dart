@@ -73,7 +73,7 @@ class MenuPage extends StatelessWidget {
                     child: MenuTypeIcon(
                       name: "ผลไม้",
                       color: Colors.green.shade100,
-                      imageAssetPath: "assets/images/Fruit/fruit2.png",
+                      imageAssetPath: "assets/images/Menu/fruit.png",
                     ),
                   ),
                 ),
@@ -89,7 +89,7 @@ class MenuPage extends StatelessWidget {
                   child: MenuTypeIcon(
                     name: "ข้าวแป้ง",
                     color: Colors.yellow.shade300,
-                    imageAssetPath: "assets/images/RiceFlour/Flour2.png",
+                    imageAssetPath: "assets/images/Menu/rice.png",
                   ),
                 ),
               ],
