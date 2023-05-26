@@ -2,6 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:appfood2/auth.dart';
+import 'package:appfood2/pages/information/nutrition.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 import '../register_success.dart';
@@ -486,7 +487,10 @@ class _BMIState extends State<BMI> {
                       borderRadius: BorderRadius.circular(30),
                     ))),
                 onPressed: () {
-                  setState(() {});
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => const Nutrition()));
                 },
                 child: const Padding(
                   padding: EdgeInsets.symmetric(vertical: 3, horizontal: 15),
