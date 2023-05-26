@@ -3,6 +3,7 @@ import 'package:appfood2/pages/information/information.dart';
 import 'package:appfood2/pages/camera.dart';
 import 'package:appfood2/pages/all_food.dart';
 import 'package:appfood2/pages/information/information.dart';
+import 'package:appfood2/main.dart';
 
 class MenuPage extends StatelessWidget {
   const MenuPage({super.key});
@@ -59,26 +60,21 @@ class MenuPage extends StatelessWidget {
                   Padding(
                     padding:
                         const EdgeInsets.only(left: 30, top: 10, bottom: 24),
-                    child: GestureDetector(
-                      onTap: () {
-                        Navigator.of(context).pop();
-                      },
-                      child: Container(
-                        width: 212,
-                        height: 41,
-                        decoration: const BoxDecoration(
-                            color: Color.fromRGBO(91, 158, 130, 1),
-                            borderRadius: BorderRadius.all(
-                              Radius.circular(30),
-                            )),
-                        child: const Text(
-                          "กลับสู่เมนูหลัก",
-                          style: TextStyle(
-                              color: Colors.white,
-                              fontSize: 26,
-                              fontWeight: FontWeight.bold),
-                          textAlign: TextAlign.center,
-                        ),
+                    child: Container(
+                      width: 212,
+                      height: 41,
+                      decoration: const BoxDecoration(
+                          color: Color.fromRGBO(91, 158, 130, 1),
+                          borderRadius: BorderRadius.all(
+                            Radius.circular(30),
+                          )),
+                      child: const Text(
+                        "กลับสู่เมนูหลัก",
+                        style: TextStyle(
+                            color: Colors.white,
+                            fontSize: 26,
+                            fontWeight: FontWeight.bold),
+                        textAlign: TextAlign.center,
                       ),
                     ),
                   ),
@@ -87,14 +83,20 @@ class MenuPage extends StatelessWidget {
               Padding(
                 padding: EdgeInsets.only(left: 31, right: 32),
                 child: Container(
-                  width: double.infinity,
-                  height: 53,
-                  decoration: const BoxDecoration(
-                      color: Colors.white,
-                      borderRadius: BorderRadius.all(
-                        Radius.circular(30),
-                      )),
-                ),
+                    width: double.infinity,
+                    height: 53,
+                    decoration: const BoxDecoration(
+                        color: Colors.white,
+                        borderRadius: BorderRadius.all(
+                          Radius.circular(30),
+                        )),
+                    child: const TextField(
+                      obscureText: true,
+                      decoration: InputDecoration(
+                        border: OutlineInputBorder(),
+                        labelText: 'Password',
+                      ),
+                    )),
               ),
               Padding(
                 padding: const EdgeInsets.all(8.0),
@@ -130,12 +132,9 @@ class MenuPage extends StatelessWidget {
                         flex: 1,
                         child: GestureDetector(
                           onTap: () {
-                            Navigator.of(context).push(
-                              MaterialPageRoute(
+                            Navigator.of(context).push(MaterialPageRoute(
                                 builder: (context) =>
-                                    const RealAllFoodPage(type: "Fruit"),
-                              ),
-                            );
+                                    const RealAllFoodPage(type: "Flour")));
                           },
                           child: const MenuTypeIcon(
                             name: "ข้าวแป้ง",
