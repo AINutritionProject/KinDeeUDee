@@ -138,7 +138,7 @@ class MenuPage extends StatelessWidget {
                                     const RealAllFoodPage(type: "Flour")));
                           },
                           child: const MenuTypeIcon(
-                            name: "ข้าวแป้ง",
+                            name: "ข้าว-แป้ง",
                             color: Colors.white,
                             colorIcon: Color.fromRGBO(243, 222, 179, 1),
                             imageAssetPath: "assets/images/Menu/rice.png",
@@ -201,8 +201,8 @@ class MenuTypeIcon extends StatelessWidget {
                       child: Text(
                         name,
                         textAlign: TextAlign.center,
-                        style: TextStyle(
-                            fontSize: 16, fontWeight: FontWeight.w700),
+                        style: const TextStyle(
+                            fontSize: 22, fontWeight: FontWeight.w700),
                       ),
                     )),
               ),
