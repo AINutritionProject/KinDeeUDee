@@ -59,21 +59,26 @@ class MenuPage extends StatelessWidget {
                   Padding(
                     padding:
                         const EdgeInsets.only(left: 30, top: 10, bottom: 24),
-                    child: Container(
-                      width: 212,
-                      height: 41,
-                      decoration: const BoxDecoration(
-                          color: Color.fromRGBO(91, 158, 130, 1),
-                          borderRadius: BorderRadius.all(
-                            Radius.circular(30),
-                          )),
-                      child: const Text(
-                        "กลับสู่เมนูหลัก",
-                        style: TextStyle(
-                            color: Colors.white,
-                            fontSize: 26,
-                            fontWeight: FontWeight.bold),
-                        textAlign: TextAlign.center,
+                    child: GestureDetector(
+                      onTap: () {
+                        Navigator.of(context).pop();
+                      },
+                      child: Container(
+                        width: 212,
+                        height: 41,
+                        decoration: const BoxDecoration(
+                            color: Color.fromRGBO(91, 158, 130, 1),
+                            borderRadius: BorderRadius.all(
+                              Radius.circular(30),
+                            )),
+                        child: const Text(
+                          "กลับสู่เมนูหลัก",
+                          style: TextStyle(
+                              color: Colors.white,
+                              fontSize: 26,
+                              fontWeight: FontWeight.bold),
+                          textAlign: TextAlign.center,
+                        ),
                       ),
                     ),
                   ),
