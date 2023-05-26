@@ -49,17 +49,10 @@ class MenuPage extends StatelessWidget {
                       ),
                     );
                   },
-                  child: GestureDetector(
-                    onTap: () {
-                      Navigator.of(context).push(MaterialPageRoute(
-                          builder: (context) =>
-                              const RealAllFoodPage(type: "Fruit")));
-                    },
-                    child: MenuTypeIcon(
-                      name: "ผลไม้",
-                      color: Colors.green.shade100,
-                      imageAssetPath: "assets/images/Menu/fruit.png",
-                    ),
+                  child: MenuTypeIcon(
+                    name: "ผลไม้",
+                    color: Colors.green.shade100,
+                    imageAssetPath: "assets/images/Menu/fruit.png",
                   ),
                 ),
                 GestureDetector(
