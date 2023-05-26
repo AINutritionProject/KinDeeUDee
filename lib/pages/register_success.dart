@@ -47,14 +47,53 @@ class RegisterSuccesPage extends StatelessWidget {
                     ),
                   ))),
           Padding(
-              padding: const EdgeInsets.only(top: 30),
-              child: ElevatedButton(
-                onPressed: () {
-                  Navigator.of(context).push(MaterialPageRoute(
-                      builder: (context) => const InformationPage()));
-                },
-                child: const FaIcon(FontAwesomeIcons.angleRight),
-              )),
+              padding: const EdgeInsets.only(
+                top: 30,
+              ),
+              child: Stack(alignment: Alignment.center, children: [
+                ElevatedButton(
+                    onPressed: () {
+                      Navigator.of(context).push(MaterialPageRoute(
+                          builder: (context) => const InformationPage()));
+                    },
+                    style: ElevatedButton.styleFrom(
+                        backgroundColor: const Color.fromRGBO(174, 144, 144, 1),
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(25),
+                        )),
+                    child: Container(
+                      alignment: Alignment.center,
+                      width: 60,
+                      height: 80,
+                    )),
+                ElevatedButton(
+                    onPressed: () {
+                      Navigator.of(context).push(MaterialPageRoute(
+                          builder: (context) => const InformationPage()));
+                    },
+                    style: ElevatedButton.styleFrom(
+                        backgroundColor: Colors.white,
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(20),
+                        )),
+                    child: Container(
+                      alignment: Alignment.center,
+                      width: 45,
+                      height: 65,
+                    )),
+                IconButton(
+                    padding: const EdgeInsets.only(),
+                    alignment: Alignment.center,
+                    icon: const FaIcon(
+                      FontAwesomeIcons.angleRight,
+                      size: 45,
+                      color: Color.fromRGBO(174, 144, 144, 1),
+                    ),
+                    onPressed: () {
+                      Navigator.of(context).push(MaterialPageRoute(
+                          builder: (context) => const InformationPage()));
+                    })
+              ])),
         ],
       ),
     );
