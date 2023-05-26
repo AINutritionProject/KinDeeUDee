@@ -24,21 +24,6 @@ class MenuPage extends StatelessWidget {
         appBar: AppBar(
           title: const Text("Find Menu"),
           actions: [
-            IconButton(
-                onPressed: () {
-                  Navigator.of(context).push(MaterialPageRoute(
-                      builder: (context) => const RealAllFoodPage(
-                            type: "Fruit",
-                          )));
-                },
-                icon: const Icon(Icons.tv)),
-            IconButton(
-                onPressed: () {
-                  Navigator.of(context).push(MaterialPageRoute(
-                      builder: (context) =>
-                          const RealAllFoodPage(type: "Flour")));
-                },
-                icon: const Icon(Icons.tv)),
             ElevatedButton(
               onPressed: () {
                 Navigator.push(
