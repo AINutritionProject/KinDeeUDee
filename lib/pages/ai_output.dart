@@ -19,7 +19,7 @@ class AIOutputPage extends StatelessWidget {
               const TitleHeaderBox(textTitle: 'แอปเปิ้ลแดงฟูจิ',),
               const ImageContainer(pathImage: "assets/images/RealFruit/10.jpg",),
               const TextDataNutrition(),
-              const AmountDetailObject(textAmountOfObj: 'แอปเปิ้ล\n 1 ส่วน 120 กรัม',),
+              const AmountDetailObject(textAmountOfObj: 'แอปเปิ้ล\n 1 ส่วน 120 กรัม', colorBox: Color.fromRGBO(175, 255, 207, 1),),
               const Padding(
                 padding: EdgeInsets.fromLTRB(0, 10, 0, 0),
                 child: ChemicalDetail(power: 24, fiber: 30, sugar: 34),
@@ -147,29 +147,33 @@ class AmountObjectofUser extends StatelessWidget {
 class AmountDetailObject extends StatelessWidget {
   const AmountDetailObject({
     super.key,
-    required this.textAmountOfObj
+    required this.textAmountOfObj,
+    required this.colorBox
   });
 
   final String textAmountOfObj;
+  final Color colorBox;
 
   @override
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.fromLTRB(0, 20, 0, 10),
       child: Container(
+        padding: const EdgeInsets.fromLTRB(10, 10, 10, 10),
         width: MediaQuery.of(context).size.width * 0.68,
-        height: MediaQuery.of(context).size.height * 0.15,
-        decoration: const BoxDecoration(
-            color: Color.fromRGBO(175, 255, 207, 1),
-            borderRadius: BorderRadius.all(Radius.circular(20))),
+        //height: MediaQuery.of(context).size.height * 0.15,
+        decoration: BoxDecoration(
+            color: colorBox,
+            borderRadius: const BorderRadius.all(Radius.circular(20))),
         child: Stack(
           children: [
             Center(
               child: Text(
                 textAmountOfObj,
                 style: const TextStyle(
-                    fontSize: 28, fontWeight: FontWeight.bold, height: 1.8),
+                    fontSize: 24, fontWeight: FontWeight.bold, height: 1.8),
                     textAlign: TextAlign.center,
+                    
                     
               ),
             ),
@@ -271,13 +275,13 @@ class TitleHeaderBox extends StatelessWidget {
         width: MediaQuery.of(context).size.width * 0.64,
         height: MediaQuery.of(context).size.height * 0.094,
         decoration: BoxDecoration(
-            color: Colors.amber[100],
+            color: Colors.white,
             borderRadius: BorderRadius.circular(50)),
         child: Center(
           child: Text(
             textTitle,
             style:
-                const TextStyle(fontSize: 32, fontWeight: FontWeight.bold),
+                const TextStyle(fontSize: 28, fontWeight: FontWeight.bold),
           ),
         ),
       ),
