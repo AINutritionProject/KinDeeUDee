@@ -1,101 +1,81 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:appfood2/pages/information/information.dart';
+import 'package:appfood2/pages/home.dart';
 
-class RegisterSuccesPage extends StatelessWidget {
-  const RegisterSuccesPage({super.key});
+class SaveDataSuccessPage extends StatelessWidget {
+  const SaveDataSuccessPage({super.key});
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text("Register Success Page")),
-      body: Column(
-        children: [
-          const Padding(
-            padding: EdgeInsets.only(top: 160),
-            child: FaIcon(
-              FontAwesomeIcons.circleCheck,
-              color: Color.fromRGBO(65, 199, 175, 1),
-              size: 190,
-            ),
-          ),
-          const Padding(
-              padding: EdgeInsets.only(top: 20),
-              child: Align(
-                  alignment: Alignment.center,
-                  child: Text("ลงทะเบียนสำเร็จ",
-                      style: TextStyle(
-                          color: Color.fromRGBO(118, 183, 68, 1),
-                          fontSize: 35,
-                          fontWeight: FontWeight.w600)))),
-          const Padding(
-              padding: EdgeInsets.only(top: 50, left: 30, right: 30),
-              child: SizedBox(
-                  width: double.infinity,
-                  height: 104,
-                  child: DecoratedBox(
-                    decoration: BoxDecoration(
-                        color: Color.fromRGBO(254, 158, 158, 1),
-                        borderRadius: BorderRadius.all(Radius.circular(30))),
-                    child: Align(
-                      alignment: Alignment.center,
-                      child: Text(
-                        "กรอกข้อมูลส่วนตัว",
-                        style: TextStyle(
-                            fontSize: 35, fontWeight: FontWeight.w600),
-                      ),
-                    ),
-                  ))),
-          Padding(
-              padding: const EdgeInsets.only(
-                top: 30,
+        appBar: AppBar(title: const Text("Register Success Page")),
+        body: SingleChildScrollView(
+          child: Column(
+            children: [
+              const Padding(
+                padding: EdgeInsets.only(top: 160),
+                child: FaIcon(
+                  FontAwesomeIcons.circleCheck,
+                  color: Color.fromRGBO(65, 199, 175, 1),
+                  size: 190,
+                ),
               ),
-              child: Stack(alignment: Alignment.center, children: [
-                ElevatedButton(
+              const Padding(
+                  padding: EdgeInsets.only(top: 20),
+                  child: Align(
+                      alignment: Alignment.center,
+                      child: Text("บันทึกสำเร็จ",
+                          style: TextStyle(
+                              color: Color.fromRGBO(118, 183, 68, 1),
+                              fontSize: 35,
+                              fontWeight: FontWeight.w600)))),
+              Padding(
+                padding: const EdgeInsets.only(top: 50, left: 53, right: 30),
+                child: ElevatedButton(
                     onPressed: () {
                       Navigator.of(context).push(MaterialPageRoute(
-                          builder: (context) => const InformationPage()));
+                          builder: (context) => const HomePage()));
                     },
                     style: ElevatedButton.styleFrom(
-                        backgroundColor: const Color.fromRGBO(174, 144, 144, 1),
+                        backgroundColor: const Color.fromRGBO(178, 237, 255, 1),
                         shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(25),
+                          borderRadius: BorderRadius.circular(40),
                         )),
                     child: Container(
                       alignment: Alignment.center,
-                      width: 60,
+                      width: double.infinity,
                       height: 80,
+                      child: const Row(
+                        children: [
+                          Expanded(
+                              flex: 1,
+                              child: Icon(
+                                Icons.arrow_circle_right_outlined,
+                                size: 49,
+                              )),
+                          Expanded(
+                            flex: 6,
+                            child: Padding(
+                                padding: EdgeInsets.only(bottom: 10),
+                                child: Align(
+                                  alignment: Alignment.center,
+                                  child: Text(
+                                    "เข้าสู่เมนูหลัก",
+                                    style: TextStyle(
+                                        fontSize: 36,
+                                        fontWeight: FontWeight.w600,
+                                        color: Colors.black),
+                                    textAlign: TextAlign.center,
+                                  ),
+                                )),
+                          )
+                        ],
+                      ),
                     )),
-                ElevatedButton(
-                    onPressed: () {
-                      Navigator.of(context).push(MaterialPageRoute(
-                          builder: (context) => const InformationPage()));
-                    },
-                    style: ElevatedButton.styleFrom(
-                        backgroundColor: Colors.white,
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(20),
-                        )),
-                    child: Container(
-                      alignment: Alignment.center,
-                      width: 45,
-                      height: 65,
-                    )),
-                IconButton(
-                    padding: const EdgeInsets.only(),
-                    alignment: Alignment.center,
-                    icon: const FaIcon(
-                      FontAwesomeIcons.angleRight,
-                      size: 45,
-                      color: Color.fromRGBO(174, 144, 144, 1),
-                    ),
-                    onPressed: () {
-                      Navigator.of(context).push(MaterialPageRoute(
-                          builder: (context) => const InformationPage()));
-                    })
-              ])),
-        ],
-      ),
-    );
+              ),
+            ],
+          ),
+        ));
   }
 }
