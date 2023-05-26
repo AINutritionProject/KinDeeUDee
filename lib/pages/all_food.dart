@@ -43,7 +43,7 @@ class _RealAllFoodPageState extends State<RealAllFoodPage> {
       future: getFoodByTypeFromCSV(widget.type),
       builder: (context, snapshot) {
         if (snapshot.hasData) {
-          return AllFoodPage(type: "Fruit", foodData: snapshot.data!);
+          return AllFoodPage(type: widget.type, foodData: snapshot.data!);
         } else if (snapshot.hasError) {
           return Text("${snapshot.error}");
         } else {
