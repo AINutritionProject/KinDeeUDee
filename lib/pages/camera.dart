@@ -21,16 +21,16 @@ class CameraPage extends StatefulWidget {
 
 class _CameraPageState extends State<CameraPage> {
   late List<CameraDescription> cameras;
-  late CameraController controller;
+  late CameraController camController;
 
   Future<void> _initCamera() async {
     cameras = await availableCameras();
-    controller = CameraController(cameras[0], ResolutionPreset.high);
-    await controller.initialize();
+    camController = CameraController(cameras[0], ResolutionPreset.high);
+    await camController.initialize();
   }
 
   Future<void> takePicture() async {
-    XFile image = await controller.takePicture();
+    XFile image = await camController.takePicture();
     if (!context.mounted) {
       return;
     }
@@ -72,7 +72,7 @@ class _CameraPageState extends State<CameraPage> {
 
   @override
   void dispose() {
-    controller.dispose();
+    camController.dispose();
     super.dispose();
   }
 
@@ -99,7 +99,7 @@ class _CameraPageState extends State<CameraPage> {
                   Expanded(
                     flex: 1,
                     child: Center(
-                      child: CameraPreview(controller),
+                      child: CameraPreview(camController),
                     ),
                   ),
                   Container(
