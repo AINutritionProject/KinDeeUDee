@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:appfood2/pages/eat_confirm.dart';
 import 'package:camera/camera.dart';
@@ -101,11 +102,44 @@ class _CameraPageState extends State<CameraPage> {
                     child: Center(
                       child: CameraPreview(
                         camController,
-                        child: Center(
-                          child: SizedBox(
-                              height: MediaQuery.of(context).size.height * 0.7,
-                              width: MediaQuery.of(context).size.width * 0.7,
-                              child: Image.asset("assets/cameraFrame.png")),
+                        child: Column(
+                          children: [
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                GestureDetector(
+                                  onTap: () {
+                                    Navigator.of(context).pop();
+                                  },
+                                  child: Container(
+                                    margin: const EdgeInsets.only(left: 10),
+                                    child: const Text(
+                                      "ออก",
+                                      style: TextStyle(
+                                          color: Colors.white,
+                                          fontWeight: FontWeight.bold,
+                                          fontSize: 30),
+                                    ),
+                                  ),
+                                ),
+                                IconButton(
+                                    onPressed: () {},
+                                    icon: const Icon(
+                                      Icons.flash_auto_sharp,
+                                      color: Colors.white,
+                                      size: 30,
+                                    ))
+                              ],
+                            ),
+                            Center(
+                              child: SizedBox(
+                                  height:
+                                      MediaQuery.of(context).size.height * 0.7,
+                                  width:
+                                      MediaQuery.of(context).size.width * 0.7,
+                                  child: Image.asset("assets/cameraFrame.png")),
+                            ),
+                          ],
                         ),
                       ),
                     ),
