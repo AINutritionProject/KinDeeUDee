@@ -1,9 +1,9 @@
+import 'dart:ffi';
+
 import 'package:flutter/material.dart';
 import 'package:appfood2/pages/information/information.dart';
 import 'package:appfood2/pages/camera.dart';
 import 'package:appfood2/pages/all_food.dart';
-import 'package:appfood2/pages/information/information.dart';
-import 'package:appfood2/main.dart';
 
 class MenuPage extends StatelessWidget {
   const MenuPage({super.key});
@@ -12,13 +12,16 @@ class MenuPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
         floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
-        floatingActionButton: FloatingActionButton(
+        floatingActionButton: FloatingActionButton.large(
+          backgroundColor: const Color.fromARGB(255, 255, 120, 63),
+          hoverColor: const Color.fromRGBO(255, 120, 63, 0.5),
           onPressed: () {
             Navigator.of(context).push(MaterialPageRoute(
                 builder: (context) =>
                     const CameraPage(replaceWhenNavigate: false)));
           },
           child: const Icon(
+            size: 65.0,
             Icons.camera_alt,
           ),
         ),
@@ -198,6 +201,8 @@ class MenuTypeIcon extends StatelessWidget {
                       child: Text(
                         name,
                         textAlign: TextAlign.center,
+                        style: TextStyle(
+                            fontSize: 16, fontWeight: FontWeight.w700),
                       ),
                     )),
               ),
@@ -234,7 +239,7 @@ class _TextFieldExampleState extends State<TextFieldExample> {
   Widget build(BuildContext context) {
     return Row(children: [
       Expanded(
-          flex: 4,
+          flex: 5,
           child: Container(
               padding: const EdgeInsets.only(left: 15),
               width: double.infinity,
@@ -250,7 +255,7 @@ class _TextFieldExampleState extends State<TextFieldExample> {
                   style: const TextStyle(fontSize: 20)))),
       Expanded(
         flex: 1,
-        child: Container(
+        child: SizedBox(
           width: double.infinity,
           child: IconButton(
             icon: const Icon(Icons.search),
