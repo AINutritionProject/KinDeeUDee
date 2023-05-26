@@ -30,7 +30,7 @@ ClipRRect(
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: const Color.fromRGBO(233, 255, 223, 1),
+      backgroundColor: _getGIColor(detail.giIndex),
       appBar: AppBar(title: const Text("Food detail")),
       body: SingleChildScrollView(
         child: Center(
