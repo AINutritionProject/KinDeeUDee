@@ -1,6 +1,4 @@
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 
 class MilkPage extends StatefulWidget {
   const MilkPage({super.key});
@@ -10,127 +8,304 @@ class MilkPage extends StatefulWidget {
 }
 
 class _MilkPageState extends State<MilkPage> {
-  final int _milk_cout = 0;
+  // ignore: non_constant_identifier_names
+  bool status_milk0 = false;
+  // ignore: non_constant_identifier_names
+  bool status_milk1 = false;
+  // ignore: non_constant_identifier_names
+  bool status_milk2 = false;
+  // ignore: non_constant_identifier_names
+  bool status_eat0 = false;
+  // ignore: non_constant_identifier_names
+  bool status_eat1 = false;
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.yellow.shade50,
-      appBar: AppBar(
-        title: const Text('Milk Page'),
-      ),
-      body: Column(
-        children: [
-          Align(
-            alignment: Alignment.center,
-            child: Container(
-              margin: const EdgeInsets.only(top: 10),
-              padding: const EdgeInsets.all(10),
-              decoration: BoxDecoration(
-                  color: Colors.blue.shade200,
-                  borderRadius: BorderRadius.circular(10)),
-              child: const Text(
-                "คุณดื่มนมหรือรับประทานผลิต\n      ภัณฑ์จากนมหรือไม่?",
-                style: TextStyle(
-                  fontWeight: FontWeight.w600,
-                  fontSize: 25,
-                ),
-              ),
-            ),
-          ),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceAround,
+        backgroundColor: const Color.fromRGBO(255, 251, 242, 1),
+        appBar: AppBar(
+          title: const Text('Milk Page'),
+        ),
+        body: SingleChildScrollView(
+          child: Column(
             children: [
-              Image.asset("assets/images/drink_eat/drink.png"),
-              Image.asset("assets/images/drink_eat/eat.png")
+              Padding(
+                  padding: const EdgeInsets.only(left: 23, right: 23, top: 34),
+                  child: Container(
+                    alignment: Alignment.center,
+                    child: Container(
+                        width: double.infinity,
+                        height: 100,
+                        decoration: BoxDecoration(
+                            color: Colors.blue.shade200,
+                            borderRadius: BorderRadius.circular(40)),
+                        child: const Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Text(
+                              "คุณดื่มนมหรือรับประทานผลิตภัณฑ์จากนมหรือไม่?",
+                              style: TextStyle(
+                                fontWeight: FontWeight.w600,
+                                fontSize: 25,
+                              ),
+                              textAlign: TextAlign.center,
+                            )
+                          ],
+                        )),
+                  )),
+              Padding(
+                  padding: const EdgeInsets.only(top: 28, bottom: 34),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceAround,
+                    children: [
+                      Image.asset("assets/images/drink_eat/drink.png"),
+                      Image.asset("assets/images/drink_eat/eat.png")
+                    ],
+                  )),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceAround,
+                children: [
+                  Expanded(
+                      flex: 1,
+                      child: Padding(
+                          padding: const EdgeInsets.only(left: 57, right: 22),
+                          child: ElevatedButton(
+                            style: ElevatedButton.styleFrom(
+                                primary: status_milk0
+                                    ? const Color.fromRGBO(131, 255, 158, 1)
+                                    : (!(status_milk0 ||
+                                            status_milk1 ||
+                                            status_milk2 ||
+                                            status_eat0 ||
+                                            status_eat1))
+                                        ? const Color.fromRGBO(254, 194, 181, 1)
+                                        : const Color.fromRGBO(
+                                            206, 206, 206, 1),
+                                minimumSize: const Size.fromHeight(50),
+                                shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(30.0),
+                                )),
+                            onPressed: () {
+                              setState(
+                                () {
+                                  status_milk0 = !status_milk0;
+                                  status_milk1 = false;
+                                  status_milk2 = false;
+                                },
+                              );
+                            },
+                            child: const Text("ไม่ดื่ม",
+                                style: TextStyle(
+                                    fontSize: 25,
+                                    fontWeight: FontWeight.bold,
+                                    color: Colors.black)),
+                          ))),
+                  Expanded(
+                      flex: 1,
+                      child: Padding(
+                        padding: const EdgeInsets.only(right: 60, left: 23),
+                        child: ElevatedButton(
+                            style: ElevatedButton.styleFrom(
+                                backgroundColor: status_eat0
+                                    ? const Color.fromRGBO(131, 255, 158, 1)
+                                    : (!(status_milk0 ||
+                                            status_milk1 ||
+                                            status_milk2 ||
+                                            status_eat0 ||
+                                            status_eat1))
+                                        ? const Color.fromRGBO(254, 194, 181, 1)
+                                        : const Color.fromRGBO(
+                                            206, 206, 206, 1),
+                                minimumSize: const Size.fromHeight(50),
+                                shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(30.0),
+                                )),
+                            onPressed: () {
+                              setState(
+                                () {
+                                  status_eat0 = !status_eat0;
+                                  status_eat1 = false;
+                                },
+                              );
+                            },
+                            child: const Text(
+                              "ไม่ทาน",
+                              style: TextStyle(
+                                  fontSize: 25,
+                                  fontWeight: FontWeight.bold,
+                                  color: Colors.black),
+                            )),
+                      )),
+                ],
+              ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceAround,
+                children: [
+                  Expanded(
+                      flex: 1,
+                      child: Padding(
+                        padding:
+                            const EdgeInsets.only(left: 57, right: 22, top: 30),
+                        child: ElevatedButton(
+                            style: ElevatedButton.styleFrom(
+                                backgroundColor: status_milk1
+                                    ? const Color.fromRGBO(131, 255, 158, 1)
+                                    : (!(status_milk0 ||
+                                            status_milk1 ||
+                                            status_milk2 ||
+                                            status_eat0 ||
+                                            status_eat1))
+                                        ? const Color.fromRGBO(226, 248, 255, 1)
+                                        : const Color.fromRGBO(
+                                            206, 206, 206, 1),
+                                minimumSize: const Size.fromHeight(50),
+                                shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(30.0),
+                                )),
+                            onPressed: () {
+                              setState(
+                                () {
+                                  status_milk1 = !status_milk1;
+                                  status_milk0 = false;
+                                  status_milk2 = false;
+                                },
+                              );
+                            },
+                            child: const Text(
+                              "1 แก้ว",
+                              style: TextStyle(
+                                  fontSize: 25,
+                                  fontWeight: FontWeight.bold,
+                                  color: Colors.black),
+                            )),
+                      )),
+                  Expanded(
+                      flex: 1,
+                      child: Padding(
+                        padding:
+                            const EdgeInsets.only(right: 60, left: 23, top: 30),
+                        child: ElevatedButton(
+                            style: ElevatedButton.styleFrom(
+                                backgroundColor: status_eat1
+                                    ? const Color.fromRGBO(131, 255, 158, 1)
+                                    : (!(status_milk0 ||
+                                            status_milk1 ||
+                                            status_milk2 ||
+                                            status_eat0 ||
+                                            status_eat1))
+                                        ? const Color.fromRGBO(253, 255, 164, 1)
+                                        : const Color.fromRGBO(
+                                            206, 206, 206, 1),
+                                minimumSize: const Size.fromHeight(50),
+                                shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(30.0),
+                                )),
+                            onPressed: () {
+                              setState(
+                                () {
+                                  status_eat1 = !status_eat1;
+                                  status_eat0 = false;
+                                },
+                              );
+                            },
+                            child: const Text(
+                              "ทาน",
+                              style: TextStyle(
+                                  fontSize: 25,
+                                  fontWeight: FontWeight.bold,
+                                  color: Colors.black),
+                            )),
+                      ))
+                ],
+              ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceAround,
+                children: [
+                  Expanded(
+                      flex: 1,
+                      child: Padding(
+                        padding:
+                            const EdgeInsets.only(left: 57, right: 22, top: 30),
+                        child: ElevatedButton(
+                            style: ElevatedButton.styleFrom(
+                                backgroundColor: status_milk2
+                                    ? const Color.fromRGBO(131, 255, 158, 1)
+                                    : (!(status_milk0 ||
+                                            status_milk1 ||
+                                            status_milk2 ||
+                                            status_eat0 ||
+                                            status_eat1))
+                                        ? const Color.fromRGBO(226, 248, 255, 1)
+                                        : const Color.fromRGBO(
+                                            206, 206, 206, 1),
+                                minimumSize: const Size.fromHeight(50),
+                                shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(30.0),
+                                )),
+                            onPressed: () {
+                              setState(
+                                () {
+                                  status_milk2 = !status_milk2;
+                                  status_milk0 = false;
+                                  status_milk1 = false;
+                                },
+                              );
+                            },
+                            child: const Text(
+                              "2 แก้ว",
+                              style: TextStyle(
+                                  fontSize: 25,
+                                  fontWeight: FontWeight.bold,
+                                  color: Colors.black),
+                            )),
+                      )),
+                  Expanded(
+                      flex: 1,
+                      child: Padding(
+                          padding: const EdgeInsets.only(
+                              right: 70, left: 33, top: 30),
+                          child: Container(
+                            height: 55,
+                            alignment: Alignment.center,
+                            decoration: BoxDecoration(
+                              color: const Color.fromRGBO(255, 251, 242, 1),
+                              borderRadius: BorderRadius.circular(30),
+                            ),
+                            child: const Text(
+                              "",
+                              style: TextStyle(
+                                  fontSize: 25,
+                                  fontWeight: FontWeight.bold,
+                                  color: Colors.black),
+                            ),
+                          )))
+                ],
+              ),
+              Visibility(
+                  visible: ((status_eat0 || status_eat1) &&
+                      (status_milk0 || status_milk1 || status_milk2)),
+                  child: Padding(
+                    padding: const EdgeInsets.only(
+                        left: 140, right: 140, top: 150, bottom: 70),
+                    child: ElevatedButton(
+                        style: ElevatedButton.styleFrom(
+                            backgroundColor:
+                                const Color.fromRGBO(135, 228, 234, 1),
+                            minimumSize: const Size.fromHeight(50),
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(30.0),
+                            )),
+                        onPressed: () => {},
+                        child: const Text(
+                          "ถัดไป",
+                          style: TextStyle(
+                              fontSize: 25,
+                              fontWeight: FontWeight.bold,
+                              color: Colors.black),
+                        )),
+                  ))
             ],
           ),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceAround,
-            children: [
-              Container(
-                padding:
-                    const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
-                decoration: BoxDecoration(
-                  color: Colors.pink.shade200,
-                  borderRadius: BorderRadius.circular(20),
-                ),
-                child: const Text(
-                  "ไม่ดื่ม",
-                  style: TextStyle(
-                    fontSize: 25,
-                    fontWeight: FontWeight.bold,
-                  ),
-                ),
-              ),
-              Container(
-                padding:
-                    const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
-                decoration: BoxDecoration(
-                  color: Colors.pink.shade200,
-                  borderRadius: BorderRadius.circular(20),
-                ),
-                child: const Text(
-                  "ไม่ทาน",
-                  style: TextStyle(
-                    fontSize: 25,
-                    fontWeight: FontWeight.bold,
-                  ),
-                ),
-              ),
-            ],
-          ),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceAround,
-            children: [
-              Container(
-                padding:
-                    const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
-                decoration: BoxDecoration(
-                  color: Colors.pink.shade200,
-                  borderRadius: BorderRadius.circular(20),
-                ),
-                child: const Text(
-                  "1แก้ว",
-                  style: TextStyle(
-                    fontSize: 25,
-                    fontWeight: FontWeight.bold,
-                  ),
-                ),
-              ),
-              Container(
-                padding:
-                    const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
-                decoration: BoxDecoration(
-                  color: Colors.pink.shade200,
-                  borderRadius: BorderRadius.circular(20),
-                ),
-                child: const Text(
-                  "ทาน",
-                  style: TextStyle(
-                    fontSize: 25,
-                    fontWeight: FontWeight.bold,
-                  ),
-                ),
-              ),
-            ],
-          ),
-          Container(
-            padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
-            decoration: BoxDecoration(
-              color: Colors.pink.shade200,
-              borderRadius: BorderRadius.circular(20),
-            ),
-            child: const Text(
-              "2แก้ว",
-              style: TextStyle(
-                fontSize: 25,
-                fontWeight: FontWeight.bold,
-              ),
-            ),
-          ),
-        ],
-      ),
-    );
+        ));
   }
 }

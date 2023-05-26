@@ -36,53 +36,74 @@ class _LogInFormState extends State<LogInForm> {
     return Form(
         key: _formKey,
         child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             const SizedBox(
               height: 20,
             ),
             const Padding(
-              padding: EdgeInsets.symmetric(horizontal: 12),
+              padding: EdgeInsets.only(left: 30, top: 34),
               child: Text(
                 "ชื่อผู้ใช้",
-                style: TextStyle(fontSize: 18, fontWeight: FontWeight.w600),
+                style: TextStyle(fontSize: 24, fontWeight: FontWeight.w300),
               ),
             ),
-            TextFormField(
-              controller: _usernameController,
-              cursorHeight: 30,
-              decoration: const InputDecoration(
-                border: UnderlineInputBorder(),
-              ),
-            ),
+            Padding(
+                padding: const EdgeInsets.only(
+                    left: 30, right: 24, top: 20, bottom: 60),
+                child: TextFormField(
+                  controller: _usernameController,
+                  cursorHeight: 30,
+                  decoration: const InputDecoration(
+                    border: UnderlineInputBorder(),
+                  ),
+                  style: const TextStyle(fontSize: 20),
+                )),
             const Padding(
-              padding: EdgeInsets.symmetric(horizontal: 12),
+              padding: EdgeInsets.only(
+                left: 30,
+              ),
               child: Text(
                 "รหัสผ่าน",
-                style: TextStyle(fontSize: 18, fontWeight: FontWeight.w600),
+                style: TextStyle(fontSize: 24, fontWeight: FontWeight.w300),
               ),
             ),
-            TextFormField(
-              controller: _passwordController,
-              obscureText: true,
-              decoration: const InputDecoration(
-                border: UnderlineInputBorder(),
-              ),
-            ),
+            Padding(
+                padding: const EdgeInsets.only(
+                  left: 30,
+                  right: 24,
+                  top: 20,
+                ),
+                child: TextFormField(
+                    controller: _passwordController,
+                    obscureText: true,
+                    decoration: const InputDecoration(
+                      border: UnderlineInputBorder(),
+                    ),
+                    style: const TextStyle(fontSize: 20))),
             const SizedBox(
               height: 20,
             ),
-            Center(
+            Padding(
+              padding: const EdgeInsets.only(left: 80, right: 79, top: 28),
               child: ElevatedButton(
                 style: ElevatedButton.styleFrom(
-                    backgroundColor: Colors.orangeAccent),
+                    backgroundColor: const Color.fromRGBO(255, 120, 63, 1),
+                    minimumSize: const Size.fromHeight(54),
+                    shape: const RoundedRectangleBorder(
+                      borderRadius: BorderRadius.only(
+                          topLeft: Radius.circular(30),
+                          bottomRight: Radius.circular(30)),
+                    )),
                 onPressed: () {
                   _onLogin();
                 },
                 child: const Text(
                   "ลงชื่อเข้าใช้",
-                  style: TextStyle(fontWeight: FontWeight.w200),
+                  style: TextStyle(
+                    fontSize: 32,
+                    fontWeight: FontWeight.w300,
+                  ),
                 ),
               ),
             ),
@@ -93,8 +114,8 @@ class _LogInFormState extends State<LogInForm> {
               child: Text(
                 "ลืมรหัสผ่าน?",
                 style: TextStyle(
-                    fontSize: 18,
-                    fontWeight: FontWeight.w600,
+                    fontSize: 20,
+                    fontWeight: FontWeight.w400,
                     color: Colors.blue),
               ),
             ),
@@ -106,7 +127,7 @@ class _LogInFormState extends State<LogInForm> {
               children: [
                 const Text(
                   "หรือ",
-                  style: TextStyle(fontSize: 18, fontWeight: FontWeight.w600),
+                  style: TextStyle(fontSize: 20, fontWeight: FontWeight.w400),
                 ),
                 GestureDetector(
                   onTap: () {
@@ -116,8 +137,8 @@ class _LogInFormState extends State<LogInForm> {
                   child: const Text(
                     " สร้างบัญชีผู้ใช้",
                     style: TextStyle(
-                        fontSize: 18,
-                        fontWeight: FontWeight.w600,
+                        fontSize: 20,
+                        fontWeight: FontWeight.w400,
                         color: Colors.deepOrange),
                   ),
                 )
@@ -137,68 +158,93 @@ class _LoginPageState extends State<LoginPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: const Color.fromRGBO(255, 251, 242, 1),
-      body: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          const Padding(
-            padding: EdgeInsets.all(8.0),
-            child: Text(
-              "ลงชื่อเข้าใช้",
-              style: TextStyle(fontWeight: FontWeight.bold, fontSize: 30),
-            ),
-          ),
-          Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 12),
-            child: Container(
-              decoration: const BoxDecoration(
-                  color: Color.fromRGBO(254, 246, 174, 1),
-                  borderRadius: BorderRadius.all(Radius.circular(30))),
-              child: const LogInForm(),
-            ),
-          ),
-          Container(
-            margin: const EdgeInsets.symmetric(vertical: 10, horizontal: 20),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              mainAxisSize: MainAxisSize.max,
-              children: [
-                const FaIcon(
-                  FontAwesomeIcons.line,
-                  color: Colors.green,
-                  size: 35,
+        backgroundColor: const Color.fromRGBO(255, 251, 242, 1),
+        body: SafeArea(
+          child: SingleChildScrollView(
+              child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Padding(
+                  padding: const EdgeInsets.only(left: 24, top: 20),
+                  child: ElevatedButton(
+                    style: ElevatedButton.styleFrom(
+                        backgroundColor: const Color.fromRGBO(255, 120, 63, 1),
+                        minimumSize: const Size(50, 50),
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(30.0),
+                        )),
+                    onPressed: () => {},
+                    child: const Text(
+                      "<",
+                      textAlign: TextAlign.center,
+                      style: TextStyle(fontSize: 28),
+                    ),
+                  )),
+              const Padding(
+                padding: EdgeInsets.only(top: 38, left: 28),
+                child: Text(
+                  "ลงชื่อเข้าใช้",
+                  style: TextStyle(fontWeight: FontWeight.bold, fontSize: 30),
                 ),
-                const FaIcon(
-                  FontAwesomeIcons.squareFacebook,
-                  color: Colors.blue,
-                  size: 37,
+              ),
+              Padding(
+                padding: const EdgeInsets.only(
+                    left: 12, right: 12, top: 20, bottom: 22),
+                child: Container(
+                  width: double.infinity,
+                  height: 540,
+                  decoration: const BoxDecoration(
+                      color: Color.fromRGBO(254, 246, 174, 1),
+                      borderRadius: BorderRadius.all(Radius.circular(45))),
+                  child: const LogInForm(),
                 ),
-                const FaIcon(
-                  FontAwesomeIcons.instagram,
-                  color: Colors.deepOrangeAccent,
-                  size: 37,
-                ),
-                GestureDetector(
-                  onTap: () async {
-                    await Auth().signInWithGoogle(_googleSignIn);
-                  },
-                  child: const FaIcon(
-                    FontAwesomeIcons.google,
-                    color: Colors.deepOrange,
-                    size: 34,
+              ),
+              Padding(
+                padding: const EdgeInsets.only(bottom: 100),
+                child: Container(
+                  margin:
+                      const EdgeInsets.symmetric(vertical: 10, horizontal: 20),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    mainAxisSize: MainAxisSize.max,
+                    children: [
+                      const FaIcon(
+                        FontAwesomeIcons.line,
+                        color: Colors.green,
+                        size: 35,
+                      ),
+                      const FaIcon(
+                        FontAwesomeIcons.squareFacebook,
+                        color: Colors.blue,
+                        size: 37,
+                      ),
+                      const FaIcon(
+                        FontAwesomeIcons.instagram,
+                        color: Colors.deepOrangeAccent,
+                        size: 37,
+                      ),
+                      GestureDetector(
+                        onTap: () async {
+                          await Auth().signInWithGoogle(_googleSignIn);
+                        },
+                        child: const FaIcon(
+                          FontAwesomeIcons.google,
+                          color: Colors.deepOrange,
+                          size: 34,
+                        ),
+                      ),
+                      const FaIcon(
+                        FontAwesomeIcons.envelope,
+                        color: Colors.indigo,
+                        size: 37,
+                      )
+                    ],
                   ),
                 ),
-                const FaIcon(
-                  FontAwesomeIcons.envelope,
-                  color: Colors.indigo,
-                  size: 37,
-                )
-              ],
-            ),
-          )
-        ],
-      ),
-    );
+              )
+            ],
+          )),
+        ));
   }
 }

@@ -8,7 +8,11 @@ Future<User> getUser() async {
       .where("uid", isEqualTo: user!.uid)
       .get();
   final doc = userData.docs.first;
-  return User(doc.get("email"), doc.get("username"), doc.get("hasData"));
+  return User(
+    email: doc.get("email"),
+    username: doc.get("username"),
+    hasData: doc.get("hasData"),
+  );
 }
 
 class User {
@@ -16,5 +20,26 @@ class User {
   final bool hasData;
   final String username;
 
-  User(this.email, this.username, this.hasData);
+  String fullname;
+  String gender;
+  int age;
+  double weight;
+  double height;
+  String career;
+  String chronicDisease;
+  String foodAllergy;
+
+  User({
+    required this.email,
+    required this.username,
+    required this.hasData,
+    this.fullname = "",
+    this.gender = "",
+    this.age = 0,
+    this.weight = 0,
+    this.height = 0,
+    this.career = "",
+    this.chronicDisease = "",
+    this.foodAllergy = "",
+  });
 }

@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:appfood2/pages/home.dart';
-import 'package:appfood2/widgets/dropdown.dart';
+import 'package:appfood2/widgets/wide_dropdown.dart';
 import 'package:appfood2/db.dart';
+import 'package:appfood2/pages/information/activity_form.dart';
 
 List<String> careers = <String>[
   "------------",
@@ -27,7 +28,11 @@ List<String> chronicDiseases = <String>[
 ];
 
 class PersonalInformation extends StatelessWidget {
-  const PersonalInformation({super.key});
+  final User user;
+  const PersonalInformation({
+    super.key,
+    required this.user,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -36,10 +41,10 @@ class PersonalInformation extends StatelessWidget {
       return SingleChildScrollView(
         child: ConstrainedBox(
           constraints: BoxConstraints(minHeight: constraints.maxHeight),
-          child: const Column(
+          child: Column(
             children: [
-              PersonalHeader(),
-              PersonalBody(),
+              PersonalHeader(user: user),
+              PersonalBody(user: user),
             ],
           ),
         ),
@@ -49,8 +54,10 @@ class PersonalInformation extends StatelessWidget {
 }
 
 class PersonalBody extends StatefulWidget {
+  final User user;
   const PersonalBody({
     super.key,
+    required this.user,
   });
   @override
   State<PersonalBody> createState() => _PersonalBodyState();
@@ -64,12 +71,8 @@ class _PersonalBodyState extends State<PersonalBody> {
   final TextEditingController _heightTextController = TextEditingController();
   final TextEditingController _foodAllergyTextController =
       TextEditingController();
-  late String name;
-  late String gender;
-  late int age;
-  late double weight;
-  late double height;
-  late String foodAllergy;
+  String selectedCareer = "";
+  String selectedChronicDisease = "";
 
   @override
   void initState() {
@@ -90,69 +93,89 @@ class _PersonalBodyState extends State<PersonalBody> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      margin: const EdgeInsets.only(bottom: 20),
-      child: Container(
-        margin: const EdgeInsets.symmetric(horizontal: 10),
-        decoration: BoxDecoration(
-          color: const Color(0xFFF8FFDD),
-          borderRadius: BorderRadius.circular(30),
-        ),
-        child: Padding(
-          padding: const EdgeInsets.symmetric(vertical: 20, horizontal: 20),
-          child:
-              Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-            OneChildTextField(
-                textController: _nameTextController,
-                textName: "ชื่อ-นามสกุล",
-                textHint: "ฟ้าใส ใจดี"),
-            TwoChildTextField(
-              leftTextController: _genderTextController,
-              leftTextName: "เพศ",
-              rightTextController: _ageTextController,
-              rightTextName: "อายุ",
-              rightTextInputType: TextInputType.number,
-            ),
-            TwoChildTextField(
-              leftTextController: _weightTextController,
-              rightTextController: _heightTextController,
-              leftTextName: "น้ำหนัก",
-              rightTextName: "ส่วนสูง",
-              leftTextInputType: TextInputType.number,
-              rightTextInputType: TextInputType.number,
-            ),
-            WideDropDown(data: careers, title: "อาชีพ"),
-            WideDropDown(data: chronicDiseases, title: "โรคประจำตัว"),
-            OneChildTextField(
-                textController: _foodAllergyTextController,
-                textName: "ประวัติการแพ้อาหาร",
-                textHint: "แพ้กุ้ง,แพ้ปู,แพ้ปลา,แพ้หมู,แพ้แมว"),
-            Center(
-              child: Container(
-                margin: const EdgeInsets.only(top: 100),
-                child: ElevatedButton(
-                  style: ButtonStyle(
-                      backgroundColor:
-                          const MaterialStatePropertyAll(Color(0xFFED7E7E)),
-                      shape: MaterialStateProperty.all(RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(30),
-                      ))),
-                  onPressed: () {
-                    setState(() {
-                      name = _nameTextController.text;
-                    });
-                  },
-                  child: const Padding(
-                    padding: EdgeInsets.symmetric(vertical: 3, horizontal: 15),
-                    child: Text(
-                      "ถัดไป",
-                      style: TextStyle(fontSize: 32),
-                    ),
+      margin: const EdgeInsets.only(bottom: 20, left: 10, right: 10),
+      decoration: BoxDecoration(
+        color: const Color(0xFFF8FFDD),
+        borderRadius: BorderRadius.circular(30),
+      ),
+      child: Padding(
+        padding: const EdgeInsets.symmetric(vertical: 20, horizontal: 20),
+        child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
+          OneChildTextField(
+              textController: _nameTextController,
+              textName: "ชื่อ-นามสกุล",
+              textHint: "ฟ้าใส ใจดี"),
+          TwoChildTextField(
+            leftTextController: _genderTextController,
+            leftTextName: "เพศ",
+            rightTextController: _ageTextController,
+            rightTextName: "อายุ",
+            rightTextInputType: TextInputType.number,
+          ),
+          TwoChildTextField(
+            leftTextController: _weightTextController,
+            rightTextController: _heightTextController,
+            leftTextName: "น้ำหนัก",
+            rightTextName: "ส่วนสูง",
+            leftTextInputType: TextInputType.number,
+            rightTextInputType: TextInputType.number,
+          ),
+          WideDropDown(
+              data: careers,
+              title: "อาชีพ",
+              setSelectedItem: (String val) {
+                setState(() {
+                  selectedCareer = val;
+                });
+              }),
+          WideDropDown(
+            data: chronicDiseases,
+            title: "โรคประจำตัว",
+            setSelectedItem: (String val) {
+              setState(() {
+                selectedChronicDisease = val;
+              });
+            },
+          ),
+          OneChildTextField(
+              textController: _foodAllergyTextController,
+              textName: "ประวัติการแพ้อาหาร",
+              textHint: "แพ้กุ้ง,แพ้ปู,แพ้ปลา,แพ้หมู,แพ้แมว"),
+          Center(
+            child: Container(
+              margin: const EdgeInsets.only(top: 100),
+              child: ElevatedButton(
+                style: ButtonStyle(
+                    backgroundColor:
+                        const MaterialStatePropertyAll(Color(0xFFED7E7E)),
+                    shape: MaterialStateProperty.all(RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(30),
+                    ))),
+                onPressed: () {
+                  setState(() {
+                    widget.user.fullname = _nameTextController.text;
+                    widget.user.gender = _genderTextController.text;
+                    widget.user.age = int.parse(_ageTextController.text);
+                    widget.user.weight =
+                        double.parse(_weightTextController.text);
+                    widget.user.height =
+                        double.parse(_heightTextController.text);
+                    widget.user.foodAllergy = _foodAllergyTextController.text;
+                    Navigator.of(context).push(MaterialPageRoute(
+                        builder: (context) => const ActivityForm()));
+                  });
+                },
+                child: const Padding(
+                  padding: EdgeInsets.symmetric(vertical: 3, horizontal: 15),
+                  child: Text(
+                    "ถัดไป",
+                    style: TextStyle(fontSize: 32),
                   ),
                 ),
               ),
             ),
-          ]),
-        ),
+          ),
+        ]),
       ),
     );
   }
@@ -332,8 +355,10 @@ class _OneChildTextFieldState extends State<OneChildTextField> {
 }
 
 class PersonalHeader extends StatefulWidget {
+  final User user;
   const PersonalHeader({
     super.key,
+    required this.user,
   });
 
   @override
@@ -368,22 +393,12 @@ class _PersonalHeaderState extends State<PersonalHeader> {
                 Expanded(
                   flex: 1,
                   child: Container(
-                    alignment: Alignment.center,
-                    margin: const EdgeInsets.all(8.0),
-                    child: FutureBuilder(
-                      builder: (context, snapshot) {
-                        if (snapshot.hasData) {
-                          return Text(
-                            "\"${snapshot.data!.username}\"",
-                            style: const TextStyle(fontSize: 24),
-                          );
-                        } else {
-                          return const Text("");
-                        }
-                      },
-                      future: getUser(),
-                    ),
-                  ),
+                      alignment: Alignment.center,
+                      margin: const EdgeInsets.all(8.0),
+                      child: Text(
+                        "\"${widget.user.username}\"",
+                        style: const TextStyle(fontSize: 24),
+                      )),
                 ),
                 Expanded(
                   flex: 2,
