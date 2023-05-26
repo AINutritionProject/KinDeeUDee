@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:appfood2/auth.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:appfood2/pages/information/information.dart';
 
