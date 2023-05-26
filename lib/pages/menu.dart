@@ -58,26 +58,30 @@ class MenuPage extends StatelessWidget {
               Row(
                 children: [
                   Padding(
-                    padding:
-                        const EdgeInsets.only(left: 30, top: 10, bottom: 24),
-                    child: Container(
-                      width: 212,
-                      height: 41,
-                      decoration: const BoxDecoration(
-                          color: Color.fromRGBO(91, 158, 130, 1),
-                          borderRadius: BorderRadius.all(
-                            Radius.circular(30),
-                          )),
-                      child: const Text(
-                        "กลับสู่เมนูหลัก",
-                        style: TextStyle(
-                            color: Colors.white,
-                            fontSize: 26,
-                            fontWeight: FontWeight.bold),
-                        textAlign: TextAlign.center,
-                      ),
-                    ),
-                  ),
+                      padding:
+                          const EdgeInsets.only(left: 30, top: 10, bottom: 24),
+                      child: GestureDetector(
+                        onTap: () {
+                          Navigator.pop(context);
+                        },
+                        child: Container(
+                          width: 212,
+                          height: 41,
+                          decoration: const BoxDecoration(
+                              color: Color.fromRGBO(91, 158, 130, 1),
+                              borderRadius: BorderRadius.all(
+                                Radius.circular(30),
+                              )),
+                          child: const Text(
+                            "กลับสู่เมนูหลัก",
+                            style: TextStyle(
+                                color: Colors.white,
+                                fontSize: 26,
+                                fontWeight: FontWeight.bold),
+                            textAlign: TextAlign.center,
+                          ),
+                        ),
+                      )),
                 ],
               ),
               Padding(
