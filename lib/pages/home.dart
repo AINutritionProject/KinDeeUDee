@@ -187,9 +187,9 @@ class _UserAvatarState extends State<UserAvatar> {
           child: Center(
             child: CircleAvatar(
               backgroundColor: Colors.white,
-              foregroundImage: NetworkImage(
-                  FirebaseAuth.instance.currentUser?.photoURL ??
-                      "https://avatars.githubusercontent.com/u/124413969?v=4"),
+              foregroundImage: NetworkImage(FirebaseAuth
+                      .instance.currentUser?.photoURL ??
+                  "https://www.wycliffe.ca/wp-content/uploads/2021/03/member-fallback-user-image.png"),
               radius: 60,
             ),
           ),
