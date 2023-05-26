@@ -1,9 +1,9 @@
+import 'dart:ffi';
+
 import 'package:flutter/material.dart';
 import 'package:appfood2/pages/information/information.dart';
 import 'package:appfood2/pages/camera.dart';
 import 'package:appfood2/pages/all_food.dart';
-import 'package:appfood2/pages/information/information.dart';
-import 'package:appfood2/main.dart';
 
 class MenuPage extends StatelessWidget {
   const MenuPage({super.key});
@@ -12,13 +12,16 @@ class MenuPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
         floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
-        floatingActionButton: FloatingActionButton(
+        floatingActionButton: FloatingActionButton.large(
+          backgroundColor: const Color.fromARGB(255, 255, 120, 63),
+          hoverColor: const Color.fromRGBO(255, 120, 63, 0.5),
           onPressed: () {
             Navigator.of(context).push(MaterialPageRoute(
                 builder: (context) =>
                     const CameraPage(replaceWhenNavigate: false)));
           },
           child: const Icon(
+            size: 65.0,
             Icons.camera_alt,
           ),
         ),
@@ -85,22 +88,16 @@ class MenuPage extends StatelessWidget {
                 ],
               ),
               Padding(
-                padding: EdgeInsets.only(left: 31, right: 32),
+                padding: const EdgeInsets.only(left: 31, right: 32),
                 child: Container(
                     width: double.infinity,
                     height: 53,
                     decoration: const BoxDecoration(
                         color: Colors.white,
                         borderRadius: BorderRadius.all(
-                          Radius.circular(30),
+                          Radius.circular(50),
                         )),
-                    child: const TextField(
-                      obscureText: true,
-                      decoration: InputDecoration(
-                        border: OutlineInputBorder(),
-                        labelText: 'Password',
-                      ),
-                    )),
+                    child: const TextFieldExample()),
               ),
               Padding(
                 padding: const EdgeInsets.all(8.0),
@@ -204,6 +201,8 @@ class MenuTypeIcon extends StatelessWidget {
                       child: Text(
                         name,
                         textAlign: TextAlign.center,
+                        style: TextStyle(
+                            fontSize: 16, fontWeight: FontWeight.w700),
                       ),
                     )),
               ),
@@ -214,46 +213,60 @@ class MenuTypeIcon extends StatelessWidget {
   }
 }
 
-class MyApp extends StatefulWidget {
+class TextFieldExample extends StatefulWidget {
+  const TextFieldExample({super.key});
+
   @override
-  _MyAppState createState() => _MyAppState();
+  State<TextFieldExample> createState() => _TextFieldExampleState();
 }
 
-class _MyAppState extends State<MyApp> {
-  TextEditingController nameController = TextEditingController();
-  String fullName = '';
+class _TextFieldExampleState extends State<TextFieldExample> {
+  late TextEditingController _controller;
+
+  @override
+  void initState() {
+    super.initState();
+    _controller = TextEditingController();
+  }
+
+  @override
+  void dispose() {
+    _controller.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      home: Scaffold(
-          appBar: AppBar(
-            title: Text('Flutter - tutorialkart.com'),
-          ),
-          body: Center(
-              child: Column(children: <Widget>[
-            Container(
-                margin: EdgeInsets.all(20),
-                child: TextField(
-                  controller: nameController,
+    return Row(children: [
+      Expanded(
+          flex: 5,
+          child: Container(
+              padding: const EdgeInsets.only(left: 15),
+              width: double.infinity,
+              child: TextField(
                   decoration: InputDecoration(
-                    border: OutlineInputBorder(),
-                    labelText: 'Full Name',
+                    hintText: "พิมพ์ชื่ออาหารตรงนี้สิ",
+                    enabledBorder: OutlineInputBorder(
+                      borderSide: const BorderSide(
+                          width: 3, color: Colors.white), //<-- SEE HERE
+                      borderRadius: BorderRadius.circular(50.0),
+                    ),
                   ),
-                  onChanged: (text) {
-                    setState(() {
-                      fullName = text;
-                      //you can access nameController in its scope to get
-                      // the value of text entered as shown below
-                      //fullName = nameController.text;
-                    });
-                  },
-                )),
-            Container(
-              margin: EdgeInsets.all(20),
-              child: Text(fullName),
-            )
-          ]))),
-    );
+                  style: const TextStyle(fontSize: 20)))),
+      Expanded(
+        flex: 1,
+        child: SizedBox(
+          width: double.infinity,
+          child: IconButton(
+            icon: const Icon(Icons.search),
+            onPressed: () {
+              setState(
+                () {},
+              );
+            },
+          ),
+        ),
+      )
+    ]);
   }
 }

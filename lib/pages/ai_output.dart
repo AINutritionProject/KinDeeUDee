@@ -1,4 +1,5 @@
 import 'dart:io';
+import 'package:appfood2/pages/food_advance_detail.dart';
 import 'package:appfood2/pages/food_detailed.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
@@ -16,8 +17,12 @@ class AIOutputPage extends StatelessWidget {
         child: Center(
           child: Column(
             children: [
-              const TitleHeaderBox(textTitle: 'แอปเปิ้ลแดงฟูจิ',),
-              const ImageContainer(pathImage: "assets/images/RealFruit/10.jpg",),
+              const TitleHeaderBox(
+                textTitle: 'แอปเปิ้ลแดงฟูจิ',
+              ),
+              const ImageContainer(
+                pathImage: "assets/images/RealFruit/10.jpg",
+              ),
               const TextDataNutrition(),
               const AmountDetailObject(textAmountOfObj: 'แอปเปิ้ล\n 1 ส่วน 120 กรัม', colorBox: Color.fromRGBO(175, 255, 207, 1),),
               const Padding(
@@ -27,7 +32,10 @@ class AIOutputPage extends StatelessWidget {
               AmountObjectofUser(foodImage: foodImage),
               const PartOfObject(),
               const SugestBox(),
-              const BenefitDetailContainer(textBenefitDetail: "ช่วยป้องกันการเกิดโรคหลอดเลือดหัวใจ\nช่วยให้ผนังหลอดเลือดแข็งแรง\nป้องกันการเกิดโรคต้อกระจก\nลดกรดในกระเพาะอาหาร ช่วยละลายเสมหะ\nลดความดันโลหิต ช่วยบำรุงหัวใจ",),
+              const BenefitDetailContainer(
+                textBenefitDetail:
+                    "ช่วยป้องกันการเกิดโรคหลอดเลือดหัวใจ\nช่วยให้ผนังหลอดเลือดแข็งแรง\nป้องกันการเกิดโรคต้อกระจก\nลดกรดในกระเพาะอาหาร ช่วยละลายเสมหะ\nลดความดันโลหิต ช่วยบำรุงหัวใจ",
+              ),
               const ClickHereContainer(),
             ],
           ),
@@ -58,8 +66,7 @@ class PartOfObject extends StatelessWidget {
                 alignment: AlignmentDirectional(0, -0.8),
                 child: Text(
                   'แอปเปิ้ล 1 ส่วน',
-                  style: TextStyle(
-                      fontSize: 32, fontWeight: FontWeight.bold),
+                  style: TextStyle(fontSize: 32, fontWeight: FontWeight.bold),
                 )),
             Align(
                 alignment: const AlignmentDirectional(-0.7, 0.6),
@@ -103,8 +110,7 @@ class AmountObjectofUser extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.fromLTRB(0, 15, 0, 0),
       child: Container(
-        padding:
-            const EdgeInsets.symmetric(vertical: 10, horizontal: 30),
+        padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 30),
         decoration: const BoxDecoration(
             borderRadius: BorderRadius.all(Radius.circular(20)),
             color: Color.fromRGBO(255, 251, 212, 1)),
@@ -114,13 +120,11 @@ class AmountObjectofUser extends StatelessWidget {
           children: [
             const Text(
               "ปริมาณแอฟเปิ้ล",
-              style: TextStyle(
-                  fontSize: 32, fontWeight: FontWeight.bold),
+              style: TextStyle(fontSize: 32, fontWeight: FontWeight.bold),
             ),
             const Text(
               "ของคุณแจ่มใส",
-              style: TextStyle(
-                  fontSize: 32, fontWeight: FontWeight.bold),
+              style: TextStyle(fontSize: 32, fontWeight: FontWeight.bold),
             ),
             Padding(
               padding: const EdgeInsets.fromLTRB(0, 20, 0, 15),
@@ -128,8 +132,7 @@ class AmountObjectofUser extends StatelessWidget {
                 width: MediaQuery.of(context).size.width * 0.35,
                 height: MediaQuery.of(context).size.width * 0.38,
                 child: ClipRRect(
-                  borderRadius:
-                      const BorderRadius.all(Radius.circular(30)),
+                  borderRadius: const BorderRadius.all(Radius.circular(30)),
                   child: Image.file(
                     File(foodImage!.path),
                     fit: BoxFit.cover,
@@ -177,7 +180,6 @@ class AmountDetailObject extends StatelessWidget {
                     
               ),
             ),
-            
           ],
         ),
       ),
@@ -206,12 +208,8 @@ class TextDataNutrition extends StatelessWidget {
 }
 
 class ImageContainer extends StatelessWidget {
-  const ImageContainer({
-    super.key,
-    required this.pathImage
-
-  });
-  final String pathImage; 
+  const ImageContainer({super.key, required this.pathImage});
+  final String pathImage;
 
   @override
   Widget build(BuildContext context) {
@@ -219,8 +217,7 @@ class ImageContainer extends StatelessWidget {
         padding: const EdgeInsets.all(15),
         decoration: BoxDecoration(
             color: Colors.greenAccent.shade100,
-            borderRadius:
-                const BorderRadius.all(Radius.circular(20))),
+            borderRadius: const BorderRadius.all(Radius.circular(20))),
         width: MediaQuery.of(context).size.width * 0.6,
         height: MediaQuery.of(context).size.width * 0.6,
         child: ClipRRect(
@@ -241,30 +238,23 @@ class SugestBox extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      margin:
-          const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
+      margin: const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
       padding: const EdgeInsets.symmetric(vertical: 15),
       decoration: const BoxDecoration(
           color: Colors.white,
           borderRadius: BorderRadius.all(Radius.circular(20))),
       child: const Align(
-          child: Text(
-        "แนะนำรับประทานครั้งละ 1 ส่วน",
-        style: TextStyle(
-            fontSize: 25,
-            color: Colors.red,
-            fontWeight: FontWeight.bold)
-      )),
+          child: Text("แนะนำรับประทานครั้งละ 1 ส่วน",
+              style: TextStyle(
+                  fontSize: 25,
+                  color: Colors.red,
+                  fontWeight: FontWeight.bold))),
     );
   }
 }
 
 class TitleHeaderBox extends StatelessWidget {
-  const TitleHeaderBox({
-    super.key,
-
-    required this.textTitle
-  });
+  const TitleHeaderBox({super.key, required this.textTitle});
   final String textTitle;
 
   @override
@@ -306,20 +296,25 @@ class ClickHereContainer extends StatelessWidget {
               Radius.circular(20),
             ),
             color: Colors.white),
-        child: const Column(
+        child: Column(
           children: [
-            Text(
-              "กดที่นี่",
-              style: TextStyle(
-                  decoration: TextDecoration.underline,
-                  fontSize: 25,
-                  fontWeight: FontWeight.bold
-                  ),
+            GestureDetector(
+              onTap: () {
+                Navigator.of(context).push(MaterialPageRoute(
+                    builder: (context) => const FoodAdvanceDetailPage()));
+              },
+              child: const Text(
+                "กดที่นี่",
+                style: TextStyle(
+                    decoration: TextDecoration.underline,
+                    fontSize: 25,
+                    fontWeight: FontWeight.bold),
+              ),
             ),
-            Text("เพื่อดูข้อมูลทางโภชนาการเพิ่มเติม",
-                style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
-                
-              )
+            const Text(
+              "เพื่อดูข้อมูลทางโภชนาการเพิ่มเติม",
+              style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+            )
           ],
         ),
       ),
@@ -328,10 +323,7 @@ class ClickHereContainer extends StatelessWidget {
 }
 
 class BenefitDetailContainer extends StatelessWidget {
-  const BenefitDetailContainer({
-    super.key,
-    required this.textBenefitDetail
-  });
+  const BenefitDetailContainer({super.key, required this.textBenefitDetail});
   final String textBenefitDetail;
 
   @override
@@ -339,12 +331,10 @@ class BenefitDetailContainer extends StatelessWidget {
     return Container(
       width: MediaQuery.of(context).size.width * 0.9,
       height: MediaQuery.of(context).size.height * 0.34,
-      constraints: BoxConstraints(
-        maxWidth: MediaQuery.of(context).size.width * 0.9
-      ),
+      constraints:
+          BoxConstraints(maxWidth: MediaQuery.of(context).size.width * 0.9),
       decoration: BoxDecoration(
-          color: Colors.white,
-          borderRadius: BorderRadius.circular(30)),
+          color: Colors.white, borderRadius: BorderRadius.circular(30)),
       child: Column(
         children: [
           Container(
@@ -356,8 +346,7 @@ class BenefitDetailContainer extends StatelessWidget {
             child: const Center(
               child: Text(
                 'ประโยชน์',
-                style: TextStyle(
-                    fontSize: 24, fontWeight: FontWeight.bold),
+                style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
               ),
             ),
           ),
@@ -366,10 +355,7 @@ class BenefitDetailContainer extends StatelessWidget {
             textBenefitDetail,
             textAlign: TextAlign.center,
             style: const TextStyle(
-              fontSize: 19,
-              fontWeight: FontWeight.bold,
-              height: 2
-            ),
+                fontSize: 19, fontWeight: FontWeight.bold, height: 2),
           )),
         ],
       ),
