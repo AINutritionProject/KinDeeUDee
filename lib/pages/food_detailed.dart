@@ -13,6 +13,7 @@ class FoodDetailPage extends StatelessWidget {
       return const Color.fromRGBO(255, 228, 228, 1);
     }
   }
+
 //detail.realImageAssetPath ?? "assets/cameraFrame.png",
 /*
 ClipRRect(
@@ -35,29 +36,38 @@ ClipRRect(
         child: Center(
           child: Column(
             children: [
-              TitleHeaderBox(textTitle: detail.name,),
-              Container(
-                padding: const EdgeInsets.all(15),
-                decoration: BoxDecoration(
-            color: Colors.greenAccent.shade100,
-            borderRadius:
-                const BorderRadius.all(Radius.circular(20))),
-        width: MediaQuery.of(context).size.width * 0.6,
-        height: MediaQuery.of(context).size.width * 0.6,
-        child: ClipRRect(
-          borderRadius: const BorderRadius.all(Radius.circular(30)),
-          child: Image.asset(
-            detail.realImageAssetPath ?? "assets/cameraFrame.png",
-            fit: BoxFit.cover,
-          ),
-        )),
+              TitleHeaderBox(
+                textTitle: detail.name,
+              ),
+              Padding(
+                padding: const EdgeInsets.fromLTRB(0, 10, 0, 15),
+                child: ClipRRect(
+                          borderRadius: BorderRadius.circular(20),
+                          child: SizedBox.fromSize(
+                size: const Size.fromRadius(48 * 3),
+                child: Image.asset(
+                  detail.realImageAssetPath ?? "assets/cameraFrame.png",
+                  fit: BoxFit.cover,
+                ),
+                          ),
+                        ),
+              ),
               const TextDataNutrition(),
-              AmountDetailObject(textAmountOfObj: '${detail.name}\n 1 ส่วน 120 กรัม', colorBox: const Color.fromRGBO(255, 255, 255, 1),),
+              AmountDetailObject(
+                textAmountOfObj: '${detail.name}\n 1 ส่วน 120 กรัม',
+                colorBox: const Color.fromRGBO(255, 255, 255, 1),
+              ),
               Padding(
                 padding: const EdgeInsets.fromLTRB(0, 20, 0, 20),
-                child: ChemicalDetail(power: detail.power, fiber: detail.fiber, sugar: detail.sugar),
+                child: ChemicalDetail(
+                    power: detail.power,
+                    fiber: detail.fiber,
+                    sugar: detail.sugar),
               ),
-              const BenefitDetailContainer(textBenefitDetail: "ช่วยป้องกันการเกิดโรคหลอดเลือดหัวใจ\nช่วยให้ผนังหลอดเลือดแข็งแรง\nป้องกันการเกิดโรคต้อกระจก\nลดกรดในกระเพาะอาหาร ช่วยละลายเสมหะ\nลดความดันโลหิต ช่วยบำรุงหัวใจ",),
+              const BenefitDetailContainer(
+                textBenefitDetail:
+                    "ช่วยป้องกันการเกิดโรคหลอดเลือดหัวใจ\nช่วยให้ผนังหลอดเลือดแข็งแรง\nป้องกันการเกิดโรคต้อกระจก\nลดกรดในกระเพาะอาหาร ช่วยละลายเสมหะ\nลดความดันโลหิต ช่วยบำรุงหัวใจ",
+              ),
               const ClickHereContainer(),
             ],
           ),
@@ -111,10 +121,10 @@ class ChemicalDetail extends StatelessWidget {
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
         Padding(
-          padding: const EdgeInsets.symmetric(vertical: 8 ,horizontal: 12),
+          padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 12),
           child: Container(
             //padding: const EdgeInsets.all(30),
-            
+
             width: 100,
             height: 100,
             decoration: const BoxDecoration(
@@ -124,19 +134,25 @@ class ChemicalDetail extends StatelessWidget {
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                const Text("พลังงาน", style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
+                const Text("พลังงาน",
+                    style:
+                        TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
                 Text(
                   "$power",
                   style: const TextStyle(
-                      color: Color.fromRGBO(9, 183, 173, 1), fontWeight: FontWeight.w900, fontSize: 18),
+                      color: Color.fromRGBO(9, 183, 173, 1),
+                      fontWeight: FontWeight.w900,
+                      fontSize: 18),
                 ),
-                const Text("กิโลแคลอรี่", style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
+                const Text("กิโลแคลอรี่",
+                    style:
+                        TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
               ],
             ),
           ),
         ),
         Padding(
-          padding: const EdgeInsets.symmetric(vertical: 8 ,horizontal: 12),
+          padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 12),
           child: Container(
             //padding: const EdgeInsets.all(30),
             width: 100,
@@ -148,19 +164,25 @@ class ChemicalDetail extends StatelessWidget {
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                const Text("ใยอาหาร", style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
+                const Text("ใยอาหาร",
+                    style:
+                        TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
                 Text(
                   "$fiber",
                   style: const TextStyle(
-                      color: Color.fromRGBO(9, 183, 173, 1), fontWeight: FontWeight.w900, fontSize: 18),
+                      color: Color.fromRGBO(9, 183, 173, 1),
+                      fontWeight: FontWeight.w900,
+                      fontSize: 18),
                 ),
-                const Text("กรัม" , style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
+                const Text("กรัม",
+                    style:
+                        TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
               ],
             ),
           ),
         ),
         Padding(
-          padding: const EdgeInsets.symmetric(vertical: 8 ,horizontal: 12),
+          padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 12),
           child: Container(
             //padding: const EdgeInsets.all(30),
             width: 100,
@@ -172,13 +194,20 @@ class ChemicalDetail extends StatelessWidget {
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                const Text("น้ำตาล", style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),),
+                const Text(
+                  "น้ำตาล",
+                  style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+                ),
                 Text(
                   "$sugar",
                   style: const TextStyle(
-                      color: Color.fromRGBO(255, 141, 35, 1), fontWeight: FontWeight.w900, fontSize: 18),
+                      color: Color.fromRGBO(255, 141, 35, 1),
+                      fontWeight: FontWeight.w900,
+                      fontSize: 18),
                 ),
-                const Text("กรัม", style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
+                const Text("กรัม",
+                    style:
+                        TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
               ],
             ),
           ),
