@@ -9,7 +9,7 @@ import 'package:appfood2/pages/eat_history.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:image_picker/image_picker.dart';
 import 'dart:io';
-
+import 'package:flutter_svg/flutter_svg.dart';
 class Home extends StatefulWidget {
   final String username;
   const Home({
@@ -64,6 +64,7 @@ class _HomePageState extends State<HomePage> {
 }
 
 class _HomeState extends State<Home> {
+  final String assetName = 'assets/icons/book-1.svg'; 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -92,16 +93,20 @@ class _HomeState extends State<Home> {
                 Column(
                   children: [
                     const Text(
-                      "ยินต้อนรับ",
+                      'ยินต้อนรับ',
                       style:
                           TextStyle(fontSize: 25, fontWeight: FontWeight.bold),
                     ),
                     Text(
-                      widget.username,
+                      '"${widget.username}"',
                       style: const TextStyle(
                           fontSize: 20, fontWeight: FontWeight.bold),
                     )
                   ],
+                ),
+                Padding(
+                  padding: const EdgeInsets.fromLTRB(65, 0, 0, 75),
+                  child: IconButton(onPressed: () => {}, icon: const Icon(Icons.settings), iconSize: 30,),
                 )
               ],
             ),
@@ -110,10 +115,23 @@ class _HomeState extends State<Home> {
                 Navigator.push(context,
                     MaterialPageRoute(builder: (context) => const MenuPage()));
               },
-              child: MenuBlock(
-                menuName: 'ค้นหาเมนู\n  อาหาร',
-                innerColor: Colors.yellow.shade100,
-                outerColor: Colors.greenAccent.shade100,
+              child: Stack(
+
+                children: [
+                  MenuBlock(
+                    menuName: 'ค้นหาเมนู\nอาหาร',
+                    innerColor: Colors.yellow.shade100,
+                    outerColor: Colors.greenAccent.shade100,
+                  ),
+                  Align(
+                    alignment: const AlignmentDirectional(0.9, 0.6),
+                    child: Image.asset(
+                      'assets/icons/lampon.png',
+                      width: 70,
+                      height: 70,
+                    ),
+                  )
+                ],
               ),
             ),
             GestureDetector(
@@ -121,10 +139,27 @@ class _HomeState extends State<Home> {
                 Navigator.of(context).push(MaterialPageRoute(
                     builder: (context) => const EatHistoryPage()));
               },
-              child: const MenuBlock(
-                  menuName: 'ประวัติการรับประทานอาหาร',
-                  innerColor: Color.fromRGBO(255, 238, 225, 1),
-                  outerColor: Color.fromRGBO(240, 164, 164, 1)),
+              child: Stack(
+                alignment: const AlignmentDirectional(0, -0.22),
+                children: [
+                      const MenuBlock(
+                      menuName: 'ประวัติการ\nรับประทานอาหาร',
+                      innerColor: Color.fromRGBO(255, 238, 225, 1),
+                      outerColor: Color.fromRGBO(240, 164, 164, 1)
+                    ),
+                    Align(
+                      alignment: const AlignmentDirectional(-0.6, -0.5),
+                      child: Image.asset(
+                        'assets/icons/book1.png',
+                        width: 50,
+                        height: 50,
+                        fit: BoxFit.scaleDown,
+                        
+                        ),
+                    )
+                    
+                    ],
+              ),
             ),
             GestureDetector(
               onTap: () {
@@ -175,9 +210,9 @@ class _UserAvatarState extends State<UserAvatar> {
       child: Container(
         width: 130,
         height: 130,
-        decoration: BoxDecoration(
+        decoration: const BoxDecoration(
           shape: BoxShape.circle,
-          color: Colors.green.shade200,
+          color: Color.fromRGBO(206, 255, 168, 1),
         ),
         child: GestureDetector(
           onTap: () async {
@@ -185,12 +220,28 @@ class _UserAvatarState extends State<UserAvatar> {
             setState(() {});
           },
           child: Center(
-            child: CircleAvatar(
-              backgroundColor: Colors.white,
-              foregroundImage: NetworkImage(
-                  FirebaseAuth.instance.currentUser?.photoURL ??
-                      "https://avatars.githubusercontent.com/u/124413969?v=4"),
-              radius: 60,
+            child: Stack(
+              children: [
+                Align(
+                  alignment: const AlignmentDirectional(0, 0),
+                  child: CircleAvatar(
+                    backgroundColor: Colors.white,
+                    foregroundImage: NetworkImage(
+                        FirebaseAuth.instance.currentUser?.photoURL ??
+                            "https://avatars.githubusercontent.com/u/124413969?v=4"),
+                    radius: 60,
+                    
+                  ),
+                ),
+                Align(
+                  alignment: const AlignmentDirectional(1, 0.95),
+                  child: SvgPicture.asset(
+                    'assets/icons/edit.svg',
+                    
+                    
+                  ),
+                )
+              ],
             ),
           ),
         ),
@@ -228,6 +279,7 @@ class MenuBlock extends StatelessWidget {
             child: Text(
               menuName,
               style: const TextStyle(fontSize: 30, fontWeight: FontWeight.bold),
+              textAlign: TextAlign.center,
             ),
           ),
         ),
