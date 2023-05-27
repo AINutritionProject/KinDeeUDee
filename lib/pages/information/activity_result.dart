@@ -18,14 +18,14 @@ class ActivityResult extends StatelessWidget {
       appBar: AppBar(
         title: const Text("ActivityResult"),
       ),
-      body: const Center(
+      body: Center(
         child: Padding(
-          padding: EdgeInsets.symmetric(horizontal: 15.0),
+          padding: const EdgeInsets.symmetric(horizontal: 15.0),
           child: Column(
             children: [
-              ActivityResultHeader(),
+              const ActivityResultHeader(),
               ActivityResultBody(),
-              ActivityResultFooter(),
+              const ActivityResultFooter(),
             ],
           ),
         ),
@@ -61,8 +61,12 @@ class ActivityResultHeader extends StatelessWidget {
 }
 
 class ActivityResultBody extends StatelessWidget {
-  const ActivityResultBody({super.key});
+  ActivityResultBody({super.key});
 
+  final activitiesColor = <Color>[
+    const Color(0xFFBAEBC8),
+    const Color(0xFFDCFFD9)
+  ];
   @override
   Widget build(BuildContext context) {
     return Expanded(
@@ -85,51 +89,27 @@ class ActivityResultBody extends StatelessWidget {
                     child: ListView.builder(
                       itemCount: activities.length,
                       itemBuilder: (BuildContext context, int index) {
-                        if (index % 2 == 0) {
-                          return Padding(
-                            padding: const EdgeInsets.symmetric(vertical: 6),
-                            child: Row(
-                              children: [
-                                const Icon(
-                                  Icons.circle,
-                                  color: Color(0xFF636363),
-                                  size: 20,
-                                ),
-                                Container(
-                                  padding: const EdgeInsets.symmetric(
-                                      horizontal: 12, vertical: 8),
-                                  decoration: BoxDecoration(
-                                      color: const Color(0xFFDCFFD9),
-                                      borderRadius: BorderRadius.circular(20)),
-                                  child: Text(activities[index],
-                                      style: const TextStyle(fontSize: 18)),
-                                ),
-                              ],
-                            ),
-                          );
-                        } else {
-                          return Padding(
-                            padding: const EdgeInsets.symmetric(vertical: 6),
-                            child: Row(
-                              children: [
-                                const Icon(
-                                  Icons.circle,
-                                  color: Color(0xFF636363),
-                                  size: 20,
-                                ),
-                                Container(
-                                  padding: const EdgeInsets.symmetric(
-                                      horizontal: 12, vertical: 8),
-                                  decoration: BoxDecoration(
-                                      color: const Color(0xFFDCFFD9),
-                                      borderRadius: BorderRadius.circular(20)),
-                                  child: Text(activities[index],
-                                      style: const TextStyle(fontSize: 18)),
-                                ),
-                              ],
-                            ),
-                          );
-                        }
+                        return Padding(
+                          padding: const EdgeInsets.symmetric(vertical: 6),
+                          child: Row(
+                            children: [
+                              const Icon(
+                                Icons.circle,
+                                color: Color(0xFF636363),
+                                size: 20,
+                              ),
+                              Container(
+                                padding: const EdgeInsets.symmetric(
+                                    horizontal: 12, vertical: 8),
+                                decoration: BoxDecoration(
+                                    color: activitiesColor[index % 2],
+                                    borderRadius: BorderRadius.circular(20)),
+                                child: Text(activities[index],
+                                    style: const TextStyle(fontSize: 18)),
+                              ),
+                            ],
+                          ),
+                        );
                       },
                     ),
                   ),
