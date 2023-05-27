@@ -76,11 +76,62 @@ class ActivityResultBody extends StatelessWidget {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  const Text("กิจกรรมที่ทำ"),
-                  ListView.builder(
-                    itemBuilder: (BuildContext context, int index) {
-                      return const Text("activity");
-                    },
+                  const Padding(
+                    padding: EdgeInsets.only(left: 8.0, bottom: 30),
+                    child: Text("กิจกรรมที่ทำ", style: TextStyle(fontSize: 22)),
+                  ),
+                  SizedBox(
+                    height: 200,
+                    child: ListView.builder(
+                      itemCount: activities.length,
+                      itemBuilder: (BuildContext context, int index) {
+                        if (index % 2 == 0) {
+                          return Padding(
+                            padding: const EdgeInsets.symmetric(vertical: 6),
+                            child: Row(
+                              children: [
+                                const Icon(
+                                  Icons.circle,
+                                  color: Color(0xFF636363),
+                                  size: 20,
+                                ),
+                                Container(
+                                  padding: const EdgeInsets.symmetric(
+                                      horizontal: 12, vertical: 8),
+                                  decoration: BoxDecoration(
+                                      color: const Color(0xFFDCFFD9),
+                                      borderRadius: BorderRadius.circular(20)),
+                                  child: Text(activities[index],
+                                      style: const TextStyle(fontSize: 18)),
+                                ),
+                              ],
+                            ),
+                          );
+                        } else {
+                          return Padding(
+                            padding: const EdgeInsets.symmetric(vertical: 6),
+                            child: Row(
+                              children: [
+                                const Icon(
+                                  Icons.circle,
+                                  color: Color(0xFF636363),
+                                  size: 20,
+                                ),
+                                Container(
+                                  padding: const EdgeInsets.symmetric(
+                                      horizontal: 12, vertical: 8),
+                                  decoration: BoxDecoration(
+                                      color: const Color(0xFFDCFFD9),
+                                      borderRadius: BorderRadius.circular(20)),
+                                  child: Text(activities[index],
+                                      style: const TextStyle(fontSize: 18)),
+                                ),
+                              ],
+                            ),
+                          );
+                        }
+                      },
+                    ),
                   ),
                 ],
               ),
