@@ -10,6 +10,7 @@ import 'package:firebase_storage/firebase_storage.dart';
 import 'package:image_picker/image_picker.dart';
 import 'dart:io';
 import 'package:flutter_svg/flutter_svg.dart';
+
 class Home extends StatefulWidget {
   final String username;
   const Home({
@@ -64,7 +65,7 @@ class _HomePageState extends State<HomePage> {
 }
 
 class _HomeState extends State<Home> {
-  final String assetName = 'assets/icons/book-1.svg'; 
+  final String assetName = 'assets/icons/book-1.svg';
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -78,6 +79,12 @@ class _HomeState extends State<Home> {
               icon: const Icon(Icons.tv))
         ],
       ),
+      drawer: Drawer(
+          child: ListView(
+        children: const [
+          Text("YEEE"),
+        ],
+      )),
       backgroundColor: Colors.yellow.shade50,
       body: SingleChildScrollView(
         child: Column(
@@ -86,7 +93,7 @@ class _HomeState extends State<Home> {
           children: [
             Row(
               children: [
-                const UserAvatar(),
+                UserAvatar(),
                 const SizedBox(
                   width: 40,
                 ),
@@ -106,7 +113,13 @@ class _HomeState extends State<Home> {
                 ),
                 Padding(
                   padding: const EdgeInsets.fromLTRB(65, 0, 0, 75),
-                  child: IconButton(onPressed: () => {}, icon: const Icon(Icons.settings), iconSize: 30,),
+                  child: Builder(builder: (context) {
+                    return IconButton(
+                      onPressed: () => {Scaffold.of(context).openDrawer()},
+                      icon: const Icon(Icons.settings),
+                      iconSize: 30,
+                    );
+                  }),
                 )
               ],
             ),
@@ -116,7 +129,6 @@ class _HomeState extends State<Home> {
                     MaterialPageRoute(builder: (context) => const MenuPage()));
               },
               child: Stack(
-
                 children: [
                   MenuBlock(
                     menuName: 'ค้นหาเมนู\nอาหาร',
@@ -142,23 +154,20 @@ class _HomeState extends State<Home> {
               child: Stack(
                 alignment: const AlignmentDirectional(0, -0.22),
                 children: [
-                      const MenuBlock(
+                  const MenuBlock(
                       menuName: 'ประวัติการ\nรับประทานอาหาร',
                       innerColor: Color.fromRGBO(255, 238, 225, 1),
-                      outerColor: Color.fromRGBO(240, 164, 164, 1)
+                      outerColor: Color.fromRGBO(240, 164, 164, 1)),
+                  Align(
+                    alignment: const AlignmentDirectional(-0.6, -0.5),
+                    child: Image.asset(
+                      'assets/icons/book1.png',
+                      width: 50,
+                      height: 50,
+                      fit: BoxFit.scaleDown,
                     ),
-                    Align(
-                      alignment: const AlignmentDirectional(-0.6, -0.5),
-                      child: Image.asset(
-                        'assets/icons/book1.png',
-                        width: 50,
-                        height: 50,
-                        fit: BoxFit.scaleDown,
-                        
-                        ),
-                    )
-                    
-                    ],
+                  )
+                ],
               ),
             ),
             GestureDetector(
@@ -226,19 +235,16 @@ class _UserAvatarState extends State<UserAvatar> {
                   alignment: const AlignmentDirectional(0, 0),
                   child: CircleAvatar(
                     backgroundColor: Colors.white,
-                    foregroundImage: NetworkImage(
-                        FirebaseAuth.instance.currentUser?.photoURL ??
-                            "https://avatars.githubusercontent.com/u/124413969?v=4"),
+                    foregroundImage: NetworkImage(FirebaseAuth
+                            .instance.currentUser?.photoURL ??
+                        "https://avatars.githubusercontent.com/u/124413969?v=4"),
                     radius: 60,
-                    
                   ),
                 ),
                 Align(
                   alignment: const AlignmentDirectional(1, 0.95),
                   child: SvgPicture.asset(
                     'assets/icons/edit.svg',
-                    
-                    
                   ),
                 )
               ],
