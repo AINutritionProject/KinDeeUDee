@@ -105,8 +105,8 @@ class _HomeState extends State<Home> {
                   ],
                 ),
                 Padding(
-                  padding: const EdgeInsets.fromLTRB(65, 0, 0, 75),
-                  child: IconButton(onPressed: () => {}, icon: const Icon(Icons.settings), iconSize: 30,),
+                  padding: const EdgeInsets.fromLTRB(30, 0, 0, 30),
+                  child: SvgPicture.asset('assets/setting-2.svg'),
                 )
               ],
             ),

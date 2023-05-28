@@ -283,6 +283,8 @@ class ClickHereContainer extends StatelessWidget {
   const ClickHereContainer({
     super.key,
   });
+  
+  
 
   @override
   Widget build(BuildContext context) {
@@ -301,7 +303,7 @@ class ClickHereContainer extends StatelessWidget {
             GestureDetector(
               onTap: () {
                 Navigator.of(context).push(MaterialPageRoute(
-                    builder: (context) => const FoodAdvanceDetailPage()));
+                    builder: (context) =>  const FoodAdvanceDetailPage(name: 'eie',)));
               },
               child: const Text(
                 "กดที่นี่",
@@ -329,8 +331,9 @@ class BenefitDetailContainer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      width: MediaQuery.of(context).size.width * 0.9,
-      height: MediaQuery.of(context).size.height * 0.34,
+      padding: const EdgeInsets.fromLTRB(10, 20, 10, 20),
+      //width: MediaQuery.of(context).size.width * 0.9,
+      //height: MediaQuery.of(context).size.height * 0.34,
       constraints:
           BoxConstraints(maxWidth: MediaQuery.of(context).size.width * 0.9),
       decoration: BoxDecoration(
@@ -338,8 +341,7 @@ class BenefitDetailContainer extends StatelessWidget {
       child: Column(
         children: [
           Container(
-            padding: const EdgeInsets.fromLTRB(0, 5, 0, 5),
-            margin: const EdgeInsets.fromLTRB(120, 10, 120, 12),
+            margin: const EdgeInsets.fromLTRB(120, 12, 120, 12),
             decoration: BoxDecoration(
                 color: const Color.fromRGBO(255, 194, 227, 1),
                 borderRadius: BorderRadius.circular(20)),
@@ -356,7 +358,8 @@ class BenefitDetailContainer extends StatelessWidget {
             textAlign: TextAlign.center,
             style: const TextStyle(
                 fontSize: 19, fontWeight: FontWeight.bold, height: 2),
-          )),
+            )
+          ),
         ],
       ),
     );
