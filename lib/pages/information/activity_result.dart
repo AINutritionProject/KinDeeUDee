@@ -148,9 +148,9 @@ class ResultBar extends StatelessWidget {
               begin: Alignment.topCenter,
               end: Alignment.bottomCenter,
               colors: <Color>[
-                Color(0xFFFF3434),
-                Color(0xFFEEF07C),
-                Color(0xFF8FFBAD),
+                Color(0xAFFF3434),
+                Color(0xAFEEF07C),
+                Color(0xAF8FFBAD),
               ],
             ),
           ),
@@ -176,43 +176,78 @@ class _ActivityResultFooterState extends State<ActivityResultFooter> {
     return Expanded(
       flex: 3,
       child: Padding(
-        padding: const EdgeInsets.symmetric(vertical: 15.0),
+        padding: const EdgeInsets.symmetric(vertical: 8.0),
         child: Column(
           children: [
-            const Text("กิจกรรมของคุณ\"แจ่มใส\"\nอยู่ในระดับ",
-                style: TextStyle(fontSize: 20), textAlign: TextAlign.center),
-            Container(
-              decoration: const BoxDecoration(color: Color(0xFFF9FFB5)),
-              padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 8),
-              child: const Text("กิจกรรมระดับปานกลาง",
-                  style: TextStyle(fontSize: 20)),
+            const Padding(
+              padding: EdgeInsets.symmetric(vertical: 4.0),
+              child: Text("กิจกรรมของคุณ\"แจ่มใส",
+                  style: TextStyle(fontSize: 20), textAlign: TextAlign.center),
             ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                SizedBox(
-                  height: 30,
-                  width: 30,
-                  child: Checkbox(
-                      overlayColor:
-                          const MaterialStatePropertyAll(Color(0xFFC6FF9A)),
-                      value: isChecked,
-                      activeColor: const Color(0xFFC6FF9A),
-                      onChanged: (bool? val) {
-                        setState(() {
-                          isChecked = val!;
-                        });
-                      }),
-                ),
-                const Text(
-                  "ต้องการให้ระบบบันทึกกิจกรรมสำหรับวันถัดไป",
-                  style: TextStyle(fontSize: 18),
-                ),
-              ],
+            const Padding(
+              padding: EdgeInsets.symmetric(vertical: 4.0),
+              child: Text("อยู่ในระดับ",
+                  style: TextStyle(fontSize: 20), textAlign: TextAlign.center),
             ),
-            const Text(
-              "เพื่อคำนวณค่าพลังงานความต้องการเบิ้องต้นหรือไม่",
-              style: TextStyle(fontSize: 18),
+            Padding(
+              padding: const EdgeInsets.symmetric(vertical: 12.0),
+              child: Container(
+                decoration: const BoxDecoration(color: Color(0xFFF9FFB5)),
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 15, vertical: 8),
+                child: const Text("กิจกรรมระดับปานกลาง",
+                    style: TextStyle(fontSize: 20)),
+              ),
+            ),
+            Padding(
+              padding: const EdgeInsets.symmetric(vertical: 2.0),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  SizedBox(
+                    height: 30,
+                    width: 30,
+                    child: Checkbox(
+                        overlayColor:
+                            const MaterialStatePropertyAll(Color(0xFFC6FF9A)),
+                        value: isChecked,
+                        activeColor: const Color(0xFFBAEBC8),
+                        onChanged: (bool? val) {
+                          setState(() {
+                            isChecked = val!;
+                          });
+                        }),
+                  ),
+                  const Text(
+                    "ต้องการให้ระบบบันทึกกิจกรรมสำหรับวันถัดไป",
+                    style: TextStyle(fontSize: 18),
+                  ),
+                ],
+              ),
+            ),
+            const Padding(
+              padding: EdgeInsets.symmetric(vertical: 2.0),
+              child: Text(
+                "เพื่อคำนวณค่าพลังงานความต้องการเบิ้องต้นหรือไม่",
+                style: TextStyle(fontSize: 18),
+              ),
+            ),
+            Padding(
+              padding: const EdgeInsets.only(top: 30.0),
+              child: ElevatedButton(
+                style: ButtonStyle(
+                    shape: MaterialStatePropertyAll(RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(30))),
+                    backgroundColor:
+                        const MaterialStatePropertyAll(Color(0xFF7ECCED)),
+                    padding: const MaterialStatePropertyAll(
+                        EdgeInsets.symmetric(horizontal: 20, vertical: 10))),
+                onPressed: () {},
+                child: const Text(
+                  "บันทึก",
+                  style: TextStyle(fontSize: 28),
+                ),
+              ),
             ),
           ],
         ),
