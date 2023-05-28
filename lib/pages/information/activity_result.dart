@@ -170,17 +170,41 @@ class ResultBar extends StatelessWidget {
                 ),
               ),
             ),
-            Container(
-              color: Colors.white,
-              child: const FaIcon(
-                FontAwesomeIcons.faceSmile,
-                color: Colors.yellow,
-                size: 50,
-              ),
-            )
+            const SmileFace(),
           ],
         );
       },
+    );
+  }
+}
+
+class SmileFace extends StatelessWidget {
+  const SmileFace({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Stack(
+      children: [
+        Container(
+          decoration: const BoxDecoration(
+            color: Colors.white,
+            shape: BoxShape.circle,
+          ),
+          child: const FaIcon(
+            FontAwesomeIcons.faceSmile,
+            color: Colors.black,
+            size: 50,
+          ),
+        ),
+        Container(
+          decoration: BoxDecoration(
+            border: Border.all(color: const Color(0xFFFFD703), width: 5),
+            shape: BoxShape.circle,
+          ),
+          width: 50,
+          height: 50,
+        )
+      ],
     );
   }
 }
