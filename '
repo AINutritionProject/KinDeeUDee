@@ -150,36 +150,25 @@ class ResultBar extends StatelessWidget {
   Widget build(BuildContext context) {
     return LayoutBuilder(
       builder: (BuildContext context, BoxConstraints constraints) {
-        return Stack(
-          alignment: Alignment.center,
-          children: [
-            Container(
-              height: constraints.maxHeight,
-              width: 23,
-              padding: const EdgeInsets.only(top: 20),
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(20),
-                gradient: const LinearGradient(
-                  begin: Alignment.topCenter,
-                  end: Alignment.bottomCenter,
-                  colors: <Color>[
-                    Color(0xAFFF3434),
-                    Color(0xAFEEF07C),
-                    Color(0xAF8FFBAD),
-                  ],
-                ),
+        return Stack(children: [
+          Container(
+            height: constraints.maxHeight,
+            width: 28,
+            padding: const EdgeInsets.only(top: 20),
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(20),
+              gradient: const LinearGradient(
+                begin: Alignment.topCenter,
+                end: Alignment.bottomCenter,
+                colors: <Color>[
+                  Color(0xAFFF3434),
+                  Color(0xAFEEF07C),
+                  Color(0xAF8FFBAD),
+                ],
               ),
             ),
-            Container(
-              color: Colors.white,
-              child: const FaIcon(
-                FontAwesomeIcons.faceSmile,
-                color: Colors.yellow,
-                size: 50,
-              ),
-            )
-          ],
-        );
+          ),
+        ]);
       },
     );
   }
@@ -198,7 +187,7 @@ class _ActivityResultFooterState extends State<ActivityResultFooter> {
           children: [
             const Padding(
               padding: EdgeInsets.symmetric(vertical: 4.0),
-              child: Text("กิจกรรมของคุณแจ่มใส",
+              child: Text("กิจกรรมของคุณ\"แจ่มใส",
                   style: TextStyle(fontSize: 20), textAlign: TextAlign.center),
             ),
             const Padding(
