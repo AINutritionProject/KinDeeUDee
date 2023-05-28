@@ -52,9 +52,9 @@ class FoodDetailPage extends StatelessWidget {
                     fiber: detail.fiber,
                     sugar: detail.sugar),
               ),
-              const BenefitDetailContainer(
+              BenefitDetailContainer(
                 textBenefitDetail:
-                    "ช่วยป้องกันการเกิดโรคหลอดเลือดหัวใจ\nช่วยให้ผนังหลอดเลือดแข็งแรง\nป้องกันการเกิดโรคต้อกระจก\nลดกรดในกระเพาะอาหาร ช่วยละลายเสมหะ\nลดความดันโลหิต ช่วยบำรุงหัวใจ",
+                    detail.benefit,
               ),
               const ClickHereContainer(),
             ],
