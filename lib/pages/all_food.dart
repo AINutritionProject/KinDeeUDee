@@ -30,7 +30,9 @@ class _RealAllFoodPageState extends State<RealAllFoodPage> {
             power: element[6],
             sugar: element[8],
             fiber: element[7],
+            // ignore: prefer_interpolation_to_compose_strings
             realImageAssetPath: "assets/images/RealFruit/" + element[4]),
+        // ignore: prefer_interpolation_to_compose_strings
         imageAssetPath: "assets/images/Fruit/" + element[2],
       ));
     });
@@ -79,7 +81,7 @@ class AllFoodPage extends StatelessWidget {
             Center(
               child: Container(
                 padding:
-                    const EdgeInsets.symmetric(horizontal: 30, vertical: 5),
+                    const EdgeInsets.symmetric(horizontal: 30, vertical: 20),
                 decoration: const BoxDecoration(
                   color: Colors.pinkAccent,
                   borderRadius: BorderRadius.all(
@@ -97,10 +99,20 @@ class AllFoodPage extends StatelessWidget {
             ...foodData.map((e) {
               if (e.length == 2) {
                 return Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      FoodIcons(food: e[0]),
-                      FoodIcons(food: e[1]),
+                      Expanded(
+                          flex: 1,
+                          child: Padding(
+                            padding: const EdgeInsets.only(left: 34, right: 15),
+                            child: FoodIcons(food: e[0]),
+                          )),
+                      Expanded(
+                          flex: 1,
+                          child: Padding(
+                            padding: const EdgeInsets.only(left: 15, right: 34),
+                            child: FoodIcons(food: e[1]),
+                          )),
                     ]);
               } else {
                 return FoodIcons(food: e[0]);
@@ -128,48 +140,53 @@ class FoodIcons extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: [
-        Container(
-          decoration: const BoxDecoration(
-            color: Colors.white,
-            borderRadius: BorderRadius.all(
-              Radius.circular(30),
-            ),
-          ),
-          child: Column(children: [
-            Align(
-              child: Container(
-                margin: EdgeInsets.only(top: 12, bottom: 12),
-                width: 100,
-                height: 100,
-                child: Image.asset(
-                  food.imageAssetPath,
-                  fit: BoxFit.scaleDown,
-                ),
-              ),
-            ),
-          ]),
-        ),
-        Align(
-          alignment: const AlignmentDirectional(0, 1),
-          child: Container(
-            padding: const EdgeInsets.symmetric(horizontal: 40, vertical: 5),
-            decoration: BoxDecoration(
-              color: Colors.green.shade100,
-              borderRadius: const BorderRadius.all(
+    return Padding(
+      padding: const EdgeInsets.only(bottom: 40),
+      child: Column(
+        children: [
+          Container(
+            decoration: const BoxDecoration(
+              color: Colors.white,
+              borderRadius: BorderRadius.all(
                 Radius.circular(30),
               ),
             ),
-            child: Text(
-              food.name,
-              style: const TextStyle(
-                fontWeight: FontWeight.bold,
+            child: Column(children: [
+              Align(
+                child: Container(
+                  margin: EdgeInsets.only(top: 12, bottom: 12),
+                  width: 100,
+                  height: 100,
+                  child: Image.asset(
+                    food.imageAssetPath,
+                    fit: BoxFit.scaleDown,
+                  ),
+                ),
+              ),
+            ]),
+          ),
+          Align(
+            alignment: const AlignmentDirectional(0, 1),
+            child: Container(
+              width: double.infinity,
+              padding: const EdgeInsets.symmetric(horizontal: 40, vertical: 5),
+              decoration: BoxDecoration(
+                color: Colors.green.shade100,
+                borderRadius: const BorderRadius.all(
+                  Radius.circular(30),
+                ),
+              ),
+              child: Text(
+                food.name,
+                style: const TextStyle(
+                  fontWeight: FontWeight.bold,
+                ),
+                textAlign: TextAlign.center,
               ),
             ),
-          ),
-        )
-      ],
+          )
+        ],
+      ),
     );
   }
 }
