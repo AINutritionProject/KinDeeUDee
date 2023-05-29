@@ -103,17 +103,23 @@ class _PersonalBodyState extends State<PersonalBody> {
         child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
           OneChildTextField(
               textController: _nameTextController,
-              errorText: () {
-                final text = _nameTextController.text.trim();
-                if (text.isEmpty) {
-                  return "กรุณากรอกชื่อและนามสกุลของท่าน";
-                }
-                if (!text.contains(" ")) {
-                  return "กรุณากรอกข้อมูลด้วยรูปแบบ\nชื่อ นามสกุล";
-                }
-                if (text.split(" ")[0].contains(RegExp(r'[\d\W]')) ||
-                    text.split(" ")[1].contains(RegExp(r'[\d\W]'))) {
-                  return "ชื่อ-นามสกุลที่ท่านกรอกต้องไม่มีตัวเลข และตัวอักษรพิเศษ";
+              errorText: (String? val) {
+                if (val != null) {
+                  String text = val.trim();
+                  if (text.isEmpty) {
+                    return "กรุณากรอกชื่อและนามสกุลของท่าน";
+                  }
+                  if (!text.contains(" ")) {
+                    return "กรุณากรอกข้อมูลด้วยรูปแบบ\nชื่อ นามสกุล";
+                  }
+                  if (text
+                          .split(" ")[0]
+                          .contains(RegExp('[^a-zA-Z\u0E00-\u0E7F]')) ||
+                      text
+                          .split(" ")[1]
+                          .contains(RegExp('[^a-zA-Z\u0E00-\u0E7F]'))) {
+                    return "ชื่อ-นามสกุลที่ท่านกรอกต้องไม่มีตัวเลข และตัวอักษรพิเศษ";
+                  }
                 }
                 return null;
               },
@@ -194,11 +200,7 @@ class _PersonalBodyState extends State<PersonalBody> {
           ),
           OneChildTextField(
               textController: _foodAllergyTextController,
-              errorText: () {
-                final text = _foodAllergyTextController.text.trim();
-                if (text.isEmpty) {
-                  return "กรุณากรอกส่วนสูงของท่าน";
-                }
+              errorText: (String? val) {
                 return null;
               },
               textName: "ประวัติการแพ้อาหาร",
@@ -323,6 +325,10 @@ class _TwoChildTextFieldState extends State<TwoChildTextField> {
               ],
             ),
           ),
+          // Expanded(
+          //   flex: 1,
+          //   child: Container(),
+          // ),
           Expanded(
             flex: 1,
             child: Container(),
@@ -379,7 +385,7 @@ class OneChildTextField extends StatefulWidget {
   final String textName;
   final String textHint;
   final TextInputType textInputType;
-  final String? Function() errorText;
+  final String? Function(String?) errorText;
   const OneChildTextField({
     super.key,
     required this.textController,
@@ -396,7 +402,6 @@ class OneChildTextField extends StatefulWidget {
 class _OneChildTextFieldState extends State<OneChildTextField> {
   @override
   Widget build(BuildContext context) {
-    String? errorText = widget.errorText();
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 0),
       child: Column(
@@ -411,12 +416,13 @@ class _OneChildTextFieldState extends State<OneChildTextField> {
               ),
             ),
           ),
-          TextField(
+          TextFormField(
+            autovalidateMode: AutovalidateMode.onUserInteraction,
             keyboardType: widget.textInputType,
-            controller: widget.textController,
+            // // controller: widget.textController,
             style: const TextStyle(fontSize: 18),
+            validator: widget.errorText,
             decoration: InputDecoration(
-              errorText: errorText,
               errorStyle: const TextStyle(fontSize: 15, color: Colors.red),
               errorMaxLines: 2,
               contentPadding:
