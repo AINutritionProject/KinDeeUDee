@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:appfood2/pages/ai_output.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 class FoodDetailPage extends StatelessWidget {
   const FoodDetailPage({super.key, required this.detail});
@@ -24,6 +25,26 @@ class FoodDetailPage extends StatelessWidget {
     }
   }
 
+  Color _getBarsmilColor(num giIndex) {
+    if (giIndex < 55) {
+      return const Color.fromRGBO(3, 219, 24, 1);
+    } else if (giIndex < 70 && giIndex >= 55) {
+      return const Color.fromRGBO(252, 255, 108, 1);
+    } else {
+      return const Color.fromRGBO(255, 0, 0, 1);
+    }
+  }
+
+  String _get_glycemic_index(num giIndex) {
+    if (giIndex < 55) {
+      return "ดัชนีน้ำตาล<55";
+    } else if (giIndex < 70 && giIndex >= 55) {
+      return "ค่าดัชนีน้ำตาล 56 ถึง 69";
+    } else {
+      return "ค่าดัชนีน้ำตาล >70";
+    }
+  }
+
 //detail.realImageAssetPath ?? "assets/cameraFrame.png",
 /*
 ClipRRect(
@@ -36,6 +57,44 @@ ClipRRect(
               ),
             ),
           ),
+
+
+
+
+
+
+class SmileFace extends StatelessWidget {
+  const SmileFace({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Stack(
+      children: [
+        Container(
+          decoration: const BoxDecoration(
+            color: Colors.white,
+            shape: BoxShape.circle,
+          ),
+          child: const FaIcon(
+            FontAwesomeIcons.faceSmile,
+            color: Colors.black,
+            size: 50,
+          ),
+        ),
+        Container(
+          decoration: BoxDecoration(
+            border: Border.all(color: const Color(0xFFFFD703), width: 5),
+            shape: BoxShape.circle,
+          ),
+          width: 50,
+          height: 50,
+        )
+      ],
+    );
+  }
+}
+
+          
 */
   @override
   Widget build(BuildContext context) {
@@ -65,17 +124,67 @@ ClipRRect(
                         ),
                       ),
                       Padding(
-                        padding: const EdgeInsets.only(bottom: 85),
+                        padding: const EdgeInsets.only(
+                            bottom: 85, left: 20, right: 20),
                         child: Row(
                           children: [
-                            Padding(
-                              padding: const EdgeInsets.only(left: 20),
-                              child: FloatingActionButton(
-                                backgroundColor: const Color.fromRGBO(86, 61, 51, 1),
-                                onPressed: () {Navigator.pop(context);},
-                                child: const Center(
-                                  child: Text("<",style: TextStyle(fontSize: 35),),
-                                ),
+                            Expanded(
+                              flex: 1,
+                              child: Row(
+                                mainAxisAlignment: MainAxisAlignment.start,
+                                children: [
+                                  Container(
+                                    width: 48,
+                                    height: 48,
+                                    child: FloatingActionButton(
+                                      backgroundColor:
+                                          const Color.fromRGBO(86, 61, 51, 1),
+                                      onPressed: () {
+                                        Navigator.pop(context);
+                                      },
+                                      child: const Center(
+                                        child: Text(
+                                          "<",
+                                          style: TextStyle(
+                                              fontSize: 35,
+                                              color: Color.fromRGBO(
+                                                  255, 187, 220, 1)),
+                                        ),
+                                      ),
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ),
+                            Expanded(
+                              flex: 1,
+                              child: Row(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  SmileFace(
+                                      SmileColor:
+                                          _getBarsmilColor(detail.giIndex)),
+                                ],
+                              ),
+                            ),
+                            Expanded(
+                              flex: 1,
+                              child: Row(
+                                mainAxisAlignment: MainAxisAlignment.end,
+                                children: [
+                                  Container(
+                                    padding: const EdgeInsets.all(8),
+                                    decoration: const BoxDecoration(
+                                      borderRadius:
+                                          BorderRadius.all(Radius.circular(50)),
+                                      color: Colors.white,
+                                    ),
+                                    child: Text(
+                                      _get_glycemic_index(detail.giIndex),
+                                      style: const TextStyle(fontSize: 10),
+                                    ),
+                                  ),
+                                ],
                               ),
                             )
                           ],
@@ -297,4 +406,36 @@ class FoodNutritionDetail {
   final num power;
   final num fiber;
   final num sugar;
+}
+
+class SmileFace extends StatelessWidget {
+  const SmileFace({super.key, required this.SmileColor});
+  final Color SmileColor;
+
+  @override
+  Widget build(BuildContext context) {
+    return Stack(
+      children: [
+        Container(
+          decoration: BoxDecoration(
+            color: SmileColor,
+            shape: BoxShape.circle,
+          ),
+          child: const FaIcon(
+            FontAwesomeIcons.faceSmile,
+            color: Colors.black,
+            size: 60,
+          ),
+        ),
+        Container(
+          decoration: BoxDecoration(
+            border: Border.all(color: Colors.white, width: 6),
+            shape: BoxShape.circle,
+          ),
+          width: 60,
+          height: 60,
+        )
+      ],
+    );
+  }
 }
