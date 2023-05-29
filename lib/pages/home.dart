@@ -82,6 +82,13 @@ class _HomeState extends State<Home> {
               icon: const Icon(Icons.tv))
         ],
       ),
+      drawer: Drawer(
+        child: ListView(
+          children: const [
+            Text("YEEE"),
+          ],
+        ),
+      ),
       backgroundColor: const Color.fromRGBO(255, 251, 242, 1),
       body: Column(
         mainAxisSize: MainAxisSize.max,
