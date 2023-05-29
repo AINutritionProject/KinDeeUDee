@@ -103,6 +103,19 @@ class _PersonalBodyState extends State<PersonalBody> {
         child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
           OneChildTextField(
               textController: _nameTextController,
+              errorText: () {
+                final text = _nameTextController.text;
+                if (text.isEmpty) {
+                  return "กรุณากรอกชื่อและนามสกุลของท่าน";
+                }
+                if (!text.contains(" ")) {
+                  return "กรุณากรอกข้อมูลด้วยรูปแบบ\nชื่อ นามสกุล";
+                }
+                if (text.contains(RegExp(r'[0-9]'))) {
+                  return "ชื่อ-นามสกุลที่ท่านกรอกต้องไม่มีตัวเลข";
+                }
+                return null;
+              },
               textName: "ชื่อ-นามสกุล",
               textHint: "ฟ้าใส ใจดี"),
           TwoChildTextField(
@@ -139,6 +152,9 @@ class _PersonalBodyState extends State<PersonalBody> {
           ),
           OneChildTextField(
               textController: _foodAllergyTextController,
+              errorText: () {
+                return null;
+              },
               textName: "ประวัติการแพ้อาหาร",
               textHint: "แพ้กุ้ง,แพ้ปู,แพ้ปลา,แพ้หมู,แพ้แมว"),
           Center(
@@ -303,9 +319,11 @@ class OneChildTextField extends StatefulWidget {
   final String textName;
   final String textHint;
   final TextInputType textInputType;
+  final String? Function() errorText;
   const OneChildTextField({
     super.key,
     required this.textController,
+    required this.errorText,
     required this.textName,
     this.textInputType = TextInputType.text,
     this.textHint = "",
@@ -318,6 +336,7 @@ class OneChildTextField extends StatefulWidget {
 class _OneChildTextFieldState extends State<OneChildTextField> {
   @override
   Widget build(BuildContext context) {
+    String? errorText = widget.errorText();
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 0),
       child: Column(
@@ -337,6 +356,9 @@ class _OneChildTextFieldState extends State<OneChildTextField> {
             controller: widget.textController,
             style: const TextStyle(fontSize: 18),
             decoration: InputDecoration(
+              errorText: errorText,
+              errorStyle: const TextStyle(fontSize: 15, color: Colors.red),
+              errorMaxLines: 2,
               contentPadding:
                   const EdgeInsets.symmetric(vertical: 0, horizontal: 20),
               border: OutlineInputBorder(
