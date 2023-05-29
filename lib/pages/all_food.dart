@@ -12,7 +12,7 @@ class RealAllFoodPage extends StatefulWidget {
 }
 
 class _RealAllFoodPageState extends State<RealAllFoodPage> {
-  Future<List<Food>> getFoodByTypeFromCSV(String type) async {
+  Future<List<List<Food>>> getFoodByTypeFromCSV(String type) async {
     final rawData = await rootBundle.loadString(
         "assets/${widget.type == 'Fruit' ? 'fruit' : 'flour'}_detailed.csv");
     List<List<dynamic>> dataAsList =
@@ -34,7 +34,16 @@ class _RealAllFoodPageState extends State<RealAllFoodPage> {
         imageAssetPath: "assets/images/Fruit/" + element[2],
       ));
     });
-    return foodList;
+    List<List<Food>> dataIndex = [];
+    print(foodList.length / 2);
+    for (int i = 0; i < foodList.length / 2 - 1; i++) {
+      dataIndex.add([foodList[i * 2], foodList[i * 2 + 1]]);
+    }
+    if (foodList.length % 2 != 0) {
+      dataIndex.add([foodList[foodList.length - 1]]);
+    }
+    print(dataIndex);
+    return dataIndex;
   }
 
   @override
@@ -57,58 +66,48 @@ class _RealAllFoodPageState extends State<RealAllFoodPage> {
 class AllFoodPage extends StatelessWidget {
   const AllFoodPage({super.key, required this.type, required this.foodData});
   final String type;
-  final List<Food> foodData;
+  final List<List<Food>> foodData;
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(title: const Text("ALl Food Page")),
       backgroundColor: Colors.yellow.shade100,
-      body: Column(
-        children: [
-          Center(
-            child: Container(
-              padding: const EdgeInsets.symmetric(horizontal: 30, vertical: 5),
-              decoration: const BoxDecoration(
-                color: Colors.pinkAccent,
-                borderRadius: BorderRadius.all(
-                  Radius.circular(30),
+      body: SingleChildScrollView(
+        child: Column(
+          children: [
+            Center(
+              child: Container(
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 30, vertical: 5),
+                decoration: const BoxDecoration(
+                  color: Colors.pinkAccent,
+                  borderRadius: BorderRadius.all(
+                    Radius.circular(30),
+                  ),
                 ),
-              ),
-              child: Text(
-                type == "Fruit" ? "ผลไม้" : "ข้าวแป้ง",
-                style: const TextStyle(
-                  fontSize: 30,
+                child: Text(
+                  type == "Fruit" ? "ผลไม้" : "ข้าวแป้ง",
+                  style: const TextStyle(
+                    fontSize: 30,
+                  ),
                 ),
               ),
             ),
-          ),
-          Expanded(
-            child: GridView.count(
-              crossAxisCount: 2,
-              children: [
-                ...foodData
-                    .map(
-                      (food) => Container(
-                          margin: const EdgeInsets.all(10),
-                          child: GestureDetector(
-                              onTap: () {
-                                Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                    builder: (context) => FoodDetailPage(
-                                      detail: food.detail,
-                                    ),
-                                  ),
-                                );
-                              },
-                              child: FoodIcons(food: food))),
-                    )
-                    .toList()
-              ],
-            ),
-          ),
-        ],
+            ...foodData.map((e) {
+              if (e.length == 2) {
+                return Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    children: [
+                      FoodIcons(food: e[0]),
+                      FoodIcons(food: e[1]),
+                    ]);
+              } else {
+                return FoodIcons(food: e[0]);
+              }
+            })
+          ],
+        ),
       ),
     );
   }
