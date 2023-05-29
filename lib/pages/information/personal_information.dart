@@ -111,6 +111,10 @@ class _PersonalBodyState extends State<PersonalBody> {
                 if (!text.contains(" ")) {
                   return "กรุณากรอกข้อมูลด้วยรูปแบบ\nชื่อ นามสกุล";
                 }
+                if (text.split(" ")[0].contains(RegExp(r'[\d\W]')) ||
+                    text.split(" ")[1].contains(RegExp(r'[\d\W]'))) {
+                  return "ชื่อ-นามสกุลที่ท่านกรอกต้องไม่มีตัวเลข และตัวอักษรพิเศษ";
+                }
                 return null;
               },
               textName: "ชื่อ-นามสกุล",
