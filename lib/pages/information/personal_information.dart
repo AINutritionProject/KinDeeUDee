@@ -104,21 +104,35 @@ class _PersonalBodyState extends State<PersonalBody> {
           OneChildTextField(
               textController: _nameTextController,
               errorText: () {
-                final text = _nameTextController.text;
+                final text = _nameTextController.text.trim();
                 if (text.isEmpty) {
                   return "กรุณากรอกชื่อและนามสกุลของท่าน";
                 }
                 if (!text.contains(" ")) {
                   return "กรุณากรอกข้อมูลด้วยรูปแบบ\nชื่อ นามสกุล";
                 }
-                if (text.contains(RegExp(r'[0-9]'))) {
-                  return "ชื่อ-นามสกุลที่ท่านกรอกต้องไม่มีตัวเลข";
-                }
                 return null;
               },
               textName: "ชื่อ-นามสกุล",
               textHint: "ฟ้าใส ใจดี"),
           TwoChildTextField(
+            errorLeftText: () {
+              final text = _genderTextController.text;
+              if (text.isEmpty) {
+                return "กรุณากรอก";
+              }
+              return null;
+            },
+            errorRightText: () {
+              final text = _ageTextController.text;
+              if (text.isEmpty) {
+                return "กรุณากรอก";
+              }
+              if (text.contains(RegExp(r'^-?[0-9]+$'))) {
+                return "";
+              }
+              return null;
+            },
             leftTextController: _genderTextController,
             leftTextName: "เพศ",
             rightTextController: _ageTextController,
@@ -128,6 +142,12 @@ class _PersonalBodyState extends State<PersonalBody> {
           TwoChildTextField(
             leftTextController: _weightTextController,
             rightTextController: _heightTextController,
+            errorLeftText: () {
+              return null;
+            },
+            errorRightText: () {
+              return null;
+            },
             leftTextName: "น้ำหนัก",
             rightTextName: "ส่วนสูง",
             leftTextInputType: TextInputType.number,
@@ -206,12 +226,16 @@ class TwoChildTextField extends StatefulWidget {
   final String rightTextHint;
   final TextInputType leftTextInputType;
   final TextInputType rightTextInputType;
+  final String? Function() errorLeftText;
+  final String? Function() errorRightText;
   const TwoChildTextField({
     super.key,
     required this.leftTextController,
     required this.rightTextController,
     required this.leftTextName,
     required this.rightTextName,
+    required this.errorLeftText,
+    required this.errorRightText,
     this.leftTextHint = "",
     this.rightTextHint = "",
     this.leftTextInputType = TextInputType.text,
@@ -225,6 +249,8 @@ class TwoChildTextField extends StatefulWidget {
 class _TwoChildTextFieldState extends State<TwoChildTextField> {
   @override
   Widget build(BuildContext context) {
+    String? errorLeftText = widget.errorLeftText();
+    String? errorRightText = widget.errorRightText();
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 0),
       child: Row(
@@ -252,6 +278,10 @@ class _TwoChildTextFieldState extends State<TwoChildTextField> {
                     keyboardType: widget.leftTextInputType,
                     style: const TextStyle(fontSize: 18),
                     decoration: InputDecoration(
+                      errorText: errorLeftText,
+                      errorStyle:
+                          const TextStyle(fontSize: 15, color: Colors.red),
+                      errorMaxLines: 2,
                       contentPadding: const EdgeInsets.symmetric(
                           vertical: 0, horizontal: 20),
                       border: OutlineInputBorder(
@@ -293,6 +323,10 @@ class _TwoChildTextFieldState extends State<TwoChildTextField> {
                     keyboardType: widget.rightTextInputType,
                     style: const TextStyle(fontSize: 18),
                     decoration: InputDecoration(
+                      errorText: errorRightText,
+                      errorStyle:
+                          const TextStyle(fontSize: 15, color: Colors.red),
+                      errorMaxLines: 2,
                       contentPadding: const EdgeInsets.symmetric(
                           vertical: 0, horizontal: 20),
                       border: OutlineInputBorder(
