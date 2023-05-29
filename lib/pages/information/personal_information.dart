@@ -126,20 +126,24 @@ class _PersonalBodyState extends State<PersonalBody> {
               textName: "ชื่อ-นามสกุล",
               textHint: "ฟ้าใส ใจดี"),
           TwoChildTextField(
-            errorLeftText: () {
-              final text = _genderTextController.text.trim();
-              if (text.isEmpty) {
-                return "กรุณากรอกเพศของท่าน";
+            errorLeftText: (String? val) {
+              if (val != null) {
+                String text = val.trim();
+                if (text.isEmpty) {
+                  return "กรุณากรอกเพศของท่าน";
+                }
               }
               return null;
             },
-            errorRightText: () {
-              final text = _ageTextController.text.trim();
-              if (text.isEmpty) {
-                return "กรุณากรอกอายุของท่าน";
-              }
-              if (text.contains(RegExp(r'\D'))) {
-                return "กรุณากรอกเพียงตัวเลขจำนวนเต็ม";
+            errorRightText: (String? val) {
+              if (val != null) {
+                String text = val.trim();
+                if (text.isEmpty) {
+                  return "กรุณากรอกอายุของท่าน";
+                }
+                if (text.contains(RegExp(r'\D'))) {
+                  return "กรุณากรอกเพียงตัวเลขจำนวนเต็ม";
+                }
               }
               return null;
             },
@@ -152,29 +156,35 @@ class _PersonalBodyState extends State<PersonalBody> {
           TwoChildTextField(
             leftTextController: _weightTextController,
             rightTextController: _heightTextController,
-            errorLeftText: () {
-              final text = _weightTextController.text.trim();
-              if (text.isEmpty) {
-                return "กรุณากรอกน้ำหนักของท่าน";
+            errorLeftText: (String? val) {
+              if (val != null) {
+                String text = val.trim();
+                if (text.isEmpty) {
+                  return "กรุณากรอกน้ำหนักของท่าน";
+                }
+                if (text.contains(
+                    RegExp(r'^[+-]?([0-9]+([.][0-9]*)?|[.][0-9]+)$'))) {
+                  return null;
+                } else {
+                  return "กรุณากรอกตัวเลขทศนิยมหรือจำนวนเต็ม";
+                }
               }
-              if (text
-                  .contains(RegExp(r'^[+-]?([0-9]+([.][0-9]*)?|[.][0-9]+)$'))) {
-                return null;
-              } else {
-                return "กรุณากรอกตัวเลขทศนิยมหรือจำนวนเต็ม";
-              }
+              return null;
             },
-            errorRightText: () {
-              final text = _heightTextController.text.trim();
-              if (text.isEmpty) {
-                return "กรุณากรอกส่วนสูงของท่าน";
+            errorRightText: (String? val) {
+              if (val != null) {
+                String text = val.trim();
+                if (text.isEmpty) {
+                  return "กรุณากรอกส่วนสูงของท่าน";
+                }
+                if (text.contains(
+                    RegExp(r'^[+-]?([0-9]+([.][0-9]*)?|[.][0-9]+)$'))) {
+                  return null;
+                } else {
+                  return "กรุณากรอกตัวเลขทศนิยมหรือจำนวนเต็ม";
+                }
               }
-              if (text
-                  .contains(RegExp(r'^[+-]?([0-9]+([.][0-9]*)?|[.][0-9]+)$'))) {
-                return null;
-              } else {
-                return "กรุณากรอกตัวเลขทศนิยมหรือจำนวนเต็ม";
-              }
+              return null;
             },
             leftTextName: "น้ำหนัก",
             rightTextName: "ส่วนสูง",
@@ -254,8 +264,8 @@ class TwoChildTextField extends StatefulWidget {
   final String rightTextHint;
   final TextInputType leftTextInputType;
   final TextInputType rightTextInputType;
-  final String? Function() errorLeftText;
-  final String? Function() errorRightText;
+  final String? Function(String?) errorLeftText;
+  final String? Function(String?) errorRightText;
   const TwoChildTextField({
     super.key,
     required this.leftTextController,
@@ -277,8 +287,6 @@ class TwoChildTextField extends StatefulWidget {
 class _TwoChildTextFieldState extends State<TwoChildTextField> {
   @override
   Widget build(BuildContext context) {
-    String? errorLeftText = widget.errorLeftText();
-    String? errorRightText = widget.errorRightText();
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 0),
       child: Row(
@@ -301,12 +309,13 @@ class _TwoChildTextFieldState extends State<TwoChildTextField> {
                 ),
                 Padding(
                   padding: const EdgeInsets.only(right: 30),
-                  child: TextField(
+                  child: TextFormField(
+                    autovalidateMode: AutovalidateMode.onUserInteraction,
+                    validator: widget.errorLeftText,
                     controller: widget.leftTextController,
                     keyboardType: widget.leftTextInputType,
                     style: const TextStyle(fontSize: 18),
                     decoration: InputDecoration(
-                      errorText: errorLeftText,
                       errorStyle:
                           const TextStyle(fontSize: 15, color: Colors.red),
                       errorMaxLines: 2,
@@ -350,12 +359,13 @@ class _TwoChildTextFieldState extends State<TwoChildTextField> {
                 ),
                 Padding(
                   padding: const EdgeInsets.only(right: 30),
-                  child: TextField(
+                  child: TextFormField(
+                    autovalidateMode: AutovalidateMode.onUserInteraction,
+                    validator: widget.errorRightText,
                     controller: widget.rightTextController,
                     keyboardType: widget.rightTextInputType,
                     style: const TextStyle(fontSize: 18),
                     decoration: InputDecoration(
-                      errorText: errorRightText,
                       errorStyle:
                           const TextStyle(fontSize: 15, color: Colors.red),
                       errorMaxLines: 2,
@@ -419,7 +429,7 @@ class _OneChildTextFieldState extends State<OneChildTextField> {
           TextFormField(
             autovalidateMode: AutovalidateMode.onUserInteraction,
             keyboardType: widget.textInputType,
-            // // controller: widget.textController,
+            controller: widget.textController,
             style: const TextStyle(fontSize: 18),
             validator: widget.errorText,
             decoration: InputDecoration(
