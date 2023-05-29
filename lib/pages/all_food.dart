@@ -39,6 +39,9 @@ class _RealAllFoodPageState extends State<RealAllFoodPage> {
     for (int i = 0; i < foodList.length / 2 - 1; i++) {
       dataIndex.add([foodList[i * 2], foodList[i * 2 + 1]]);
     }
+    if (foodList.length % 2 != 0) {
+      dataIndex.add([foodList[foodList.length - 1]]);
+    }
     print(dataIndex);
     return dataIndex;
   }
@@ -91,16 +94,18 @@ class AllFoodPage extends StatelessWidget {
                 ),
               ),
             ),
-            ...foodData.map((e) => Row(
-                  children: [
-                    Container(
-                      child: FoodIcons(food: e[0]),
-                    ),
-                    Container(
-                      child: FoodIcons(food: e[1]),
-                    )
-                  ],
-                )),
+            ...foodData.map((e) {
+              if (e.length == 2) {
+                return Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    children: [
+                      FoodIcons(food: e[0]),
+                      FoodIcons(food: e[1]),
+                    ]);
+              } else {
+                return FoodIcons(food: e[0]);
+              }
+            })
           ],
         ),
       ),
