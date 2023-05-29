@@ -71,7 +71,6 @@ class AllFoodPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text("ALl Food Page")),
       backgroundColor: const Color.fromRGBO(255, 241, 224, 1),
       body: SingleChildScrollView(
         child: Column(
@@ -80,8 +79,9 @@ class AllFoodPage extends StatelessWidget {
               child: Padding(
                 padding: const EdgeInsets.only(top: 50, bottom: 40),
                 child: Container(
-                  padding:
-                      const EdgeInsets.symmetric(horizontal: 30, vertical: 10),
+                  alignment: Alignment.center,
+                  width: 224,
+                  height: 80,
                   decoration: const BoxDecoration(
                     color: Colors.pinkAccent,
                     borderRadius: BorderRadius.all(
@@ -91,7 +91,7 @@ class AllFoodPage extends StatelessWidget {
                   child: Text(
                     type == "Fruit" ? "ผลไม้" : "ข้าวแป้ง",
                     style: const TextStyle(
-                      fontSize: 30,
+                      fontSize: 50,
                     ),
                   ),
                 ),
@@ -162,7 +162,13 @@ class AllFoodPage extends StatelessWidget {
                           ),
                           child: const Column(
                             mainAxisAlignment: MainAxisAlignment.center,
-                            children: [Text("ต่ำ"), Text("GI<55")],
+                            children: [
+                              Padding(
+                                padding: EdgeInsets.only(bottom: 5),
+                                child: Text("ต่ำ"),
+                              ),
+                              Text("GI<55")
+                            ],
                           ),
                         ),
                         Padding(
@@ -178,7 +184,13 @@ class AllFoodPage extends StatelessWidget {
                             ),
                             child: const Column(
                               mainAxisAlignment: MainAxisAlignment.center,
-                              children: [Text("กลาง"), Text("GI 55-69")],
+                              children: [
+                                Padding(
+                                  padding: EdgeInsets.only(bottom: 5),
+                                  child: Text("กลาง"),
+                                ),
+                                Text("GI 55-69")
+                              ],
                             ),
                           ),
                         ),
@@ -193,7 +205,13 @@ class AllFoodPage extends StatelessWidget {
                           ),
                           child: const Column(
                             mainAxisAlignment: MainAxisAlignment.center,
-                            children: [Text("สูง"), Text("GI>70")],
+                            children: [
+                              Padding(
+                                padding: EdgeInsets.only(bottom: 5),
+                                child: Text("สูง"),
+                              ),
+                              Text("GI>70")
+                            ],
                           ),
                         )
                       ],
