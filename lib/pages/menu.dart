@@ -1,5 +1,3 @@
-import 'dart:ffi';
-
 import 'package:flutter/material.dart';
 import 'package:appfood2/pages/information/information.dart';
 import 'package:appfood2/pages/camera.dart';
@@ -139,8 +137,7 @@ class MenuPage extends StatelessWidget {
                           },
                           child: const MenuTypeIcon(
                             name: "ข้าว-แป้ง",
-
-                            color: Colors.white,
+                            color: Color.fromRGBO(248, 255, 214, 1),
                             colorIcon: Color.fromRGBO(243, 222, 179, 1),
                             imageAssetPath: "assets/images/Menu/rice.png",
                           ),
@@ -204,7 +201,6 @@ class MenuTypeIcon extends StatelessWidget {
                         textAlign: TextAlign.center,
                         style: const TextStyle(
                             fontSize: 22, fontWeight: FontWeight.w700),
-
                       ),
                     )),
               ),
