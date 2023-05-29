@@ -121,19 +121,19 @@ class _PersonalBodyState extends State<PersonalBody> {
               textHint: "ฟ้าใส ใจดี"),
           TwoChildTextField(
             errorLeftText: () {
-              final text = _genderTextController.text;
+              final text = _genderTextController.text.trim();
               if (text.isEmpty) {
-                return "กรุณากรอก";
+                return "กรุณากรอกเพศของท่าน";
               }
               return null;
             },
             errorRightText: () {
-              final text = _ageTextController.text;
+              final text = _ageTextController.text.trim();
               if (text.isEmpty) {
-                return "กรุณากรอก";
+                return "กรุณากรอกอายุของท่าน";
               }
-              if (text.contains(RegExp(r'^-?[0-9]+$'))) {
-                return "";
+              if (text.contains(RegExp(r'\D'))) {
+                return "กรุณากรอกเพียงตัวเลขจำนวนเต็ม";
               }
               return null;
             },
@@ -147,10 +147,28 @@ class _PersonalBodyState extends State<PersonalBody> {
             leftTextController: _weightTextController,
             rightTextController: _heightTextController,
             errorLeftText: () {
-              return null;
+              final text = _weightTextController.text.trim();
+              if (text.isEmpty) {
+                return "กรุณากรอกน้ำหนักของท่าน";
+              }
+              if (text
+                  .contains(RegExp(r'^[+-]?([0-9]+([.][0-9]*)?|[.][0-9]+)$'))) {
+                return null;
+              } else {
+                return "กรุณากรอกตัวเลขทศนิยมหรือจำนวนเต็ม";
+              }
             },
             errorRightText: () {
-              return null;
+              final text = _heightTextController.text.trim();
+              if (text.isEmpty) {
+                return "กรุณากรอกส่วนสูงของท่าน";
+              }
+              if (text
+                  .contains(RegExp(r'^[+-]?([0-9]+([.][0-9]*)?|[.][0-9]+)$'))) {
+                return null;
+              } else {
+                return "กรุณากรอกตัวเลขทศนิยมหรือจำนวนเต็ม";
+              }
             },
             leftTextName: "น้ำหนัก",
             rightTextName: "ส่วนสูง",
@@ -177,6 +195,10 @@ class _PersonalBodyState extends State<PersonalBody> {
           OneChildTextField(
               textController: _foodAllergyTextController,
               errorText: () {
+                final text = _foodAllergyTextController.text.trim();
+                if (text.isEmpty) {
+                  return "กรุณากรอกส่วนสูงของท่าน";
+                }
                 return null;
               },
               textName: "ประวัติการแพ้อาหาร",
