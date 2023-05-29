@@ -74,6 +74,15 @@ class _PersonalBodyState extends State<PersonalBody> {
   String selectedCareer = "";
   String selectedChronicDisease = "";
 
+  bool validatedName = false;
+  bool validatedGender = false;
+  bool validatedAge = false;
+  bool validatedWeight = false;
+  bool validatedHeight = false;
+  bool validatedCareer = false;
+  bool validatedChronicDisease = false;
+  bool validatedFoodAllergyText = false;
+
   @override
   void initState() {
     super.initState();
