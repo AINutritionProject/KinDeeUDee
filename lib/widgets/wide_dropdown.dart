@@ -5,11 +5,13 @@ class WideDropDown extends StatefulWidget {
   final String title;
   final Color color;
   final Function(String val) setSelectedItem;
+  final BorderSide border;
   const WideDropDown({
     super.key,
     required this.data,
     this.title = "",
     this.color = Colors.white,
+    this.border = BorderSide.none,
     required this.setSelectedItem,
   });
 
@@ -47,7 +49,9 @@ class _WideDropDownState extends State<WideDropDown> {
           ElevatedButton(
             style: ButtonStyle(
               shape: MaterialStatePropertyAll(RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(20))),
+                borderRadius: BorderRadius.circular(20),
+                side: widget.border,
+              )),
               backgroundColor: MaterialStatePropertyAll(widget.color),
               elevation: const MaterialStatePropertyAll(0),
             ),
@@ -76,12 +80,17 @@ class _WideDropDownState extends State<WideDropDown> {
                   width: constraint.maxWidth,
                   height: 200,
                   decoration: BoxDecoration(
+                      border: Border(
+                          top: widget.border,
+                          bottom: widget.border,
+                          left: widget.border,
+                          right: widget.border),
                       color: widget.color,
                       borderRadius:
                           const BorderRadius.all(Radius.circular(20))),
                   child: Padding(
-                    padding:
-                        const EdgeInsets.only(right: 15, top: 10, bottom: 10),
+                    padding: const EdgeInsets.only(
+                        right: 15, top: 10, bottom: 10, left: 5),
                     child: Scrollbar(
                       radius: const Radius.circular(30),
                       thickness: 12,

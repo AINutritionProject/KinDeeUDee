@@ -307,6 +307,7 @@ class _PersonalBodyState extends State<PersonalBody> {
                   WideDropDown(
                       data: careers,
                       title: "อาชีพ",
+                      border: const BorderSide(color: Colors.black38),
                       setSelectedItem: (String val) {
                         setState(() {
                           selectedCareer = val;
@@ -315,6 +316,7 @@ class _PersonalBodyState extends State<PersonalBody> {
                   WideDropDown(
                       data: chronicDiseases,
                       title: "โรคประจำตัว",
+                      border: const BorderSide(color: Colors.black38),
                       setSelectedItem: (String val) {
                         setState(() {
                           selectedChronicDisease = val;
