@@ -294,7 +294,7 @@ class _PersonalBodyState extends State<PersonalBody> {
                         ],
                       ),
                     ],
-                  )
+                  ),
                 ],
               ),
             ),

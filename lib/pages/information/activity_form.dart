@@ -104,9 +104,9 @@ class _ActivityFormBodyState extends State<ActivityFormBody> {
     return Padding(
       padding: const EdgeInsets.all(20),
       child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           const SizedBox(
-            width: double.infinity,
             child: Text(
               "*ไม่จำเป็นต้องกรอกครบทุกช่อง",
               style: TextStyle(fontSize: 20, fontWeight: FontWeight.w700),
