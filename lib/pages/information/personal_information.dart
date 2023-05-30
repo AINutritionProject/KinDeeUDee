@@ -234,3 +234,80 @@ class _PersonalHeaderState extends State<PersonalHeader> {
     );
   }
 }
+
+String? nameValidate(String? val) {
+  if (val != null) {
+    String text = val.trim();
+    if (text.isEmpty) {
+      return "กรุณากรอกชื่อและนามสกุลของท่าน";
+    }
+    if (!text.contains(" ")) {
+      return "กรุณากรอกข้อมูลด้วยรูปแบบ\nชื่อ นามสกุล";
+    }
+    if (text.split(" ")[0].contains(RegExp('[^a-zA-Z\u0E00-\u0E7F]')) ||
+        text.split(" ")[1].contains(RegExp('[^a-zA-Z\u0E00-\u0E7F]'))) {
+      return "ชื่อ-นามสกุลที่ท่านกรอกต้องไม่มีตัวเลข และตัวอักษรพิเศษ";
+    }
+  }
+  return null;
+}
+
+String? genderValidate(String? val) {
+  if (val != null) {
+    String text = val.trim();
+    if (text.isEmpty) {
+      return "กรุณากรอกเพศของท่าน";
+    }
+    if (text != "ชาย" && text != "หญิง") {
+      return "กรุณากรอกเพศ ชาย/หญิง";
+    }
+  }
+  return null;
+}
+
+String? ageValidate(String? val) {
+  if (val != null) {
+    String text = val.trim();
+    if (text.isEmpty) {
+      return "กรุณากรอกอายุของท่าน";
+    }
+    if (text.contains(RegExp(r'\D'))) {
+      return "กรุณากรอกเพียงตัวเลขจำนวนเต็ม";
+    }
+  }
+  return null;
+}
+
+String? weightValidate(String? val) {
+  if (val != null) {
+    String text = val.trim();
+    if (text.isEmpty) {
+      return "กรุณากรอกน้ำหนักของท่าน";
+    }
+    if (text.contains(RegExp(r'^[+-]?([0-9]+([.][0-9]*)?|[.][0-9]+)$'))) {
+      return null;
+    } else {
+      return "กรุณากรอกตัวเลขทศนิยมหรือจำนวนเต็ม";
+    }
+  }
+  return null;
+}
+
+String? heightValdiate(String? val) {
+  if (val != null) {
+    String text = val.trim();
+    if (text.isEmpty) {
+      return "กรุณากรอกส่วนสูงของท่าน";
+    }
+    if (text.contains(RegExp(r'^[+-]?([0-9]+([.][0-9]*)?|[.][0-9]+)$'))) {
+      return null;
+    } else {
+      return "กรุณากรอกตัวเลขทศนิยมหรือจำนวนเต็ม";
+    }
+  }
+  return null;
+}
+
+String? foodAllergetValidate(String? val) {
+  return null;
+}
