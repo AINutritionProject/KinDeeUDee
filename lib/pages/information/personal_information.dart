@@ -74,14 +74,8 @@ class _PersonalBodyState extends State<PersonalBody> {
   String selectedCareer = "";
   String selectedChronicDisease = "";
 
-  bool validatedName = false;
-  bool validatedGender = false;
-  bool validatedAge = false;
-  bool validatedWeight = false;
-  bool validatedHeight = false;
-  bool validatedCareer = false;
-  bool validatedChronicDisease = false;
-  bool validatedFoodAllergyText = false;
+  final nameFormKey = GlobalKey<FormState>();
+  final foodAllergyFormKey = GlobalKey<FormState>();
 
   @override
   void initState() {
@@ -111,27 +105,9 @@ class _PersonalBodyState extends State<PersonalBody> {
         padding: const EdgeInsets.symmetric(vertical: 20, horizontal: 20),
         child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
           OneChildTextField(
+              formKey: nameFormKey,
               textController: _nameTextController,
-              errorText: (String? val) {
-                if (val != null) {
-                  String text = val.trim();
-                  if (text.isEmpty) {
-                    return "กรุณากรอกชื่อและนามสกุลของท่าน";
-                  }
-                  if (!text.contains(" ")) {
-                    return "กรุณากรอกข้อมูลด้วยรูปแบบ\nชื่อ นามสกุล";
-                  }
-                  if (text
-                          .split(" ")[0]
-                          .contains(RegExp('[^a-zA-Z\u0E00-\u0E7F]')) ||
-                      text
-                          .split(" ")[1]
-                          .contains(RegExp('[^a-zA-Z\u0E00-\u0E7F]'))) {
-                    return "ชื่อ-นามสกุลที่ท่านกรอกต้องไม่มีตัวเลข และตัวอักษรพิเศษ";
-                  }
-                }
-                return null;
-              },
+              validate: validateName,
               textName: "ชื่อ-นามสกุล",
               textHint: "ฟ้าใส ใจดี"),
           TwoChildTextField(
@@ -221,8 +197,9 @@ class _PersonalBodyState extends State<PersonalBody> {
             },
           ),
           OneChildTextField(
+              formKey: foodAllergyFormKey,
               textController: _foodAllergyTextController,
-              errorText: (String? val) {
+              validate: (String? val) {
                 return null;
               },
               textName: "ประวัติการแพ้อาหาร",
@@ -238,24 +215,27 @@ class _PersonalBodyState extends State<PersonalBody> {
                       borderRadius: BorderRadius.circular(30),
                     ))),
                 onPressed: () {
-                  setState(() {
-                    widget.user.fullname = _nameTextController.text;
-                    widget.user.gender = _genderTextController.text;
-                    widget.user.age = int.parse(_ageTextController.text);
-                    widget.user.weight =
-                        double.parse(_weightTextController.text);
-                    widget.user.height =
-                        double.parse(_heightTextController.text);
-                    widget.user.foodAllergy = _foodAllergyTextController.text;
-                    Navigator.of(context).push(MaterialPageRoute(
-                        builder: (context) => const ActivityForm()));
-                  });
+                  if (nameFormKey.currentState != null &&
+                      nameFormKey.currentState!.validate()) {
+                    setState(() {
+                      widget.user.fullname = _nameTextController.text;
+                      widget.user.gender = _genderTextController.text;
+                      widget.user.age = int.parse(_ageTextController.text);
+                      widget.user.weight =
+                          double.parse(_weightTextController.text);
+                      widget.user.height =
+                          double.parse(_heightTextController.text);
+                      widget.user.foodAllergy = _foodAllergyTextController.text;
+                      Navigator.of(context).push(MaterialPageRoute(
+                          builder: (context) => const ActivityForm()));
+                    });
+                  }
                 },
                 child: const Padding(
                   padding: EdgeInsets.symmetric(vertical: 3, horizontal: 15),
                   child: Text(
                     "ถัดไป",
-                    style: TextStyle(fontSize: 32),
+                    style: TextStyle(fontSize: 32, color: Colors.white),
                   ),
                 ),
               ),
@@ -403,15 +383,17 @@ class _TwoChildTextFieldState extends State<TwoChildTextField> {
 }
 
 class OneChildTextField extends StatefulWidget {
+  final GlobalKey<FormState> formKey;
   final TextEditingController textController;
   final String textName;
   final String textHint;
   final TextInputType textInputType;
-  final String? Function(String?) errorText;
+  final String? Function(String?) validate;
   const OneChildTextField({
     super.key,
+    required this.formKey,
     required this.textController,
-    required this.errorText,
+    required this.validate,
     required this.textName,
     this.textInputType = TextInputType.text,
     this.textHint = "",
@@ -438,24 +420,26 @@ class _OneChildTextFieldState extends State<OneChildTextField> {
               ),
             ),
           ),
-          TextFormField(
-            autovalidateMode: AutovalidateMode.onUserInteraction,
-            keyboardType: widget.textInputType,
-            controller: widget.textController,
-            style: const TextStyle(fontSize: 18),
-            validator: widget.errorText,
-            decoration: InputDecoration(
-              errorStyle: const TextStyle(fontSize: 15, color: Colors.red),
-              errorMaxLines: 2,
-              contentPadding:
-                  const EdgeInsets.symmetric(vertical: 0, horizontal: 20),
-              border: OutlineInputBorder(
-                borderSide: BorderSide.none,
-                borderRadius: BorderRadius.circular(25),
+          Form(
+            key: widget.formKey,
+            child: TextFormField(
+              controller: widget.textController,
+              keyboardType: widget.textInputType,
+              style: const TextStyle(fontSize: 18),
+              validator: widget.validate,
+              decoration: InputDecoration(
+                errorStyle: const TextStyle(fontSize: 15, color: Colors.red),
+                errorMaxLines: 2,
+                contentPadding:
+                    const EdgeInsets.symmetric(vertical: 0, horizontal: 20),
+                border: OutlineInputBorder(
+                  borderSide: BorderSide.none,
+                  borderRadius: BorderRadius.circular(25),
+                ),
+                filled: true,
+                fillColor: Colors.white,
+                hintText: widget.textHint,
               ),
-              filled: true,
-              fillColor: Colors.white,
-              hintText: widget.textHint,
             ),
           ),
         ],
@@ -535,4 +519,21 @@ class _PersonalHeaderState extends State<PersonalHeader> {
       ),
     );
   }
+}
+
+String? validateName(String? val) {
+  if (val != null) {
+    String text = val.trim();
+    if (text.isEmpty) {
+      return "กรุณากรอกชื่อและนามสกุลของท่าน";
+    }
+    if (!text.contains(" ")) {
+      return "กรุณากรอกข้อมูลด้วยรูปแบบ\nชื่อ นามสกุล";
+    }
+    if (text.split(" ")[0].contains(RegExp('[^a-zA-Z\u0E00-\u0E7F]')) ||
+        text.split(" ")[1].contains(RegExp('[^a-zA-Z\u0E00-\u0E7F]'))) {
+      return "ชื่อ-นามสกุลที่ท่านกรอกต้องไม่มีตัวเลข และตัวอักษรพิเศษ";
+    }
+  }
+  return null;
 }
