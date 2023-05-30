@@ -18,21 +18,22 @@ class _ActivityFormState extends State<ActivityForm> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text("ActivityForm")),
-      body: LayoutBuilder(
-          builder: (BuildContext context, BoxConstraints constraints) {
-        return SingleChildScrollView(
-          child: ConstrainedBox(
-            constraints: BoxConstraints(minHeight: constraints.maxHeight),
-            child: const Column(
-              children: [
-                ActivityFormHeader(),
-                ActivityFormBody(),
-              ],
+      body: SafeArea(
+        child: LayoutBuilder(
+            builder: (BuildContext context, BoxConstraints constraints) {
+          return SingleChildScrollView(
+            child: ConstrainedBox(
+              constraints: BoxConstraints(minHeight: constraints.maxHeight),
+              child: const Column(
+                children: [
+                  ActivityFormHeader(),
+                  ActivityFormBody(),
+                ],
+              ),
             ),
-          ),
-        );
-      }),
+          );
+        }),
+      ),
     );
   }
 }
@@ -69,6 +70,13 @@ class _ActivityFormBodyState extends State<ActivityFormBody> {
       padding: const EdgeInsets.all(20),
       child: Column(
         children: [
+          Container(
+            width: double.infinity,
+            child: const Text(
+              "*ไม่จำเป็นต้องกรอกครบทุกช่อง",
+              style: TextStyle(fontSize: 20, fontWeight: FontWeight.w700),
+            ),
+          ),
           ActivityDisplay(
             title: "1. กิจกรรมระดับเบามาก",
             nameColor: const Color(0xFFFFD7D7),
@@ -340,10 +348,13 @@ class ActivityFormHeader extends StatelessWidget {
                     ),
                     child: const Padding(
                       padding:
-                          EdgeInsets.symmetric(vertical: 15, horizontal: 71),
+                          EdgeInsets.symmetric(vertical: 10, horizontal: 60),
                       child: Text(
                         "บันทึกกิจกรรม",
-                        style: TextStyle(color: Colors.white, fontSize: 36),
+                        style: TextStyle(
+                            color: Colors.white,
+                            fontSize: 34,
+                            fontWeight: FontWeight.w700),
                       ),
                     ),
                   ),
@@ -353,7 +364,7 @@ class ActivityFormHeader extends StatelessWidget {
                 child: Center(
                     child: Text(
                   "ของคุณ\"แจ่มใส\"",
-                  style: TextStyle(fontSize: 28),
+                  style: TextStyle(fontSize: 26, fontWeight: FontWeight.w700),
                 ))),
           ],
         ));
