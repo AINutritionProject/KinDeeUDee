@@ -295,6 +295,22 @@ class _PersonalBodyState extends State<PersonalBody> {
                       ),
                     ],
                   ),
+                  WideDropDown(
+                      data: careers,
+                      title: "อาชีพ",
+                      setSelectedItem: (String val) {
+                        setState(() {
+                          selectedCareer = val;
+                        });
+                      }),
+                  WideDropDown(
+                      data: chronicDiseases,
+                      title: "โรคประจำตัว",
+                      setSelectedItem: (String val) {
+                        setState(() {
+                          selectedChronicDisease = val;
+                        });
+                      })
                 ],
               ),
             ),
