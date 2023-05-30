@@ -74,7 +74,7 @@ class _PersonalBodyState extends State<PersonalBody> {
   String selectedCareer = "";
   String selectedChronicDisease = "";
 
-  final formKey = GlobalKey<FormState>();
+  final _formKey = GlobalKey<FormState>();
 
   @override
   void initState() {
@@ -106,12 +106,34 @@ class _PersonalBodyState extends State<PersonalBody> {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Form(
-              key: formKey,
+              key: _formKey,
               child: Column(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  const Text("ชื่อนามสกุล", style: TextStyle(fontSize: 20)),
-                  TextFormField(),
+                  const Padding(
+                    padding: EdgeInsets.symmetric(vertical: 8.0),
+                    child:
+                        Text("ชื่อ - นามสกุล", style: TextStyle(fontSize: 24)),
+                  ),
+                  TextFormField(
+                      keyboardType: TextInputType.text,
+                      controller: _nameTextController,
+                      validator: nameValidate,
+                      style: const TextStyle(fontSize: 18),
+                      decoration: InputDecoration(
+                        errorStyle:
+                            const TextStyle(fontSize: 15, color: Colors.red),
+                        contentPadding: const EdgeInsets.symmetric(
+                            vertical: 0, horizontal: 20),
+                        border: OutlineInputBorder(
+                          borderSide: const BorderSide(color: Colors.black),
+                          borderRadius: BorderRadius.circular(25),
+                        ),
+                        filled: true,
+                        fillColor: Colors.white,
+                        hintText: "ยิ้มแย้ม แจ่มใส",
+                      )),
                 ],
               ),
             ),
@@ -128,8 +150,8 @@ class _PersonalBodyState extends State<PersonalBody> {
                         borderRadius: BorderRadius.circular(30),
                       ))),
                   onPressed: () {
-                    if (formKey.currentState != null &&
-                        formKey.currentState!.validate()) {
+                    if (_formKey.currentState != null &&
+                        _formKey.currentState!.validate()) {
                       setState(() {
                         widget.user.fullname = _nameTextController.text;
                         widget.user.gender = _genderTextController.text;
