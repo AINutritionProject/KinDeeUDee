@@ -119,6 +119,7 @@ class _PersonalBodyState extends State<PersonalBody> {
                   TextFormField(
                     keyboardType: TextInputType.text,
                     controller: _nameTextController,
+                    autovalidateMode: AutovalidateMode.onUserInteraction,
                     validator: nameValidate,
                     style: const TextStyle(fontSize: 18),
                     decoration: InputDecoration(
@@ -153,6 +154,8 @@ class _PersonalBodyState extends State<PersonalBody> {
                             width: 130, //temporary
                             child: TextFormField(
                               validator: genderValidate,
+                              autovalidateMode:
+                                  AutovalidateMode.onUserInteraction,
                               controller: _genderTextController,
                               keyboardType: TextInputType.text,
                               style: const TextStyle(fontSize: 18),
@@ -189,6 +192,8 @@ class _PersonalBodyState extends State<PersonalBody> {
                             width: 130,
                             child: TextFormField(
                               validator: ageValidate,
+                              autovalidateMode:
+                                  AutovalidateMode.onUserInteraction,
                               controller: _ageTextController,
                               keyboardType: TextInputType.number,
                               style: const TextStyle(fontSize: 18),
@@ -231,6 +236,8 @@ class _PersonalBodyState extends State<PersonalBody> {
                             width: 130, //temporary
                             child: TextFormField(
                               validator: weightValidate,
+                              autovalidateMode:
+                                  AutovalidateMode.onUserInteraction,
                               controller: _weightTextController,
                               keyboardType: TextInputType.number,
                               style: const TextStyle(fontSize: 18),
@@ -267,6 +274,8 @@ class _PersonalBodyState extends State<PersonalBody> {
                           SizedBox(
                             width: 130,
                             child: TextFormField(
+                              autovalidateMode:
+                                  AutovalidateMode.onUserInteraction,
                               validator: heightValdiate,
                               controller: _heightTextController,
                               keyboardType: TextInputType.number,
@@ -295,6 +304,51 @@ class _PersonalBodyState extends State<PersonalBody> {
                       ),
                     ],
                   ),
+                  WideDropDown(
+                      data: careers,
+                      title: "อาชีพ",
+                      setSelectedItem: (String val) {
+                        setState(() {
+                          selectedCareer = val;
+                        });
+                      }),
+                  WideDropDown(
+                      data: chronicDiseases,
+                      title: "โรคประจำตัว",
+                      setSelectedItem: (String val) {
+                        setState(() {
+                          selectedChronicDisease = val;
+                        });
+                      }),
+                  const Padding(
+                    padding: EdgeInsets.symmetric(vertical: 8.0),
+                    child: Text("ประวัติการแพ้อาหาร",
+                        style: TextStyle(fontSize: 24)),
+                  ),
+                  TextFormField(
+                    keyboardType: TextInputType.text,
+                    controller: _foodAllergyTextController,
+                    autovalidateMode: AutovalidateMode.onUserInteraction,
+                    validator: foodAllergyValidate,
+                    style: const TextStyle(fontSize: 18),
+                    decoration: InputDecoration(
+                      errorStyle:
+                          const TextStyle(fontSize: 15, color: Colors.red),
+                      errorMaxLines: 2,
+                      contentPadding: const EdgeInsets.symmetric(
+                          vertical: 0, horizontal: 20),
+                      border: OutlineInputBorder(
+                        borderSide: const BorderSide(color: Colors.black38),
+                        borderRadius: BorderRadius.circular(25),
+                      ),
+                      filled: true,
+                      fillColor: Colors.white,
+                      hintText: "แพ้แมว,แพ้เธอ,แพ้เกมแรงค์ตกแงงงง :(",
+                      helperText: "\n",
+                      helperStyle:
+                          const TextStyle(fontSize: 15, color: Colors.red),
+                    ),
+                  ),
                 ],
               ),
             ),
@@ -302,7 +356,7 @@ class _PersonalBodyState extends State<PersonalBody> {
               child: Container(
                 padding:
                     const EdgeInsets.symmetric(vertical: 20, horizontal: 20),
-                margin: const EdgeInsets.only(top: 100),
+                margin: const EdgeInsets.only(top: 50),
                 child: ElevatedButton(
                   style: ButtonStyle(
                       backgroundColor:
@@ -425,7 +479,7 @@ String? nameValidate(String? val) {
       return "กรุณากรอกชื่อและนามสกุลของท่าน";
     }
     if (!text.contains(" ")) {
-      return "กรุณากรอกข้อมูลด้วยรูปแบบ\nชื่อ นามสกุล";
+      return "กรุณากรอกข้อมูลด้วยรูปแบบ \"ชื่อ นามสกุล\"";
     }
     if (text.split(" ")[0].contains(RegExp('[^a-zA-Z\u0E00-\u0E7F]')) ||
         text.split(" ")[1].contains(RegExp('[^a-zA-Z\u0E00-\u0E7F]'))) {
@@ -491,6 +545,6 @@ String? heightValdiate(String? val) {
   return null;
 }
 
-String? foodAllergetValidate(String? val) {
+String? foodAllergyValidate(String? val) {
   return null;
 }
