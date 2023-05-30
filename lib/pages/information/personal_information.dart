@@ -128,7 +128,7 @@ class _PersonalBodyState extends State<PersonalBody> {
                       contentPadding: const EdgeInsets.symmetric(
                           vertical: 0, horizontal: 20),
                       border: OutlineInputBorder(
-                        borderSide: const BorderSide(color: Colors.black),
+                        borderSide: const BorderSide(color: Colors.black38),
                         borderRadius: BorderRadius.circular(25),
                       ),
                       filled: true,
@@ -163,6 +163,8 @@ class _PersonalBodyState extends State<PersonalBody> {
                                 contentPadding: const EdgeInsets.symmetric(
                                     vertical: 0, horizontal: 20),
                                 border: OutlineInputBorder(
+                                  borderSide:
+                                      const BorderSide(color: Colors.black38),
                                   borderRadius: BorderRadius.circular(25),
                                 ),
                                 filled: true,
@@ -197,6 +199,8 @@ class _PersonalBodyState extends State<PersonalBody> {
                                 contentPadding: const EdgeInsets.symmetric(
                                     vertical: 0, horizontal: 20),
                                 border: OutlineInputBorder(
+                                  borderSide:
+                                      const BorderSide(color: Colors.black38),
                                   borderRadius: BorderRadius.circular(25),
                                 ),
                                 filled: true,
@@ -237,6 +241,8 @@ class _PersonalBodyState extends State<PersonalBody> {
                                 contentPadding: const EdgeInsets.symmetric(
                                     vertical: 0, horizontal: 20),
                                 border: OutlineInputBorder(
+                                  borderSide:
+                                      const BorderSide(color: Colors.black38),
                                   borderRadius: BorderRadius.circular(25),
                                 ),
                                 filled: true,
@@ -272,6 +278,8 @@ class _PersonalBodyState extends State<PersonalBody> {
                                 contentPadding: const EdgeInsets.symmetric(
                                     vertical: 0, horizontal: 20),
                                 border: OutlineInputBorder(
+                                  borderSide:
+                                      const BorderSide(color: Colors.black38),
                                   borderRadius: BorderRadius.circular(25),
                                 ),
                                 filled: true,
