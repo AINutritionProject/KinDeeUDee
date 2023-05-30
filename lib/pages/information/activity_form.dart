@@ -119,6 +119,8 @@ class _ActivityFormState extends State<ActivityForm> {
                                                   const Text("จำนวน"),
                                                   SmallDropDown(
                                                       data: frequency,
+                                                      border: Border.all(
+                                                          color: Colors.black),
                                                       setSelectedItem:
                                                           (String val) {
                                                         setState(() {
@@ -335,6 +337,7 @@ class _ActivityDisplayState extends State<ActivityDisplay> {
         ),
         WideDropDown(
           data: widget.data,
+          border: const BorderSide(color: Colors.black38),
           color: widget.nameColor,
           setSelectedItem: widget.setSelectedName,
         ),
@@ -344,6 +347,7 @@ class _ActivityDisplayState extends State<ActivityDisplay> {
             children: [
               SmallDropDown(
                 data: frequency,
+                border: Border.all(color: Colors.black38),
                 dropdownColor: widget.frequencyColor,
                 buttonColor: widget.frequencyColor,
                 setSelectedItem: widget.setSelectedFrequency,
