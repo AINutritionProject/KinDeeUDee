@@ -85,66 +85,7 @@ class MenuPage extends StatelessWidget {
                       )),
                 ],
               ),
-              Padding(
-                padding: const EdgeInsets.only(left: 31, right: 32),
-                child: Container(
-                    width: double.infinity,
-                    height: 53,
-                    decoration: const BoxDecoration(
-                        color: Colors.white,
-                        borderRadius: BorderRadius.all(
-                          Radius.circular(50),
-                        )),
-                    child: const TextFieldExample()),
-              ),
-              Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: SizedBox(
-                  height: 160,
-                  child: Row(children: [
-                    Expanded(
-                        flex: 1,
-                        child: GestureDetector(
-                          onTap: () {
-                            Navigator.of(context).push(
-                              MaterialPageRoute(
-                                builder: (context) =>
-                                    const RealAllFoodPage(type: "Fruit"),
-                              ),
-                            );
-                          },
-                          child: GestureDetector(
-                            onTap: () {
-                              Navigator.of(context).push(MaterialPageRoute(
-                                  builder: (context) =>
-                                      const RealAllFoodPage(type: "Fruit")));
-                            },
-                            child: MenuTypeIcon(
-                              name: "ผลไม้",
-                              color: Colors.green.shade100,
-                              colorIcon: const Color.fromRGBO(167, 222, 189, 1),
-                              imageAssetPath: "assets/images/Menu/fruit.png",
-                            ),
-                          ),
-                        )),
-                    Expanded(
-                        flex: 1,
-                        child: GestureDetector(
-                          onTap: () {
-                            Navigator.of(context).push(MaterialPageRoute(
-                                builder: (context) =>
-                                    const RealAllFoodPage(type: "Flour")));
-                          },
-                          child: const MenuTypeIcon(
-                            name: "ข้าว-แป้ง",
-                            color: Color.fromRGBO(248, 255, 214, 1),
-                            colorIcon: Color.fromRGBO(243, 222, 179, 1),
-                            imageAssetPath: "assets/images/Menu/rice.png",
-                          ),
-                        )),
-                  ]),
-                ),
-              ),
+              const TextFieldExample(),
             ],
           ),
         ));
@@ -219,52 +160,108 @@ class TextFieldExample extends StatefulWidget {
 }
 
 class _TextFieldExampleState extends State<TextFieldExample> {
-  late TextEditingController _controller;
+  bool _active = false;
 
-  @override
-  void initState() {
-    super.initState();
-    _controller = TextEditingController();
-  }
-
-  @override
-  void dispose() {
-    _controller.dispose();
-    super.dispose();
-  }
-
+  String text_seach = "";
   @override
   Widget build(BuildContext context) {
-    return Row(children: [
-      Expanded(
-          flex: 5,
+    return Column(
+      children: [
+        Padding(
+          padding: const EdgeInsets.only(left: 31, right: 32),
           child: Container(
-              padding: const EdgeInsets.only(left: 15),
-              width: double.infinity,
-              child: TextField(
-                  decoration: InputDecoration(
-                    hintText: "พิมพ์ชื่ออาหารตรงนี้สิ",
-                    enabledBorder: OutlineInputBorder(
-                      borderSide: const BorderSide(
-                          width: 3, color: Colors.white), //<-- SEE HERE
-                      borderRadius: BorderRadius.circular(50.0),
-                    ),
-                  ),
-                  style: const TextStyle(fontSize: 20)))),
-      Expanded(
-        flex: 1,
-        child: SizedBox(
-          width: double.infinity,
-          child: IconButton(
-            icon: const Icon(Icons.search),
-            onPressed: () {
-              setState(
-                () {},
-              );
-            },
+            width: double.infinity,
+            height: 53,
+            decoration: const BoxDecoration(
+                color: Colors.white,
+                borderRadius: BorderRadius.all(
+                  Radius.circular(50),
+                )),
+            child: Row(children: [
+              Expanded(
+                  flex: 5,
+                  child: Container(
+                      padding: const EdgeInsets.only(left: 15),
+                      width: double.infinity,
+                      child: TextField(
+                          decoration: InputDecoration(
+                            hintText: "พิมพ์ชื่ออาหารตรงนี้สิ",
+                            enabledBorder: OutlineInputBorder(
+                              borderSide: const BorderSide(
+                                  width: 3, color: Colors.white), //<-- SEE HERE
+                              borderRadius: BorderRadius.circular(50.0),
+                            ),
+                          ),
+                          onChanged: (text) {
+                            setState(
+                              () {
+                                if (text == "") {
+                                  _active = false;
+                                } else {
+                                  _active = true;
+                                }
+                                text_seach = text;
+                                print('First text field: $text');
+                                print(' $_active............');
+                              },
+                            );
+                          },
+                          style: const TextStyle(fontSize: 20)))),
+              const Expanded(flex: 1, child: Icon(Icons.search)),
+            ]),
           ),
         ),
-      )
-    ]);
+        (_active)
+            ? Text(text_seach)
+            : Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: SizedBox(
+                  height: 160,
+                  child: Row(children: [
+                    Expanded(
+                        flex: 1,
+                        child: GestureDetector(
+                          onTap: () {
+                            Navigator.of(context).push(
+                              MaterialPageRoute(
+                                builder: (context) =>
+                                    const RealAllFoodPage(type: "Fruit"),
+                              ),
+                            );
+                          },
+                          child: GestureDetector(
+                            onTap: () {
+                              Navigator.of(context).push(MaterialPageRoute(
+                                  builder: (context) =>
+                                      const RealAllFoodPage(type: "Fruit")));
+                            },
+                            child: MenuTypeIcon(
+                              name: "ผลไม้",
+                              color: Colors.green.shade100,
+                              colorIcon: const Color.fromRGBO(167, 222, 189, 1),
+                              imageAssetPath: "assets/images/Menu/fruit.png",
+                            ),
+                          ),
+                        )),
+                    Expanded(
+                        flex: 1,
+                        child: GestureDetector(
+                          onTap: () {
+                            Navigator.of(context).push(MaterialPageRoute(
+                                builder: (context) =>
+                                    const RealAllFoodPage(type: "Flour")));
+                          },
+                          child: const MenuTypeIcon(
+                            name: "ข้าว-แป้ง",
+                            color: Color.fromRGBO(248, 255, 214, 1),
+                            colorIcon: Color.fromRGBO(243, 222, 179, 1),
+                            imageAssetPath: "assets/images/Menu/rice.png",
+                          ),
+                        )),
+                  ]),
+                ),
+              ),
+      ],
+    );
   }
 }

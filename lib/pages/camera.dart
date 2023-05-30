@@ -33,6 +33,7 @@ class _CameraPageState extends State<CameraPage> {
 
   Future<void> takePicture() async {
     XFile image = await camController.takePicture();
+    // ignore: use_build_context_synchronously
     if (!context.mounted) {
       return;
     }
@@ -60,6 +61,7 @@ class _CameraPageState extends State<CameraPage> {
       print("Not get image");
       return;
     }
+    // ignore: use_build_context_synchronously
     if (!context.mounted) {
       return;
     }
