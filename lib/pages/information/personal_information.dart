@@ -119,6 +119,7 @@ class _PersonalBodyState extends State<PersonalBody> {
                   TextFormField(
                     keyboardType: TextInputType.text,
                     controller: _nameTextController,
+                    autovalidateMode: AutovalidateMode.onUserInteraction,
                     validator: nameValidate,
                     style: const TextStyle(fontSize: 18),
                     decoration: InputDecoration(
@@ -153,6 +154,8 @@ class _PersonalBodyState extends State<PersonalBody> {
                             width: 130, //temporary
                             child: TextFormField(
                               validator: genderValidate,
+                              autovalidateMode:
+                                  AutovalidateMode.onUserInteraction,
                               controller: _genderTextController,
                               keyboardType: TextInputType.text,
                               style: const TextStyle(fontSize: 18),
@@ -189,6 +192,8 @@ class _PersonalBodyState extends State<PersonalBody> {
                             width: 130,
                             child: TextFormField(
                               validator: ageValidate,
+                              autovalidateMode:
+                                  AutovalidateMode.onUserInteraction,
                               controller: _ageTextController,
                               keyboardType: TextInputType.number,
                               style: const TextStyle(fontSize: 18),
@@ -231,6 +236,8 @@ class _PersonalBodyState extends State<PersonalBody> {
                             width: 130, //temporary
                             child: TextFormField(
                               validator: weightValidate,
+                              autovalidateMode:
+                                  AutovalidateMode.onUserInteraction,
                               controller: _weightTextController,
                               keyboardType: TextInputType.number,
                               style: const TextStyle(fontSize: 18),
@@ -267,6 +274,8 @@ class _PersonalBodyState extends State<PersonalBody> {
                           SizedBox(
                             width: 130,
                             child: TextFormField(
+                              autovalidateMode:
+                                  AutovalidateMode.onUserInteraction,
                               validator: heightValdiate,
                               controller: _heightTextController,
                               keyboardType: TextInputType.number,
