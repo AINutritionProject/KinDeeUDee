@@ -304,24 +304,30 @@ class _PersonalBodyState extends State<PersonalBody> {
                       ),
                     ],
                   ),
-                  WideDropDown(
-                      data: careers,
-                      title: "อาชีพ",
-                      border: const BorderSide(color: Colors.black38),
-                      setSelectedItem: (String val) {
-                        setState(() {
-                          selectedCareer = val;
-                        });
-                      }),
-                  WideDropDown(
-                      data: chronicDiseases,
-                      title: "โรคประจำตัว",
-                      border: const BorderSide(color: Colors.black38),
-                      setSelectedItem: (String val) {
-                        setState(() {
-                          selectedChronicDisease = val;
-                        });
-                      }),
+                  Padding(
+                    padding: const EdgeInsets.only(bottom: 10.0),
+                    child: WideDropDown(
+                        data: careers,
+                        title: "อาชีพ",
+                        border: const BorderSide(color: Colors.black38),
+                        setSelectedItem: (String val) {
+                          setState(() {
+                            selectedCareer = val;
+                          });
+                        }),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.only(bottom: 20.0),
+                    child: WideDropDown(
+                        data: chronicDiseases,
+                        title: "โรคประจำตัว",
+                        border: const BorderSide(color: Colors.black38),
+                        setSelectedItem: (String val) {
+                          setState(() {
+                            selectedChronicDisease = val;
+                          });
+                        }),
+                  ),
                   const Padding(
                     padding: EdgeInsets.symmetric(vertical: 8.0),
                     child: Text("ประวัติการแพ้อาหาร",
