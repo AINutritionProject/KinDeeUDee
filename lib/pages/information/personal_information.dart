@@ -74,10 +74,7 @@ class _PersonalBodyState extends State<PersonalBody> {
   String selectedCareer = "";
   String selectedChronicDisease = "";
 
-  final nameFormKey = GlobalKey<FormState>();
-  final genderAgeFormKey = GlobalKey<FormState>();
-  final heightWeightFormKey = GlobalKey<FormState>();
-  final foodAllergyFormKey = GlobalKey<FormState>();
+  final formKey = GlobalKey<FormState>();
 
   @override
   void initState() {
@@ -105,49 +102,61 @@ class _PersonalBodyState extends State<PersonalBody> {
       ),
       child: Padding(
         padding: const EdgeInsets.symmetric(vertical: 20, horizontal: 20),
-        child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-          Center(
-            child: Container(
-              margin: const EdgeInsets.only(top: 100),
-              child: ElevatedButton(
-                style: ButtonStyle(
-                    backgroundColor:
-                        const MaterialStatePropertyAll(Color(0xFFED7E7E)),
-                    shape: MaterialStateProperty.all(RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(30),
-                    ))),
-                onPressed: () {
-                  if (nameFormKey.currentState != null &&
-                      nameFormKey.currentState!.validate() &&
-                      genderAgeFormKey.currentState != null &&
-                      genderAgeFormKey.currentState!.validate() &&
-                      heightWeightFormKey.currentState != null &&
-                      heightWeightFormKey.currentState!.validate()) {
-                    setState(() {
-                      widget.user.fullname = _nameTextController.text;
-                      widget.user.gender = _genderTextController.text;
-                      widget.user.age = int.parse(_ageTextController.text);
-                      widget.user.weight =
-                          double.parse(_weightTextController.text);
-                      widget.user.height =
-                          double.parse(_heightTextController.text);
-                      widget.user.foodAllergy = _foodAllergyTextController.text;
-                      Navigator.of(context).push(MaterialPageRoute(
-                          builder: (context) => const ActivityForm()));
-                    });
-                  }
-                },
-                child: const Padding(
-                  padding: EdgeInsets.symmetric(vertical: 3, horizontal: 15),
-                  child: Text(
-                    "ถัดไป",
-                    style: TextStyle(fontSize: 32, color: Colors.white),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Form(
+              key: formKey,
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  const Text("ชื่อนามสกุล", style: TextStyle(fontSize: 20)),
+                  TextFormField(),
+                ],
+              ),
+            ),
+            Center(
+              child: Container(
+                padding:
+                    const EdgeInsets.symmetric(vertical: 20, horizontal: 20),
+                margin: const EdgeInsets.only(top: 100),
+                child: ElevatedButton(
+                  style: ButtonStyle(
+                      backgroundColor:
+                          const MaterialStatePropertyAll(Color(0xFFED7E7E)),
+                      shape: MaterialStateProperty.all(RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(30),
+                      ))),
+                  onPressed: () {
+                    if (formKey.currentState != null &&
+                        formKey.currentState!.validate()) {
+                      setState(() {
+                        widget.user.fullname = _nameTextController.text;
+                        widget.user.gender = _genderTextController.text;
+                        widget.user.age = int.parse(_ageTextController.text);
+                        widget.user.weight =
+                            double.parse(_weightTextController.text);
+                        widget.user.height =
+                            double.parse(_heightTextController.text);
+                        widget.user.foodAllergy =
+                            _foodAllergyTextController.text;
+                        Navigator.of(context).push(MaterialPageRoute(
+                            builder: (context) => const ActivityForm()));
+                      });
+                    }
+                  },
+                  child: const Padding(
+                    padding: EdgeInsets.symmetric(vertical: 3, horizontal: 15),
+                    child: Text(
+                      "ถัดไป",
+                      style: TextStyle(fontSize: 32, color: Colors.white),
+                    ),
                   ),
                 ),
               ),
             ),
-          ),
-        ]),
+          ],
+        ),
       ),
     );
   }
