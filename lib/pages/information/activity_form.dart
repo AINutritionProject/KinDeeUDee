@@ -1,5 +1,6 @@
 import 'package:appfood2/widgets/wide_dropdown.dart';
 import 'package:appfood2/widgets/small_dropdown.dart';
+import 'package:appfood2/pages/information/activity_result.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
@@ -230,8 +231,8 @@ class _ActivityFormBodyState extends State<ActivityFormBody> {
                     ))),
                 onPressed: () {
                   setState(() {
-                    // Navigator.of(context).push(MaterialPageRoute(
-                    //     builder: (context) => const ActivitySummary()));
+                    Navigator.of(context).push(MaterialPageRoute(
+                        builder: (context) => const ActivityResult()));
                   });
                 },
                 child: const Padding(

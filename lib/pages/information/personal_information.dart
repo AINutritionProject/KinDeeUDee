@@ -74,6 +74,15 @@ class _PersonalBodyState extends State<PersonalBody> {
   String selectedCareer = "";
   String selectedChronicDisease = "";
 
+  bool validatedName = false;
+  bool validatedGender = false;
+  bool validatedAge = false;
+  bool validatedWeight = false;
+  bool validatedHeight = false;
+  bool validatedCareer = false;
+  bool validatedChronicDisease = false;
+  bool validatedFoodAllergyText = false;
+
   @override
   void initState() {
     super.initState();
@@ -103,9 +112,50 @@ class _PersonalBodyState extends State<PersonalBody> {
         child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
           OneChildTextField(
               textController: _nameTextController,
+              errorText: (String? val) {
+                if (val != null) {
+                  String text = val.trim();
+                  if (text.isEmpty) {
+                    return "กรุณากรอกชื่อและนามสกุลของท่าน";
+                  }
+                  if (!text.contains(" ")) {
+                    return "กรุณากรอกข้อมูลด้วยรูปแบบ\nชื่อ นามสกุล";
+                  }
+                  if (text
+                          .split(" ")[0]
+                          .contains(RegExp('[^a-zA-Z\u0E00-\u0E7F]')) ||
+                      text
+                          .split(" ")[1]
+                          .contains(RegExp('[^a-zA-Z\u0E00-\u0E7F]'))) {
+                    return "ชื่อ-นามสกุลที่ท่านกรอกต้องไม่มีตัวเลข และตัวอักษรพิเศษ";
+                  }
+                }
+                return null;
+              },
               textName: "ชื่อ-นามสกุล",
               textHint: "ฟ้าใส ใจดี"),
           TwoChildTextField(
+            errorLeftText: (String? val) {
+              if (val != null) {
+                String text = val.trim();
+                if (text.isEmpty) {
+                  return "กรุณากรอกเพศของท่าน";
+                }
+              }
+              return null;
+            },
+            errorRightText: (String? val) {
+              if (val != null) {
+                String text = val.trim();
+                if (text.isEmpty) {
+                  return "กรุณากรอกอายุของท่าน";
+                }
+                if (text.contains(RegExp(r'\D'))) {
+                  return "กรุณากรอกเพียงตัวเลขจำนวนเต็ม";
+                }
+              }
+              return null;
+            },
             leftTextController: _genderTextController,
             leftTextName: "เพศ",
             rightTextController: _ageTextController,
@@ -115,6 +165,36 @@ class _PersonalBodyState extends State<PersonalBody> {
           TwoChildTextField(
             leftTextController: _weightTextController,
             rightTextController: _heightTextController,
+            errorLeftText: (String? val) {
+              if (val != null) {
+                String text = val.trim();
+                if (text.isEmpty) {
+                  return "กรุณากรอกน้ำหนักของท่าน";
+                }
+                if (text.contains(
+                    RegExp(r'^[+-]?([0-9]+([.][0-9]*)?|[.][0-9]+)$'))) {
+                  return null;
+                } else {
+                  return "กรุณากรอกตัวเลขทศนิยมหรือจำนวนเต็ม";
+                }
+              }
+              return null;
+            },
+            errorRightText: (String? val) {
+              if (val != null) {
+                String text = val.trim();
+                if (text.isEmpty) {
+                  return "กรุณากรอกส่วนสูงของท่าน";
+                }
+                if (text.contains(
+                    RegExp(r'^[+-]?([0-9]+([.][0-9]*)?|[.][0-9]+)$'))) {
+                  return null;
+                } else {
+                  return "กรุณากรอกตัวเลขทศนิยมหรือจำนวนเต็ม";
+                }
+              }
+              return null;
+            },
             leftTextName: "น้ำหนัก",
             rightTextName: "ส่วนสูง",
             leftTextInputType: TextInputType.number,
@@ -139,6 +219,9 @@ class _PersonalBodyState extends State<PersonalBody> {
           ),
           OneChildTextField(
               textController: _foodAllergyTextController,
+              errorText: (String? val) {
+                return null;
+              },
               textName: "ประวัติการแพ้อาหาร",
               textHint: "แพ้กุ้ง,แพ้ปู,แพ้ปลา,แพ้หมู,แพ้แมว"),
           Center(
@@ -190,12 +273,16 @@ class TwoChildTextField extends StatefulWidget {
   final String rightTextHint;
   final TextInputType leftTextInputType;
   final TextInputType rightTextInputType;
+  final String? Function(String?) errorLeftText;
+  final String? Function(String?) errorRightText;
   const TwoChildTextField({
     super.key,
     required this.leftTextController,
     required this.rightTextController,
     required this.leftTextName,
     required this.rightTextName,
+    required this.errorLeftText,
+    required this.errorRightText,
     this.leftTextHint = "",
     this.rightTextHint = "",
     this.leftTextInputType = TextInputType.text,
@@ -231,11 +318,16 @@ class _TwoChildTextFieldState extends State<TwoChildTextField> {
                 ),
                 Padding(
                   padding: const EdgeInsets.only(right: 30),
-                  child: TextField(
+                  child: TextFormField(
+                    autovalidateMode: AutovalidateMode.onUserInteraction,
+                    validator: widget.errorLeftText,
                     controller: widget.leftTextController,
                     keyboardType: widget.leftTextInputType,
                     style: const TextStyle(fontSize: 18),
                     decoration: InputDecoration(
+                      errorStyle:
+                          const TextStyle(fontSize: 15, color: Colors.red),
+                      errorMaxLines: 2,
                       contentPadding: const EdgeInsets.symmetric(
                           vertical: 0, horizontal: 20),
                       border: OutlineInputBorder(
@@ -251,6 +343,10 @@ class _TwoChildTextFieldState extends State<TwoChildTextField> {
               ],
             ),
           ),
+          // Expanded(
+          //   flex: 1,
+          //   child: Container(),
+          // ),
           Expanded(
             flex: 1,
             child: Container(),
@@ -272,11 +368,16 @@ class _TwoChildTextFieldState extends State<TwoChildTextField> {
                 ),
                 Padding(
                   padding: const EdgeInsets.only(right: 30),
-                  child: TextField(
+                  child: TextFormField(
+                    autovalidateMode: AutovalidateMode.onUserInteraction,
+                    validator: widget.errorRightText,
                     controller: widget.rightTextController,
                     keyboardType: widget.rightTextInputType,
                     style: const TextStyle(fontSize: 18),
                     decoration: InputDecoration(
+                      errorStyle:
+                          const TextStyle(fontSize: 15, color: Colors.red),
+                      errorMaxLines: 2,
                       contentPadding: const EdgeInsets.symmetric(
                           vertical: 0, horizontal: 20),
                       border: OutlineInputBorder(
@@ -303,9 +404,11 @@ class OneChildTextField extends StatefulWidget {
   final String textName;
   final String textHint;
   final TextInputType textInputType;
+  final String? Function(String?) errorText;
   const OneChildTextField({
     super.key,
     required this.textController,
+    required this.errorText,
     required this.textName,
     this.textInputType = TextInputType.text,
     this.textHint = "",
@@ -332,11 +435,15 @@ class _OneChildTextFieldState extends State<OneChildTextField> {
               ),
             ),
           ),
-          TextField(
+          TextFormField(
+            autovalidateMode: AutovalidateMode.onUserInteraction,
             keyboardType: widget.textInputType,
             controller: widget.textController,
             style: const TextStyle(fontSize: 18),
+            validator: widget.errorText,
             decoration: InputDecoration(
+              errorStyle: const TextStyle(fontSize: 15, color: Colors.red),
+              errorMaxLines: 2,
               contentPadding:
                   const EdgeInsets.symmetric(vertical: 0, horizontal: 20),
               border: OutlineInputBorder(
