@@ -18,21 +18,57 @@ class _ActivityFormState extends State<ActivityForm> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text("ActivityForm")),
-      body: LayoutBuilder(
-          builder: (BuildContext context, BoxConstraints constraints) {
-        return SingleChildScrollView(
-          child: ConstrainedBox(
-            constraints: BoxConstraints(minHeight: constraints.maxHeight),
-            child: const Column(
-              children: [
-                ActivityFormHeader(),
-                ActivityFormBody(),
-              ],
-            ),
-          ),
-        );
-      }),
+      body: SafeArea(
+        child: LayoutBuilder(
+            builder: (BuildContext context, BoxConstraints constraints) {
+          return Center(
+            child: Stack(alignment: Alignment.bottomCenter, children: [
+              SingleChildScrollView(
+                child: ConstrainedBox(
+                  constraints: BoxConstraints(minHeight: constraints.maxHeight),
+                  child: const Column(
+                    children: [
+                      ActivityFormHeader(),
+                      ActivityFormBody(),
+                    ],
+                  ),
+                ),
+              ),
+              Padding(
+                padding: const EdgeInsets.only(left: 8, right: 8, bottom: 20),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    ElevatedButton(
+                      style: ButtonStyle(
+                          backgroundColor:
+                              const MaterialStatePropertyAll(Color(0xFFED7E7E)),
+                          shape:
+                              MaterialStateProperty.all(RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(30),
+                          ))),
+                      onPressed: () {
+                        setState(() {
+                          Navigator.of(context).push(MaterialPageRoute(
+                              builder: (context) => const ActivityResult()));
+                        });
+                      },
+                      child: const Padding(
+                        padding:
+                            EdgeInsets.symmetric(vertical: 3, horizontal: 15),
+                        child: Text(
+                          "ถัดไป",
+                          style: TextStyle(fontSize: 32),
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+              )
+            ]),
+          );
+        }),
+      ),
     );
   }
 }
@@ -69,6 +105,13 @@ class _ActivityFormBodyState extends State<ActivityFormBody> {
       padding: const EdgeInsets.all(20),
       child: Column(
         children: [
+          Container(
+            width: double.infinity,
+            child: const Text(
+              "*ไม่จำเป็นต้องกรอกครบทุกช่อง",
+              style: TextStyle(fontSize: 20, fontWeight: FontWeight.w700),
+            ),
+          ),
           ActivityDisplay(
             title: "1. กิจกรรมระดับเบามาก",
             nameColor: const Color(0xFFFFD7D7),
@@ -219,32 +262,6 @@ class _ActivityFormBodyState extends State<ActivityFormBody> {
               ),
             ),
           ),
-          Center(
-            child: Container(
-              margin: const EdgeInsets.only(top: 20),
-              child: ElevatedButton(
-                style: ButtonStyle(
-                    backgroundColor:
-                        const MaterialStatePropertyAll(Color(0xFFED7E7E)),
-                    shape: MaterialStateProperty.all(RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(30),
-                    ))),
-                onPressed: () {
-                  setState(() {
-                    Navigator.of(context).push(MaterialPageRoute(
-                        builder: (context) => const ActivityResult()));
-                  });
-                },
-                child: const Padding(
-                  padding: EdgeInsets.symmetric(vertical: 3, horizontal: 15),
-                  child: Text(
-                    "ถัดไป",
-                    style: TextStyle(fontSize: 32),
-                  ),
-                ),
-              ),
-            ),
-          ),
         ],
       ),
     );
@@ -340,10 +357,13 @@ class ActivityFormHeader extends StatelessWidget {
                     ),
                     child: const Padding(
                       padding:
-                          EdgeInsets.symmetric(vertical: 15, horizontal: 71),
+                          EdgeInsets.symmetric(vertical: 10, horizontal: 60),
                       child: Text(
                         "บันทึกกิจกรรม",
-                        style: TextStyle(color: Colors.white, fontSize: 36),
+                        style: TextStyle(
+                            color: Colors.white,
+                            fontSize: 34,
+                            fontWeight: FontWeight.w700),
                       ),
                     ),
                   ),
@@ -353,7 +373,7 @@ class ActivityFormHeader extends StatelessWidget {
                 child: Center(
                     child: Text(
                   "ของคุณ\"แจ่มใส\"",
-                  style: TextStyle(fontSize: 28),
+                  style: TextStyle(fontSize: 26, fontWeight: FontWeight.w700),
                 ))),
           ],
         ));
