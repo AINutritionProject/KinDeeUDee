@@ -117,23 +117,176 @@ class _PersonalBodyState extends State<PersonalBody> {
                         Text("ชื่อ - นามสกุล", style: TextStyle(fontSize: 24)),
                   ),
                   TextFormField(
-                      keyboardType: TextInputType.text,
-                      controller: _nameTextController,
-                      validator: nameValidate,
-                      style: const TextStyle(fontSize: 18),
-                      decoration: InputDecoration(
-                        errorStyle:
-                            const TextStyle(fontSize: 15, color: Colors.red),
-                        contentPadding: const EdgeInsets.symmetric(
-                            vertical: 0, horizontal: 20),
-                        border: OutlineInputBorder(
-                          borderSide: const BorderSide(color: Colors.black),
-                          borderRadius: BorderRadius.circular(25),
-                        ),
-                        filled: true,
-                        fillColor: Colors.white,
-                        hintText: "ยิ้มแย้ม แจ่มใส",
-                      )),
+                    keyboardType: TextInputType.text,
+                    controller: _nameTextController,
+                    validator: nameValidate,
+                    style: const TextStyle(fontSize: 18),
+                    decoration: InputDecoration(
+                      errorStyle:
+                          const TextStyle(fontSize: 15, color: Colors.red),
+                      errorMaxLines: 2,
+                      contentPadding: const EdgeInsets.symmetric(
+                          vertical: 0, horizontal: 20),
+                      border: OutlineInputBorder(
+                        borderSide: const BorderSide(color: Colors.black),
+                        borderRadius: BorderRadius.circular(25),
+                      ),
+                      filled: true,
+                      fillColor: Colors.white,
+                      hintText: "ยิ้มแย้ม แจ่มใส",
+                      helperText: "\n",
+                      helperStyle:
+                          const TextStyle(fontSize: 15, color: Colors.red),
+                    ),
+                  ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          const Padding(
+                            padding: EdgeInsets.symmetric(vertical: 8.0),
+                            child: Text("เพศ", style: TextStyle(fontSize: 24)),
+                          ),
+                          SizedBox(
+                            width: 130, //temporary
+                            child: TextFormField(
+                              validator: genderValidate,
+                              controller: _genderTextController,
+                              keyboardType: TextInputType.text,
+                              style: const TextStyle(fontSize: 18),
+                              decoration: InputDecoration(
+                                errorStyle: const TextStyle(
+                                    fontSize: 15, color: Colors.red),
+                                errorMaxLines: 2,
+                                contentPadding: const EdgeInsets.symmetric(
+                                    vertical: 0, horizontal: 20),
+                                border: OutlineInputBorder(
+                                  borderRadius: BorderRadius.circular(25),
+                                ),
+                                filled: true,
+                                fillColor: Colors.white,
+                                hintText: "ชาย/หญิง",
+                                helperText: "\n",
+                                helperStyle: const TextStyle(
+                                    fontSize: 15, color: Colors.red),
+                              ),
+                            ),
+                          )
+                        ],
+                      ),
+                      Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          const Padding(
+                            padding: EdgeInsets.symmetric(vertical: 8.0),
+                            child: Text("อายุ", style: TextStyle(fontSize: 24)),
+                          ),
+                          SizedBox(
+                            width: 130,
+                            child: TextFormField(
+                              validator: ageValidate,
+                              controller: _ageTextController,
+                              keyboardType: TextInputType.number,
+                              style: const TextStyle(fontSize: 18),
+                              decoration: InputDecoration(
+                                errorStyle: const TextStyle(
+                                    fontSize: 15, color: Colors.red),
+                                errorMaxLines: 2,
+                                contentPadding: const EdgeInsets.symmetric(
+                                    vertical: 0, horizontal: 20),
+                                border: OutlineInputBorder(
+                                  borderRadius: BorderRadius.circular(25),
+                                ),
+                                filled: true,
+                                fillColor: Colors.white,
+                                hintText: "ปี",
+                                helperText: "\n",
+                                helperStyle: const TextStyle(
+                                    fontSize: 15, color: Colors.red),
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
+                    ],
+                  ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          const Padding(
+                            padding: EdgeInsets.symmetric(vertical: 8.0),
+                            child:
+                                Text("น้ำหนัก", style: TextStyle(fontSize: 24)),
+                          ),
+                          SizedBox(
+                            width: 130, //temporary
+                            child: TextFormField(
+                              validator: weightValidate,
+                              controller: _weightTextController,
+                              keyboardType: TextInputType.number,
+                              style: const TextStyle(fontSize: 18),
+                              decoration: InputDecoration(
+                                errorStyle: const TextStyle(
+                                    fontSize: 15, color: Colors.red),
+                                errorMaxLines: 2,
+                                contentPadding: const EdgeInsets.symmetric(
+                                    vertical: 0, horizontal: 20),
+                                border: OutlineInputBorder(
+                                  borderRadius: BorderRadius.circular(25),
+                                ),
+                                filled: true,
+                                fillColor: Colors.white,
+                                hintText: "กิโลกรัม",
+                                helperText: "\n",
+                                helperStyle: const TextStyle(
+                                    fontSize: 15, color: Colors.red),
+                              ),
+                            ),
+                          )
+                        ],
+                      ),
+                      Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          const Padding(
+                            padding: EdgeInsets.symmetric(vertical: 8.0),
+                            child:
+                                Text("ส่วนสูง", style: TextStyle(fontSize: 24)),
+                          ),
+                          SizedBox(
+                            width: 130,
+                            child: TextFormField(
+                              validator: heightValdiate,
+                              controller: _heightTextController,
+                              keyboardType: TextInputType.number,
+                              style: const TextStyle(fontSize: 18),
+                              decoration: InputDecoration(
+                                errorStyle: const TextStyle(
+                                    fontSize: 15, color: Colors.red),
+                                errorMaxLines: 2,
+                                contentPadding: const EdgeInsets.symmetric(
+                                    vertical: 0, horizontal: 20),
+                                border: OutlineInputBorder(
+                                  borderRadius: BorderRadius.circular(25),
+                                ),
+                                filled: true,
+                                fillColor: Colors.white,
+                                hintText: "เซนติเมตร",
+                                helperText: "\n",
+                                helperStyle: const TextStyle(
+                                    fontSize: 15, color: Colors.red),
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
+                    ],
+                  )
                 ],
               ),
             ),
