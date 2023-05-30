@@ -107,7 +107,26 @@ class _PersonalBodyState extends State<PersonalBody> {
           OneChildTextField(
               formKey: nameFormKey,
               textController: _nameTextController,
-              validate: validateName,
+              validate: (String? val) {
+                if (val != null) {
+                  String text = val.trim();
+                  if (text.isEmpty) {
+                    return "กรุณากรอกชื่อและนามสกุลของท่าน";
+                  }
+                  if (!text.contains(" ")) {
+                    return "กรุณากรอกข้อมูลด้วยรูปแบบ\nชื่อ นามสกุล";
+                  }
+                  if (text
+                          .split(" ")[0]
+                          .contains(RegExp('[^a-zA-Z\u0E00-\u0E7F]')) ||
+                      text
+                          .split(" ")[1]
+                          .contains(RegExp('[^a-zA-Z\u0E00-\u0E7F]'))) {
+                    return "ชื่อ-นามสกุลที่ท่านกรอกต้องไม่มีตัวเลข และตัวอักษรพิเศษ";
+                  }
+                }
+                return null;
+              },
               textName: "ชื่อ-นามสกุล",
               textHint: "ฟ้าใส ใจดี"),
           TwoChildTextField(
@@ -519,21 +538,4 @@ class _PersonalHeaderState extends State<PersonalHeader> {
       ),
     );
   }
-}
-
-String? validateName(String? val) {
-  if (val != null) {
-    String text = val.trim();
-    if (text.isEmpty) {
-      return "กรุณากรอกชื่อและนามสกุลของท่าน";
-    }
-    if (!text.contains(" ")) {
-      return "กรุณากรอกข้อมูลด้วยรูปแบบ\nชื่อ นามสกุล";
-    }
-    if (text.split(" ")[0].contains(RegExp('[^a-zA-Z\u0E00-\u0E7F]')) ||
-        text.split(" ")[1].contains(RegExp('[^a-zA-Z\u0E00-\u0E7F]'))) {
-      return "ชื่อ-นามสกุลที่ท่านกรอกต้องไม่มีตัวเลข และตัวอักษรพิเศษ";
-    }
-  }
-  return null;
 }
