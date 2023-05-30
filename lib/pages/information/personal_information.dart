@@ -141,6 +141,9 @@ class _PersonalBodyState extends State<PersonalBody> {
                 if (text.isEmpty) {
                   return "กรุณากรอกเพศของท่าน";
                 }
+                if (text != "ชาย" && text != "หญิง") {
+                  return "กรุณากรอกเพศ ชาย/หญิง";
+                }
               }
               return null;
             },
