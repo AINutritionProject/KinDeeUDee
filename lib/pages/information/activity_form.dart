@@ -21,16 +21,51 @@ class _ActivityFormState extends State<ActivityForm> {
       body: SafeArea(
         child: LayoutBuilder(
             builder: (BuildContext context, BoxConstraints constraints) {
-          return SingleChildScrollView(
-            child: ConstrainedBox(
-              constraints: BoxConstraints(minHeight: constraints.maxHeight),
-              child: const Column(
-                children: [
-                  ActivityFormHeader(),
-                  ActivityFormBody(),
-                ],
+          return Center(
+            child: Stack(alignment: Alignment.bottomCenter, children: [
+              SingleChildScrollView(
+                child: ConstrainedBox(
+                  constraints: BoxConstraints(minHeight: constraints.maxHeight),
+                  child: const Column(
+                    children: [
+                      ActivityFormHeader(),
+                      ActivityFormBody(),
+                    ],
+                  ),
+                ),
               ),
-            ),
+              Padding(
+                padding: const EdgeInsets.only(left: 8, right: 8, bottom: 20),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    ElevatedButton(
+                      style: ButtonStyle(
+                          backgroundColor:
+                              const MaterialStatePropertyAll(Color(0xFFED7E7E)),
+                          shape:
+                              MaterialStateProperty.all(RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(30),
+                          ))),
+                      onPressed: () {
+                        setState(() {
+                          Navigator.of(context).push(MaterialPageRoute(
+                              builder: (context) => const ActivityResult()));
+                        });
+                      },
+                      child: const Padding(
+                        padding:
+                            EdgeInsets.symmetric(vertical: 3, horizontal: 15),
+                        child: Text(
+                          "ถัดไป",
+                          style: TextStyle(fontSize: 32),
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+              )
+            ]),
           );
         }),
       ),
@@ -224,32 +259,6 @@ class _ActivityFormBodyState extends State<ActivityFormBody> {
               label: const Text(
                 "เพิ่มกิจกรรม",
                 style: TextStyle(color: Colors.black, fontSize: 22),
-              ),
-            ),
-          ),
-          Center(
-            child: Container(
-              margin: const EdgeInsets.only(top: 20),
-              child: ElevatedButton(
-                style: ButtonStyle(
-                    backgroundColor:
-                        const MaterialStatePropertyAll(Color(0xFFED7E7E)),
-                    shape: MaterialStateProperty.all(RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(30),
-                    ))),
-                onPressed: () {
-                  setState(() {
-                    Navigator.of(context).push(MaterialPageRoute(
-                        builder: (context) => const ActivityResult()));
-                  });
-                },
-                child: const Padding(
-                  padding: EdgeInsets.symmetric(vertical: 3, horizontal: 15),
-                  child: Text(
-                    "ถัดไป",
-                    style: TextStyle(fontSize: 32),
-                  ),
-                ),
               ),
             ),
           ),
