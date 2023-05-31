@@ -504,7 +504,8 @@ class _BMIState extends State<BMI> {
                     Navigator.push(
                         context,
                         MaterialPageRoute(
-                            builder: (context) => const Nutrition()));
+                            builder: (context) =>
+                                Nutrition(user: widget.user)));
                   });
                 },
                 child: const Padding(
