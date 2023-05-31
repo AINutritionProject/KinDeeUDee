@@ -335,29 +335,27 @@ class _ActivityDisplayState extends State<ActivityDisplay> {
             ),
           ),
         ),
-        WideDropDown(
-          data: widget.data,
-          border: const BorderSide(color: Colors.black38),
-          color: widget.nameColor,
-          setSelectedItem: widget.setSelectedName,
-        ),
-        Padding(
-          padding: const EdgeInsets.only(left: 40.0),
-          child: Row(
-            children: [
-              SmallDropDown(
-                data: frequency,
-                border: Border.all(color: Colors.black38),
-                dropdownColor: widget.frequencyColor,
-                buttonColor: widget.frequencyColor,
-                setSelectedItem: widget.setSelectedFrequency,
-              ),
-              const Text(
-                "ครั้ง/สัปดาห์",
-                style: TextStyle(fontSize: 22),
-              ),
-            ],
-          ),
+        Row(
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          children: [
+            WideDropDown(
+              data: widget.data,
+              border: const BorderSide(color: Colors.black38),
+              color: widget.nameColor,
+              setSelectedItem: widget.setSelectedName,
+            ),
+            SmallDropDown(
+              data: frequency,
+              border: Border.all(color: Colors.black38),
+              dropdownColor: widget.frequencyColor,
+              buttonColor: widget.frequencyColor,
+              setSelectedItem: widget.setSelectedFrequency,
+            ),
+            const Text(
+              "ครั้ง/สัปดาห์",
+              style: TextStyle(fontSize: 22),
+            ),
+          ],
         ),
       ],
     );
