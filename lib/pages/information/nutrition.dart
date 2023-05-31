@@ -95,7 +95,7 @@ class Nutrition extends StatelessWidget {
             itemCount: dataInSection.length + 2,
             itemBuilder: (context, index) {
               if (index == dataInSection.length + 1) {
-                return const ButtonSave();
+                return ButtonSave(user: user);
               } else if (index == 0) {
                 return const ContainerHeader(
                   calAmount: 1800,
@@ -117,8 +117,10 @@ class Nutrition extends StatelessWidget {
 }
 
 class ButtonSave extends StatelessWidget {
+  final User user;
   const ButtonSave({
     super.key,
+    required this.user,
   });
 
   @override
