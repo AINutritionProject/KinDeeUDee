@@ -186,6 +186,7 @@ class ResultBar extends StatelessWidget {
     return LayoutBuilder(
       builder: (BuildContext context, BoxConstraints constraints) {
         return Stack(
+          clipBehavior: Clip.none,
           alignment: Alignment.center,
           children: [
             Container(
@@ -205,7 +206,17 @@ class ResultBar extends StatelessWidget {
                 ),
               ),
             ),
-            const SmileFace(),
+            level == 2
+                ? const SmileFace()
+                : level == 1
+                    ? const Positioned(
+                        bottom: 0,
+                        child: SmileFace(),
+                      )
+                    : const Positioned(
+                        top: 0,
+                        child: SmileFace(),
+                      ),
           ],
         );
       },
