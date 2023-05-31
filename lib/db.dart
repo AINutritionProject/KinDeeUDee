@@ -16,6 +16,34 @@ Future<User> getUser() async {
   );
 }
 
+Future<void> updateDoc(String uid, User user) async {
+  final userData = {
+    'hasData': true,
+    'fullname': user.fullname,
+    'gender': user.gender,
+    'age': user.age,
+    'weight': user.weight,
+    'height': user.height,
+    'career': user.career,
+    'chronicDisease': user.chronicDisease,
+    'foodAllergy': user.foodAllergy,
+    if (user.extraLightActivities != null)
+      'extraLightActivities': user.extraLightActivities,
+    if (user.lightActivities != null) 'lightActivities': user.lightActivities,
+    if (user.mediumActivities != null)
+      'mediumActivities': user.mediumActivities,
+    'activityLevel': user.activityLevel,
+    'milkGlass': user.milkGlass,
+    'milkProduct': user.milkProduct,
+    'bmi': user.bmi,
+    'bmr': user.bmr,
+  };
+  final userRef = FirebaseFirestore.instance.collection("users").doc(uid);
+  userRef.update(userData).then(
+      (value) => print("DocumentSnapshot successfully updated!"),
+      onError: (e) => print("Error updating document $e"));
+}
+
 class User {
   final String uid;
   final String email;
