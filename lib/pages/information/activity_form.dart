@@ -6,7 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:appfood2/db.dart';
 
 List<String> frequency = ["1", "2", "3", "4", "5", "6", "7"];
-List<String> lightActivities = [
+List<String> lightActivitiesData = [
   "-----",
   "ดูโทรทัศน์",
   "นอนหลับ",
@@ -240,10 +240,6 @@ class Activity {
 }
 
 class _ActivityFormBodyState extends State<ActivityFormBody> {
-  int extraLightAcitivitiesCount = 1;
-  int lightAcitivitiesCount = 1;
-  int mediumAcitivitiesCount = 1;
-
   final GlobalKey<AnimatedListState> extraLightListKey =
       GlobalKey<AnimatedListState>();
   final GlobalKey<AnimatedListState> lightListKey =
@@ -251,16 +247,10 @@ class _ActivityFormBodyState extends State<ActivityFormBody> {
   final GlobalKey<AnimatedListState> mediumListKey =
       GlobalKey<AnimatedListState>();
 
-  late final User user;
-
-  @override
-  void initState() {
-    user = widget.user;
-    user.extraLightActivities ??= [UserActivity()];
-    user.lightActivities ??= [UserActivity()];
-    user.mediumActivities ??= [UserActivity()];
-    super.initState();
-  }
+  List<UserActivity> extraLightActivities = [UserActivity()];
+  List<UserActivity> lightActivities = [UserActivity()];
+  List<UserActivity> mediumActivities = [UserActivity()];
+  List<UserActivity> customActivities = [UserActivity()];
 
   @override
   Widget build(BuildContext context) {
@@ -292,7 +282,7 @@ class _ActivityFormBodyState extends State<ActivityFormBody> {
             key: extraLightListKey,
             shrinkWrap: true,
             physics: const NeverScrollableScrollPhysics(),
-            initialItemCount: user.extraLightActivities!.length,
+            initialItemCount: extraLightActivities.length,
             itemBuilder: (BuildContext context, int index, animation) {
               return FadeTransition(
                 opacity:
@@ -300,23 +290,21 @@ class _ActivityFormBodyState extends State<ActivityFormBody> {
                 child: ActivityDisplay(
                   nameColor: const Color(0xFFFFD7D7),
                   frequencyColor: const Color(0xFFFFEBEB),
-                  data: lightActivities,
+                  data: lightActivitiesData,
                   setSelectedName: (String val) {
-                    setState(() {
-                      if (val != "-----" &&
-                          user.extraLightActivities!.length < 3) {
-                        user.extraLightActivities!.add(UserActivity());
+                    if (val != "-----" && extraLightActivities.length < 3) {
+                      setState(() {
+                        extraLightActivities.add(UserActivity());
+                        extraLightActivities[index].activityName = val;
                         extraLightListKey.currentState!.insertItem(
                           index + 1,
                           duration: const Duration(milliseconds: 1000),
                         );
-                      }
-                      user.extraLightActivities![index].activityName = val;
-                    });
+                      });
+                    }
                   },
                   setSelectedFrequency: (String val) {
-                    user.extraLightActivities![index].frequency =
-                        int.parse(val);
+                    extraLightActivities[index].frequency = int.parse(val);
                   },
                 ),
               );
@@ -338,7 +326,7 @@ class _ActivityFormBodyState extends State<ActivityFormBody> {
             key: lightListKey,
             shrinkWrap: true,
             physics: const NeverScrollableScrollPhysics(),
-            initialItemCount: user.lightActivities!.length,
+            initialItemCount: lightActivities.length,
             itemBuilder: (BuildContext context, int index, animation) {
               return FadeTransition(
                 opacity:
@@ -346,21 +334,21 @@ class _ActivityFormBodyState extends State<ActivityFormBody> {
                 child: ActivityDisplay(
                   nameColor: const Color(0xFFFFD7D7),
                   frequencyColor: const Color(0xFFFFEBEB),
-                  data: lightActivities,
+                  data: lightActivitiesData,
                   setSelectedName: (String val) {
                     setState(() {
-                      if (val != "-----" && user.lightActivities!.length < 3) {
-                        user.lightActivities!.add(UserActivity());
+                      if (val != "-----" && lightActivities.length < 3) {
+                        lightActivities.add(UserActivity());
                         lightListKey.currentState!.insertItem(
                           index + 1,
                           duration: const Duration(milliseconds: 1000),
                         );
                       }
-                      user.lightActivities![index].activityName = val;
+                      lightActivities[index].activityName = val;
                     });
                   },
                   setSelectedFrequency: (String val) {
-                    user.lightActivities![index].frequency = int.parse(val);
+                    lightActivities[index].frequency = int.parse(val);
                   },
                 ),
               );
@@ -383,7 +371,7 @@ class _ActivityFormBodyState extends State<ActivityFormBody> {
             key: mediumListKey,
             shrinkWrap: true,
             physics: const NeverScrollableScrollPhysics(),
-            initialItemCount: user.mediumActivities!.length,
+            initialItemCount: mediumActivities.length,
             itemBuilder: (BuildContext context, int index, animation) {
               return FadeTransition(
                 opacity:
@@ -391,21 +379,21 @@ class _ActivityFormBodyState extends State<ActivityFormBody> {
                 child: ActivityDisplay(
                   nameColor: const Color(0xFFFFD7D7),
                   frequencyColor: const Color(0xFFFFEBEB),
-                  data: lightActivities,
+                  data: lightActivitiesData,
                   setSelectedName: (String val) {
                     setState(() {
-                      if (val != "-----" && user.mediumActivities!.length < 3) {
-                        user.mediumActivities!.add(UserActivity());
+                      if (val != "-----" && mediumActivities.length < 3) {
+                        mediumActivities.add(UserActivity());
                         mediumListKey.currentState!.insertItem(
                           index + 1,
                           duration: const Duration(milliseconds: 1000),
                         );
                       }
-                      user.mediumActivities![index].activityName = val;
+                      mediumActivities[index].activityName = val;
                     });
                   },
                   setSelectedFrequency: (String val) {
-                    user.mediumActivities![index].frequency = int.parse(val);
+                    mediumActivities[index].frequency = int.parse(val);
                   },
                 ),
               );
