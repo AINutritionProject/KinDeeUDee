@@ -72,8 +72,13 @@ class _HomeState extends State<Home> {
     return Scaffold(
       drawer: Drawer(
         child: ListView(
-          children: const [
+          children: [
             Text("YEEE"),
+            IconButton(
+                onPressed: () async {
+                  await Auth().signOut();
+                },
+                icon: Icon(Icons.logout))
           ],
         ),
       ),
