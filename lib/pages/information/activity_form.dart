@@ -22,25 +22,6 @@ class Activity {
   });
 }
 
-class ActivityDisplay extends StatefulWidget {
-  final Function(String val) setSelectedName;
-  final Function(String val) setSelectedFrequency;
-  final Color nameColor;
-  final Color frequencyColor;
-  final List<String> data;
-  const ActivityDisplay({
-    super.key,
-    required this.setSelectedName,
-    required this.setSelectedFrequency,
-    required this.data,
-    this.nameColor = Colors.white,
-    this.frequencyColor = Colors.white,
-  });
-
-  @override
-  State<ActivityDisplay> createState() => _ActivityDisplayState();
-}
-
 class ActivityForm extends StatefulWidget {
   final User user;
   const ActivityForm({
@@ -52,6 +33,69 @@ class ActivityForm extends StatefulWidget {
   State<ActivityForm> createState() => _ActivityFormState();
 }
 
+class _ActivityFormState extends State<ActivityForm> {
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      body: SafeArea(
+        child: LayoutBuilder(
+            builder: (BuildContext context, BoxConstraints constraints) {
+          return Center(
+            child: Stack(alignment: Alignment.bottomCenter, children: [
+              Padding(
+                padding: const EdgeInsets.only(bottom: 50.0),
+                child: SingleChildScrollView(
+                  child: ConstrainedBox(
+                    constraints:
+                        BoxConstraints(minHeight: constraints.maxHeight),
+                    child: Column(
+                      children: [
+                        const ActivityFormHeader(),
+                        ActivityFormBody(user: widget.user),
+                      ],
+                    ),
+                  ),
+                ),
+              ),
+              Padding(
+                padding: const EdgeInsets.only(left: 8, right: 8, bottom: 20),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    ElevatedButton(
+                      style: ButtonStyle(
+                          backgroundColor:
+                              const MaterialStatePropertyAll(Color(0xFFED7E7E)),
+                          shape:
+                              MaterialStateProperty.all(RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(30),
+                          ))),
+                      onPressed: () {
+                        setState(() {
+                          Navigator.of(context).push(MaterialPageRoute(
+                              builder: (context) => const ActivityResult()));
+                        });
+                      },
+                      child: const Padding(
+                        padding:
+                            EdgeInsets.symmetric(vertical: 3, horizontal: 15),
+                        child: Text(
+                          "ถัดไป",
+                          style: TextStyle(fontSize: 32),
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+              )
+            ]),
+          );
+        }),
+      ),
+    );
+  }
+}
+
 class ActivityFormBody extends StatefulWidget {
   final User user;
   const ActivityFormBody({
@@ -61,100 +105,6 @@ class ActivityFormBody extends StatefulWidget {
 
   @override
   State<ActivityFormBody> createState() => _ActivityFormBodyState();
-}
-
-class ActivityFormHeader extends StatelessWidget {
-  const ActivityFormHeader({
-    super.key,
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    return SizedBox(
-        height: 170,
-        child: Column(
-          children: [
-            Expanded(
-                flex: 2,
-                child: Align(
-                  alignment: Alignment.bottomCenter,
-                  child: Container(
-                    margin: const EdgeInsets.only(bottom: 10),
-                    decoration: BoxDecoration(
-                      color: const Color(0xFF1E807A),
-                      borderRadius: BorderRadius.circular(50),
-                    ),
-                    child: const Padding(
-                      padding:
-                          EdgeInsets.symmetric(vertical: 10, horizontal: 60),
-                      child: Text(
-                        "บันทึกกิจกรรม",
-                        style: TextStyle(
-                            color: Colors.white,
-                            fontSize: 34,
-                            fontWeight: FontWeight.w700),
-                      ),
-                    ),
-                  ),
-                )),
-            const Expanded(
-                flex: 1,
-                child: Center(
-                    child: Text(
-                  "ของคุณ\"แจ่มใส\"",
-                  style: TextStyle(fontSize: 26, fontWeight: FontWeight.w700),
-                ))),
-          ],
-        ));
-  }
-}
-
-class _ActivityDisplayState extends State<ActivityDisplay> {
-  @override
-  Widget build(BuildContext context) {
-    return Column(
-      children: [
-        Row(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-          children: [
-            Expanded(
-              flex: 5,
-              child: Padding(
-                padding: const EdgeInsets.only(top: 3.0),
-                child: WideDropDown(
-                  data: widget.data,
-                  border: const BorderSide(color: Colors.black38),
-                  color: widget.nameColor,
-                  setSelectedItem: widget.setSelectedName,
-                ),
-              ),
-            ),
-            Expanded(
-              flex: 2,
-              child: SmallDropDown(
-                data: frequency,
-                border: Border.all(color: Colors.black38),
-                dropdownColor: widget.frequencyColor,
-                buttonColor: widget.frequencyColor,
-                setSelectedItem: widget.setSelectedFrequency,
-              ),
-            ),
-            const Expanded(
-              flex: 3,
-              child: Padding(
-                padding: EdgeInsets.only(left: 8.0, top: 15),
-                child: Text(
-                  "ครั้ง/สัปดาห์",
-                  style: TextStyle(fontSize: 18),
-                ),
-              ),
-            ),
-          ],
-        ),
-      ],
-    );
-  }
 }
 
 class _ActivityFormBodyState extends State<ActivityFormBody> {
@@ -517,65 +467,115 @@ class _ActivityFormBodyState extends State<ActivityFormBody> {
   }
 }
 
-class _ActivityFormState extends State<ActivityForm> {
+class ActivityDisplay extends StatefulWidget {
+  final Function(String val) setSelectedName;
+  final Function(String val) setSelectedFrequency;
+  final Color nameColor;
+  final Color frequencyColor;
+  final List<String> data;
+  const ActivityDisplay({
+    super.key,
+    required this.setSelectedName,
+    required this.setSelectedFrequency,
+    required this.data,
+    this.nameColor = Colors.white,
+    this.frequencyColor = Colors.white,
+  });
+
+  @override
+  State<ActivityDisplay> createState() => _ActivityDisplayState();
+}
+
+class _ActivityDisplayState extends State<ActivityDisplay> {
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: SafeArea(
-        child: LayoutBuilder(
-            builder: (BuildContext context, BoxConstraints constraints) {
-          return Center(
-            child: Stack(alignment: Alignment.bottomCenter, children: [
-              Padding(
-                padding: const EdgeInsets.only(bottom: 50.0),
-                child: SingleChildScrollView(
-                  child: ConstrainedBox(
-                    constraints:
-                        BoxConstraints(minHeight: constraints.maxHeight),
-                    child: Column(
-                      children: [
-                        const ActivityFormHeader(),
-                        ActivityFormBody(user: widget.user),
-                      ],
-                    ),
-                  ),
+    return Column(
+      children: [
+        Row(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          children: [
+            Expanded(
+              flex: 5,
+              child: Padding(
+                padding: const EdgeInsets.only(top: 3.0),
+                child: WideDropDown(
+                  data: widget.data,
+                  border: const BorderSide(color: Colors.black38),
+                  color: widget.nameColor,
+                  setSelectedItem: widget.setSelectedName,
                 ),
               ),
-              Padding(
-                padding: const EdgeInsets.only(left: 8, right: 8, bottom: 20),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    ElevatedButton(
-                      style: ButtonStyle(
-                          backgroundColor:
-                              const MaterialStatePropertyAll(Color(0xFFED7E7E)),
-                          shape:
-                              MaterialStateProperty.all(RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(30),
-                          ))),
-                      onPressed: () {
-                        setState(() {
-                          Navigator.of(context).push(MaterialPageRoute(
-                              builder: (context) => const ActivityResult()));
-                        });
-                      },
-                      child: const Padding(
-                        padding:
-                            EdgeInsets.symmetric(vertical: 3, horizontal: 15),
-                        child: Text(
-                          "ถัดไป",
-                          style: TextStyle(fontSize: 32),
-                        ),
+            ),
+            Expanded(
+              flex: 2,
+              child: SmallDropDown(
+                data: frequency,
+                border: Border.all(color: Colors.black38),
+                dropdownColor: widget.frequencyColor,
+                buttonColor: widget.frequencyColor,
+                setSelectedItem: widget.setSelectedFrequency,
+              ),
+            ),
+            const Expanded(
+              flex: 3,
+              child: Padding(
+                padding: EdgeInsets.only(left: 8.0, top: 15),
+                child: Text(
+                  "ครั้ง/สัปดาห์",
+                  style: TextStyle(fontSize: 18),
+                ),
+              ),
+            ),
+          ],
+        ),
+      ],
+    );
+  }
+}
+
+class ActivityFormHeader extends StatelessWidget {
+  const ActivityFormHeader({
+    super.key,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return SizedBox(
+        height: 170,
+        child: Column(
+          children: [
+            Expanded(
+                flex: 2,
+                child: Align(
+                  alignment: Alignment.bottomCenter,
+                  child: Container(
+                    margin: const EdgeInsets.only(bottom: 10),
+                    decoration: BoxDecoration(
+                      color: const Color(0xFF1E807A),
+                      borderRadius: BorderRadius.circular(50),
+                    ),
+                    child: const Padding(
+                      padding:
+                          EdgeInsets.symmetric(vertical: 10, horizontal: 60),
+                      child: Text(
+                        "บันทึกกิจกรรม",
+                        style: TextStyle(
+                            color: Colors.white,
+                            fontSize: 34,
+                            fontWeight: FontWeight.w700),
                       ),
                     ),
-                  ],
-                ),
-              )
-            ]),
-          );
-        }),
-      ),
-    );
+                  ),
+                )),
+            const Expanded(
+                flex: 1,
+                child: Center(
+                    child: Text(
+                  "ของคุณ\"แจ่มใส\"",
+                  style: TextStyle(fontSize: 26, fontWeight: FontWeight.w700),
+                ))),
+          ],
+        ));
   }
 }
