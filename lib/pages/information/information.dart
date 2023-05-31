@@ -1,7 +1,6 @@
 import 'package:appfood2/db.dart';
 import 'package:flutter/material.dart';
 import 'package:appfood2/pages/information/personal_information.dart';
-import 'package:appfood2/pages/information/bmi.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
 
 class InformationPage extends StatelessWidget {
@@ -13,14 +12,6 @@ class InformationPage extends StatelessWidget {
       resizeToAvoidBottomInset: true,
       appBar: AppBar(
         title: const Text("InformationPage"),
-        actions: [
-          IconButton(
-              onPressed: () {
-                Navigator.of(context).push(
-                    MaterialPageRoute(builder: (context) => const BMIPage()));
-              },
-              icon: const Icon(Icons.light_sharp))
-        ],
       ),
       body: Center(
         child: FutureBuilder(

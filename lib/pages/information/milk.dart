@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:appfood2/db.dart';
+import 'package:appfood2/pages/information/bmi.dart';
 
 class MilkPage extends StatefulWidget {
   final User user;
-
   const MilkPage({
     super.key,
     required this.user,
@@ -301,7 +301,11 @@ class _MilkPageState extends State<MilkPage> {
                             shape: RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(30.0),
                             )),
-                        onPressed: () => {},
+                        onPressed: () => {
+                              Navigator.of(context).push(MaterialPageRoute(
+                                  builder: (context) =>
+                                      BMIPage(user: widget.user)))
+                            },
                         child: const Text(
                           "ถัดไป",
                           style: TextStyle(

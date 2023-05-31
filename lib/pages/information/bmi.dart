@@ -1,11 +1,10 @@
-import 'dart:ffi';
-
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:appfood2/auth.dart';
 import 'package:appfood2/pages/information/nutrition.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:appfood2/db.dart' as db;
 
 import '../register_success.dart';
 
@@ -37,7 +36,11 @@ class BMI extends StatefulWidget {
 }
 
 class BMIPage extends StatefulWidget {
-  const BMIPage({super.key});
+  final db.User user;
+  const BMIPage({
+    super.key,
+    required this.user,
+  });
 
   @override
   State<BMIPage> createState() => _BMIPageState();
@@ -490,9 +493,9 @@ class _BMIState extends State<BMI> {
                     ))),
                 onPressed: () {
                   Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                        builder: (context) => const Nutrition()));
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => const Nutrition()));
                 },
                 child: const Padding(
                   padding: EdgeInsets.symmetric(vertical: 3, horizontal: 15),
