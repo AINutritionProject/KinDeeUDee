@@ -23,9 +23,9 @@ class EatConfirmPage extends StatelessWidget {
     await FirebaseFirestore.instance.collection("eatHistory").add({
       "uid": uid,
       "timestamp": nowTimestamp,
-      "foodName": name ?? "yee",
-      "quantity": quantity ?? 999,
-      "unit": unit ?? "หิโมะ",
+      "foodName": name ?? "ไม่มีชื่อ",
+      "quantity": quantity ?? 0,
+      "unit": unit ?? "ไร้หน่วย",
       "foodPhoto": downloadUrl,
     });
   }
