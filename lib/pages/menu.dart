@@ -196,7 +196,7 @@ class _TextFieldExampleState extends State<TextFieldExample> {
             sugar: element[8],
             fiber: element[7],
             nutrition: element[10],
-            protein: element[11],
+            protein: element[12],
             fat: element[13],
             carbo: element[14],
             // ignore: prefer_interpolation_to_compose_strings
