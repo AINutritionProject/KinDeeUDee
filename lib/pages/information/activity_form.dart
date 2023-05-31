@@ -42,18 +42,14 @@ class _ActivityFormState extends State<ActivityForm> {
             builder: (BuildContext context, BoxConstraints constraints) {
           return Center(
             child: Stack(alignment: Alignment.bottomCenter, children: [
-              Padding(
-                padding: const EdgeInsets.only(bottom: 50.0),
-                child: SingleChildScrollView(
-                  child: ConstrainedBox(
-                    constraints:
-                        BoxConstraints(minHeight: constraints.maxHeight),
-                    child: Column(
-                      children: [
-                        const ActivityFormHeader(),
-                        ActivityFormBody(user: widget.user),
-                      ],
-                    ),
+              SingleChildScrollView(
+                child: ConstrainedBox(
+                  constraints: BoxConstraints(minHeight: constraints.maxHeight),
+                  child: Column(
+                    children: [
+                      const ActivityFormHeader(),
+                      ActivityFormBody(user: widget.user),
+                    ],
                   ),
                 ),
               ),
