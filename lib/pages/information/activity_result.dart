@@ -2,21 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:appfood2/db.dart';
 
-List<String> activities = <String>[
-  "กัดหมา",
-  "ปั่นจักรยานละเอียด",
-  "จานล้างซันไลต์",
-  "คุณยายวิ่งราวฉกกระเป๋า",
-  "แอนติไวรัสสอนลงคนอินเดีย",
-];
-
 class ActivityResult extends StatelessWidget {
   final User user;
   const ActivityResult({
     super.key,
     required this.user,
   });
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -25,7 +16,7 @@ class ActivityResult extends StatelessWidget {
         child: Column(
           children: [
             const ActivityResultHeader(),
-            ActivityResultBody(),
+            ActivityResultBody(user: user),
             const ActivityResultFooter(),
           ],
         ),
@@ -34,13 +25,45 @@ class ActivityResult extends StatelessWidget {
   }
 }
 
-class ActivityResultBody extends StatelessWidget {
+class ActivityResultBody extends StatefulWidget {
+  final User user;
+
+  const ActivityResultBody({
+    super.key,
+    required this.user,
+  });
+
+  @override
+  State<ActivityResultBody> createState() => _ActivityResultBodyState();
+}
+
+class _ActivityResultBodyState extends State<ActivityResultBody> {
   final activitiesColor = <Color>[
     const Color(0xFFBAEBC8),
     const Color(0xFFDCFFD9)
   ];
+  List<String> activities = [];
 
-  ActivityResultBody({super.key});
+  @override
+  void initState() {
+    for (var element in widget.user.extraLightActivities!) {
+      if (element.activityName != "") {
+        activities.add(element.activityName);
+      }
+    }
+    for (var element in widget.user.lightActivities!) {
+      if (element.activityName != "") {
+        activities.add(element.activityName);
+      }
+    }
+    for (var element in widget.user.mediumActivities!) {
+      if (element.activityName != "") {
+        activities.add(element.activityName);
+      }
+    }
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Expanded(
@@ -147,7 +170,7 @@ class ActivityResultHeader extends StatelessWidget {
 }
 
 class ResultBar extends StatelessWidget {
-  final int level;
+  final int level; // 1, 2, 3
   const ResultBar({
     super.key,
     required this.level,
