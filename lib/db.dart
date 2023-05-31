@@ -9,6 +9,7 @@ Future<User> getUser() async {
       .get();
   final doc = userData.docs.first;
   return User(
+    uid: doc.get("uid"),
     email: doc.get("email"),
     username: doc.get("username"),
     hasData: doc.get("hasData"),
@@ -16,6 +17,7 @@ Future<User> getUser() async {
 }
 
 class User {
+  final String uid;
   final String email;
   final bool hasData;
   final String username;
@@ -39,6 +41,7 @@ class User {
   double bmr;
 
   User({
+    required this.uid,
     required this.email,
     required this.username,
     required this.hasData,
