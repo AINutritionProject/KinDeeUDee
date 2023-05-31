@@ -70,16 +70,6 @@ class _HomeState extends State<Home> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text("Home"),
-        actions: [
-          IconButton(
-              onPressed: () async {
-                await Auth().signOut();
-              },
-              icon: const Icon(Icons.tv))
-        ],
-      ),
       drawer: Drawer(
         child: ListView(
           children: const [
