@@ -339,8 +339,25 @@ class _ActivityResultFooterState extends State<ActivityResultFooter> {
                         EdgeInsets.symmetric(horizontal: 20, vertical: 10))),
                 onPressed: () {
                   if (isChecked) {
-                    Navigator.of(context).push(MaterialPageRoute(
-                        builder: (context) => MilkPage(user: widget.user)));
+                    setState(() {
+                      for (var element in widget.user.extraLightActivities!) {
+                        if (element.activityName != "") {
+                          widget.user.activityLevel = 1;
+                        }
+                      }
+                      for (var element in widget.user.lightActivities!) {
+                        if (element.activityName != "") {
+                          widget.user.activityLevel = 2;
+                        }
+                      }
+                      for (var element in widget.user.mediumActivities!) {
+                        if (element.activityName != "") {
+                          widget.user.activityLevel = 3;
+                        }
+                      }
+                      Navigator.of(context).push(MaterialPageRoute(
+                          builder: (context) => MilkPage(user: widget.user)));
+                    });
                   }
                 },
                 child: const Text(

@@ -9,6 +9,7 @@ import 'package:appfood2/db.dart' as db;
 import '../register_success.dart';
 
 class BMI extends StatefulWidget {
+  final db.User user;
   final String username;
   // ignore: non_constant_identifier_names
   final double width_STbmi;
@@ -20,6 +21,7 @@ class BMI extends StatefulWidget {
   final List<int> Stcolor;
   const BMI({
     super.key,
+    required this.user,
     required this.username,
     // ignore: non_constant_identifier_names
     required this.Bgcolor,
@@ -125,6 +127,7 @@ class _BMIPageState extends State<BMIPage> {
         if (snapshot.hasData) {
           if (snapshot.data?['hasData'] == true) {
             return BMI(
+              user: widget.user,
               username: snapshot.data?['username'],
               Bgcolor: snapshot.data?['Bgcolor'],
               Statusbmi: snapshot.data?['Statusbmi'],
@@ -493,10 +496,16 @@ class _BMIState extends State<BMI> {
                       borderRadius: BorderRadius.circular(30),
                     ))),
                 onPressed: () {
-                  Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                          builder: (context) => const Nutrition()));
+                  widget.user.bmi =
+                      calculateBMI(widget.user.weight, widget.user.height);
+                  widget.user.bmr =
+                      calculateBMR(widget.user.bmi, widget.user.activityLevel);
+                  setState(() {
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => const Nutrition()));
+                  });
                 },
                 child: const Padding(
                   padding: EdgeInsets.symmetric(vertical: 3, horizontal: 15),

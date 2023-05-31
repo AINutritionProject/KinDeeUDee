@@ -302,9 +302,23 @@ class _MilkPageState extends State<MilkPage> {
                               borderRadius: BorderRadius.circular(30.0),
                             )),
                         onPressed: () => {
-                              Navigator.of(context).push(MaterialPageRoute(
-                                  builder: (context) =>
-                                      BMIPage(user: widget.user)))
+                              setState(() {
+                                if (status_milk0) {
+                                  widget.user.milkGlass = 0;
+                                } else if (status_milk1) {
+                                  widget.user.milkGlass = 1;
+                                } else if (status_milk2) {
+                                  widget.user.milkGlass = 2;
+                                }
+                                if (status_eat0) {
+                                  widget.user.milkProduct = false;
+                                } else if (status_eat1) {
+                                  widget.user.milkProduct = true;
+                                }
+                                Navigator.of(context).push(MaterialPageRoute(
+                                    builder: (context) =>
+                                        BMIPage(user: widget.user)));
+                              })
                             },
                         child: const Text(
                           "ถัดไป",

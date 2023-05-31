@@ -32,6 +32,7 @@ class User {
   List<UserActivity>? lightActivities;
   List<UserActivity>? mediumActivities;
   List<UserActivity>? customActivities;
+  int activityLevel;
   int milkGlass;
   bool milkProduct;
   double bmi;
@@ -53,6 +54,7 @@ class User {
     this.lightActivities,
     this.mediumActivities,
     this.customActivities,
+    this.activityLevel = 1, //1,2,3
     this.milkGlass = 0,
     this.milkProduct = false,
     this.bmi = 0,
