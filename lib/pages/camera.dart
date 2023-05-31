@@ -144,7 +144,28 @@ class _CameraPageState extends State<CameraPage> {
                                       MediaQuery.of(context).size.height * 0.7,
                                   width:
                                       MediaQuery.of(context).size.width * 0.7,
-                                  child: Image.asset("assets/cameraFrame.png")),
+                                  child: Stack(
+                                    children: [
+                                    Align(
+                                        alignment: Alignment.center,
+                                        child: Image.asset(
+                                            "assets/cameraFrame.png"
+                                          )
+                                      ),
+                                      Align(
+                                        alignment: Alignment.center,
+                                        child: Container(
+                                          width: 5,
+                                          height: MediaQuery.of(context).size.height,
+                                          decoration: BoxDecoration(
+                                            color: Colors.red[500]
+                                          ),
+                                        ),
+                                      )
+
+                                  ],
+                                )
+                              ),
                             ),
                           ],
                         ),
