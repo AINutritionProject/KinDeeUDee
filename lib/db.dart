@@ -32,6 +32,8 @@ class User {
   List<UserActivity>? lightActivities;
   List<UserActivity>? mediumActivities;
   List<UserActivity>? customActivities;
+  int milkGlass;
+  bool milkProduct;
 
   User({
     required this.email,
@@ -49,6 +51,8 @@ class User {
     this.lightActivities,
     this.mediumActivities,
     this.customActivities,
+    this.milkGlass = 0,
+    this.milkProduct = false,
   });
 }
 
