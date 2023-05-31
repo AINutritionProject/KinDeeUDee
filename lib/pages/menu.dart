@@ -180,7 +180,7 @@ class _TextFieldExampleState extends State<TextFieldExample> {
   }
 
   Future<List<Food>> getFoodByTypeFromCSV() async {
-    final rawData = await rootBundle.loadString("assets/fruit_detailed.csv");
+    final rawData = await rootBundle.loadString("assets/allfood.csv");
     List<List<dynamic>> dataAsList =
         const CsvToListConverter().convert(rawData);
     List<Food> foodList = [];
