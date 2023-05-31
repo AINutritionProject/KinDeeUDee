@@ -44,22 +44,26 @@ class _ActivityResultBodyState extends State<ActivityResultBody> {
     const Color(0xFFDCFFD9)
   ];
   List<String> activities = [];
+  int activityLevel = 1;
 
   @override
   void initState() {
     for (var element in widget.user.extraLightActivities!) {
       if (element.activityName != "") {
         activities.add(element.activityName);
+        activityLevel = 1;
       }
     }
     for (var element in widget.user.lightActivities!) {
       if (element.activityName != "") {
         activities.add(element.activityName);
+        activityLevel = 2;
       }
     }
     for (var element in widget.user.mediumActivities!) {
       if (element.activityName != "") {
         activities.add(element.activityName);
+        activityLevel = 3;
       }
     }
     super.initState();
@@ -121,10 +125,12 @@ class _ActivityResultBodyState extends State<ActivityResultBody> {
                 ],
               ),
             ),
-            const Expanded(
+            Expanded(
               flex: 2,
               child: Center(
-                child: ResultBar(level: 2),
+                child: Builder(builder: (context) {
+                  return ResultBar(level: activityLevel);
+                }),
               ),
             )
           ],
