@@ -1,7 +1,10 @@
-import 'package:flutter/material.dart';
-import 'package:appfood2/pages/information/information.dart';
-import 'package:appfood2/pages/camera.dart';
 import 'package:appfood2/pages/all_food.dart';
+import 'package:appfood2/pages/camera.dart';
+import 'package:appfood2/pages/food_detailed.dart';
+import 'package:appfood2/pages/information/information.dart';
+import 'package:csv/csv.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 
 class MenuPage extends StatelessWidget {
   const MenuPage({super.key});
@@ -161,6 +164,60 @@ class TextFieldExample extends StatefulWidget {
 
 class _TextFieldExampleState extends State<TextFieldExample> {
   bool _active = false;
+  late List<Food> allFoodData;
+  late List<List<Food>> foodQuery;
+
+  @override
+  void initState() {
+    super.initState();
+    getFoodByTypeFromCSV().then((value) {
+      allFoodData = value;
+      foodQuery = getFoodQuery('');
+    });
+  }
+
+  Future<List<Food>> getFoodByTypeFromCSV() async {
+    final rawData = await rootBundle.loadString("assets/fruit_detailed.csv");
+    List<List<dynamic>> dataAsList =
+        const CsvToListConverter().convert(rawData);
+    List<Food> foodList = [];
+    for (var element in dataAsList) {
+      foodList.add(Food(
+        name: element[1],
+        type: "YAY!",
+        detail: FoodNutritionDetail(
+            name: element[3],
+            giIndex: element[5],
+            benefit: element[9],
+            power: element[6],
+            sugar: element[8],
+            fiber: element[7],
+            // ignore: prefer_interpolation_to_compose_strings
+            realImageAssetPath: "assets/images/RealFruit/" + element[4]),
+        // ignore: prefer_interpolation_to_compose_strings
+        imageAssetPath: "assets/images/Fruit/" + element[2],
+      ));
+    }
+    return foodList;
+  }
+
+  List<List<Food>> getFoodQuery(String query) {
+    List<Food> foodList = [];
+    allFoodData.forEach((f) {
+      if (f.name.toLowerCase().contains(query.toLowerCase())) {
+        foodList.add(f);
+      }
+    });
+
+    List<List<Food>> dataIndex = [];
+    for (int i = 0; i < foodList.length / 2 - 1; i++) {
+      dataIndex.add([foodList[i * 2], foodList[i * 2 + 1]]);
+    }
+    if (foodList.length % 2 != 0) {
+      dataIndex.add([foodList[foodList.length - 1]]);
+    }
+    return dataIndex;
+  }
 
   String text_seach = "";
   @override
@@ -203,6 +260,7 @@ class _TextFieldExampleState extends State<TextFieldExample> {
                                 text_seach = text;
                                 print('First text field: $text');
                                 print(' $_active............');
+                                foodQuery = getFoodQuery(text);
                               },
                             );
                           },
@@ -212,7 +270,7 @@ class _TextFieldExampleState extends State<TextFieldExample> {
           ),
         ),
         (_active)
-            ? Text(text_seach)
+            ? Text("${foodQuery.length}, ${allFoodData.length}")
             : Padding(
                 padding: const EdgeInsets.all(8.0),
                 child: SizedBox(
