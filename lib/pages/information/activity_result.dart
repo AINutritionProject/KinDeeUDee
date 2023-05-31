@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:appfood2/db.dart';
 
 List<String> activities = <String>[
   "กัดหมา",
@@ -10,7 +11,11 @@ List<String> activities = <String>[
 ];
 
 class ActivityResult extends StatelessWidget {
-  const ActivityResult({super.key});
+  final User user;
+  const ActivityResult({
+    super.key,
+    required this.user,
+  });
 
   @override
   Widget build(BuildContext context) {

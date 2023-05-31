@@ -481,7 +481,8 @@ class _ActivityFormBodyState extends State<ActivityFormBody> {
                       widget.user.mediumActivities = mediumActivities;
                       widget.user.customActivities = customActivities;
                       Navigator.of(context).push(MaterialPageRoute(
-                          builder: (context) => const ActivityResult()));
+                          builder: (context) =>
+                              ActivityResult(user: widget.user)));
                     });
                   },
                   child: const Padding(
