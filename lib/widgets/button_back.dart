@@ -25,7 +25,7 @@ class ButtonBack extends StatelessWidget {
         width: sizeCircle ?? 50,
         height:  sizeCircle ?? 50,
         decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(60),
+          borderRadius: BorderRadius.circular(sizeCircle ?? 50),
           color: colorCircle ?? Colors.white
         ),
         child: Icon(Icons.chevron_left, size: size ?? 45, color: color ?? Colors.black,),
