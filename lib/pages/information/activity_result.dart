@@ -217,11 +217,11 @@ class ResultBar extends StatelessWidget {
                 : level == 1
                     ? Positioned(
                         bottom: MediaQuery.of(context).size.height * 0.05,
-                        child: SmileFace(),
+                        child: const SmileFace(),
                       )
                     : Positioned(
                         top: MediaQuery.of(context).size.height * 0.05,
-                        child: SmileFace(),
+                        child: const SmileFace(),
                       ),
           ],
         );
