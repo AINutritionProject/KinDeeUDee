@@ -49,7 +49,8 @@ class BMIPage extends StatefulWidget {
 class _BMIPageState extends State<BMIPage> {
   Future<Map<String, dynamic>> _checkIfUserHasData() async {
     final user = FirebaseAuth.instance.currentUser;
-    const valBMI = 33.5; // get from data base     (backend help me please)
+    double valBMI = calculateBMI(widget.user.weight,
+        widget.user.height); // get from data base     (backend help me please)
     // ignore: non_constant_identifier_names
     double width_STbmi = 200;
     // ignore: non_constant_identifier_names
@@ -282,7 +283,7 @@ class _BMIState extends State<BMI> {
               ),
             ),
             Padding(
-                padding: EdgeInsets.only(top: 30),
+                padding: const EdgeInsets.only(top: 30),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
@@ -483,7 +484,7 @@ class _BMIState extends State<BMI> {
               ),
             ),
             Padding(
-              padding: EdgeInsets.only(top: 160, bottom: 46),
+              padding: const EdgeInsets.only(top: 160, bottom: 46),
               child: ElevatedButton(
                 style: ButtonStyle(
                     backgroundColor:
@@ -511,4 +512,11 @@ class _BMIState extends State<BMI> {
       ),
     );
   }
+}
+
+double calculateBMI(double weight, double height) {
+  double bmi = weight / ((height / 100) * (height / 100));
+  print(weight);
+  print(bmi);
+  return bmi;
 }
