@@ -292,7 +292,9 @@ class _ActivityFormBodyState extends State<ActivityFormBody> {
                   frequencyColor: const Color(0xFFFFEBEB),
                   data: lightActivitiesData,
                   setSelectedName: (String val) {
-                    if (val != "-----" && extraLightActivities.length < 3) {
+                    if (val != "-----" &&
+                        extraLightActivities.length < 3 &&
+                        index == extraLightActivities.length - 1) {
                       setState(() {
                         extraLightActivities.add(UserActivity());
                         extraLightActivities[index].activityName = val;
@@ -337,7 +339,9 @@ class _ActivityFormBodyState extends State<ActivityFormBody> {
                   data: lightActivitiesData,
                   setSelectedName: (String val) {
                     setState(() {
-                      if (val != "-----" && lightActivities.length < 3) {
+                      if (val != "-----" &&
+                          lightActivities.length < 3 &&
+                          index == lightActivities.length - 1) {
                         lightActivities.add(UserActivity());
                         lightListKey.currentState!.insertItem(
                           index + 1,
@@ -382,7 +386,9 @@ class _ActivityFormBodyState extends State<ActivityFormBody> {
                   data: lightActivitiesData,
                   setSelectedName: (String val) {
                     setState(() {
-                      if (val != "-----" && mediumActivities.length < 3) {
+                      if (val != "-----" &&
+                          mediumActivities.length < 3 &&
+                          index == mediumActivities.length - 1) {
                         mediumActivities.add(UserActivity());
                         mediumListKey.currentState!.insertItem(
                           index + 1,
