@@ -41,7 +41,7 @@ class OilPage extends StatelessWidget {
                         child: Column(
                           children: [
                             Padding(
-                              padding: const EdgeInsets.symmetric(vertical: 10),
+                              padding: const EdgeInsets.symmetric(vertical: 2),
                               child: Container(
                                 padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 50),
                                 decoration: BoxDecoration(
@@ -79,7 +79,7 @@ class OilPage extends StatelessWidget {
                                 borderType: BorderType.RRect,
                                 radius: const Radius.circular(20),
                                 child: Container(
-                                  padding: const EdgeInsets.symmetric(vertical: 15, horizontal: 30),
+                                  padding: const EdgeInsets.symmetric(vertical: 15, horizontal: 25),
                                   decoration: BoxDecoration(
                                     color: Colors.white,
                                     borderRadius: BorderRadius.circular(20)
