@@ -1,3 +1,4 @@
+import 'package:appfood2/widgets/button_back.dart';
 import 'package:flutter/material.dart';
 
 class VetABPage extends StatelessWidget {
@@ -6,20 +7,49 @@ class VetABPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: AppBar(
-          title: Text(type == "A" ? "ผัก ก" : "ผัก ข"),
-        ),
-        body: SingleChildScrollView(
+        body: SafeArea(
+      child: SingleChildScrollView(
+        child: SizedBox(
+          width: MediaQuery.of(context).size.width,
+          height: type == "A" ? 800 : 1100,
           child: Column(
+            crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-              SizedBox(
-                  width: MediaQuery.of(context).size.width,
-                  height: 150,
-                  child: type == "A" ? const ButtonVegA() : const ButtonVegB()),
-              ContainNameVeg(type: type)
+              Expanded(
+                  flex: type == "A" ? 2 : 2,
+                  child: Stack(
+                    //mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      const Padding(
+                        padding: EdgeInsets.all(8.0),
+                        child: Align(
+                            alignment: Alignment.centerLeft,
+                            child: ButtonBack(
+                              colorCircle: Color.fromRGBO(130, 151, 223, 1),
+                              color: Colors.white,
+                            )),
+                      ),
+                      type == "A"
+                          ? const Align(
+                              alignment: Alignment.bottomCenter,
+                              child: Padding(
+                                padding: EdgeInsets.all(8.0),
+                                child: ButtonVegA(),
+                              ))
+                          : const Align(
+                              alignment: Alignment.bottomCenter,
+                              child: Padding(
+                                padding: EdgeInsets.all(12),
+                                child: ButtonVegB(),
+                              ))
+                    ],
+                  )),
+              Expanded(flex: type == "A" ? 10 : 12, child: ContainNameVeg(type: type)),
             ],
           ),
-        ));
+        ),
+      ),
+    ));
   }
 }
 
@@ -35,19 +65,18 @@ class ContainNameVeg extends StatelessWidget {
   Widget build(BuildContext context) {
     return SizedBox(
       width: MediaQuery.of(context).size.width,
-      height: type == "A" ? 700 : 900,
-      
-      child: Stack(
+      child: Column(
         children: [
-          Align(
-            alignment: const AlignmentDirectional(0, -0.99),
+          Padding(
+            padding: const EdgeInsets.symmetric(vertical: 15),
             child: SizedBox(
-              width: MediaQuery.of(context).size.width,
-              height: MediaQuery.of(context).size.height * 0.15,
               child: type == "A" ? const DetailVeg() : const DetailVegB(),
             ),
           ),
-          type == "A" ? const BoxNameA() : const BoxNameB()
+          type == "A"
+              ? const Align(
+                  alignment: AlignmentDirectional(0, 0), child: BoxNameA())
+              : const BoxNameB()
         ],
       ),
     );
@@ -90,50 +119,47 @@ class BoxNameA extends StatelessWidget {
   ];
   @override
   Widget build(BuildContext context) {
-    return Align(
-      alignment: const AlignmentDirectional(0, 0.55),
-      child: Container(
-          width: MediaQuery.of(context).size.width * 0.86,
-          height: MediaQuery.of(context).size.height * 0.62,
+    return Expanded(
+      child: Align(
+        alignment: Alignment.center,
+        child: Container(
+          margin: const EdgeInsets.symmetric(horizontal: 20),
+          padding: const EdgeInsets.symmetric(vertical: 10),
           decoration:
               const BoxDecoration(color: Color.fromRGBO(234, 255, 234, 1)),
           child: Row(
-            mainAxisSize: MainAxisSize.max,
+            mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              Expanded(
-                child: Column(
-                  mainAxisSize: MainAxisSize.max,
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: nameVegAL
-                      .map((e) => Padding(
-                            padding: const EdgeInsets.fromLTRB(24, 10, 0, 0),
-                            child: Text(
-                              e,
-                              style: const TextStyle(fontSize: 20, fontWeight: FontWeight.w500),
-                            ),
-                          ))
-                      .toList(),
-                ),
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: nameVegAL
+                    .map((e) => Padding(
+                          padding: const EdgeInsets.fromLTRB(24, 10, 0, 0),
+                          child: Text(
+                            e,
+                            style: const TextStyle(
+                                fontSize: 20, fontWeight: FontWeight.w500),
+                          ),
+                        ))
+                    .toList(),
               ),
-              Expanded(
-                child: Column(
-                  mainAxisSize: MainAxisSize.max,
-                  //mainAxisAlignment: MainAxisAlignment.start,
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: nameVegAR
-                      .map((e) => Padding(
-                        padding: const EdgeInsets.fromLTRB(24, 10, 0, 0),
-                        child: Text(
-                              e,
-                              style: const TextStyle(fontSize: 20, fontWeight: FontWeight.w500),
-                              //textAlign: TextAlign.start,
-                            ),
-                      ))
-                      .toList(),
-                ),
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: nameVegAR
+                    .map((e) => Padding(
+                          padding: const EdgeInsets.fromLTRB(24, 10, 0, 0),
+                          child: Text(
+                            e,
+                            style: const TextStyle(
+                                fontSize: 20, fontWeight: FontWeight.w500),
+                          ),
+                        ))
+                    .toList(),
               ),
             ],
-          )),
+          ),
+        ),
+      ),
     );
   }
 }
@@ -158,7 +184,7 @@ class BoxNameB extends StatelessWidget {
     'หอมหัวใหญ่',
     'ใบ-ดอกขี้เหล็ก',
     'ถั่วลันเตา'
-    'ถั่วแขก',
+        'ถั่วแขก',
     'ต้นกระเทียม',
     'มะระจีน',
     'เห็ดเป่าฮื้อ',
@@ -179,7 +205,7 @@ class BoxNameB extends StatelessWidget {
     'ยอดชะอม',
     'ยอดกระถิน',
     'ดอกโสน'
-    'ผักติ้ว',
+        'ผักติ้ว',
     'ใบทองหลาง',
     'ข้าวโพดอ่อน',
     'ตำลึง',
@@ -187,10 +213,10 @@ class BoxNameB extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Align(
-      alignment: const AlignmentDirectional(0, 0.45),
+      alignment: Alignment.center,
       child: Container(
-          width: MediaQuery.of(context).size.width * 0.86,
-          height: MediaQuery.of(context).size.height * 0.84,
+          margin: const EdgeInsets.symmetric(horizontal: 20),
+          padding: const EdgeInsets.symmetric(vertical: 10),
           decoration:
               const BoxDecoration(color: Color.fromRGBO(251, 255, 234, 1)),
           child: Row(
@@ -205,7 +231,8 @@ class BoxNameB extends StatelessWidget {
                             padding: const EdgeInsets.fromLTRB(24, 10, 0, 0),
                             child: Text(
                               e,
-                              style: const TextStyle(fontSize: 20, fontWeight: FontWeight.w500),
+                              style: const TextStyle(
+                                  fontSize: 20, fontWeight: FontWeight.w500),
                             ),
                           ))
                       .toList(),
@@ -213,18 +240,17 @@ class BoxNameB extends StatelessWidget {
               ),
               Expanded(
                 child: Column(
-                  mainAxisSize: MainAxisSize.max,
-                  //mainAxisAlignment: MainAxisAlignment.start,
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: nameVegBR
                       .map((e) => Padding(
-                        padding: const EdgeInsets.fromLTRB(24, 10, 0, 0),
-                        child: Text(
+                            padding: const EdgeInsets.fromLTRB(24, 10, 0, 0),
+                            child: Text(
                               e,
-                              style: const TextStyle(fontSize: 20, fontWeight: FontWeight.w500),
+                              style: const TextStyle(
+                                  fontSize: 20, fontWeight: FontWeight.w500),
                               //textAlign: TextAlign.start,
                             ),
-                      ))
+                          ))
                       .toList(),
                 ),
               ),
@@ -295,28 +321,22 @@ class ButtonVegA extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Center(
-      child: Container(
-        width: MediaQuery.of(context).size.width * 0.35,
-        height: MediaQuery.of(context).size.height * 0.092,
-        decoration: BoxDecoration(
-          color: const Color.fromRGBO(176, 243, 183, 1),
-          boxShadow: const [
-            BoxShadow(
-                blurRadius: 0,
-                color: Color.fromRGBO(141, 202, 147, 1),
-                offset: Offset(7, -7),
-                spreadRadius: 2.7)
-          ],
-          borderRadius: BorderRadius.circular(30),
-        ),
-        child: const Align(
-          alignment: AlignmentDirectional(0, -0.35),
-          child: Text(
-            'ผัก ก',
-            style: TextStyle(fontSize: 32, fontWeight: FontWeight.bold),
-          ),
-        ),
+    return Container(
+      padding: const EdgeInsets.symmetric(vertical: 15, horizontal: 25),
+      decoration: BoxDecoration(
+        color: const Color.fromRGBO(176, 243, 183, 1),
+        boxShadow: const [
+          BoxShadow(
+              blurRadius: 0,
+              color: Color.fromRGBO(141, 202, 147, 1),
+              offset: Offset(7, -7),
+              spreadRadius: 2.7)
+        ],
+        borderRadius: BorderRadius.circular(30),
+      ),
+      child: const Text(
+        'ผัก ก',
+        style: TextStyle(fontSize: 32, fontWeight: FontWeight.bold),
       ),
     );
   }
@@ -329,29 +349,22 @@ class ButtonVegB extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Align(
-      alignment: const AlignmentDirectional(0, 0),
-      child: Container(
-        width: MediaQuery.of(context).size.width * 0.35,
-        height: MediaQuery.of(context).size.height * 0.092,
-        decoration: BoxDecoration(
-          color: const Color.fromRGBO(245, 239, 178, 1),
-          boxShadow: const [
-            BoxShadow(
-                blurRadius: 0,
-                color: Color.fromRGBO(216, 210, 148, 1),
-                offset: Offset(7, -7),
-                spreadRadius: 2.7)
-          ],
-          borderRadius: BorderRadius.circular(30),
-        ),
-        child: const Align(
-          alignment: AlignmentDirectional(0, -0.35),
-          child: Text(
-            'ผัก ข',
-            style: TextStyle(fontSize: 32, fontWeight: FontWeight.bold),
-          ),
-        ),
+    return Container(
+      padding: const EdgeInsets.symmetric(vertical: 15, horizontal: 25),
+      decoration: BoxDecoration(
+        color: const Color.fromRGBO(245, 239, 178, 1),
+        boxShadow: const [
+          BoxShadow(
+              blurRadius: 0,
+              color: Color.fromRGBO(216, 210, 148, 1),
+              offset: Offset(7, -7),
+              spreadRadius: 2.7)
+        ],
+        borderRadius: BorderRadius.circular(30),
+      ),
+      child: const Text(
+        'ผัก ข',
+        style: TextStyle(fontSize: 32, fontWeight: FontWeight.bold),
       ),
     );
   }
