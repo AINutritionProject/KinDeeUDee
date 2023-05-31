@@ -34,6 +34,8 @@ class User {
   List<UserActivity>? customActivities;
   int milkGlass;
   bool milkProduct;
+  double bmi;
+  double bmr;
 
   User({
     required this.email,
@@ -53,6 +55,8 @@ class User {
     this.customActivities,
     this.milkGlass = 0,
     this.milkProduct = false,
+    this.bmi = 0,
+    this.bmr = 0,
   });
 }
 
