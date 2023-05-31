@@ -280,50 +280,56 @@ class FoodIcons extends StatelessWidget {
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.only(bottom: 40),
-      child: Column(
-        children: [
-          Container(
-            decoration: const BoxDecoration(
-              color: Colors.white,
-              borderRadius: BorderRadius.all(
-                Radius.circular(30),
-              ),
-            ),
-            child: Column(children: [
-              Align(
-                child: Container(
-                  margin: const EdgeInsets.only(top: 12, bottom: 12),
-                  width: 100,
-                  height: 100,
-                  child: Image.asset(
-                    food.imageAssetPath,
-                    fit: BoxFit.scaleDown,
-                  ),
-                ),
-              ),
-            ]),
-          ),
-          Align(
-            alignment: const AlignmentDirectional(0, 1),
-            child: Container(
-              width: double.infinity,
-              padding: const EdgeInsets.symmetric(horizontal: 5, vertical: 5),
-              decoration: BoxDecoration(
-                color: Colors.green.shade100,
-                borderRadius: const BorderRadius.all(
+      child: GestureDetector(
+        onTap: () {
+          Navigator.of(context).push(MaterialPageRoute(
+              builder: (context) => FoodDetailPage(detail: food.detail)));
+        },
+        child: Column(
+          children: [
+            Container(
+              decoration: const BoxDecoration(
+                color: Colors.white,
+                borderRadius: BorderRadius.all(
                   Radius.circular(30),
                 ),
               ),
-              child: Text(
-                food.name,
-                style: const TextStyle(
-                  fontWeight: FontWeight.bold,
+              child: Column(children: [
+                Align(
+                  child: Container(
+                    margin: const EdgeInsets.only(top: 12, bottom: 12),
+                    width: 100,
+                    height: 100,
+                    child: Image.asset(
+                      food.imageAssetPath,
+                      fit: BoxFit.scaleDown,
+                    ),
+                  ),
                 ),
-                textAlign: TextAlign.center,
-              ),
+              ]),
             ),
-          )
-        ],
+            Align(
+              alignment: const AlignmentDirectional(0, 1),
+              child: Container(
+                width: double.infinity,
+                padding: const EdgeInsets.symmetric(horizontal: 5, vertical: 5),
+                decoration: BoxDecoration(
+                  color: Colors.green.shade100,
+                  borderRadius: const BorderRadius.all(
+                    Radius.circular(30),
+                  ),
+                ),
+                child: Text(
+                  food.name,
+                  style: const TextStyle(
+                    fontWeight: FontWeight.bold,
+                  ),
+                  textAlign: TextAlign.center,
+                ),
+              ),
+            )
+          ],
+        ),
       ),
     );
   }
