@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:appfood2/db.dart';
+import 'package:appfood2/pages/information/milk.dart';
 
 class ActivityResult extends StatelessWidget {
   final User user;
@@ -17,7 +18,7 @@ class ActivityResult extends StatelessWidget {
           children: [
             const ActivityResultHeader(),
             ActivityResultBody(user: user),
-            const ActivityResultFooter(),
+            ActivityResultFooter(user: user),
           ],
         ),
       ),
@@ -134,7 +135,11 @@ class _ActivityResultBodyState extends State<ActivityResultBody> {
 }
 
 class ActivityResultFooter extends StatefulWidget {
-  const ActivityResultFooter({super.key});
+  final User user;
+  const ActivityResultFooter({
+    super.key,
+    required this.user,
+  });
 
   @override
   State<ActivityResultFooter> createState() => _ActivityResultFooterState();
@@ -315,7 +320,12 @@ class _ActivityResultFooterState extends State<ActivityResultFooter> {
                         const MaterialStatePropertyAll(Color(0xFF7ECCED)),
                     padding: const MaterialStatePropertyAll(
                         EdgeInsets.symmetric(horizontal: 20, vertical: 10))),
-                onPressed: () {},
+                onPressed: () {
+                  if (isChecked) {
+                    Navigator.of(context).push(MaterialPageRoute(
+                        builder: (context) => MilkPage(user: widget.user)));
+                  }
+                },
                 child: const Text(
                   "บันทึก",
                   style: TextStyle(fontSize: 28),

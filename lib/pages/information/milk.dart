@@ -1,7 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:appfood2/db.dart';
 
 class MilkPage extends StatefulWidget {
-  const MilkPage({super.key});
+  final User user;
+
+  const MilkPage({
+    super.key,
+    required this.user,
+  });
 
   @override
   State<MilkPage> createState() => _MilkPageState();
