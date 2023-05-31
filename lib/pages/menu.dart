@@ -55,41 +55,44 @@ class MenuPage extends StatelessWidget {
             )
           ],
         ),
-        body: Container(
-          color: const Color.fromRGBO(234, 255, 241, 1),
-          child: Column(
-            children: [
-              Row(
-                children: [
-                  Padding(
-                      padding:
-                          const EdgeInsets.only(left: 30, top: 10, bottom: 24),
-                      child: GestureDetector(
-                        onTap: () {
-                          Navigator.pop(context);
-                        },
-                        child: Container(
-                          width: 212,
-                          height: 41,
-                          decoration: const BoxDecoration(
-                              color: Color.fromRGBO(91, 158, 130, 1),
-                              borderRadius: BorderRadius.all(
-                                Radius.circular(30),
-                              )),
-                          child: const Text(
-                            "กลับสู่เมนูหลัก",
-                            style: TextStyle(
-                                color: Colors.white,
-                                fontSize: 26,
-                                fontWeight: FontWeight.bold),
-                            textAlign: TextAlign.center,
+        body: SingleChildScrollView(
+          child: Container(
+            width: MediaQuery.of(context).size.width,
+            color: const Color.fromRGBO(234, 255, 241, 1),
+            child: Column(
+              children: [
+                Row(
+                  children: [
+                    Padding(
+                        padding:
+                            const EdgeInsets.only(left: 30, top: 10, bottom: 24),
+                        child: GestureDetector(
+                          onTap: () {
+                            Navigator.pop(context);
+                          },
+                          child: Container(
+                            width: 212,
+                            height: 41,
+                            decoration: const BoxDecoration(
+                                color: Color.fromRGBO(91, 158, 130, 1),
+                                borderRadius: BorderRadius.all(
+                                  Radius.circular(30),
+                                )),
+                            child: const Text(
+                              "กลับสู่เมนูหลัก",
+                              style: TextStyle(
+                                  color: Colors.white,
+                                  fontSize: 26,
+                                  fontWeight: FontWeight.bold),
+                              textAlign: TextAlign.center,
+                            ),
                           ),
-                        ),
-                      )),
-                ],
-              ),
-              const TextFieldExample(),
-            ],
+                        )),
+                  ],
+                ),
+                const TextFieldExample(),
+              ],
+            ),
           ),
         ));
   }
@@ -270,50 +273,52 @@ class _TextFieldExampleState extends State<TextFieldExample> {
           ),
         ),
         (_active)
-            ? Column(
-                children: [
-                  Text("${foodQuery.length}, ${allFoodData.length}"),
-                  ...foodQuery.map((e) {
-                    if (e.length == 2) {
-                      return Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            Expanded(
-                                flex: 1,
-                                child: Padding(
-                                  padding: const EdgeInsets.only(
-                                      left: 34, right: 15),
-                                  child: FoodIcons(food: e[0]),
-                                )),
-                            Expanded(
-                                flex: 1,
-                                child: Padding(
-                                  padding: const EdgeInsets.only(
-                                      left: 15, right: 34),
-                                  child: FoodIcons(food: e[1]),
-                                )),
-                          ]);
-                    } else {
-                      return Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            Expanded(
-                                flex: 1,
-                                child: Padding(
-                                  padding: const EdgeInsets.only(
-                                      left: 34, right: 15),
-                                  child: FoodIcons(food: e[0]),
-                                )),
-                            const Expanded(
-                                flex: 1,
-                                child: Padding(
-                                  padding: EdgeInsets.only(left: 15, right: 34),
-                                )),
-                          ]);
-                    }
-                  })
-                ],
-              )
+            ? SingleChildScrollView(
+              child: Column(
+                  children: [
+                    Text("${foodQuery.length}, ${allFoodData.length}"),
+                    ...foodQuery.map((e) {
+                      if (e.length == 2) {
+                        return Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Expanded(
+                                  flex: 1,
+                                  child: Padding(
+                                    padding: const EdgeInsets.only(
+                                        left: 34, right: 15),
+                                    child: FoodIcons(food: e[0]),
+                                  )),
+                              Expanded(
+                                  flex: 1,
+                                  child: Padding(
+                                    padding: const EdgeInsets.only(
+                                        left: 15, right: 34),
+                                    child: FoodIcons(food: e[1]),
+                                  )),
+                            ]);
+                      } else {
+                        return Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Expanded(
+                                  flex: 1,
+                                  child: Padding(
+                                    padding: const EdgeInsets.only(
+                                        left: 34, right: 15),
+                                    child: FoodIcons(food: e[0]),
+                                  )),
+                              const Expanded(
+                                  flex: 1,
+                                  child: Padding(
+                                    padding: EdgeInsets.only(left: 15, right: 34),
+                                  )),
+                            ]);
+                      }
+                    })
+                  ],
+                ),
+            )
             : Padding(
                 padding: const EdgeInsets.all(8.0),
                 child: SizedBox(
