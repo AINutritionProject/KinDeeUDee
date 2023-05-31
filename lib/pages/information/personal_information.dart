@@ -386,7 +386,8 @@ class _PersonalBodyState extends State<PersonalBody> {
                         widget.user.foodAllergy =
                             _foodAllergyTextController.text;
                         Navigator.of(context).push(MaterialPageRoute(
-                            builder: (context) => const ActivityForm()));
+                            builder: (context) =>
+                                ActivityForm(user: widget.user)));
                       });
                     }
                   },

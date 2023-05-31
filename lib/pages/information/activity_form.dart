@@ -3,12 +3,17 @@ import 'package:appfood2/widgets/small_dropdown.dart';
 import 'package:appfood2/pages/information/activity_result.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:appfood2/db.dart';
 
 List<String> frequency = ["1", "2", "3", "4", "5", "6", "7"];
 List<String> lightActivities = ["ดูโทรทัศน์", "นอนหลับ", "สวดมนต์"];
 
 class ActivityForm extends StatefulWidget {
-  const ActivityForm({super.key});
+  final User user;
+  const ActivityForm({
+    super.key,
+    required this.user,
+  });
 
   @override
   State<ActivityForm> createState() => _ActivityFormState();
