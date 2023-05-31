@@ -45,57 +45,6 @@ class FoodDetailPage extends StatelessWidget {
     }
   }
 
-//detail.realImageAssetPath ?? "assets/cameraFrame.png",
-/*
-ClipRRect(
-            borderRadius: BorderRadius.circular(20),
-            child: SizedBox.fromSize(
-              size: const Size.fromRadius(48 * 3),
-              child: Image.asset(
-                detail.realImageAssetPath ?? "assets/cameraFrame.png",
-                fit: BoxFit.cover,
-              ),
-            ),
-          ),
-
-
-
-
-
-
-class SmileFace extends StatelessWidget {
-  const SmileFace({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return Stack(
-      children: [
-        Container(
-          decoration: const BoxDecoration(
-            color: Colors.white,
-            shape: BoxShape.circle,
-          ),
-          child: const FaIcon(
-            FontAwesomeIcons.faceSmile,
-            color: Colors.black,
-            size: 50,
-          ),
-        ),
-        Container(
-          decoration: BoxDecoration(
-            border: Border.all(color: const Color(0xFFFFD703), width: 5),
-            shape: BoxShape.circle,
-          ),
-          width: 50,
-          height: 50,
-        )
-      ],
-    );
-  }
-}
-
-          
-*/
   @override
   Widget build(BuildContext context) {
     return Scaffold(
