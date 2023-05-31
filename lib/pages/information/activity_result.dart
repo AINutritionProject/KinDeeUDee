@@ -21,9 +21,6 @@ class ActivityResult extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       resizeToAvoidBottomInset: true,
-      appBar: AppBar(
-        title: const Text("ActivityResult"),
-      ),
       body: Center(
         child: Column(
           children: [
@@ -49,7 +46,7 @@ class ActivityResultBody extends StatelessWidget {
     return Expanded(
       flex: 3,
       child: Padding(
-        padding: const EdgeInsets.only(top: 20, left: 25, right: 25),
+        padding: const EdgeInsets.only(top: 40, left: 25, right: 25),
         child: Row(
           children: [
             Expanded(
@@ -64,7 +61,6 @@ class ActivityResultBody extends StatelessWidget {
                   SizedBox(
                     height: 220,
                     child: Scrollbar(
-                      thumbVisibility: true,
                       child: ListView.builder(
                         itemCount: activities.length,
                         itemBuilder: (BuildContext context, int index) {
@@ -128,17 +124,20 @@ class ActivityResultHeader extends StatelessWidget {
   Widget build(BuildContext context) {
     return Expanded(
       flex: 1,
-      child: Center(
-        child: Container(
-          decoration: BoxDecoration(
-            color: const Color(0xFF1E807A),
-            borderRadius: BorderRadius.circular(30),
-          ),
-          child: const Padding(
-            padding: EdgeInsets.symmetric(horizontal: 20.0, vertical: 13),
-            child: Text(
-              "สรุปกิจกรรมประจำวัน",
-              style: TextStyle(fontSize: 25, color: Colors.white),
+      child: Padding(
+        padding: const EdgeInsets.only(top: 50.0),
+        child: Center(
+          child: Container(
+            decoration: BoxDecoration(
+              color: const Color(0xFF1E807A),
+              borderRadius: BorderRadius.circular(30),
+            ),
+            child: const Padding(
+              padding: EdgeInsets.symmetric(horizontal: 20.0, vertical: 13),
+              child: Text(
+                "สรุปกิจกรรมประจำวัน",
+                style: TextStyle(fontSize: 25, color: Colors.white),
+              ),
             ),
           ),
         ),
