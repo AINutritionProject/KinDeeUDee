@@ -6,7 +6,12 @@ import 'package:flutter/material.dart';
 import 'package:appfood2/db.dart';
 
 List<String> frequency = ["1", "2", "3", "4", "5", "6", "7"];
-List<String> lightActivities = ["ดูโทรทัศน์", "นอนหลับ", "สวดมนต์"];
+List<String> lightActivities = [
+  "-----",
+  "ดูโทรทัศน์",
+  "นอนหลับ",
+  "สวดมนต์",
+];
 
 class ActivityForm extends StatefulWidget {
   final User user;
@@ -31,10 +36,10 @@ class _ActivityFormState extends State<ActivityForm> {
               SingleChildScrollView(
                 child: ConstrainedBox(
                   constraints: BoxConstraints(minHeight: constraints.maxHeight),
-                  child: const Column(
+                  child: Column(
                     children: [
-                      ActivityFormHeader(),
-                      ActivityFormBody(),
+                      const ActivityFormHeader(),
+                      ActivityFormBody(user: widget.user),
                     ],
                   ),
                 ),
@@ -215,8 +220,10 @@ class _ActivityFormState extends State<ActivityForm> {
 }
 
 class ActivityFormBody extends StatefulWidget {
+  final User user;
   const ActivityFormBody({
     super.key,
+    required this.user,
   });
 
   @override
@@ -233,15 +240,23 @@ class Activity {
 }
 
 class _ActivityFormBodyState extends State<ActivityFormBody> {
-  List<Activity> activities = [
-    Activity(name: "", frequency: 1),
-    Activity(name: "", frequency: 1),
-    Activity(name: "", frequency: 1),
-  ];
-  Activity tempActivity = Activity(name: "", frequency: 1);
+  // List<Activity> activities = [
+  //   Activity(name: "", frequency: 1),
+  //   Activity(name: "", frequency: 1),
+  //   Activity(name: "", frequency: 1),
+  // ];
+  // Activity tempActivity = Activity(name: "", frequency: 1);
   int extraLightAcitivitiesCount = 1;
   int lightAcitivitiesCount = 1;
   int mediumAcitivitiesCount = 1;
+
+  @override
+  void initState() {
+    widget.user.extraLightActivities ??= [UserActivity()];
+    widget.user.lightActivities ??= [UserActivity()];
+    widget.user.mediumActivities ??= [UserActivity()];
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -268,26 +283,25 @@ class _ActivityFormBodyState extends State<ActivityFormBody> {
               ),
             ),
           ),
-          SizedBox(
-            height: 70.0 * extraLightAcitivitiesCount,
-            child: ListView.builder(
-              itemCount: extraLightAcitivitiesCount,
-              itemBuilder: (BuildContext context, int index) {
-                return ActivityDisplay(
-                  nameColor: const Color(0xFFFFD7D7),
-                  frequencyColor: const Color(0xFFFFEBEB),
-                  data: lightActivities,
-                  setSelectedName: (String val) {
-                    setState(() {
-                      activities[0].name = val;
-                    });
-                  },
-                  setSelectedFrequency: (String val) {
-                    activities[0].frequency = int.parse(val);
-                  },
-                );
-              },
-            ),
+          ListView.builder(
+            shrinkWrap: true,
+            itemCount: extraLightAcitivitiesCount,
+            itemBuilder: (BuildContext context, int index) {
+              return ActivityDisplay(
+                nameColor: const Color(0xFFFFD7D7),
+                frequencyColor: const Color(0xFFFFEBEB),
+                data: lightActivities,
+                setSelectedName: (String val) {
+                  setState(() {
+                    widget.user.extraLightActivities![0].activityName = val;
+                  });
+                },
+                setSelectedFrequency: (String val) {
+                  widget.user.extraLightActivities![0].frequency =
+                      int.parse(val);
+                },
+              );
+            },
           ),
           const Padding(
             padding: EdgeInsets.only(top: 10, bottom: 15),
@@ -307,11 +321,11 @@ class _ActivityFormBodyState extends State<ActivityFormBody> {
             data: lightActivities,
             setSelectedName: (String val) {
               setState(() {
-                activities[1].name = val;
+                widget.user.lightActivities![0].activityName = val;
               });
             },
             setSelectedFrequency: (String val) {
-              activities[1].frequency = int.parse(val);
+              widget.user.lightActivities![0].frequency = int.parse(val);
             },
           ),
           const Padding(
@@ -333,11 +347,11 @@ class _ActivityFormBodyState extends State<ActivityFormBody> {
             data: lightActivities,
             setSelectedName: (String val) {
               setState(() {
-                activities[2].name = val;
+                widget.user.mediumActivities![0].activityName = val;
               });
             },
             setSelectedFrequency: (String val) {
-              activities[2].frequency = int.parse(val);
+              widget.user.mediumActivities![0].frequency = int.parse(val);
             },
           ),
         ],
@@ -371,26 +385,36 @@ class _ActivityDisplayState extends State<ActivityDisplay> {
     return Column(
       children: [
         Row(
+          crossAxisAlignment: CrossAxisAlignment.start,
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: [
-            WideDropDown(
-              data: widget.data,
-              border: const BorderSide(color: Colors.black38),
-              color: widget.nameColor,
-              setSelectedItem: widget.setSelectedName,
+            Expanded(
+              flex: 5,
+              child: WideDropDown(
+                data: widget.data,
+                border: const BorderSide(color: Colors.black38),
+                color: widget.nameColor,
+                setSelectedItem: widget.setSelectedName,
+              ),
             ),
-            SmallDropDown(
-              data: frequency,
-              border: Border.all(color: Colors.black38),
-              dropdownColor: widget.frequencyColor,
-              buttonColor: widget.frequencyColor,
-              setSelectedItem: widget.setSelectedFrequency,
+            Expanded(
+              flex: 2,
+              child: SmallDropDown(
+                data: frequency,
+                border: Border.all(color: Colors.black38),
+                dropdownColor: widget.frequencyColor,
+                buttonColor: widget.frequencyColor,
+                setSelectedItem: widget.setSelectedFrequency,
+              ),
             ),
-            const Padding(
-              padding: EdgeInsets.only(left: 8.0),
-              child: Text(
-                "ครั้ง/สัปดาห์",
-                style: TextStyle(fontSize: 22),
+            const Expanded(
+              flex: 3,
+              child: Padding(
+                padding: EdgeInsets.only(left: 8.0, top: 15),
+                child: Text(
+                  "ครั้ง/สัปดาห์",
+                  style: TextStyle(fontSize: 18),
+                ),
               ),
             ),
           ],

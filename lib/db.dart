@@ -53,8 +53,8 @@ class User {
 }
 
 class UserActivity {
-  final String activityName;
-  final int frequency;
+  String activityName;
+  int frequency;
 
   UserActivity({
     this.activityName = "",
