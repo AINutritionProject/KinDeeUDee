@@ -2,6 +2,7 @@ import 'package:appfood2/db.dart';
 import 'package:flutter/material.dart';
 import 'package:appfood2/pages/information/personal_information.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
+import 'package:appfood2/pages/information/save_data_success.dart';
 
 class InformationPage extends StatelessWidget {
   const InformationPage({super.key});

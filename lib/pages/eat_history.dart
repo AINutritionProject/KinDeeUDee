@@ -36,7 +36,6 @@ class _EatHistoryPageState extends State<EatHistoryPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text("Eat History")),
       body: FutureBuilder(
         builder: (context, snapshot) {
           if (snapshot.hasData) {
@@ -80,10 +79,12 @@ class EatHistoryComponent extends StatelessWidget {
                           decoration: const BoxDecoration(
                               color: Color.fromRGBO(18, 109, 104, 1),
                               shape: BoxShape.circle),
-                          child: const Icon(
-                            Icons.skip_previous,
-                            color: Colors.white,
-                            size: 35,
+                          child: IconButton(
+                            onPressed: () {
+                              Navigator.of(context).pop();
+                            },
+                            icon: const Icon(Icons.skip_previous,
+                                size: 35, color: Colors.red),
                           ),
                         ),
                       ),

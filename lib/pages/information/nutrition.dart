@@ -1,3 +1,4 @@
+import 'package:appfood2/pages/information/save_data_success.dart';
 import 'package:flutter/material.dart';
 import 'package:appfood2/db.dart';
 
@@ -136,13 +137,19 @@ class ButtonSave extends StatelessWidget {
           decoration: BoxDecoration(
               color: const Color.fromRGBO(126, 204, 237, 1),
               borderRadius: BorderRadius.circular(20)),
-          child: const Center(
-            child: Text(
-              'บันทึก',
-              style: TextStyle(
-                  fontSize: 24,
-                  fontWeight: FontWeight.w500,
-                  color: Colors.white),
+          child: GestureDetector(
+            onTap: () {
+              Navigator.of(context).push(MaterialPageRoute(
+                  builder: (context) => const SaveDataSuccessPage()));
+            },
+            child: const Center(
+              child: Text(
+                'บันทึก',
+                style: TextStyle(
+                    fontSize: 24,
+                    fontWeight: FontWeight.w500,
+                    color: Colors.white),
+              ),
             ),
           ),
         ),
