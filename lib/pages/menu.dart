@@ -270,7 +270,50 @@ class _TextFieldExampleState extends State<TextFieldExample> {
           ),
         ),
         (_active)
-            ? Text("${foodQuery.length}, ${allFoodData.length}")
+            ? Column(
+                children: [
+                  Text("${foodQuery.length}, ${allFoodData.length}"),
+                  ...foodQuery.map((e) {
+                    if (e.length == 2) {
+                      return Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Expanded(
+                                flex: 1,
+                                child: Padding(
+                                  padding: const EdgeInsets.only(
+                                      left: 34, right: 15),
+                                  child: FoodIcons(food: e[0]),
+                                )),
+                            Expanded(
+                                flex: 1,
+                                child: Padding(
+                                  padding: const EdgeInsets.only(
+                                      left: 15, right: 34),
+                                  child: FoodIcons(food: e[1]),
+                                )),
+                          ]);
+                    } else {
+                      return Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Expanded(
+                                flex: 1,
+                                child: Padding(
+                                  padding: const EdgeInsets.only(
+                                      left: 34, right: 15),
+                                  child: FoodIcons(food: e[0]),
+                                )),
+                            const Expanded(
+                                flex: 1,
+                                child: Padding(
+                                  padding: EdgeInsets.only(left: 15, right: 34),
+                                )),
+                          ]);
+                    }
+                  })
+                ],
+              )
             : Padding(
                 padding: const EdgeInsets.all(8.0),
                 child: SizedBox(
