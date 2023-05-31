@@ -165,7 +165,7 @@ class TextFieldExample extends StatefulWidget {
 class _TextFieldExampleState extends State<TextFieldExample> {
   bool _active = false;
   late List<Food> allFoodData;
-  late List<List<Food>> foodQuery;
+  late List<Food> foodQuery;
 
   @override
   void initState() {
@@ -201,7 +201,7 @@ class _TextFieldExampleState extends State<TextFieldExample> {
     return foodList;
   }
 
-  List<List<Food>> getFoodQuery(String query) {
+  List<Food> getFoodQuery(String query) {
     List<Food> foodList = [];
     allFoodData.forEach((f) {
       if (f.name.toLowerCase().contains(query.toLowerCase())) {
@@ -209,14 +209,7 @@ class _TextFieldExampleState extends State<TextFieldExample> {
       }
     });
 
-    List<List<Food>> dataIndex = [];
-    for (int i = 0; i < foodList.length / 2 - 1; i++) {
-      dataIndex.add([foodList[i * 2], foodList[i * 2 + 1]]);
-    }
-    if (foodList.length % 2 != 0) {
-      dataIndex.add([foodList[foodList.length - 1]]);
-    }
-    return dataIndex;
+    return foodList;
   }
 
   String text_seach = "";
@@ -270,50 +263,16 @@ class _TextFieldExampleState extends State<TextFieldExample> {
           ),
         ),
         (_active)
-            ? Column(
-                children: [
-                  Text("${foodQuery.length}, ${allFoodData.length}"),
-                  ...foodQuery.map((e) {
-                    if (e.length == 2) {
-                      return Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            Expanded(
-                                flex: 1,
-                                child: Padding(
-                                  padding: const EdgeInsets.only(
-                                      left: 34, right: 15),
-                                  child: FoodIcons(food: e[0]),
-                                )),
-                            Expanded(
-                                flex: 1,
-                                child: Padding(
-                                  padding: const EdgeInsets.only(
-                                      left: 15, right: 34),
-                                  child: FoodIcons(food: e[1]),
-                                )),
-                          ]);
-                    } else {
-                      return Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            Expanded(
-                                flex: 1,
-                                child: Padding(
-                                  padding: const EdgeInsets.only(
-                                      left: 34, right: 15),
-                                  child: FoodIcons(food: e[0]),
-                                )),
-                            const Expanded(
-                                flex: 1,
-                                child: Padding(
-                                  padding: EdgeInsets.only(left: 15, right: 34),
-                                )),
-                          ]);
-                    }
-                  })
-                ],
-              )
+            ? Container(
+                height: 640,
+                child: GridView.count(
+                  crossAxisCount: 2,
+                  children: foodQuery
+                      .map((food) => Expanded(
+                            child: FoodIcons(food: food),
+                          ))
+                      .toList(),
+                ))
             : Padding(
                 padding: const EdgeInsets.all(8.0),
                 child: SizedBox(
