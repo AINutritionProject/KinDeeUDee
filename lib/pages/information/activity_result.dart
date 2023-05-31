@@ -58,36 +58,39 @@ class ActivityResultBody extends StatelessWidget {
                   ),
                   SizedBox(
                     height: 220,
-                    child: ListView.builder(
-                      itemCount: activities.length,
-                      itemBuilder: (BuildContext context, int index) {
-                        return Padding(
-                          padding: const EdgeInsets.symmetric(vertical: 6),
-                          child: Row(
-                            children: [
-                              const Padding(
-                                padding: EdgeInsets.only(right: 8.0),
-                                child: Icon(
-                                  Icons.circle,
-                                  color: Color(0xFF636363),
-                                  size: 20,
+                    child: Scrollbar(
+                      thumbVisibility: true,
+                      child: ListView.builder(
+                        itemCount: activities.length,
+                        itemBuilder: (BuildContext context, int index) {
+                          return Padding(
+                            padding: const EdgeInsets.symmetric(vertical: 6),
+                            child: Row(
+                              children: [
+                                const Padding(
+                                  padding: EdgeInsets.only(right: 8.0),
+                                  child: Icon(
+                                    Icons.circle,
+                                    color: Color(0xFF636363),
+                                    size: 20,
+                                  ),
                                 ),
-                              ),
-                              Container(
-                                width: 150,
-                                padding: const EdgeInsets.symmetric(
-                                    horizontal: 12, vertical: 9),
-                                decoration: BoxDecoration(
-                                    color: activitiesColor[index % 2],
-                                    borderRadius: BorderRadius.circular(20)),
-                                child: Text(activities[index],
-                                    textAlign: TextAlign.center,
-                                    style: const TextStyle(fontSize: 18)),
-                              ),
-                            ],
-                          ),
-                        );
-                      },
+                                Container(
+                                  width: 150,
+                                  padding: const EdgeInsets.symmetric(
+                                      horizontal: 12, vertical: 9),
+                                  decoration: BoxDecoration(
+                                      color: activitiesColor[index % 2],
+                                      borderRadius: BorderRadius.circular(20)),
+                                  child: Text(activities[index],
+                                      textAlign: TextAlign.center,
+                                      style: const TextStyle(fontSize: 18)),
+                                ),
+                              ],
+                            ),
+                          );
+                        },
+                      ),
                     ),
                   ),
                 ],
