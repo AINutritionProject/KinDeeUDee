@@ -36,7 +36,6 @@ class _EatHistoryPageState extends State<EatHistoryPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text("Eat History")),
       body: FutureBuilder(
         builder: (context, snapshot) {
           if (snapshot.hasData) {
