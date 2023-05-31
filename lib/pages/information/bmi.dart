@@ -516,7 +516,15 @@ class _BMIState extends State<BMI> {
 
 double calculateBMI(double weight, double height) {
   double bmi = weight / ((height / 100) * (height / 100));
-  print(weight);
-  print(bmi);
   return bmi;
+}
+
+double calculateBMR(double bmi, int activityLevel) {
+  if (activityLevel == 1) {
+    return bmi * 1 * 30;
+  } else if (activityLevel == 2) {
+    return bmi * 1.3 * 30;
+  } else {
+    return bmi * 1.5 * 30;
+  }
 }
