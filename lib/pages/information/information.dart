@@ -4,6 +4,7 @@ import 'package:appfood2/pages/information/personal_information.dart';
 import 'package:appfood2/pages/information/milk.dart';
 import 'package:appfood2/pages/information/bmi.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
+import 'package:appfood2/pages/information/save_data_success.dart';
 
 class InformationPage extends StatelessWidget {
   const InformationPage({super.key});
@@ -15,6 +16,16 @@ class InformationPage extends StatelessWidget {
       appBar: AppBar(
         title: const Text("InformationPage"),
         actions: [
+          IconButton(
+            onPressed: () {
+              Navigator.of(context).push(
+                MaterialPageRoute(
+                  builder: (context) => const SaveDataSuccessPage(),
+                ),
+              );
+            },
+            icon: const Icon(Icons.save),
+          ),
           IconButton(
             onPressed: () {
               Navigator.of(context).push(

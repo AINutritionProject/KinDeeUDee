@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:appfood2/pages/ai_output.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 class FoodDetailPage extends StatelessWidget {
   const FoodDetailPage({super.key, required this.detail});
@@ -14,57 +15,240 @@ class FoodDetailPage extends StatelessWidget {
     }
   }
 
+  Color _getBarColor(num giIndex) {
+    if (giIndex < 55) {
+      return const Color.fromRGBO(162, 223, 133, 1);
+    } else if (giIndex < 70 && giIndex >= 55) {
+      return const Color.fromRGBO(249, 241, 176, 1);
+    } else {
+      return const Color.fromRGBO(255, 141, 141, 1);
+    }
+  }
 
+  Color _getBarsmilColor(num giIndex) {
+    if (giIndex < 55) {
+      return const Color.fromRGBO(3, 219, 24, 1);
+    } else if (giIndex < 70 && giIndex >= 55) {
+      return const Color.fromRGBO(252, 255, 108, 1);
+    } else {
+      return const Color.fromRGBO(255, 0, 0, 1);
+    }
+  }
+
+  String _get_glycemic_index(num giIndex) {
+    if (giIndex < 55) {
+      return "ดัชนีน้ำตาล<55";
+    } else if (giIndex < 70 && giIndex >= 55) {
+      return "ค่าดัชนีน้ำตาล 56 ถึง 69";
+    } else {
+      return "ค่าดัชนีน้ำตาล >70";
+    }
+  }
+
+//detail.realImageAssetPath ?? "assets/cameraFrame.png",
+/*
+ClipRRect(
+            borderRadius: BorderRadius.circular(20),
+            child: SizedBox.fromSize(
+              size: const Size.fromRadius(48 * 3),
+              child: Image.asset(
+                detail.realImageAssetPath ?? "assets/cameraFrame.png",
+                fit: BoxFit.cover,
+              ),
+            ),
+          ),
+
+
+
+
+
+
+class SmileFace extends StatelessWidget {
+  const SmileFace({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Stack(
+      children: [
+        Container(
+          decoration: const BoxDecoration(
+            color: Colors.white,
+            shape: BoxShape.circle,
+          ),
+          child: const FaIcon(
+            FontAwesomeIcons.faceSmile,
+            color: Colors.black,
+            size: 50,
+          ),
+        ),
+        Container(
+          decoration: BoxDecoration(
+            border: Border.all(color: const Color(0xFFFFD703), width: 5),
+            shape: BoxShape.circle,
+          ),
+          width: 50,
+          height: 50,
+        )
+      ],
+    );
+  }
+}
+
+          
+*/
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: _getGIColor(detail.giIndex),
-      appBar: AppBar(title: const Text("Food detail")),
-      body: SingleChildScrollView(
-        child: Center(
-          child: Column(
-            children: [
-              TitleHeaderBox(
-                textTitle: detail.name,
-              ),
-              Padding(
-                padding: const EdgeInsets.fromLTRB(0, 10, 0, 15),
-                child: ClipRRect(
-                          borderRadius: BorderRadius.circular(20),
-                          child: SizedBox.fromSize(
-                size: const Size.fromRadius(48 * 3),
-                child: Image.asset(
-                  detail.realImageAssetPath ?? "assets/cameraFrame.png",
-                  fit: BoxFit.cover,
-                ),
+      body: SafeArea(
+        child: SingleChildScrollView(
+          child: Center(
+            child: Column(
+              children: [
+                Padding(
+                  padding: const EdgeInsets.only(bottom: 43),
+                  child: Stack(
+                    alignment: Alignment.bottomCenter,
+                    children: [
+                      Container(
+                        width: double.infinity,
+                        height: 158,
+                        color: _getGIColor(detail.giIndex),
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.only(bottom: 38),
+                        child: Container(
+                          width: double.infinity,
+                          height: 120,
+                          color: _getBarColor(detail.giIndex),
+                        ),
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.only(
+                            bottom: 85, left: 20, right: 20),
+                        child: Row(
+                          children: [
+                            Expanded(
+                              flex: 1,
+                              child: Row(
+                                mainAxisAlignment: MainAxisAlignment.start,
+                                children: [
+                                  Container(
+                                    width: 48,
+                                    height: 48,
+                                    child: FloatingActionButton(
+                                      backgroundColor:
+                                          const Color.fromRGBO(86, 61, 51, 1),
+                                      onPressed: () {
+                                        Navigator.pop(context);
+                                      },
+                                      child: const Center(
+                                        child: Text(
+                                          "<",
+                                          style: TextStyle(
+                                              fontSize: 35,
+                                              color: Color.fromRGBO(
+                                                  255, 187, 220, 1)),
+                                        ),
+                                      ),
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ),
+                            Expanded(
+                              flex: 1,
+                              child: Row(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  SmileFace(
+                                      SmileColor:
+                                          _getBarsmilColor(detail.giIndex)),
+                                ],
+                              ),
+                            ),
+                            Expanded(
+                              flex: 1,
+                              child: Row(
+                                mainAxisAlignment: MainAxisAlignment.end,
+                                children: [
+                                  Container(
+                                    padding: const EdgeInsets.all(8),
+                                    decoration: const BoxDecoration(
+                                      borderRadius:
+                                          BorderRadius.all(Radius.circular(50)),
+                                      color: Colors.white,
+                                    ),
+                                    child: Text(
+                                      _get_glycemic_index(detail.giIndex),
+                                      style: const TextStyle(fontSize: 10),
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            )
+                          ],
+                        ),
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.only(left: 54, right: 54),
+                        child: Container(
+                          alignment: Alignment.center,
+                          height: 76,
+                          decoration: const BoxDecoration(
+                            borderRadius: BorderRadius.all(
+                              Radius.circular(50),
+                            ),
+                            color: Colors.white,
+                          ),
+                          child: Text(
+                            detail.name,
+                            style: const TextStyle(
+                                fontSize: 30, fontWeight: FontWeight.w700),
                           ),
                         ),
-              ),
-              const TextDataNutrition(),
-              AmountDetailObject(
-                textAmountOfObj: '${detail.name}\n 1 ส่วน 120 กรัม',
-                colorBox: const Color.fromRGBO(255, 255, 255, 1),
-              ),
-              Padding(
-                padding: const EdgeInsets.fromLTRB(0, 20, 0, 20),
-                child: ChemicalDetail(
-                    power: detail.power,
-                    fiber: detail.fiber,
-                    sugar: detail.sugar),
-              ),
-              BenefitDetailContainer(
-                textBenefitDetail:
-                    detail.benefit,
-              ),
-              const ClickHereContainer(),
-            ],
+                      ),
+                    ],
+                  ),
+                ),
+                Padding(
+                  padding: const EdgeInsets.fromLTRB(0, 10, 0, 15),
+                  child: ClipRRect(
+                    borderRadius: BorderRadius.circular(20),
+                    child: SizedBox.fromSize(
+                      size: const Size.fromRadius(48 * 3),
+                      child: Image.asset(
+                        detail.realImageAssetPath ?? "assets/cameraFrame.png",
+                        fit: BoxFit.cover,
+                      ),
+                    ),
+                  ),
+                ),
+                const TextDataNutrition(),
+                AmountDetailObject(
+                  textAmountOfObj: '${detail.name}\n 1 ส่วน 120 กรัม',
+                  colorBox: const Color.fromRGBO(255, 255, 255, 1),
+                ),
+                Padding(
+                  padding: const EdgeInsets.fromLTRB(0, 20, 0, 20),
+                  child: ChemicalDetail(
+                      power: detail.power,
+                      fiber: detail.fiber,
+                      sugar: detail.sugar),
+                ),
+                const BenefitDetailContainer(
+                  textBenefitDetail:
+                      "ช่วยป้องกันการเกิดโรคหลอดเลือดหัวใจ\nช่วยให้ผนังหลอดเลือดแข็งแรง\nป้องกันการเกิดโรคต้อกระจก\nลดกรดในกระเพาะอาหาร ช่วยละลายเสมหะ\nลดความดันโลหิต ช่วยบำรุงหัวใจ",
+                ),
+                const ClickHereContainer(),
+              ],
+            ),
           ),
         ),
       ),
     );
   }
 }
-
 
 class ChemicalDetail extends StatelessWidget {
   const ChemicalDetail({
@@ -195,4 +379,36 @@ class FoodNutritionDetail {
   final num power;
   final num fiber;
   final num sugar;
+}
+
+class SmileFace extends StatelessWidget {
+  const SmileFace({super.key, required this.SmileColor});
+  final Color SmileColor;
+
+  @override
+  Widget build(BuildContext context) {
+    return Stack(
+      children: [
+        Container(
+          decoration: BoxDecoration(
+            color: SmileColor,
+            shape: BoxShape.circle,
+          ),
+          child: const FaIcon(
+            FontAwesomeIcons.faceSmile,
+            color: Colors.black,
+            size: 60,
+          ),
+        ),
+        Container(
+          decoration: BoxDecoration(
+            border: Border.all(color: Colors.white, width: 6),
+            shape: BoxShape.circle,
+          ),
+          width: 60,
+          height: 60,
+        )
+      ],
+    );
+  }
 }

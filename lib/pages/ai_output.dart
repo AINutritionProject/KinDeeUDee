@@ -24,7 +24,10 @@ class AIOutputPage extends StatelessWidget {
                 pathImage: "assets/images/RealFruit/10.jpg",
               ),
               const TextDataNutrition(),
-              const AmountDetailObject(textAmountOfObj: 'แอปเปิ้ล\n 1 ส่วน 120 กรัม', colorBox: Color.fromRGBO(175, 255, 207, 1),),
+              const AmountDetailObject(
+                textAmountOfObj: 'แอปเปิ้ล\n 1 ส่วน 120 กรัม',
+                colorBox: Color.fromRGBO(175, 255, 207, 1),
+              ),
               const Padding(
                 padding: EdgeInsets.fromLTRB(0, 10, 0, 0),
                 child: ChemicalDetail(power: 24, fiber: 30, sugar: 34),
@@ -148,11 +151,8 @@ class AmountObjectofUser extends StatelessWidget {
 }
 
 class AmountDetailObject extends StatelessWidget {
-  const AmountDetailObject({
-    super.key,
-    required this.textAmountOfObj,
-    required this.colorBox
-  });
+  const AmountDetailObject(
+      {super.key, required this.textAmountOfObj, required this.colorBox});
 
   final String textAmountOfObj;
   final Color colorBox;
@@ -175,9 +175,7 @@ class AmountDetailObject extends StatelessWidget {
                 textAmountOfObj,
                 style: const TextStyle(
                     fontSize: 24, fontWeight: FontWeight.bold, height: 1.8),
-                    textAlign: TextAlign.center,
-                    
-                    
+                textAlign: TextAlign.center,
               ),
             ),
           ],
@@ -265,13 +263,11 @@ class TitleHeaderBox extends StatelessWidget {
         width: MediaQuery.of(context).size.width * 0.64,
         height: MediaQuery.of(context).size.height * 0.094,
         decoration: BoxDecoration(
-            color: Colors.white,
-            borderRadius: BorderRadius.circular(50)),
+            color: Colors.white, borderRadius: BorderRadius.circular(50)),
         child: Center(
           child: Text(
             textTitle,
-            style:
-                const TextStyle(fontSize: 28, fontWeight: FontWeight.bold),
+            style: const TextStyle(fontSize: 28, fontWeight: FontWeight.bold),
           ),
         ),
       ),
@@ -283,8 +279,6 @@ class ClickHereContainer extends StatelessWidget {
   const ClickHereContainer({
     super.key,
   });
-  
-  
 
   @override
   Widget build(BuildContext context) {
@@ -303,7 +297,9 @@ class ClickHereContainer extends StatelessWidget {
             GestureDetector(
               onTap: () {
                 Navigator.of(context).push(MaterialPageRoute(
-                    builder: (context) =>  const FoodAdvanceDetailPage(name: 'eie',)));
+                    builder: (context) => const FoodAdvanceDetailPage(
+                          name: 'eie',
+                        )));
               },
               child: const Text(
                 "กดที่นี่",
@@ -331,9 +327,7 @@ class BenefitDetailContainer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: const EdgeInsets.fromLTRB(10, 20, 10, 20),
-      //width: MediaQuery.of(context).size.width * 0.9,
-      //height: MediaQuery.of(context).size.height * 0.34,
+      width: MediaQuery.of(context).size.width * 0.9,
       constraints:
           BoxConstraints(maxWidth: MediaQuery.of(context).size.width * 0.9),
       decoration: BoxDecoration(
@@ -341,24 +335,28 @@ class BenefitDetailContainer extends StatelessWidget {
       child: Column(
         children: [
           Container(
-            margin: const EdgeInsets.fromLTRB(120, 12, 120, 12),
-            decoration: BoxDecoration(
-                color: const Color.fromRGBO(255, 194, 227, 1),
-                borderRadius: BorderRadius.circular(20)),
-            child: const Center(
-              child: Text(
-                'ประโยชน์',
-                style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
+            child: Container(
+              padding: const EdgeInsets.fromLTRB(0, 5, 0, 5),
+              margin: const EdgeInsets.fromLTRB(120, 10, 120, 12),
+              decoration: BoxDecoration(
+                  color: const Color.fromRGBO(255, 194, 227, 1),
+                  borderRadius: BorderRadius.circular(20)),
+              child: const Center(
+                child: Text(
+                  'ประโยชน์',
+                  style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
+                ),
               ),
             ),
           ),
-          Center(
-              child: Text(
-            textBenefitDetail,
-            textAlign: TextAlign.center,
-            style: const TextStyle(
-                fontSize: 19, fontWeight: FontWeight.bold, height: 2),
-            )
+          Container(
+            padding: const EdgeInsets.only(bottom: 10),
+            child: Text(
+              textBenefitDetail,
+              textAlign: TextAlign.center,
+              style: const TextStyle(
+                  fontSize: 19, fontWeight: FontWeight.bold, height: 2),
+            ),
           ),
         ],
       ),
