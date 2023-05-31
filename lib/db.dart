@@ -31,6 +31,7 @@ class User {
   List<UserActivity>? extraLightActivities;
   List<UserActivity>? lightActivities;
   List<UserActivity>? mediumActivities;
+  List<UserActivity>? customActivities;
 
   User({
     required this.email,
@@ -47,6 +48,7 @@ class User {
     this.extraLightActivities,
     this.lightActivities,
     this.mediumActivities,
+    this.customActivities,
   });
 }
 
