@@ -317,7 +317,11 @@ class FoodNutritionDetail {
       required this.benefit,
       required this.power,
       required this.fiber,
-      required this.sugar});
+      required this.sugar,
+      required this.protein,
+      required this.fat,
+      required this.carbo,
+      required this.nutrition});
   final String name;
   final String? realImageAssetPath;
   final num giIndex;
@@ -325,6 +329,10 @@ class FoodNutritionDetail {
   final num power;
   final num fiber;
   final num sugar;
+  final num protein;
+  final num fat;
+  final num carbo;
+  final String nutrition;
 }
 
 class SmileFace extends StatelessWidget {

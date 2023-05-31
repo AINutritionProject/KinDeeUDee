@@ -22,7 +22,7 @@ class _RealAllFoodPageState extends State<RealAllFoodPage> {
     for (var element in dataAsList) {
       foodList.add(Food(
         name: element[1],
-        type: type,
+        type: element[11],
         detail: FoodNutritionDetail(
             name: element[3],
             giIndex: element[5],
@@ -30,6 +30,10 @@ class _RealAllFoodPageState extends State<RealAllFoodPage> {
             power: element[6],
             sugar: element[8],
             fiber: element[7],
+            protein: element[12],
+            fat: element[13],
+            carbo: element[14],
+            nutrition: element[10],
             // ignore: prefer_interpolation_to_compose_strings
             realImageAssetPath: "assets/images/RealFruit/" + element[4]),
         // ignore: prefer_interpolation_to_compose_strings

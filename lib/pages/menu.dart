@@ -64,8 +64,8 @@ class MenuPage extends StatelessWidget {
                 Row(
                   children: [
                     Padding(
-                        padding:
-                            const EdgeInsets.only(left: 30, top: 10, bottom: 24),
+                        padding: const EdgeInsets.only(
+                            left: 30, top: 10, bottom: 24),
                         child: GestureDetector(
                           onTap: () {
                             Navigator.pop(context);
@@ -187,7 +187,7 @@ class _TextFieldExampleState extends State<TextFieldExample> {
     for (var element in dataAsList) {
       foodList.add(Food(
         name: element[1],
-        type: "YAY!",
+        type: element[11],
         detail: FoodNutritionDetail(
             name: element[3],
             giIndex: element[5],
@@ -195,6 +195,10 @@ class _TextFieldExampleState extends State<TextFieldExample> {
             power: element[6],
             sugar: element[8],
             fiber: element[7],
+            nutrition: element[10],
+            protein: element[11],
+            fat: element[13],
+            carbo: element[14],
             // ignore: prefer_interpolation_to_compose_strings
             realImageAssetPath: "assets/images/RealFruit/" + element[4]),
         // ignore: prefer_interpolation_to_compose_strings
