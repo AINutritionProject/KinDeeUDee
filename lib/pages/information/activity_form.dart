@@ -285,7 +285,7 @@ class _ActivityFormBodyState extends State<ActivityFormBody> {
           ),
           ListView.builder(
             shrinkWrap: true,
-            itemCount: extraLightAcitivitiesCount,
+            itemCount: widget.user.extraLightActivities!.length,
             itemBuilder: (BuildContext context, int index) {
               return ActivityDisplay(
                 nameColor: const Color(0xFFFFD7D7),
@@ -293,11 +293,15 @@ class _ActivityFormBodyState extends State<ActivityFormBody> {
                 data: lightActivities,
                 setSelectedName: (String val) {
                   setState(() {
-                    widget.user.extraLightActivities![0].activityName = val;
+                    if (val != "-----" &&
+                        widget.user.extraLightActivities!.length < 3) {
+                      widget.user.extraLightActivities!.add(UserActivity());
+                    }
+                    widget.user.extraLightActivities![index].activityName = val;
                   });
                 },
                 setSelectedFrequency: (String val) {
-                  widget.user.extraLightActivities![0].frequency =
+                  widget.user.extraLightActivities![index].frequency =
                       int.parse(val);
                 },
               );
@@ -315,17 +319,28 @@ class _ActivityFormBodyState extends State<ActivityFormBody> {
               ),
             ),
           ),
-          ActivityDisplay(
-            nameColor: const Color(0xFFFFD7D7),
-            frequencyColor: const Color(0xFFFFEBEB),
-            data: lightActivities,
-            setSelectedName: (String val) {
-              setState(() {
-                widget.user.lightActivities![0].activityName = val;
-              });
-            },
-            setSelectedFrequency: (String val) {
-              widget.user.lightActivities![0].frequency = int.parse(val);
+          ListView.builder(
+            shrinkWrap: true,
+            itemCount: widget.user.lightActivities!.length,
+            itemBuilder: (BuildContext context, int index) {
+              return ActivityDisplay(
+                nameColor: const Color(0xFFFFD7D7),
+                frequencyColor: const Color(0xFFFFEBEB),
+                data: lightActivities,
+                setSelectedName: (String val) {
+                  setState(() {
+                    if (val != "-----" &&
+                        widget.user.lightActivities!.length < 3) {
+                      widget.user.lightActivities!.add(UserActivity());
+                    }
+                    widget.user.lightActivities![index].activityName = val;
+                  });
+                },
+                setSelectedFrequency: (String val) {
+                  widget.user.lightActivities![index].frequency =
+                      int.parse(val);
+                },
+              );
             },
           ),
           const Padding(
@@ -390,11 +405,14 @@ class _ActivityDisplayState extends State<ActivityDisplay> {
           children: [
             Expanded(
               flex: 5,
-              child: WideDropDown(
-                data: widget.data,
-                border: const BorderSide(color: Colors.black38),
-                color: widget.nameColor,
-                setSelectedItem: widget.setSelectedName,
+              child: Padding(
+                padding: const EdgeInsets.only(top: 3.0),
+                child: WideDropDown(
+                  data: widget.data,
+                  border: const BorderSide(color: Colors.black38),
+                  color: widget.nameColor,
+                  setSelectedItem: widget.setSelectedName,
+                ),
               ),
             ),
             Expanded(
