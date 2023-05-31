@@ -297,7 +297,9 @@ class ClickHereContainer extends StatelessWidget {
             GestureDetector(
               onTap: () {
                 Navigator.of(context).push(MaterialPageRoute(
-                    builder: (context) => const FoodAdvanceDetailPage()));
+                    builder: (context) => const FoodAdvanceDetailPage(
+                          name: 'eie',
+                        )));
               },
               child: const Text(
                 "กดที่นี่",
@@ -326,8 +328,8 @@ class BenefitDetailContainer extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       width: MediaQuery.of(context).size.width * 0.9,
-      constraints: BoxConstraints(
-          maxWidth: MediaQuery.of(context).size.width * 0.9 ),
+      constraints:
+          BoxConstraints(maxWidth: MediaQuery.of(context).size.width * 0.9),
       decoration: BoxDecoration(
           color: Colors.white, borderRadius: BorderRadius.circular(30)),
       child: Column(
@@ -349,7 +351,7 @@ class BenefitDetailContainer extends StatelessWidget {
           ),
           Container(
             padding: const EdgeInsets.only(bottom: 10),
-            child:   Text(
+            child: Text(
               textBenefitDetail,
               textAlign: TextAlign.center,
               style: const TextStyle(

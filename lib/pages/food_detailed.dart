@@ -250,33 +250,6 @@ class SmileFace extends StatelessWidget {
   }
 }
 
-/*
-Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: const Color.fromRGBO(233, 255, 223, 1),
-      appBar: AppBar(title: const Text("AI Output Page")),
-      body: const SingleChildScrollView(
-        child: Center(
-          child: Column(
-            children: [
-              TitleHeaderBox(textTitle: 'แอปเปิ้ลแดงฟูจิ',),
-              ImageContainer(pathImage: "assets/images/RealFruit/10.jpg",),
-              TextDataNutrition(),
-              AmountDetailObject(textAmountOfObj: 'แอปเปิ้ล\n 1 ส่วน 120 กรัม',),
-              Padding(
-                padding: EdgeInsets.fromLTRB(0, 10, 0, 0),
-                child: ChemicalDetail(power: 24, fiber: 30, sugar: 34),
-              ),
-              BenefitDetailContainer(textBenefitDetail: "ช่วยป้องกันการเกิดโรคหลอดเลือดหัวใจ\nช่วยให้ผนังหลอดเลือดแข็งแรง\nป้องกันการเกิดโรคต้อกระจก\nลดกรดในกระเพาะอาหาร ช่วยละลายเสมหะ\nลดความดันโลหิต ช่วยบำรุงหัวใจ",),
-              ClickHereContainer(),
-            ],
-          ),
-        ),
-      ),
-    );
-  }
-*/
-
 class ChemicalDetail extends StatelessWidget {
   const ChemicalDetail({
     super.key,
