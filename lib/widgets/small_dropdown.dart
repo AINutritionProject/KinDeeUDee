@@ -5,12 +5,14 @@ class SmallDropDown extends StatefulWidget {
   final Function(String val) setSelectedItem;
   final Color buttonColor;
   final Color dropdownColor;
+  final Border border;
   const SmallDropDown({
     super.key,
     required this.data,
     required this.setSelectedItem,
     this.buttonColor = Colors.white,
     this.dropdownColor = Colors.white,
+    required this.border,
   });
 
   @override
@@ -32,7 +34,10 @@ class _SmallDropDownState extends State<SmallDropDown> {
       padding: const EdgeInsets.all(8.0),
       child: Container(
         height: 40,
-        color: widget.buttonColor,
+        decoration: BoxDecoration(
+          color: widget.buttonColor,
+          border: widget.border,
+        ),
         child: DropdownButton(
           padding: const EdgeInsets.all(7),
           icon: const Icon(Icons.arrow_drop_down),

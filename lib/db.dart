@@ -28,6 +28,10 @@ class User {
   String career;
   String chronicDisease;
   String foodAllergy;
+  List<UserActivity>? extraLightActivities;
+  List<UserActivity>? lightActivities;
+  List<UserActivity>? mediumActivities;
+  List<UserActivity>? customActivities;
 
   User({
     required this.email,
@@ -41,5 +45,19 @@ class User {
     this.career = "",
     this.chronicDisease = "",
     this.foodAllergy = "",
+    this.extraLightActivities,
+    this.lightActivities,
+    this.mediumActivities,
+    this.customActivities,
+  });
+}
+
+class UserActivity {
+  String activityName;
+  int frequency;
+
+  UserActivity({
+    this.activityName = "",
+    this.frequency = 0,
   });
 }
