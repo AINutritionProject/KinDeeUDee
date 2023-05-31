@@ -234,6 +234,9 @@ class _ActivityFormBodyState extends State<ActivityFormBody> {
     Activity(name: "", frequency: 1),
   ];
   Activity tempActivity = Activity(name: "", frequency: 1);
+  int extraLightAcitivitiesCount = 1;
+  int lightAcitivitiesCount = 1;
+  int mediumAcitivitiesCount = 1;
 
   @override
   Widget build(BuildContext context) {
@@ -248,22 +251,52 @@ class _ActivityFormBodyState extends State<ActivityFormBody> {
               style: TextStyle(fontSize: 20, fontWeight: FontWeight.w700),
             ),
           ),
-          ActivityDisplay(
-            title: "1. กิจกรรมระดับเบามาก",
-            nameColor: const Color(0xFFFFD7D7),
-            frequencyColor: const Color(0xFFFFEBEB),
-            data: lightActivities,
-            setSelectedName: (String val) {
-              setState(() {
-                activities[0].name = val;
-              });
-            },
-            setSelectedFrequency: (String val) {
-              activities[0].frequency = int.parse(val);
-            },
+          const Padding(
+            padding: EdgeInsets.only(top: 10, bottom: 15),
+            child: Align(
+              alignment: Alignment.centerLeft,
+              child: Row(
+                children: [
+                  Text("1. กิจกรรมระดับเบามาก", style: TextStyle(fontSize: 22)),
+                  Icon(Icons.question_mark_outlined),
+                ],
+              ),
+            ),
+          ),
+          SizedBox(
+            height: 70.0 * extraLightAcitivitiesCount,
+            child: ListView.builder(
+              itemCount: extraLightAcitivitiesCount,
+              itemBuilder: (BuildContext context, int index) {
+                return ActivityDisplay(
+                  nameColor: const Color(0xFFFFD7D7),
+                  frequencyColor: const Color(0xFFFFEBEB),
+                  data: lightActivities,
+                  setSelectedName: (String val) {
+                    setState(() {
+                      activities[0].name = val;
+                    });
+                  },
+                  setSelectedFrequency: (String val) {
+                    activities[0].frequency = int.parse(val);
+                  },
+                );
+              },
+            ),
+          ),
+          const Padding(
+            padding: EdgeInsets.only(top: 10, bottom: 15),
+            child: Align(
+              alignment: Alignment.centerLeft,
+              child: Row(
+                children: [
+                  Text("2. กิจกรรมระดับเบา", style: TextStyle(fontSize: 22)),
+                  Icon(Icons.question_mark_outlined),
+                ],
+              ),
+            ),
           ),
           ActivityDisplay(
-            title: "2. กิจกรรมระดับเบา",
             nameColor: const Color(0xFFFFD7D7),
             frequencyColor: const Color(0xFFFFEBEB),
             data: lightActivities,
@@ -276,8 +309,20 @@ class _ActivityFormBodyState extends State<ActivityFormBody> {
               activities[1].frequency = int.parse(val);
             },
           ),
+          const Padding(
+            padding: EdgeInsets.only(top: 10, bottom: 15),
+            child: Align(
+              alignment: Alignment.centerLeft,
+              child: Row(
+                children: [
+                  Text("3. กิจกรรมระดับปานกลาง",
+                      style: TextStyle(fontSize: 22)),
+                  Icon(Icons.question_mark_outlined),
+                ],
+              ),
+            ),
+          ),
           ActivityDisplay(
-            title: "3. กิจกรรมระดับปานกลาง",
             nameColor: const Color(0xFFFFD7D7),
             frequencyColor: const Color(0xFFFFEBEB),
             data: lightActivities,
@@ -297,22 +342,19 @@ class _ActivityFormBodyState extends State<ActivityFormBody> {
 }
 
 class ActivityDisplay extends StatefulWidget {
-  final String title;
   final Function(String val) setSelectedName;
   final Function(String val) setSelectedFrequency;
   final Color nameColor;
   final Color frequencyColor;
-  final IconData titleIcon;
   final List<String> data;
-  const ActivityDisplay(
-      {super.key,
-      this.title = "",
-      required this.setSelectedName,
-      required this.setSelectedFrequency,
-      required this.data,
-      this.nameColor = Colors.white,
-      this.frequencyColor = Colors.white,
-      this.titleIcon = Icons.question_mark_outlined});
+  const ActivityDisplay({
+    super.key,
+    required this.setSelectedName,
+    required this.setSelectedFrequency,
+    required this.data,
+    this.nameColor = Colors.white,
+    this.frequencyColor = Colors.white,
+  });
 
   @override
   State<ActivityDisplay> createState() => _ActivityDisplayState();
@@ -323,18 +365,6 @@ class _ActivityDisplayState extends State<ActivityDisplay> {
   Widget build(BuildContext context) {
     return Column(
       children: [
-        Padding(
-          padding: const EdgeInsets.only(top: 10, bottom: 15),
-          child: Align(
-            alignment: Alignment.centerLeft,
-            child: Row(
-              children: [
-                Text(widget.title, style: const TextStyle(fontSize: 22)),
-                Icon(widget.titleIcon),
-              ],
-            ),
-          ),
-        ),
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: [
@@ -351,9 +381,12 @@ class _ActivityDisplayState extends State<ActivityDisplay> {
               buttonColor: widget.frequencyColor,
               setSelectedItem: widget.setSelectedFrequency,
             ),
-            const Text(
-              "ครั้ง/สัปดาห์",
-              style: TextStyle(fontSize: 22),
+            const Padding(
+              padding: EdgeInsets.only(left: 8.0),
+              child: Text(
+                "ครั้ง/สัปดาห์",
+                style: TextStyle(fontSize: 22),
+              ),
             ),
           ],
         ),
