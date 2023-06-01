@@ -110,7 +110,7 @@ class UserActivity {
 
   UserActivity({
     this.activityName = "",
-    this.frequency = 0,
+    this.frequency = 1,
   });
 
   Map<String, dynamic> toMap() {
