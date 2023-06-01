@@ -55,6 +55,7 @@ class MenuPage extends StatelessWidget {
             )
           ],
         ),
+        backgroundColor: const Color.fromRGBO(234, 255, 241, 1),
         body: SingleChildScrollView(
           child: Container(
             width: MediaQuery.of(context).size.width,
