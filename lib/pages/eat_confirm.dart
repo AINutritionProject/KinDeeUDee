@@ -64,7 +64,7 @@ class EatConfirmPage extends StatelessWidget {
                   await _saveEatHistory();
                   // ignore: use_build_context_synchronously
 
-                  final Food resultFood = Food(
+                  const Food resultFood = Food(
                       name: "test",
                       type: "Fruit",
                       imageAssetPath: "",
