@@ -66,12 +66,9 @@ class _ActivityResultBodyState extends State<ActivityResultBody> {
         activityLevel = 3;
       }
     }
-    // for (var element in widget.user.customActivities!) {
-    //   if (element.activityName != "") {
-    //     activities.add(element.activityName);
-    //     activityLevel = 0; //idk what to assign
-    //   }
-    // }
+    for (var element in widget.user.customActivities!) {
+      activities.add(element.activityName);
+    }
     super.initState();
   }
 
