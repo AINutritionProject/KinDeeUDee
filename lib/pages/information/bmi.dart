@@ -125,18 +125,14 @@ class _BMIPageState extends State<BMIPage> {
     return FutureBuilder(
       builder: (context, snapshot) {
         if (snapshot.hasData) {
-          if (snapshot.data?['hasData'] == true) {
-            return BMI(
-              user: widget.user,
-              username: snapshot.data?['username'],
-              Bgcolor: snapshot.data?['Bgcolor'],
-              Statusbmi: snapshot.data?['Statusbmi'],
-              Stcolor: snapshot.data?['Stcolor'],
-              width_STbmi: snapshot.data?['width_STbmi'],
-            );
-          } else {
-            return const RegisterSuccesPage();
-          }
+          return BMI(
+            user: widget.user,
+            username: snapshot.data?['username'],
+            Bgcolor: snapshot.data?['Bgcolor'],
+            Statusbmi: snapshot.data?['Statusbmi'],
+            Stcolor: snapshot.data?['Stcolor'],
+            width_STbmi: snapshot.data?['width_STbmi'],
+          );
         } else {
           return const Center(
             child: CircularProgressIndicator(),
