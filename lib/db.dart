@@ -19,7 +19,7 @@ Future<User> getUser() async {
 Future<dynamic> updateDoc(String uid, User user) async {
   final userRef = FirebaseFirestore.instance.collection("users").doc(uid);
   final userData = user.toMap();
-  userRef.update(userData).then((value) {
+  userRef.set(userData).then((value) {
     print("DocumentSnapshot successfully updated!");
     return null;
   }, onError: (e) {

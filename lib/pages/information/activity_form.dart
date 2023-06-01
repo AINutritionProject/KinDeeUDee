@@ -472,9 +472,21 @@ class _ActivityFormBodyState extends State<ActivityFormBody> {
                       ))),
                   onPressed: () {
                     setState(() {
-                      widget.user.extraLightActivities = extraLightActivities;
-                      widget.user.lightActivities = lightActivities;
-                      widget.user.mediumActivities = mediumActivities;
+                      for (var element in extraLightActivities) {
+                        if (element.activityName != "") {
+                          widget.user.extraLightActivities!.add(element);
+                        }
+                      }
+                      for (var element in lightActivities) {
+                        if (element.activityName != "") {
+                          widget.user.lightActivities!.add(element);
+                        }
+                      }
+                      for (var element in mediumActivities) {
+                        if (element.activityName != "") {
+                          widget.user.mediumActivities!.add(element);
+                        }
+                      }
                       widget.user.customActivities = customActivities;
                       Navigator.of(context).push(MaterialPageRoute(
                           builder: (context) =>
