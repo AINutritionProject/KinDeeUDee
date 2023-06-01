@@ -148,16 +148,6 @@ class _BMIState extends State<BMI> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text("BMI"),
-        actions: [
-          IconButton(
-              onPressed: () async {
-                await Auth().signOut();
-              },
-              icon: const Icon(Icons.tv))
-        ],
-      ),
       backgroundColor: Color.fromRGBO(
           widget.Bgcolor[0], widget.Bgcolor[1], widget.Bgcolor[2], 1),
       body: SingleChildScrollView(
