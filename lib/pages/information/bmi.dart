@@ -498,8 +498,8 @@ class _BMIState extends State<BMI> {
                 onPressed: () {
                   widget.user.bmi =
                       calculateBMI(widget.user.weight, widget.user.height);
-                  widget.user.bmr =
-                      calculateBMR(widget.user.bmi, widget.user.activityLevel);
+                  widget.user.bmr = calculateBMR(widget.user.bmi,
+                      widget.user.activityLevel, widget.user.weight);
                   setState(() {
                     Navigator.push(
                         context,
@@ -529,12 +529,19 @@ double calculateBMI(double weight, double height) {
   return bmi;
 }
 
-double calculateBMR(double bmi, int activityLevel) {
-  if (activityLevel == 1) {
-    return bmi * 1 * 30;
-  } else if (activityLevel == 2) {
-    return bmi * 1.3 * 30;
+double calculateBMR(double bmi, int activityLevel, double weight) {
+  double baseBmr;
+  if (bmi <= 22.9) {
+    baseBmr = weight * 30;
   } else {
-    return bmi * 1.5 * 30;
+    baseBmr = weight * 25;
+  }
+
+  if (activityLevel == 1) {
+    return baseBmr * 1;
+  } else if (activityLevel == 2) {
+    return baseBmr * 1.3;
+  } else {
+    return baseBmr * 1.5;
   }
 }
