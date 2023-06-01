@@ -37,9 +37,11 @@ class _RealAllFoodPageState extends State<RealAllFoodPage> {
             carbo: element[14],
             nutrition: element[10],
             // ignore: prefer_interpolation_to_compose_strings
-            realImageAssetPath: "assets/images/RealFruit/" + element[4]),
+            realImageAssetPath: "assets/images/Real$type/" + element[4]),
         // ignore: prefer_interpolation_to_compose_strings
-        imageAssetPath: "assets/images/Fruit/" + element[2],
+        imageAssetPath:
+            "assets/images/${type == 'Fruit' ? 'Fruit' : 'RiceFlour'}/" +
+                element[2],
       ));
     }
     List<List<Food>> dataIndex = [];
