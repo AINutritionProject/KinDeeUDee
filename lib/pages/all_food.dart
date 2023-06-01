@@ -26,7 +26,7 @@ class _RealAllFoodPageState extends State<RealAllFoodPage> {
         name: element[1],
         type: element[11],
         detail: FoodNutritionDetail(
-            name: element[3],
+            name: element[3].replaceAll("_", ","),
             giIndex: element[5],
             benefit: element[9],
             power: element[6],
