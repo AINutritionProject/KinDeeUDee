@@ -186,7 +186,7 @@ class FoodDetailPage extends StatelessWidget {
                       sugar: detail.sugar),
                 ),
                 BenefitDetailContainer(textBenefitDetail: detail.benefit),
-                const ClickHereContainer(),
+                ClickHereContainer(foodDetail: detail),
               ],
             ),
           ),

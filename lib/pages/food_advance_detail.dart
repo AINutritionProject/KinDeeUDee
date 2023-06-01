@@ -2,8 +2,9 @@ import 'package:appfood2/pages/food_detailed.dart';
 import 'package:flutter/material.dart';
 
 class FoodAdvanceDetailPage extends StatelessWidget {
-  const FoodAdvanceDetailPage({super.key, required this.name});
-
+  const FoodAdvanceDetailPage(
+      {super.key, required this.name, required this.foodDetail});
+  final FoodNutritionDetail foodDetail;
   final String name;
 
   @override

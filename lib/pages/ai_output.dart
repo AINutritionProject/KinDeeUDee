@@ -31,7 +31,7 @@ class AIOutputPage extends StatelessWidget {
                 colorBox: const Color.fromRGBO(175, 255, 207, 1),
               ),
               Padding(
-                padding: EdgeInsets.fromLTRB(0, 10, 0, 0),
+                padding: const EdgeInsets.fromLTRB(0, 10, 0, 0),
                 child: ChemicalDetail(
                     power: food.detail.power,
                     fiber: food.detail.fiber,
@@ -41,7 +41,7 @@ class AIOutputPage extends StatelessWidget {
               const PartOfObject(),
               const SugestBox(),
               BenefitDetailContainer(textBenefitDetail: food.detail.benefit),
-              const ClickHereContainer(),
+              ClickHereContainer(foodDetail: food.detail),
             ],
           ),
         ),
@@ -278,9 +278,8 @@ class TitleHeaderBox extends StatelessWidget {
 }
 
 class ClickHereContainer extends StatelessWidget {
-  const ClickHereContainer({
-    super.key,
-  });
+  const ClickHereContainer({super.key, required this.foodDetail});
+  final FoodNutritionDetail foodDetail;
 
   @override
   Widget build(BuildContext context) {
@@ -299,8 +298,9 @@ class ClickHereContainer extends StatelessWidget {
             GestureDetector(
               onTap: () {
                 Navigator.of(context).push(MaterialPageRoute(
-                    builder: (context) => const FoodAdvanceDetailPage(
+                    builder: (context) => FoodAdvanceDetailPage(
                           name: 'eie',
+                          foodDetail: foodDetail,
                         )));
               },
               child: const Text(
