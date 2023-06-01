@@ -16,9 +16,9 @@ class SaveDataSuccessPage extends StatelessWidget {
         body: SafeArea(
             child: FutureBuilder(
                 future: updateDoc(user),
-                builder:
-                    (BuildContext context, AsyncSnapshot<dynamic> snapshot) {
+                builder: (BuildContext context, AsyncSnapshot<bool> snapshot) {
                   if (snapshot.hasData) {
+                    print(snapshot.data);
                     if (snapshot.data == true) {
                       return Column(
                         children: [
