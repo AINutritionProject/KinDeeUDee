@@ -9,6 +9,7 @@ Future<User> getUser() async {
       .get();
   final doc = userData.docs.first;
   return User(
+    docID: doc.id,
     uid: doc.get("uid"),
     email: doc.get("email"),
     username: doc.get("username"),
@@ -16,8 +17,9 @@ Future<User> getUser() async {
   );
 }
 
-Future<dynamic> updateDoc(String uid, User user) async {
-  final userRef = FirebaseFirestore.instance.collection("users").doc(uid);
+Future<dynamic> updateDoc(User user) async {
+  final userRef =
+      FirebaseFirestore.instance.collection("users").doc(user.docID);
   final userData = user.toMap();
   userRef.set(userData).then((value) {
     print("DocumentSnapshot successfully updated!");
@@ -29,6 +31,7 @@ Future<dynamic> updateDoc(String uid, User user) async {
 }
 
 class User {
+  final String docID;
   final String uid;
   final String email;
   final bool hasData;
@@ -53,6 +56,7 @@ class User {
   double bmr;
 
   User({
+    required this.docID,
     required this.uid,
     required this.email,
     required this.username,
