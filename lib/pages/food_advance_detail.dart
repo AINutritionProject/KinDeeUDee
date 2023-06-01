@@ -44,16 +44,16 @@ class FoodAdvanceDetailPage extends StatelessWidget {
                 ),
               ),
             ),
-            const BoxNutritionDetail(
-              textDetailLeft: 'พลังงาน\n111\nกิโลแคลอรี่',
-              textDetailRight: 'โปรตีน\n111\nกรัม',
+            BoxNutritionDetail(
+              textDetailLeft: "พลังงาน\n${foodDetail.power}\nกิโลแคลอรี่",
+              textDetailRight: 'โปรตีน\n${foodDetail.protein}\nกรัม',
             ),
-            const BoxNutritionDetail(
-                textDetailLeft: 'ไขมัน\n111\nกรัม',
-                textDetailRight: 'คาร์โบไฮเดรต\n111\nกรัม'),
-            const BoxNutritionDetail(
-                textDetailLeft: 'ใยอาหาร\n111\nกรัม',
-                textDetailRight: 'น้ำตาล\n111\nกรัม'),
+            BoxNutritionDetail(
+                textDetailLeft: 'ไขมัน\n${foodDetail.fat}\nกรัม',
+                textDetailRight: 'คาร์โบไฮเดรต\n${foodDetail.carbo}\nกรัม'),
+            BoxNutritionDetail(
+                textDetailLeft: 'ใยอาหาร\n${foodDetail.fiber}\nกรัม',
+                textDetailRight: 'น้ำตาล\n${foodDetail.sugar}\nกรัม'),
             SizedBox(
               width: MediaQuery.of(context).size.width,
               height: 100,
