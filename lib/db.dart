@@ -16,7 +16,7 @@ Future<User> getUser() async {
   );
 }
 
-Future<void> updateDoc(String uid, User user) async {
+Future<dynamic> updateDoc(String uid, User user) async {
   final userData = {
     'hasData': true,
     'fullname': user.fullname,
@@ -39,9 +39,13 @@ Future<void> updateDoc(String uid, User user) async {
     'bmr': user.bmr,
   };
   final userRef = FirebaseFirestore.instance.collection("users").doc(uid);
-  userRef.update(userData).then(
-      (value) => print("DocumentSnapshot successfully updated!"),
-      onError: (e) => print("Error updating document $e"));
+  userRef.update(userData).then((value) {
+    print("DocumentSnapshot successfully updated!");
+    return null;
+  }, onError: (e) {
+    print("Error updating document $e");
+    return e;
+  });
 }
 
 class User {
