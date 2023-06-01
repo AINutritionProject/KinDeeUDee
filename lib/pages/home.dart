@@ -331,7 +331,7 @@ class _UserAvatarState extends State<UserAvatar> {
                   backgroundColor: Colors.white,
                   foregroundImage: NetworkImage(FirebaseAuth
                           .instance.currentUser?.photoURL ??
-                      "https://avatars.githubusercontent.com/u/124413969?v=4"),
+                      "https://sp-ao.shortpixel.ai/client/to_auto,q_lossy,ret_img,w_1539,h_1069/https://h-o-m-e.org/wp-content/uploads/2022/04/Blank-Profile-Picture-1.jpg"),
                   radius: 60,
                 ),
               ),
