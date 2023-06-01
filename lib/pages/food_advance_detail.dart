@@ -23,9 +23,10 @@ class FoodAdvanceDetailPage extends StatelessWidget {
                     color: Colors.white,
                     borderRadius: BorderRadius.circular(50)),
                 constraints: const BoxConstraints(minWidth: 100, minHeight: 50),
-                child: const Text(
-                  'กล้วยไข่,สุก',
-                  style: TextStyle(fontSize: 28, fontWeight: FontWeight.bold),
+                child: Text(
+                  foodDetail.name,
+                  style: const TextStyle(
+                      fontSize: 28, fontWeight: FontWeight.bold),
                 ),
               ),
             ),
