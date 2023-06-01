@@ -472,6 +472,9 @@ class _ActivityFormBodyState extends State<ActivityFormBody> {
                       ))),
                   onPressed: () {
                     setState(() {
+                      widget.user.extraLightActivities = [];
+                      widget.user.lightActivities = [];
+                      widget.user.mediumActivities = [];
                       for (var element in extraLightActivities) {
                         if (element.activityName != "") {
                           widget.user.extraLightActivities!.add(element);
