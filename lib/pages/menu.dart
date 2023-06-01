@@ -55,6 +55,7 @@ class MenuPage extends StatelessWidget {
             )
           ],
         ),
+        backgroundColor: const Color.fromRGBO(234, 255, 241, 1),
         body: SingleChildScrollView(
           child: Container(
             width: MediaQuery.of(context).size.width,
@@ -64,8 +65,8 @@ class MenuPage extends StatelessWidget {
                 Row(
                   children: [
                     Padding(
-                        padding:
-                            const EdgeInsets.only(left: 30, top: 10, bottom: 24),
+                        padding: const EdgeInsets.only(
+                            left: 30, top: 10, bottom: 24),
                         child: GestureDetector(
                           onTap: () {
                             Navigator.pop(context);
@@ -180,14 +181,14 @@ class _TextFieldExampleState extends State<TextFieldExample> {
   }
 
   Future<List<Food>> getFoodByTypeFromCSV() async {
-    final rawData = await rootBundle.loadString("assets/fruit_detailed.csv");
+    final rawData = await rootBundle.loadString("assets/allfood.csv");
     List<List<dynamic>> dataAsList =
         const CsvToListConverter().convert(rawData);
     List<Food> foodList = [];
     for (var element in dataAsList) {
       foodList.add(Food(
         name: element[1],
-        type: "YAY!",
+        type: element[11],
         detail: FoodNutritionDetail(
             name: element[3],
             giIndex: element[5],
@@ -195,6 +196,10 @@ class _TextFieldExampleState extends State<TextFieldExample> {
             power: element[6],
             sugar: element[8],
             fiber: element[7],
+            nutrition: element[10],
+            protein: element[12],
+            fat: element[13],
+            carbo: element[14],
             // ignore: prefer_interpolation_to_compose_strings
             realImageAssetPath: "assets/images/RealFruit/" + element[4]),
         // ignore: prefer_interpolation_to_compose_strings

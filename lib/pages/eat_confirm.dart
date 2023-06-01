@@ -1,4 +1,6 @@
 import 'dart:io';
+import 'package:appfood2/pages/all_food.dart';
+import 'package:appfood2/pages/food_detailed.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:appfood2/pages/ai_output.dart';
@@ -23,9 +25,9 @@ class EatConfirmPage extends StatelessWidget {
     await FirebaseFirestore.instance.collection("eatHistory").add({
       "uid": uid,
       "timestamp": nowTimestamp,
-      "foodName": name ?? "yee",
-      "quantity": quantity ?? 999,
-      "unit": unit ?? "หิโมะ",
+      "foodName": name ?? "ไม่มีชื่อ",
+      "quantity": quantity ?? 0,
+      "unit": unit ?? "ไร้หน่วย",
       "foodPhoto": downloadUrl,
     });
   }
@@ -61,8 +63,28 @@ class EatConfirmPage extends StatelessWidget {
                 onPressed: () async {
                   await _saveEatHistory();
                   // ignore: use_build_context_synchronously
+
+                  const Food resultFood = Food(
+                      name: "test",
+                      type: "Fruit",
+                      imageAssetPath: "",
+                      detail: FoodNutritionDetail(
+                          name: "test test",
+                          giIndex: 45.1,
+                          benefit: "Nice it is very nice",
+                          power: 333,
+                          fiber: 333,
+                          sugar: 333,
+                          protein: 333,
+                          fat: 333,
+                          carbo: 333,
+                          nutrition: "test 1 grams"));
+
                   Navigator.of(context).pushReplacement(MaterialPageRoute(
-                      builder: (context) => AIOutputPage(foodImage: image)));
+                      builder: (context) => AIOutputPage(
+                            foodImage: image,
+                            food: resultFood,
+                          )));
                 },
                 style: ElevatedButton.styleFrom(
                   backgroundColor: const Color.fromRGBO(177, 254, 150, 1),

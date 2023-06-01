@@ -45,57 +45,6 @@ class FoodDetailPage extends StatelessWidget {
     }
   }
 
-//detail.realImageAssetPath ?? "assets/cameraFrame.png",
-/*
-ClipRRect(
-            borderRadius: BorderRadius.circular(20),
-            child: SizedBox.fromSize(
-              size: const Size.fromRadius(48 * 3),
-              child: Image.asset(
-                detail.realImageAssetPath ?? "assets/cameraFrame.png",
-                fit: BoxFit.cover,
-              ),
-            ),
-          ),
-
-
-
-
-
-
-class SmileFace extends StatelessWidget {
-  const SmileFace({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return Stack(
-      children: [
-        Container(
-          decoration: const BoxDecoration(
-            color: Colors.white,
-            shape: BoxShape.circle,
-          ),
-          child: const FaIcon(
-            FontAwesomeIcons.faceSmile,
-            color: Colors.black,
-            size: 50,
-          ),
-        ),
-        Container(
-          decoration: BoxDecoration(
-            border: Border.all(color: const Color(0xFFFFD703), width: 5),
-            shape: BoxShape.circle,
-          ),
-          width: 50,
-          height: 50,
-        )
-      ],
-    );
-  }
-}
-
-          
-*/
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -236,11 +185,8 @@ class SmileFace extends StatelessWidget {
                       fiber: detail.fiber,
                       sugar: detail.sugar),
                 ),
-                const BenefitDetailContainer(
-                  textBenefitDetail:
-                      "ช่วยป้องกันการเกิดโรคหลอดเลือดหัวใจ\nช่วยให้ผนังหลอดเลือดแข็งแรง\nป้องกันการเกิดโรคต้อกระจก\nลดกรดในกระเพาะอาหาร ช่วยละลายเสมหะ\nลดความดันโลหิต ช่วยบำรุงหัวใจ",
-                ),
-                const ClickHereContainer(),
+                BenefitDetailContainer(textBenefitDetail: detail.benefit),
+                ClickHereContainer(foodDetail: detail),
               ],
             ),
           ),
@@ -249,33 +195,6 @@ class SmileFace extends StatelessWidget {
     );
   }
 }
-
-/*
-Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: const Color.fromRGBO(233, 255, 223, 1),
-      appBar: AppBar(title: const Text("AI Output Page")),
-      body: const SingleChildScrollView(
-        child: Center(
-          child: Column(
-            children: [
-              TitleHeaderBox(textTitle: 'แอปเปิ้ลแดงฟูจิ',),
-              ImageContainer(pathImage: "assets/images/RealFruit/10.jpg",),
-              TextDataNutrition(),
-              AmountDetailObject(textAmountOfObj: 'แอปเปิ้ล\n 1 ส่วน 120 กรัม',),
-              Padding(
-                padding: EdgeInsets.fromLTRB(0, 10, 0, 0),
-                child: ChemicalDetail(power: 24, fiber: 30, sugar: 34),
-              ),
-              BenefitDetailContainer(textBenefitDetail: "ช่วยป้องกันการเกิดโรคหลอดเลือดหัวใจ\nช่วยให้ผนังหลอดเลือดแข็งแรง\nป้องกันการเกิดโรคต้อกระจก\nลดกรดในกระเพาะอาหาร ช่วยละลายเสมหะ\nลดความดันโลหิต ช่วยบำรุงหัวใจ",),
-              ClickHereContainer(),
-            ],
-          ),
-        ),
-      ),
-    );
-  }
-*/
 
 class ChemicalDetail extends StatelessWidget {
   const ChemicalDetail({
@@ -398,7 +317,11 @@ class FoodNutritionDetail {
       required this.benefit,
       required this.power,
       required this.fiber,
-      required this.sugar});
+      required this.sugar,
+      required this.protein,
+      required this.fat,
+      required this.carbo,
+      required this.nutrition});
   final String name;
   final String? realImageAssetPath;
   final num giIndex;
@@ -406,6 +329,10 @@ class FoodNutritionDetail {
   final num power;
   final num fiber;
   final num sugar;
+  final num protein;
+  final num fat;
+  final num carbo;
+  final String nutrition;
 }
 
 class SmileFace extends StatelessWidget {

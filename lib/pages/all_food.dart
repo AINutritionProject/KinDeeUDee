@@ -14,15 +14,17 @@ class RealAllFoodPage extends StatefulWidget {
 
 class _RealAllFoodPageState extends State<RealAllFoodPage> {
   Future<List<List<Food>>> getFoodByTypeFromCSV(String type) async {
-    final rawData = await rootBundle.loadString(
-        "assets/${widget.type == 'Fruit' ? 'fruit' : 'flour'}_detailed.csv");
+    final rawData = await rootBundle.loadString("assets/allfood.csv");
     List<List<dynamic>> dataAsList =
         const CsvToListConverter().convert(rawData);
     List<Food> foodList = [];
     for (var element in dataAsList) {
+      if (element[11] != type) {
+        continue;
+      }
       foodList.add(Food(
         name: element[1],
-        type: type,
+        type: element[11],
         detail: FoodNutritionDetail(
             name: element[3],
             giIndex: element[5],
@@ -30,6 +32,10 @@ class _RealAllFoodPageState extends State<RealAllFoodPage> {
             power: element[6],
             sugar: element[8],
             fiber: element[7],
+            protein: element[12],
+            fat: element[13],
+            carbo: element[14],
+            nutrition: element[10],
             // ignore: prefer_interpolation_to_compose_strings
             realImageAssetPath: "assets/images/RealFruit/" + element[4]),
         // ignore: prefer_interpolation_to_compose_strings

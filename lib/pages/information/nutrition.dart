@@ -1,8 +1,13 @@
 import 'package:appfood2/pages/information/save_data_success.dart';
 import 'package:flutter/material.dart';
+import 'package:appfood2/db.dart';
 
 class Nutrition extends StatelessWidget {
-  const Nutrition({super.key});
+  final User user;
+  const Nutrition({
+    super.key,
+    required this.user,
+  });
 
   static const List dataInSection = [
     {
@@ -91,7 +96,7 @@ class Nutrition extends StatelessWidget {
             itemCount: dataInSection.length + 2,
             itemBuilder: (context, index) {
               if (index == dataInSection.length + 1) {
-                return const ButtonSave();
+                return ButtonSave(user: user);
               } else if (index == 0) {
                 return const ContainerHeader(
                   calAmount: 1800,
@@ -113,8 +118,10 @@ class Nutrition extends StatelessWidget {
 }
 
 class ButtonSave extends StatelessWidget {
+  final User user;
   const ButtonSave({
     super.key,
+    required this.user,
   });
 
   @override

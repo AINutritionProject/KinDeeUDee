@@ -1,8 +1,6 @@
 import 'package:appfood2/db.dart';
 import 'package:flutter/material.dart';
 import 'package:appfood2/pages/information/personal_information.dart';
-import 'package:appfood2/pages/information/milk.dart';
-import 'package:appfood2/pages/information/bmi.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
 import 'package:appfood2/pages/information/save_data_success.dart';
 
@@ -15,34 +13,6 @@ class InformationPage extends StatelessWidget {
       resizeToAvoidBottomInset: true,
       appBar: AppBar(
         title: const Text("InformationPage"),
-        actions: [
-          IconButton(
-            onPressed: () {
-              Navigator.of(context).push(
-                MaterialPageRoute(
-                  builder: (context) => const SaveDataSuccessPage(),
-                ),
-              );
-            },
-            icon: const Icon(Icons.save),
-          ),
-          IconButton(
-            onPressed: () {
-              Navigator.of(context).push(
-                MaterialPageRoute(
-                  builder: (context) => const MilkPage(),
-                ),
-              );
-            },
-            icon: const Icon(Icons.ten_k),
-          ),
-          IconButton(
-              onPressed: () {
-                Navigator.of(context).push(
-                    MaterialPageRoute(builder: (context) => const BMIPage()));
-              },
-              icon: const Icon(Icons.light_sharp))
-        ],
       ),
       body: Center(
         child: FutureBuilder(
