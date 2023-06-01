@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:appfood2/pages/home.dart';
 import 'package:appfood2/db.dart';
+import 'package:loading_animation_widget/loading_animation_widget.dart';
 
 class SaveDataSuccessPage extends StatelessWidget {
   final User user;
@@ -18,7 +19,6 @@ class SaveDataSuccessPage extends StatelessWidget {
                 future: updateDoc(user),
                 builder: (BuildContext context, AsyncSnapshot<bool> snapshot) {
                   if (snapshot.hasData) {
-                    print(snapshot.data);
                     if (snapshot.data == true) {
                       return Column(
                         children: [
@@ -93,7 +93,10 @@ class SaveDataSuccessPage extends StatelessWidget {
                       return const Text("Save to Firestore failed");
                     }
                   } else {
-                    return const Text("loading");
+                    return Center(
+                      child: LoadingAnimationWidget.prograssiveDots(
+                          color: Colors.black, size: 150),
+                    );
                   }
                 })));
   }
