@@ -17,28 +17,8 @@ Future<User> getUser() async {
 }
 
 Future<dynamic> updateDoc(String uid, User user) async {
-  final userData = {
-    'hasData': true,
-    'fullname': user.fullname,
-    'gender': user.gender,
-    'age': user.age,
-    'weight': user.weight,
-    'height': user.height,
-    'career': user.career,
-    'chronicDisease': user.chronicDisease,
-    'foodAllergy': user.foodAllergy,
-    if (user.extraLightActivities != null)
-      'extraLightActivities': user.extraLightActivities,
-    if (user.lightActivities != null) 'lightActivities': user.lightActivities,
-    if (user.mediumActivities != null)
-      'mediumActivities': user.mediumActivities,
-    'activityLevel': user.activityLevel,
-    'milkGlass': user.milkGlass,
-    'milkProduct': user.milkProduct,
-    'bmi': user.bmi,
-    'bmr': user.bmr,
-  };
   final userRef = FirebaseFirestore.instance.collection("users").doc(uid);
+  final userData = user.toMap();
   userRef.update(userData).then((value) {
     print("DocumentSnapshot successfully updated!");
     return null;
@@ -95,6 +75,33 @@ class User {
     this.bmi = 0,
     this.bmr = 0,
   });
+
+  Map<String, dynamic> toMap() {
+    return {
+      'hasData': true,
+      'fullname': fullname,
+      'gender': gender,
+      'age': age,
+      'weight': weight,
+      'height': height,
+      'career': career,
+      'chronicDisease': chronicDisease,
+      'foodAllergy': foodAllergy,
+      if (extraLightActivities != null)
+        'extraLightActivities': extraLightActivities!.map((e) => e.toMap()),
+      if (lightActivities != null)
+        'lightActivities': lightActivities!.map((e) => e.toMap()),
+      if (mediumActivities != null)
+        'mediumActivities': mediumActivities!.map((e) => e.toMap()),
+      if (customActivities != null)
+        'customActivities': customActivities!.map((e) => e.toMap()),
+      'activityLevel': activityLevel,
+      'milkGlass': milkGlass,
+      'milkProduct': milkProduct,
+      'bmi': bmi,
+      'bmr': bmr,
+    };
+  }
 }
 
 class UserActivity {
@@ -105,4 +112,11 @@ class UserActivity {
     this.activityName = "",
     this.frequency = 0,
   });
+
+  Map<String, dynamic> toMap() {
+    return {
+      'activityName': activityName,
+      'frequency': frequency,
+    };
+  }
 }
