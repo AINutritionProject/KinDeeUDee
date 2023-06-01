@@ -17,17 +17,18 @@ Future<User> getUser() async {
   );
 }
 
-Future<dynamic> updateDoc(User user) async {
+Future<bool> updateDoc(User user) async {
   final userRef =
       FirebaseFirestore.instance.collection("users").doc(user.docID);
   final userData = user.toMap();
-  userRef.set(userData).then((value) {
+  userRef.update(userData).then((value) {
     print("DocumentSnapshot successfully updated!");
-    return null;
+    return true;
   }, onError: (e) {
     print("Error updating document $e");
-    return e;
+    return false;
   });
+  return false;
 }
 
 class User {
