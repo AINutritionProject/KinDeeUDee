@@ -19,28 +19,28 @@ class AIOutputPage extends StatelessWidget {
         child: Center(
           child: Column(
             children: [
-              const TitleHeaderBox(
-                textTitle: 'แอปเปิ้ลแดงฟูจิ',
+              TitleHeaderBox(
+                textTitle: food.detail.name,
               ),
-              const ImageContainer(
-                pathImage: "assets/images/RealFruit/10.jpg",
+              ImageContainer(
+                pathImage: food.detail.realImageAssetPath ?? "t",
               ),
               const TextDataNutrition(),
-              const AmountDetailObject(
-                textAmountOfObj: 'แอปเปิ้ล\n 1 ส่วน 120 กรัม',
-                colorBox: Color.fromRGBO(175, 255, 207, 1),
+              AmountDetailObject(
+                textAmountOfObj: food.detail.nutrition,
+                colorBox: const Color.fromRGBO(175, 255, 207, 1),
               ),
-              const Padding(
+              Padding(
                 padding: EdgeInsets.fromLTRB(0, 10, 0, 0),
-                child: ChemicalDetail(power: 24, fiber: 30, sugar: 34),
+                child: ChemicalDetail(
+                    power: food.detail.power,
+                    fiber: food.detail.fiber,
+                    sugar: food.detail.sugar),
               ),
               AmountObjectofUser(foodImage: foodImage),
               const PartOfObject(),
               const SugestBox(),
-              const BenefitDetailContainer(
-                textBenefitDetail:
-                    "ช่วยป้องกันการเกิดโรคหลอดเลือดหัวใจ\nช่วยให้ผนังหลอดเลือดแข็งแรง\nป้องกันการเกิดโรคต้อกระจก\nลดกรดในกระเพาะอาหาร ช่วยละลายเสมหะ\nลดความดันโลหิต ช่วยบำรุงหัวใจ",
-              ),
+              BenefitDetailContainer(textBenefitDetail: food.detail.benefit),
               const ClickHereContainer(),
             ],
           ),
@@ -78,7 +78,7 @@ class PartOfObject extends StatelessWidget {
                 child: ClipRRect(
                   borderRadius: BorderRadius.circular(20),
                   child: Image.asset(
-                    'assets/images/RealFruit/10.jpg',
+                    't1',
                     width: 120,
                     height: 130,
                     fit: BoxFit.cover,
@@ -89,7 +89,7 @@ class PartOfObject extends StatelessWidget {
                 child: ClipRRect(
                   borderRadius: BorderRadius.circular(20),
                   child: Image.asset(
-                    'assets/images/RealFruit/10.jpg',
+                    't2',
                     width: 120,
                     height: 130,
                     fit: BoxFit.cover,
