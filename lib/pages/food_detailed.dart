@@ -55,8 +55,7 @@ class FoodDetailPage extends StatelessWidget {
             child: Column(
               children: [
                 Padding(
-                  padding: EdgeInsets.only(
-                      bottom: ((detail.name).length > 16) ? 78 : 43),
+                  padding: const EdgeInsets.only(bottom: 43),
                   child: Stack(
                     alignment: Alignment.bottomCenter,
                     children: [
@@ -144,7 +143,7 @@ class FoodDetailPage extends StatelessWidget {
                         ),
                       ),
                       Container(
-                        padding: const EdgeInsets.symmetric(horizontal: 5),
+                        padding: const EdgeInsets.symmetric(horizontal: 10),
                         width: 268,
                         alignment: Alignment.center,
                         height: ((detail.name).length > 16) ? 111 : 76,
