@@ -55,17 +55,19 @@ class FoodDetailPage extends StatelessWidget {
             child: Column(
               children: [
                 Padding(
-                  padding: const EdgeInsets.only(bottom: 43),
+                  padding: EdgeInsets.only(
+                      bottom: ((detail.name).length > 16) ? 78 : 43),
                   child: Stack(
                     alignment: Alignment.bottomCenter,
                     children: [
                       Container(
                         width: double.infinity,
-                        height: 158,
+                        height: ((detail.name).length > 16) ? 193 : 158,
                         color: _getGIColor(detail.giIndex),
                       ),
                       Padding(
-                        padding: const EdgeInsets.only(bottom: 38),
+                        padding: EdgeInsets.only(
+                            bottom: ((detail.name).length > 16) ? 73 : 38),
                         child: Container(
                           width: double.infinity,
                           height: 120,
@@ -73,8 +75,10 @@ class FoodDetailPage extends StatelessWidget {
                         ),
                       ),
                       Padding(
-                        padding: const EdgeInsets.only(
-                            bottom: 85, left: 20, right: 20),
+                        padding: EdgeInsets.only(
+                            bottom: ((detail.name).length > 16) ? 120 : 85,
+                            left: 20,
+                            right: 20),
                         child: Row(
                           children: [
                             Expanded(
@@ -82,7 +86,7 @@ class FoodDetailPage extends StatelessWidget {
                               child: Row(
                                 mainAxisAlignment: MainAxisAlignment.start,
                                 children: [
-                                  Container(
+                                  SizedBox(
                                     width: 48,
                                     height: 48,
                                     child: FloatingActionButton(
@@ -142,20 +146,22 @@ class FoodDetailPage extends StatelessWidget {
                       Padding(
                         padding: const EdgeInsets.only(left: 54, right: 54),
                         child: Container(
-                          padding: const EdgeInsets.symmetric(
-                              horizontal: 10, vertical: 5),
+                          padding: const EdgeInsets.symmetric(horizontal: 10),
                           alignment: Alignment.center,
+                          height: ((detail.name).length > 16) ? 111 : 76,
                           decoration: const BoxDecoration(
                             borderRadius: BorderRadius.all(
                               Radius.circular(50),
                             ),
                             color: Colors.white,
                           ),
-                          child: Text(detail.name,
-                              style: const TextStyle(
-                                  fontSize: 30, fontWeight: FontWeight.w700),
-                              overflow: TextOverflow.visible,
-                              textAlign: TextAlign.center),
+                          child: Text(
+                            detail.name,
+                            style: const TextStyle(
+                                fontSize: 30, fontWeight: FontWeight.w700),
+                            overflow: TextOverflow.visible,
+                            textAlign: TextAlign.center,
+                          ),
                         ),
                       ),
                     ],
