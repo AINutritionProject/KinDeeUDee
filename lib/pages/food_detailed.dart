@@ -146,7 +146,7 @@ class FoodDetailPage extends StatelessWidget {
                       Padding(
                         padding: const EdgeInsets.only(left: 54, right: 54),
                         child: Container(
-                          padding: const EdgeInsets.symmetric(horizontal: 10),
+                          width: 268,
                           alignment: Alignment.center,
                           height: ((detail.name).length > 16) ? 111 : 76,
                           decoration: const BoxDecoration(
