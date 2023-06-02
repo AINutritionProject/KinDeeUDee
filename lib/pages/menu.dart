@@ -271,16 +271,23 @@ class _TextFieldExampleState extends State<TextFieldExample> {
           ),
         ),
         (_active)
-            ? Container(
-                height: 640,
-                child: GridView.count(
-                  crossAxisCount: 2,
-                  children: foodQuery
-                      .map((food) => Expanded(
-                            child: FoodIcons(food: food),
-                          ))
-                      .toList(),
-                ))
+            ? Padding(
+                padding: const EdgeInsets.only(top: 15),
+                child: SizedBox(
+                    height: 640,
+                    child: GridView.count(
+                      crossAxisCount: 2,
+                      children: foodQuery
+                          .map((food) => Expanded(
+                                child: Padding(
+                                  padding: const EdgeInsets.only(
+                                      left: 15, right: 15),
+                                  child: FoodIcons(food: food),
+                                ),
+                              ))
+                          .toList(),
+                    )),
+              )
             : Padding(
                 padding: const EdgeInsets.all(8.0),
                 child: SizedBox(
