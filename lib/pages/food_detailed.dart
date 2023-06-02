@@ -143,25 +143,23 @@ class FoodDetailPage extends StatelessWidget {
                           ],
                         ),
                       ),
-                      Padding(
-                        padding: const EdgeInsets.only(left: 54, right: 54),
-                        child: Container(
-                          width: 268,
-                          alignment: Alignment.center,
-                          height: ((detail.name).length > 16) ? 111 : 76,
-                          decoration: const BoxDecoration(
-                            borderRadius: BorderRadius.all(
-                              Radius.circular(50),
-                            ),
-                            color: Colors.white,
+                      Container(
+                        padding: const EdgeInsets.symmetric(horizontal: 5),
+                        width: 268,
+                        alignment: Alignment.center,
+                        height: ((detail.name).length > 16) ? 111 : 76,
+                        decoration: const BoxDecoration(
+                          borderRadius: BorderRadius.all(
+                            Radius.circular(50),
                           ),
-                          child: Text(
-                            detail.name,
-                            style: const TextStyle(
-                                fontSize: 30, fontWeight: FontWeight.w700),
-                            overflow: TextOverflow.visible,
-                            textAlign: TextAlign.center,
-                          ),
+                          color: Colors.white,
+                        ),
+                        child: Text(
+                          detail.name,
+                          style: const TextStyle(
+                              fontSize: 30, fontWeight: FontWeight.w700),
+                          overflow: TextOverflow.visible,
+                          textAlign: TextAlign.center,
                         ),
                       ),
                     ],
