@@ -182,7 +182,7 @@ class FoodDetailPage extends StatelessWidget {
                 ),
                 const TextDataNutrition(),
                 AmountDetailObject(
-                  textAmountOfObj: '${detail.name}\n 1 ส่วน 120 กรัม',
+                  textAmountOfObj: detail.nutrition,
                   colorBox: const Color.fromRGBO(255, 255, 255, 1),
                 ),
                 Padding(
