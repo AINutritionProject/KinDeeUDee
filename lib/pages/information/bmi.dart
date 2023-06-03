@@ -1,15 +1,15 @@
-import 'dart:ffi';
-
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:appfood2/auth.dart';
 import 'package:appfood2/pages/information/nutrition.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:appfood2/db.dart' as db;
 
 import '../register_success.dart';
 
 class BMI extends StatefulWidget {
+  final db.User user;
   final String username;
   // ignore: non_constant_identifier_names
   final double width_STbmi;
@@ -21,6 +21,7 @@ class BMI extends StatefulWidget {
   final List<int> Stcolor;
   const BMI({
     super.key,
+    required this.user,
     required this.username,
     // ignore: non_constant_identifier_names
     required this.Bgcolor,
@@ -37,7 +38,11 @@ class BMI extends StatefulWidget {
 }
 
 class BMIPage extends StatefulWidget {
-  const BMIPage({super.key});
+  final db.User user;
+  const BMIPage({
+    super.key,
+    required this.user,
+  });
 
   @override
   State<BMIPage> createState() => _BMIPageState();
@@ -46,7 +51,8 @@ class BMIPage extends StatefulWidget {
 class _BMIPageState extends State<BMIPage> {
   Future<Map<String, dynamic>> _checkIfUserHasData() async {
     final user = FirebaseAuth.instance.currentUser;
-    const valBMI = 33.5; // get from data base     (backend help me please)
+    double valBMI = calculateBMI(widget.user.weight,
+        widget.user.height); // get from data base     (backend help me please)
     // ignore: non_constant_identifier_names
     double width_STbmi = 200;
     // ignore: non_constant_identifier_names
@@ -119,17 +125,14 @@ class _BMIPageState extends State<BMIPage> {
     return FutureBuilder(
       builder: (context, snapshot) {
         if (snapshot.hasData) {
-          if (snapshot.data?['hasData'] == true) {
-            return BMI(
-              username: snapshot.data?['username'],
-              Bgcolor: snapshot.data?['Bgcolor'],
-              Statusbmi: snapshot.data?['Statusbmi'],
-              Stcolor: snapshot.data?['Stcolor'],
-              width_STbmi: snapshot.data?['width_STbmi'],
-            );
-          } else {
-            return const RegisterSuccesPage();
-          }
+          return BMI(
+            user: widget.user,
+            username: snapshot.data?['username'],
+            Bgcolor: snapshot.data?['Bgcolor'],
+            Statusbmi: snapshot.data?['Statusbmi'],
+            Stcolor: snapshot.data?['Stcolor'],
+            width_STbmi: snapshot.data?['width_STbmi'],
+          );
         } else {
           return const Center(
             child: CircularProgressIndicator(),
@@ -145,16 +148,6 @@ class _BMIState extends State<BMI> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text("BMI"),
-        actions: [
-          IconButton(
-              onPressed: () async {
-                await Auth().signOut();
-              },
-              icon: const Icon(Icons.tv))
-        ],
-      ),
       backgroundColor: Color.fromRGBO(
           widget.Bgcolor[0], widget.Bgcolor[1], widget.Bgcolor[2], 1),
       body: SingleChildScrollView(
@@ -279,7 +272,7 @@ class _BMIState extends State<BMI> {
               ),
             ),
             Padding(
-                padding: EdgeInsets.only(top: 30),
+                padding: const EdgeInsets.only(top: 30),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
@@ -480,7 +473,7 @@ class _BMIState extends State<BMI> {
               ),
             ),
             Padding(
-              padding: EdgeInsets.only(top: 160, bottom: 46),
+              padding: const EdgeInsets.only(top: 160, bottom: 46),
               child: ElevatedButton(
                 style: ButtonStyle(
                     backgroundColor:
@@ -489,10 +482,17 @@ class _BMIState extends State<BMI> {
                       borderRadius: BorderRadius.circular(30),
                     ))),
                 onPressed: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                        builder: (context) => const Nutrition()));
+                  widget.user.bmi =
+                      calculateBMI(widget.user.weight, widget.user.height);
+                  widget.user.bmr = calculateBMR(widget.user.bmi,
+                      widget.user.activityLevel, widget.user.weight);
+                  setState(() {
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) =>
+                                Nutrition(user: widget.user)));
+                  });
                 },
                 child: const Padding(
                   padding: EdgeInsets.symmetric(vertical: 3, horizontal: 15),
@@ -507,5 +507,27 @@ class _BMIState extends State<BMI> {
         ),
       ),
     );
+  }
+}
+
+double calculateBMI(double weight, double height) {
+  double bmi = weight / ((height / 100) * (height / 100));
+  return bmi;
+}
+
+double calculateBMR(double bmi, int activityLevel, double weight) {
+  double baseBmr;
+  if (bmi <= 22.9) {
+    baseBmr = weight * 30;
+  } else {
+    baseBmr = weight * 25;
+  }
+
+  if (activityLevel == 1) {
+    return baseBmr * 1;
+  } else if (activityLevel == 2) {
+    return baseBmr * 1.3;
+  } else {
+    return baseBmr * 1.5;
   }
 }

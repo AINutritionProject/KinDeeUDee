@@ -23,9 +23,9 @@ class EatConfirmPage extends StatelessWidget {
     await FirebaseFirestore.instance.collection("eatHistory").add({
       "uid": uid,
       "timestamp": nowTimestamp,
-      "foodName": name ?? "yee",
-      "quantity": quantity ?? 999,
-      "unit": unit ?? "หิโมะ",
+      "foodName": name ?? "ไม่มีชื่อ",
+      "quantity": quantity ?? 0,
+      "unit": unit ?? "ไร้หน่วย",
       "foodPhoto": downloadUrl,
     });
   }
@@ -44,9 +44,12 @@ class EatConfirmPage extends StatelessWidget {
               File(image!.path),
             ),
           ),
-          const Text(
-            "คุณต้องการรับประทาน\n        อาหารชนิดนี้",
-            style: TextStyle(fontSize: 30),
+          const Padding(
+            padding: EdgeInsets.only(top: 40),
+            child: Text(
+              "คุณต้องการรับประทาน\n        อาหารชนิดนี้?",
+              style: TextStyle(fontSize: 30),
+            ),
           ),
           const SizedBox(
             height: 30,
@@ -57,16 +60,45 @@ class EatConfirmPage extends StatelessWidget {
               ElevatedButton(
                 onPressed: () async {
                   await _saveEatHistory();
+                  // ignore: use_build_context_synchronously
                   Navigator.of(context).pushReplacement(MaterialPageRoute(
                       builder: (context) => AIOutputPage(foodImage: image)));
                 },
-                child: const Text("ใช่"),
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: const Color.fromRGBO(177, 254, 150, 1),
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(40),
+                  ),
+                ),
+                child: Container(
+                  alignment: Alignment.center,
+                  width: 70,
+                  height: 53,
+                  child: const Text(
+                    "ใช่",
+                    style: TextStyle(fontSize: 30, color: Colors.black),
+                  ),
+                ),
               ),
               ElevatedButton(
                 onPressed: () {
                   Navigator.of(context).pop();
                 },
-                child: const Text("ไม่"),
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: const Color.fromRGBO(250, 138, 138, 1),
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(40),
+                  ),
+                ),
+                child: Container(
+                  alignment: Alignment.center,
+                  width: 70,
+                  height: 53,
+                  child: const Text(
+                    "ไม่",
+                    style: TextStyle(fontSize: 30, color: Colors.black),
+                  ),
+                ),
               ),
             ],
           )

@@ -1,30 +1,24 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-
-List<String> activities = <String>[
-  "กัดหมา",
-  "ปั่นจักรยานละเอียด",
-  "จานล้างซันไลต์",
-  "คุณยายวิ่งราวฉกกระเป๋า",
-  "แอนติไวรัสสอนลงคนอินเดีย",
-];
+import 'package:appfood2/db.dart';
+import 'package:appfood2/pages/information/milk.dart';
 
 class ActivityResult extends StatelessWidget {
-  const ActivityResult({super.key});
-
+  final User user;
+  const ActivityResult({
+    super.key,
+    required this.user,
+  });
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       resizeToAvoidBottomInset: true,
-      appBar: AppBar(
-        title: const Text("ActivityResult"),
-      ),
       body: Center(
         child: Column(
           children: [
             const ActivityResultHeader(),
-            ActivityResultBody(),
-            const ActivityResultFooter(),
+            ActivityResultBody(user: user),
+            ActivityResultFooter(user: user),
           ],
         ),
       ),
@@ -32,19 +26,58 @@ class ActivityResult extends StatelessWidget {
   }
 }
 
-class ActivityResultBody extends StatelessWidget {
+class ActivityResultBody extends StatefulWidget {
+  final User user;
+
+  const ActivityResultBody({
+    super.key,
+    required this.user,
+  });
+
+  @override
+  State<ActivityResultBody> createState() => _ActivityResultBodyState();
+}
+
+class _ActivityResultBodyState extends State<ActivityResultBody> {
   final activitiesColor = <Color>[
     const Color(0xFFBAEBC8),
     const Color(0xFFDCFFD9)
   ];
+  List<String> activities = [];
+  int activityLevel = 1;
 
-  ActivityResultBody({super.key});
+  @override
+  void initState() {
+    for (var element in widget.user.extraLightActivities!) {
+      if (element.activityName != "") {
+        activities.add(element.activityName);
+        activityLevel = 1;
+      }
+    }
+    for (var element in widget.user.lightActivities!) {
+      if (element.activityName != "") {
+        activities.add(element.activityName);
+        activityLevel = 2;
+      }
+    }
+    for (var element in widget.user.mediumActivities!) {
+      if (element.activityName != "") {
+        activities.add(element.activityName);
+        activityLevel = 3;
+      }
+    }
+    for (var element in widget.user.customActivities!) {
+      activities.add(element.activityName);
+    }
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Expanded(
       flex: 3,
       child: Padding(
-        padding: const EdgeInsets.only(top: 20, left: 25, right: 25),
+        padding: const EdgeInsets.only(top: 40, left: 25, right: 25),
         child: Row(
           children: [
             Expanded(
@@ -59,7 +92,6 @@ class ActivityResultBody extends StatelessWidget {
                   SizedBox(
                     height: 220,
                     child: Scrollbar(
-                      thumbVisibility: true,
                       child: ListView.builder(
                         itemCount: activities.length,
                         itemBuilder: (BuildContext context, int index) {
@@ -96,10 +128,12 @@ class ActivityResultBody extends StatelessWidget {
                 ],
               ),
             ),
-            const Expanded(
+            Expanded(
               flex: 2,
               child: Center(
-                child: ResultBar(level: 2),
+                child: Builder(builder: (context) {
+                  return ResultBar(level: activityLevel);
+                }),
               ),
             )
           ],
@@ -110,7 +144,11 @@ class ActivityResultBody extends StatelessWidget {
 }
 
 class ActivityResultFooter extends StatefulWidget {
-  const ActivityResultFooter({super.key});
+  final User user;
+  const ActivityResultFooter({
+    super.key,
+    required this.user,
+  });
 
   @override
   State<ActivityResultFooter> createState() => _ActivityResultFooterState();
@@ -123,17 +161,20 @@ class ActivityResultHeader extends StatelessWidget {
   Widget build(BuildContext context) {
     return Expanded(
       flex: 1,
-      child: Center(
-        child: Container(
-          decoration: BoxDecoration(
-            color: const Color(0xFF1E807A),
-            borderRadius: BorderRadius.circular(30),
-          ),
-          child: const Padding(
-            padding: EdgeInsets.symmetric(horizontal: 20.0, vertical: 13),
-            child: Text(
-              "สรุปกิจกรรมประจำวัน",
-              style: TextStyle(fontSize: 25, color: Colors.white),
+      child: Padding(
+        padding: const EdgeInsets.only(top: 50.0),
+        child: Center(
+          child: Container(
+            decoration: BoxDecoration(
+              color: const Color(0xFF1E807A),
+              borderRadius: BorderRadius.circular(30),
+            ),
+            child: const Padding(
+              padding: EdgeInsets.symmetric(horizontal: 20.0, vertical: 13),
+              child: Text(
+                "สรุปกิจกรรมประจำวัน",
+                style: TextStyle(fontSize: 25, color: Colors.white),
+              ),
             ),
           ),
         ),
@@ -143,7 +184,7 @@ class ActivityResultHeader extends StatelessWidget {
 }
 
 class ResultBar extends StatelessWidget {
-  final int level;
+  final int level; // 1, 2, 3
   const ResultBar({
     super.key,
     required this.level,
@@ -154,6 +195,7 @@ class ResultBar extends StatelessWidget {
     return LayoutBuilder(
       builder: (BuildContext context, BoxConstraints constraints) {
         return Stack(
+          clipBehavior: Clip.none,
           alignment: Alignment.center,
           children: [
             Container(
@@ -173,7 +215,17 @@ class ResultBar extends StatelessWidget {
                 ),
               ),
             ),
-            const SmileFace(),
+            level == 2
+                ? const SmileFace()
+                : level == 1
+                    ? Positioned(
+                        bottom: MediaQuery.of(context).size.height * 0.05,
+                        child: const SmileFace(),
+                      )
+                    : Positioned(
+                        top: MediaQuery.of(context).size.height * 0.05,
+                        child: const SmileFace(),
+                      ),
           ],
         );
       },
@@ -288,7 +340,29 @@ class _ActivityResultFooterState extends State<ActivityResultFooter> {
                         const MaterialStatePropertyAll(Color(0xFF7ECCED)),
                     padding: const MaterialStatePropertyAll(
                         EdgeInsets.symmetric(horizontal: 20, vertical: 10))),
-                onPressed: () {},
+                onPressed: () {
+                  if (isChecked) {
+                    setState(() {
+                      for (var element in widget.user.extraLightActivities!) {
+                        if (element.activityName != "") {
+                          widget.user.activityLevel = 1;
+                        }
+                      }
+                      for (var element in widget.user.lightActivities!) {
+                        if (element.activityName != "") {
+                          widget.user.activityLevel = 2;
+                        }
+                      }
+                      for (var element in widget.user.mediumActivities!) {
+                        if (element.activityName != "") {
+                          widget.user.activityLevel = 3;
+                        }
+                      }
+                      Navigator.of(context).push(MaterialPageRoute(
+                          builder: (context) => MilkPage(user: widget.user)));
+                    });
+                  }
+                },
                 child: const Text(
                   "บันทึก",
                   style: TextStyle(fontSize: 28),

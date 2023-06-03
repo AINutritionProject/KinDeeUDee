@@ -1,144 +1,127 @@
+import 'package:appfood2/pages/information/save_data_success.dart';
 import 'package:flutter/material.dart';
+import 'package:appfood2/db.dart';
 
 class Nutrition extends StatelessWidget {
-  const Nutrition({super.key});
+  final User user;
+  const Nutrition({
+    super.key,
+    required this.user,
+  });
 
   static const List dataInSection = [
     {
-      'name':'ข้าว-แป้ง',
+      'name': 'ข้าว-แป้ง',
       'nameAmount': 'ทัพพี',
       'amountWiget': {
-        5:FiveSpoonRice(),
-        7:SevenSpoonRice(),
-        9:NineSpoonRice()
+        5: FiveSpoonRice(),
+        7: SevenSpoonRice(),
+        9: NineSpoonRice()
       },
-      'sugest':'',
+      'sugest': '',
       'imgTypeNutritionPath': "assets/images/NutritionImg/peanutcut.png"
     },
     {
-      'name':'ผัก',
+      'name': 'ผัก',
       'nameAmount': 'ทัพพี',
-      'amountWiget': {
-        3:ThreeSpoonVeg()
-      },
-      'sugest':'',
+      'amountWiget': {3: ThreeSpoonVeg()},
+      'sugest': '',
       'imgTypeNutritionPath': "assets/images/NutritionImg/peanutcut.png"
-
     },
     {
-      'name':'ผลไม้',
+      'name': 'ผลไม้',
       'nameAmount': 'ส่วน',
-      'amountWiget': {
-        2:TwoFruit(),
-        3:ThreeFruit(),
-        4:FourFruit()
-      },
-      'sugest':'',
+      'amountWiget': {2: TwoFruit(), 3: ThreeFruit(), 4: FourFruit()},
+      'sugest': '',
       'imgTypeNutritionPath': "assets/images/NutritionImg/peanutcut.png"
     },
     {
-      'name':'เนื้อสัตว-ไข่',
+      'name': 'เนื้อสัตว-ไข่',
       'nameAmount': 'ข้อนโต้ะ',
       'amountWiget': {
-        7:SevenMeat(),
-        8:EightMeat(),
-        9:NineMeat(),
-        10:TenMeat()
+        7: SevenMeat(),
+        8: EightMeat(),
+        9: NineMeat(),
+        10: TenMeat()
       },
-      'sugest':'ไข่ 1 ฟอง = เนื้อสัตว์ 2 ช้อนโต๊ะ',
+      'sugest': 'ไข่ 1 ฟอง = เนื้อสัตว์ 2 ช้อนโต๊ะ',
       'imgTypeNutritionPath': "assets/images/NutritionImg/Meats.png"
     },
     {
-      'name':'ถั่ว',
+      'name': 'ถั่ว',
       'nameAmount': 'ส่วน',
-      'amountWiget': {
-        1:OnePeanut()
-      },
-      'sugest':'',
+      'amountWiget': {1: OnePeanut()},
+      'sugest': '',
       'imgTypeNutritionPath': "assets/images/NutritionImg/peanutcut.png"
     },
     {
-      'name':'ผลิตภัณฑ์จากนม',
+      'name': 'ผลิตภัณฑ์จากนม',
       'nameAmount': 'แก้ว',
-      'amountWiget': {
-        0:ZeroMilk(),
-        1:OneMilk(),
-        2:OneMilk()
-      },
-      'sugest':'',
+      'amountWiget': {0: ZeroMilk(), 1: OneMilk(), 2: OneMilk()},
+      'sugest': '',
       'imgTypeNutritionPath': "assets/images/NutritionImg/MilkProductcut.png"
     },
     {
-      'name':'น้ำ',
+      'name': 'น้ำ',
       'nameAmount': 'แก้ว',
-      'amountWiget': {
-        8:EightWater()
-      },
-      'sugest':'',
+      'amountWiget': {8: EightWater()},
+      'sugest': '',
       'imgTypeNutritionPath': "assets/images/NutritionImg/WaterProductcut.png"
     },
     {
-      'name':'น้ำมัน',
+      'name': 'น้ำมัน',
       'nameAmount': 'ช้อนชา',
-      'amountWiget': {
-        5:FiveOil(),
-        6:SixOil(),
-        7:SevenOil(),
-        8:EightOil()
-      },
-      'sugest':'',
+      'amountWiget': {5: FiveOil(), 6: SixOil(), 7: SevenOil(), 8: EightOil()},
+      'sugest': '',
       'imgTypeNutritionPath': "assets/images/NutritionImg/WaterProductcut.png"
     },
     {
-      'name':'น้ำตาล',
+      'name': 'น้ำตาล',
       'nameAmount': 'ช้อนชา',
-      'amountWiget': {
-        6:SixSugar()
-      },
-      'sugest':'',
+      'amountWiget': {6: SixSugar()},
+      'sugest': '',
       'imgTypeNutritionPath': "assets/images/NutritionImg/sugarcut.png"
     },
   ];
-  static const List amountList = [5,3,4,8,1,0,8,5,6];
+  static const List amountList = [5, 3, 4, 8, 1, 0, 8, 5, 6];
 
   //List<Widget> nutritionWidgets = [];
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text("nutririon")),
-      body: SafeArea(
-        child: ListView.builder(
-          itemCount: dataInSection.length + 2,
-          itemBuilder: (context, index) {
-            
-            if (index == dataInSection.length + 1 ){
-              return const ButtonSave();
-            }
-            else if (index == 0) {
-              return const ContainerHeader(
-                calAmount: 1800,
-              );
-            }
-            else {
-              return SectionNutrition(
-                imgTypeNutritionPath: dataInSection[index-1]['imgTypeNutritionPath'], 
-                nameTypeNutrition: dataInSection[index-1]['name'], 
-                amount: amountList[index-1], 
-                nameAmount: dataInSection[index-1]['nameAmount'], 
-                widget: dataInSection[index-1]['amountWiget'][amountList[index-1]]
-              );
-            }
-          },
-        ),
-      )
-    );
+        appBar: AppBar(title: const Text("nutririon")),
+        body: SafeArea(
+          child: ListView.builder(
+            itemCount: dataInSection.length + 2,
+            itemBuilder: (context, index) {
+              if (index == dataInSection.length + 1) {
+                return ButtonSave(user: user);
+              } else if (index == 0) {
+                return const ContainerHeader(
+                  calAmount: 1800,
+                );
+              } else {
+                return SectionNutrition(
+                    imgTypeNutritionPath: dataInSection[index - 1]
+                        ['imgTypeNutritionPath'],
+                    nameTypeNutrition: dataInSection[index - 1]['name'],
+                    amount: amountList[index - 1],
+                    nameAmount: dataInSection[index - 1]['nameAmount'],
+                    widget: dataInSection[index - 1]['amountWiget']
+                        [amountList[index - 1]]);
+              }
+            },
+          ),
+        ));
   }
 }
 
 class ButtonSave extends StatelessWidget {
+  final User user;
   const ButtonSave({
     super.key,
+    required this.user,
   });
 
   @override
@@ -150,21 +133,22 @@ class ButtonSave extends StatelessWidget {
         child: Container(
           width: MediaQuery.of(context).size.width * 0.3,
           height: MediaQuery.of(context).size.height * 0.07,
-          constraints: const BoxConstraints(
-            minWidth: 120,
-            minHeight: 55
-          ),
+          constraints: const BoxConstraints(minWidth: 120, minHeight: 55),
           decoration: BoxDecoration(
-            color: const Color.fromRGBO(126, 204, 237, 1),
-            borderRadius: BorderRadius.circular(20)
-          ),
-          child: const Center(
-            child: Text(
-              'บันทึก',
-              style: TextStyle(
-                fontSize: 24,
-                fontWeight: FontWeight.w500,
-                color: Colors.white
+              color: const Color.fromRGBO(126, 204, 237, 1),
+              borderRadius: BorderRadius.circular(20)),
+          child: GestureDetector(
+            onTap: () {
+              Navigator.of(context).push(MaterialPageRoute(
+                  builder: (context) => SaveDataSuccessPage(user: user)));
+            },
+            child: const Center(
+              child: Text(
+                'บันทึก',
+                style: TextStyle(
+                    fontSize: 24,
+                    fontWeight: FontWeight.w500,
+                    color: Colors.white),
               ),
             ),
           ),
@@ -175,17 +159,17 @@ class ButtonSave extends StatelessWidget {
 }
 
 class SectionNutrition extends StatelessWidget {
-  const SectionNutrition({
-    super.key,
-    required this.imgTypeNutritionPath,
-    required this.nameTypeNutrition,
-    required this.amount,
-    required this.nameAmount,
-    required this.widget,
-    this.detail
-    //required this.widthTypeImg,
-    //required this.heightTypeImg
-  });
+  const SectionNutrition(
+      {super.key,
+      required this.imgTypeNutritionPath,
+      required this.nameTypeNutrition,
+      required this.amount,
+      required this.nameAmount,
+      required this.widget,
+      this.detail
+      //required this.widthTypeImg,
+      //required this.heightTypeImg
+      });
   final String imgTypeNutritionPath;
   final String nameTypeNutrition;
   final int amount;
@@ -200,35 +184,42 @@ class SectionNutrition extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.fromLTRB(20, 5, 20, 5),
       child: Container(
-        width: MediaQuery.of(context).size.width * 0.844,
-        //height: 200,
-        decoration: BoxDecoration(
-          color: Colors.white,
-          borderRadius: BorderRadius.circular(20),
-          border: Border.all(width: 4, color: const Color.fromRGBO(255, 247, 204, 1))
-        ),
-        child: Column(
-          children: [
-            Row(
-              mainAxisSize: MainAxisSize.max,
-              mainAxisAlignment: MainAxisAlignment.spaceAround,
-              children: [
-                Padding(
-                  padding: const EdgeInsets.fromLTRB(0, 10, 0, 4),
-                  child: DetailLeft(nameTypeNutrition: nameTypeNutrition, imgTypeNutritionPath: imgTypeNutritionPath),
-                ),
-                Padding(
-                  padding: const EdgeInsets.fromLTRB(0, 10, 0, 4),
-                  child: DetailRight(amount: amount, nameAmount: nameAmount, widget: widget),
-                ),
-                //const Text('')
-              ],
-            ),
-            nameTypeNutrition == 'นื้อสัตว- ไข่' ? const Text('ไข่ 1 ฟอง = เนื้อสัตว์ 2 ช้อนโต๊ะ', style: TextStyle(fontSize: 20, fontWeight: FontWeight.w500),) : const SizedBox()
-          ],
-        )
-        
-      ),
+          width: MediaQuery.of(context).size.width * 0.844,
+          //height: 200,
+          decoration: BoxDecoration(
+              color: Colors.white,
+              borderRadius: BorderRadius.circular(20),
+              border: Border.all(
+                  width: 4, color: const Color.fromRGBO(255, 247, 204, 1))),
+          child: Column(
+            children: [
+              Row(
+                mainAxisSize: MainAxisSize.max,
+                mainAxisAlignment: MainAxisAlignment.spaceAround,
+                children: [
+                  Padding(
+                    padding: const EdgeInsets.fromLTRB(0, 10, 0, 4),
+                    child: DetailLeft(
+                        nameTypeNutrition: nameTypeNutrition,
+                        imgTypeNutritionPath: imgTypeNutritionPath),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.fromLTRB(0, 10, 0, 4),
+                    child: DetailRight(
+                        amount: amount, nameAmount: nameAmount, widget: widget),
+                  ),
+                  //const Text('')
+                ],
+              ),
+              nameTypeNutrition == 'นื้อสัตว- ไข่'
+                  ? const Text(
+                      'ไข่ 1 ฟอง = เนื้อสัตว์ 2 ช้อนโต๊ะ',
+                      style:
+                          TextStyle(fontSize: 20, fontWeight: FontWeight.w500),
+                    )
+                  : const SizedBox()
+            ],
+          )),
     );
   }
 }
@@ -252,10 +243,7 @@ class DetailRight extends StatelessWidget {
       children: [
         Text(
           '$amount  $nameAmount',
-          style: const TextStyle(
-            fontSize: 20,
-            fontWeight: FontWeight.w500
-          ),
+          style: const TextStyle(fontSize: 20, fontWeight: FontWeight.w500),
         ),
         Padding(
           padding: const EdgeInsets.symmetric(vertical: 10),
@@ -287,12 +275,8 @@ class DetailLeft extends StatelessWidget {
       children: [
         Text(
           nameTypeNutrition,
-          style: const TextStyle(
-            fontSize: 20,
-            fontWeight: FontWeight.w500
-          ),
+          style: const TextStyle(fontSize: 20, fontWeight: FontWeight.w500),
         ),
-        
         Padding(
           padding: const EdgeInsets.symmetric(vertical: 10),
           child: SizedBox(
@@ -347,7 +331,7 @@ class FiveSpoonRice extends StatelessWidget {
 }
 
 class SevenSpoonRice extends StatelessWidget {
-  const SevenSpoonRice ({
+  const SevenSpoonRice({
     super.key,
   });
 
@@ -363,7 +347,7 @@ class SevenSpoonRice extends StatelessWidget {
 }
 
 class NineSpoonRice extends StatelessWidget {
-  const NineSpoonRice ({
+  const NineSpoonRice({
     super.key,
   });
 
@@ -425,7 +409,8 @@ class FourFruit extends StatelessWidget {
     );
   }
 }
-class  SixMeat extends StatelessWidget {
+
+class SixMeat extends StatelessWidget {
   const SixMeat({
     super.key,
   });
@@ -441,7 +426,7 @@ class  SixMeat extends StatelessWidget {
   }
 }
 
-class  SevenMeat extends StatelessWidget {
+class SevenMeat extends StatelessWidget {
   const SevenMeat({
     super.key,
   });
@@ -457,8 +442,7 @@ class  SevenMeat extends StatelessWidget {
   }
 }
 
-
-class  EightMeat extends StatelessWidget {
+class EightMeat extends StatelessWidget {
   const EightMeat({
     super.key,
   });
@@ -474,7 +458,7 @@ class  EightMeat extends StatelessWidget {
   }
 }
 
-class  NineMeat extends StatelessWidget {
+class NineMeat extends StatelessWidget {
   const NineMeat({
     super.key,
   });
@@ -490,7 +474,7 @@ class  NineMeat extends StatelessWidget {
   }
 }
 
-class  TenMeat extends StatelessWidget {
+class TenMeat extends StatelessWidget {
   const TenMeat({
     super.key,
   });
@@ -506,7 +490,7 @@ class  TenMeat extends StatelessWidget {
   }
 }
 
-class  EightWater extends StatelessWidget {
+class EightWater extends StatelessWidget {
   const EightWater({
     super.key,
   });
@@ -522,7 +506,7 @@ class  EightWater extends StatelessWidget {
   }
 }
 
-class  OneMilk extends StatelessWidget {
+class OneMilk extends StatelessWidget {
   const OneMilk({
     super.key,
   });
@@ -539,8 +523,7 @@ class  OneMilk extends StatelessWidget {
   }
 }
 
-
-class  SixSugar extends StatelessWidget {
+class SixSugar extends StatelessWidget {
   const SixSugar({
     super.key,
   });
@@ -652,21 +635,10 @@ class ZeroMilk extends StatelessWidget {
   }
 }
 
-
-
-
-
 class ContainerHeader extends StatelessWidget {
-  const ContainerHeader({
-    super.key,
-    required this.calAmount
-  });
+  const ContainerHeader({super.key, required this.calAmount});
   static const List<dynamic> calList = [
-    {
-      1400: AmountCalGreen(),
-      1600: AmountCalYellow(),
-      1800: AmountCalRed()
-    }
+    {1400: AmountCalGreen(), 1600: AmountCalYellow(), 1800: AmountCalRed()}
   ];
   final int calAmount;
   @override
@@ -677,7 +649,7 @@ class ContainerHeader extends StatelessWidget {
       child: Stack(
         children: [
           const Align(
-            alignment: AlignmentDirectional(0,-0.8),
+            alignment: AlignmentDirectional(0, -0.8),
             child: TitleHeader(),
           ),
           const Align(
@@ -685,15 +657,13 @@ class ContainerHeader extends StatelessWidget {
             child: TextCalRequire(),
           ),
           Align(
-            alignment: const AlignmentDirectional(0, 0.7),
-            child: calList[0][calAmount]
-          )
+              alignment: const AlignmentDirectional(0, 0.7),
+              child: calList[0][calAmount])
         ],
       ),
     );
   }
 }
-
 
 class AmountCalGreen extends StatelessWidget {
   const AmountCalGreen({
@@ -706,16 +676,12 @@ class AmountCalGreen extends StatelessWidget {
       width: MediaQuery.of(context).size.width * 0.4,
       height: MediaQuery.of(context).size.height * 0.076,
       decoration: const BoxDecoration(
-        color: Color.fromRGBO(209, 255, 150, 1),
-        borderRadius: BorderRadius.all(Radius.circular(20))
-      ),
+          color: Color.fromRGBO(209, 255, 150, 1),
+          borderRadius: BorderRadius.all(Radius.circular(20))),
       child: const Center(
         child: Text(
           '1400 Kcal',
-          style: TextStyle(
-            fontSize: 28,
-            fontWeight: FontWeight.bold
-          ),
+          style: TextStyle(fontSize: 28, fontWeight: FontWeight.bold),
         ),
       ),
     );
@@ -733,16 +699,12 @@ class AmountCalYellow extends StatelessWidget {
       width: MediaQuery.of(context).size.width * 0.4,
       height: MediaQuery.of(context).size.height * 0.076,
       decoration: const BoxDecoration(
-        color: Color.fromRGBO(255, 244, 148, 1),
-        borderRadius: BorderRadius.all(Radius.circular(20))
-      ),
+          color: Color.fromRGBO(255, 244, 148, 1),
+          borderRadius: BorderRadius.all(Radius.circular(20))),
       child: const Center(
         child: Text(
           '1600 Kcal',
-          style: TextStyle(
-            fontSize: 28,
-            fontWeight: FontWeight.bold
-          ),
+          style: TextStyle(fontSize: 28, fontWeight: FontWeight.bold),
         ),
       ),
     );
@@ -760,16 +722,12 @@ class AmountCalRed extends StatelessWidget {
       width: MediaQuery.of(context).size.width * 0.4,
       height: MediaQuery.of(context).size.height * 0.076,
       decoration: const BoxDecoration(
-        color: Color.fromRGBO(255, 122, 122, 1),
-        borderRadius: BorderRadius.all(Radius.circular(20))
-      ),
+          color: Color.fromRGBO(255, 122, 122, 1),
+          borderRadius: BorderRadius.all(Radius.circular(20))),
       child: const Center(
         child: Text(
           '1800 Kcal',
-          style: TextStyle(
-            fontSize: 28,
-            fontWeight: FontWeight.bold
-          ),
+          style: TextStyle(fontSize: 28, fontWeight: FontWeight.bold),
         ),
       ),
     );
@@ -785,10 +743,7 @@ class TextCalRequire extends StatelessWidget {
   Widget build(BuildContext context) {
     return const Text(
       'พลังงานที่ต้องการต่อวัน',
-      style: TextStyle(
-        fontSize: 22,
-        fontWeight: FontWeight.bold                       
-      ),
+      style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
       textAlign: TextAlign.start,
     );
   }
@@ -805,17 +760,14 @@ class TitleHeader extends StatelessWidget {
       width: MediaQuery.of(context).size.width * 0.8,
       height: MediaQuery.of(context).size.height * 0.09,
       decoration: const BoxDecoration(
-        color: Color.fromRGBO(136, 158, 238, 1),
-        borderRadius: BorderRadius.only(topLeft: Radius.circular(50), bottomRight: Radius.circular(50))
-      ),
+          color: Color.fromRGBO(136, 158, 238, 1),
+          borderRadius: BorderRadius.only(
+              topLeft: Radius.circular(50), bottomRight: Radius.circular(50))),
       child: const Center(
         child: Text(
           'ข้อมูลทางโภชนาการ',
           style: TextStyle(
-            fontSize: 30,
-            fontWeight: FontWeight.bold,
-            color: Colors.white
-          ),
+              fontSize: 30, fontWeight: FontWeight.bold, color: Colors.white),
         ),
       ),
     );
