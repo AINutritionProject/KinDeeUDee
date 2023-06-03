@@ -29,8 +29,7 @@ class _MilkPageState extends State<MilkPage> {
   Widget build(BuildContext context) {
     return Scaffold(
         backgroundColor: const Color.fromRGBO(255, 251, 242, 1),
-        body: Padding(
-          padding: const EdgeInsets.only(top: 30.0),
+        body: SafeArea(
           child: SingleChildScrollView(
             child: Column(
               children: [
