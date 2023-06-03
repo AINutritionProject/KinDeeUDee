@@ -8,22 +8,26 @@ class InformationPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      resizeToAvoidBottomInset: true,
-      appBar: AppBar(
-        title: const Text("InformationPage"),
-      ),
-      body: Center(
-        child: FutureBuilder(
-          builder: (context, snapshot) {
-            if (snapshot.hasData) {
-              return PersonalInformation(user: snapshot.data!);
-            } else {
-              return LoadingAnimationWidget.prograssiveDots(
-                  color: Colors.black, size: 150);
-            }
-          },
-          future: getUser(),
+    return MaterialApp(
+      debugShowCheckedModeBanner: false,
+      title: "InformationPage",
+      theme: ThemeData(fontFamily: 'Inter'),
+      home: Scaffold(
+        resizeToAvoidBottomInset: true,
+        body: SafeArea(
+          child: Center(
+            child: FutureBuilder(
+              builder: (context, snapshot) {
+                if (snapshot.hasData) {
+                  return PersonalInformation(user: snapshot.data!);
+                } else {
+                  return LoadingAnimationWidget.prograssiveDots(
+                      color: Colors.black, size: 150);
+                }
+              },
+              future: getUser(),
+            ),
+          ),
         ),
       ),
     );
