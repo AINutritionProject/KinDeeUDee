@@ -47,7 +47,9 @@ class _ActivityFormState extends State<ActivityForm> {
                   constraints: BoxConstraints(minHeight: constraints.maxHeight),
                   child: Column(
                     children: [
-                      const ActivityFormHeader(),
+                      ActivityFormHeader(
+                        username: widget.user.username,
+                      ),
                       ActivityFormBody(user: widget.user),
                     ],
                   ),
@@ -581,8 +583,10 @@ class _ActivityDisplayState extends State<ActivityDisplay> {
 }
 
 class ActivityFormHeader extends StatelessWidget {
+  final String username;
   const ActivityFormHeader({
     super.key,
+    required this.username,
   });
 
   @override
@@ -614,12 +618,13 @@ class ActivityFormHeader extends StatelessWidget {
                     ),
                   ),
                 )),
-            const Expanded(
+            Expanded(
                 flex: 1,
                 child: Center(
                     child: Text(
-                  "ของคุณ\"แจ่มใส\"",
-                  style: TextStyle(fontSize: 26, fontWeight: FontWeight.w700),
+                  "ของคุณ\"$username\"",
+                  style: const TextStyle(
+                      fontSize: 26, fontWeight: FontWeight.w700),
                 ))),
           ],
         ));
