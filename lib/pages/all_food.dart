@@ -3,6 +3,7 @@ import 'package:appfood2/pages/food_detailed.dart';
 import 'package:csv/csv.dart';
 import 'package:flutter/services.dart' show rootBundle;
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:appfood2/widgets/button_back.dart';
 
 class RealAllFoodPage extends StatefulWidget {
   const RealAllFoodPage({super.key, required this.type});
@@ -80,192 +81,276 @@ class AllFoodPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: const Color.fromRGBO(255, 241, 224, 1),
-      body: SingleChildScrollView(
-        child: Column(
-          children: [
-            Center(
-              child: Padding(
-                padding: const EdgeInsets.only(top: 50, bottom: 40),
-                child: Container(
-                  alignment: Alignment.center,
-                  width: 224,
-                  height: 80,
-                  decoration: const BoxDecoration(
-                    color: Colors.pinkAccent,
-                    borderRadius: BorderRadius.all(
-                      Radius.circular(30),
+      body: SafeArea(
+        child: SingleChildScrollView(
+          child: Column(
+            children: [
+              SizedBox(
+                height: 200,
+                width: MediaQuery.of(context).size.width,
+                child: Stack(
+                  children: [
+                    ClipPath(
+                      clipper: CustomClipPath(),
+                      child: Container(
+                        width: MediaQuery.of(context).size.width,
+                        height: 130,
+                        decoration: BoxDecoration(
+                            color: type == "Fruit"
+                                ? const Color.fromRGBO(198, 242, 178, 0.65)
+                                : const Color.fromRGBO(255, 115, 55, 0.65)),
+                      ),
                     ),
-                  ),
-                  child: Text(
-                    type == "Fruit" ? "ผลไม้" : "ข้าวแป้ง",
-                    style: const TextStyle(
-                      fontSize: 50,
+                    Padding(
+                      padding: const EdgeInsets.symmetric(vertical: 55),
+                      child: Align(
+                          alignment: Alignment.bottomCenter,
+                          child: BoxTitleNameType(type: type)),
                     ),
-                  ),
+                    Padding(
+                      padding: const EdgeInsets.all(10.0),
+                      child: Align(
+                        alignment: Alignment.topLeft,
+                        child: ButtonBack(
+                          color: Colors.white,
+                          colorCircle: type == "Fruit"
+                              ? const Color.fromRGBO(18, 109, 104, 1)
+                              : const Color.fromRGBO(163, 70, 30, 1),
+                        ),
+                      ),
+                    ),
+                  ],
                 ),
               ),
-            ),
-            const Padding(
-              padding: EdgeInsets.only(bottom: 5),
-              child: Text(
-                "GI = ค่าดัชนีน้ำตาล",
-                style: TextStyle(fontSize: 18, fontWeight: FontWeight.w700),
+              const Padding(
+                padding: EdgeInsets.symmetric(vertical: 10),
+                child: Text(
+                  "GI = ค่าดัชนีน้ำตาล",
+                  style: TextStyle(fontSize: 24, fontWeight: FontWeight.w700),
+                ),
               ),
-            ),
-            Padding(
-              padding: const EdgeInsets.only(bottom: 70),
-              child: Stack(alignment: Alignment.bottomCenter, children: [
-                Container(
-                  alignment: Alignment.center,
-                  width: 250,
-                  height: 80,
-                  decoration: const BoxDecoration(
-                      color: Color.fromRGBO(97, 97, 97, 1),
-                      borderRadius: BorderRadius.all(
-                        Radius.circular(30),
-                      )),
-                  child: const Padding(
-                    padding: EdgeInsets.only(left: 16),
-                    child: Row(
+              const Padding(
+                padding: EdgeInsets.fromLTRB(0, 20, 0, 50),
+                child: BoxContainSmileIcon(),
+              ),
+              ...foodData.map((e) {
+                if (e.length == 2) {
+                  return Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         Expanded(
-                          flex: 1,
-                          child: SmileFace(
-                            SmileColor: Color.fromRGBO(3, 219, 24, 0.65),
-                          ),
-                        ),
+                            flex: 1,
+                            child: Padding(
+                              padding:
+                                  const EdgeInsets.only(left: 34, right: 15),
+                              child: FoodIcons(food: e[0]),
+                            )),
                         Expanded(
-                          flex: 1,
-                          child: SmileFace(
-                            SmileColor: Color.fromRGBO(252, 255, 108, 1),
-                          ),
-                        ),
-                        Expanded(
-                          flex: 1,
-                          child: SmileFace(
-                            SmileColor: Color.fromRGBO(252, 0, 0, 1),
-                          ),
-                        )
-                      ],
-                    ),
-                  ),
-                ),
-                Padding(
-                  padding: const EdgeInsets.only(bottom: 75),
-                  child: Container(
-                    alignment: Alignment.center,
-                    width: 250,
-                    child: Row(
+                            flex: 1,
+                            child: Padding(
+                              padding:
+                                  const EdgeInsets.only(left: 15, right: 34),
+                              child: FoodIcons(food: e[1]),
+                            )),
+                      ]);
+                } else {
+                  return Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        Container(
-                          height: 53,
-                          width: 64,
-                          decoration: const BoxDecoration(
-                            color: Colors.white,
-                            borderRadius: BorderRadius.all(
-                              Radius.circular(10),
-                            ),
-                          ),
-                          child: const Column(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              Padding(
-                                padding: EdgeInsets.only(bottom: 5),
-                                child: Text("ต่ำ"),
-                              ),
-                              Text("GI<55")
-                            ],
-                          ),
-                        ),
-                        Padding(
-                          padding: const EdgeInsets.only(left: 10, right: 10),
-                          child: Container(
-                            height: 53,
-                            width: 73,
-                            decoration: const BoxDecoration(
-                              color: Colors.white,
-                              borderRadius: BorderRadius.all(
-                                Radius.circular(10),
-                              ),
-                            ),
-                            child: const Column(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                Padding(
-                                  padding: EdgeInsets.only(bottom: 5),
-                                  child: Text("กลาง"),
-                                ),
-                                Text("GI 55-69")
-                              ],
-                            ),
-                          ),
-                        ),
-                        Container(
-                          height: 53,
-                          width: 64,
-                          decoration: const BoxDecoration(
-                            color: Colors.white,
-                            borderRadius: BorderRadius.all(
-                              Radius.circular(10),
-                            ),
-                          ),
-                          child: const Column(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              Padding(
-                                padding: EdgeInsets.only(bottom: 5),
-                                child: Text("สูง"),
-                              ),
-                              Text("GI>70")
-                            ],
-                          ),
-                        )
-                      ],
-                    ),
-                  ),
-                ),
-              ]),
-            ),
-            ...foodData.map((e) {
-              if (e.length == 2) {
-                return Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Expanded(
-                          flex: 1,
-                          child: Padding(
-                            padding: const EdgeInsets.only(left: 34, right: 15),
-                            child: FoodIcons(food: e[0]),
-                          )),
-                      Expanded(
-                          flex: 1,
-                          child: Padding(
-                            padding: const EdgeInsets.only(left: 15, right: 34),
-                            child: FoodIcons(food: e[1]),
-                          )),
-                    ]);
-              } else {
-                return Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Expanded(
-                          flex: 1,
-                          child: Padding(
-                            padding: const EdgeInsets.only(left: 34, right: 15),
-                            child: FoodIcons(food: e[0]),
-                          )),
-                      const Expanded(
-                          flex: 1,
-                          child: Padding(
-                            padding: EdgeInsets.only(left: 15, right: 34),
-                          )),
-                    ]);
-              }
-            })
-          ],
+                        Expanded(
+                            flex: 1,
+                            child: Padding(
+                              padding:
+                                  const EdgeInsets.only(left: 34, right: 15),
+                              child: FoodIcons(food: e[0]),
+                            )),
+                        const Expanded(
+                            flex: 1,
+                            child: Padding(
+                              padding: EdgeInsets.only(left: 15, right: 34),
+                            )),
+                      ]);
+                }
+              })
+            ],
+          ),
         ),
+      ),
+    );
+  }
+}
+
+class CustomClipPath extends CustomClipper<Path> {
+  @override
+  Path getClip(Size size) {
+    double w = size.width;
+    double h = size.height;
+
+    final path = Path();
+    path.lineTo(0, h);
+    path.quadraticBezierTo(w * 0.5, h - 70, w, h);
+    path.lineTo(w, 0);
+    path.close();
+
+    return path;
+  }
+
+  @override
+  bool shouldReclip(CustomClipper<Path> oldClipper) {
+    return false;
+  }
+}
+
+class BoxContainSmileIcon extends StatelessWidget {
+  const BoxContainSmileIcon({
+    super.key,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Stack(alignment: Alignment.bottomCenter, children: [
+      Container(
+        alignment: Alignment.center,
+        width: 250,
+        height: 80,
+        decoration: const BoxDecoration(
+            color: Color.fromRGBO(97, 97, 97, 1),
+            borderRadius: BorderRadius.all(
+              Radius.circular(30),
+            )),
+        child: const Padding(
+          padding: EdgeInsets.only(left: 16),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Expanded(
+                flex: 1,
+                child: SmileFace(
+                  SmileColor: Color.fromRGBO(3, 219, 24, 0.65),
+                ),
+              ),
+              Expanded(
+                flex: 1,
+                child: SmileFace(
+                  SmileColor: Color.fromRGBO(252, 255, 108, 1),
+                ),
+              ),
+              Expanded(
+                flex: 1,
+                child: SmileFace(
+                  SmileColor: Color.fromRGBO(252, 0, 0, 1),
+                ),
+              )
+            ],
+          ),
+        ),
+      ),
+      Padding(
+        padding: const EdgeInsets.only(bottom: 75),
+        child: Container(
+          alignment: Alignment.center,
+          width: 250,
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Container(
+                height: 53,
+                width: 64,
+                decoration: const BoxDecoration(
+                  color: Colors.white,
+                  borderRadius: BorderRadius.all(
+                    Radius.circular(10),
+                  ),
+                ),
+                child: const Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Padding(
+                      padding: EdgeInsets.only(bottom: 5),
+                      child: Text("ต่ำ"),
+                    ),
+                    Text("GI<55")
+                  ],
+                ),
+              ),
+              Padding(
+                padding: const EdgeInsets.only(left: 10, right: 10),
+                child: Container(
+                  height: 53,
+                  width: 73,
+                  decoration: const BoxDecoration(
+                    color: Colors.white,
+                    borderRadius: BorderRadius.all(
+                      Radius.circular(10),
+                    ),
+                  ),
+                  child: const Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Padding(
+                        padding: EdgeInsets.only(bottom: 5),
+                        child: Text("กลาง"),
+                      ),
+                      Text("GI 55-69")
+                    ],
+                  ),
+                ),
+              ),
+              Container(
+                height: 53,
+                width: 64,
+                decoration: const BoxDecoration(
+                  color: Colors.white,
+                  borderRadius: BorderRadius.all(
+                    Radius.circular(10),
+                  ),
+                ),
+                child: const Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Padding(
+                      padding: EdgeInsets.only(bottom: 5),
+                      child: Text("สูง"),
+                    ),
+                    Text("GI>70")
+                  ],
+                ),
+              )
+            ],
+          ),
+        ),
+      ),
+    ]);
+  }
+}
+
+class BoxTitleNameType extends StatelessWidget {
+  const BoxTitleNameType({
+    super.key,
+    required this.type,
+  });
+
+  final String type;
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      width: 224,
+      height: 80,
+      decoration: BoxDecoration(
+        color: type == "Fruit"
+            ? const Color.fromRGBO(255, 163, 163, 1)
+            : const Color.fromRGBO(255, 224, 163, 1),
+        borderRadius: const BorderRadius.all(
+          Radius.circular(30),
+        ),
+      ),
+      child: Text(
+        type == "Fruit" ? "ผลไม้" : "ข้าวแป้ง",
+        style: const TextStyle(
+          fontSize: 50,
+        ),
+        textAlign: TextAlign.center,
       ),
     );
   }
