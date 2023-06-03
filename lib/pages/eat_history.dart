@@ -1,3 +1,4 @@
+import 'package:appfood2/widgets/small_dropdown.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:appfood2/pages/add_eat_history.dart';
@@ -128,11 +129,12 @@ class EatHistoryComponent extends StatelessWidget {
                   ),
                 ],
               ))),
-      const SizedBox(
+      SizedBox(
           width: double.infinity,
           height: 88,
           child: DecoratedBox(
-            decoration: BoxDecoration(color: Color.fromRGBO(200, 211, 239, 1)),
+            decoration:
+                const BoxDecoration(color: Color.fromRGBO(200, 211, 239, 1)),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
@@ -141,9 +143,18 @@ class EatHistoryComponent extends StatelessWidget {
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        Text("วันที่",
+                        const Text("วันที่",
                             style: TextStyle(
                                 fontSize: 22, fontWeight: FontWeight.w700)),
+                        SmallDropDown(
+                          data: const ["1", "2", "3"],
+                          setSelectedItem: (String val) {
+                            return;
+                          },
+                          border: Border.all(
+                              width: 0, color: const Color(0x00000000)),
+                          borderRadius: BorderRadius.circular(15),
+                        )
                       ],
                     )),
                 Expanded(
@@ -151,9 +162,18 @@ class EatHistoryComponent extends StatelessWidget {
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        Text("เดือน",
+                        const Text("เดือน",
                             style: TextStyle(
-                                fontSize: 22, fontWeight: FontWeight.w700))
+                                fontSize: 22, fontWeight: FontWeight.w700)),
+                        SmallDropDown(
+                          data: const ["1", "2", "3"],
+                          setSelectedItem: (String val) {
+                            return;
+                          },
+                          border: Border.all(
+                              width: 0, color: const Color(0x00000000)),
+                          borderRadius: BorderRadius.circular(15),
+                        )
                       ],
                     )),
                 Expanded(
@@ -161,10 +181,19 @@ class EatHistoryComponent extends StatelessWidget {
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        Text(
+                        const Text(
                           "ปี",
                           style: TextStyle(
                               fontSize: 22, fontWeight: FontWeight.w700),
+                        ),
+                        SmallDropDown(
+                          data: const ["1", "2", "3"],
+                          setSelectedItem: (String val) {
+                            return;
+                          },
+                          border: Border.all(
+                              width: 0, color: const Color(0x00000000)),
+                          borderRadius: BorderRadius.circular(15),
                         )
                       ],
                     ))
