@@ -80,27 +80,29 @@ class MenuPage extends StatelessWidget {
                     ],
                   ),
                 ),
-                const Expanded(
-                    flex: 75,
-                    child: TextFieldExample()),
+                const Expanded(flex: 75, child: TextFieldExample()),
                 Expanded(
                     flex: 15,
                     child: SizedBox(
                       width: MediaQuery.of(context).size.width,
-                      
                       child: Align(
                         alignment: Alignment.center,
-                        child: Container(
-                          padding: const EdgeInsets.all(10),
-                          decoration: const BoxDecoration(
-                            color: Color.fromRGBO(255, 120, 63, 1),
-                            shape: BoxShape.circle
-                          ),
-                          
-                          child: const Icon(
-                            size: 65.0,
-                            Icons.camera_alt,
-                            color: Colors.white,
+                        child: InkWell(
+                          onTap: () => {
+                            Navigator.of(context).push(MaterialPageRoute(
+                                builder: (context) => const CameraPage(
+                                    replaceWhenNavigate: false)))
+                          },
+                          child: Container(
+                            padding: const EdgeInsets.all(10),
+                            decoration: const BoxDecoration(
+                                color: Color.fromRGBO(255, 120, 63, 1),
+                                shape: BoxShape.circle),
+                            child: const Icon(
+                              size: 65.0,
+                              Icons.camera_alt,
+                              color: Colors.white,
+                            ),
                           ),
                         ),
                       ),
