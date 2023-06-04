@@ -12,20 +12,21 @@ class MenuPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+        resizeToAvoidBottomInset: false,
         floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
-        floatingActionButton: FloatingActionButton.large(
-          backgroundColor: const Color.fromARGB(255, 255, 120, 63),
-          hoverColor: const Color.fromRGBO(255, 120, 63, 0.5),
-          onPressed: () {
-            Navigator.of(context).push(MaterialPageRoute(
-                builder: (context) =>
-                    const CameraPage(replaceWhenNavigate: false)));
-          },
-          child: const Icon(
-            size: 65.0,
-            Icons.camera_alt,
-          ),
-        ),
+        // floatingActionButton: FloatingActionButton.large(
+        //   backgroundColor: const Color.fromARGB(255, 255, 120, 63),
+        //   hoverColor: const Color.fromRGBO(255, 120, 63, 0.5),
+        //   onPressed: () {
+        //     Navigator.of(context).push(MaterialPageRoute(
+        //         builder: (context) =>
+        //             const CameraPage(replaceWhenNavigate: false)));
+        //   },
+        //   child: const Icon(
+        //     size: 65.0,
+        //     Icons.camera_alt,
+        //   ),
+        // ),
         appBar: AppBar(
           title: const Text("Find Menu"),
           actions: [
@@ -56,46 +57,82 @@ class MenuPage extends StatelessWidget {
           ],
         ),
         backgroundColor: const Color.fromRGBO(234, 255, 241, 1),
-        body: SingleChildScrollView(
+        body: SafeArea(
           child: Container(
             width: MediaQuery.of(context).size.width,
+            height: MediaQuery.of(context).size.height,
             color: const Color.fromRGBO(234, 255, 241, 1),
             child: Column(
               children: [
-                Row(
-                  children: [
-                    Padding(
-                        padding: const EdgeInsets.only(
-                            left: 30, top: 10, bottom: 24),
-                        child: GestureDetector(
-                          onTap: () {
-                            Navigator.pop(context);
-                          },
-                          child: Container(
-                            width: 212,
-                            height: 41,
-                            decoration: const BoxDecoration(
-                                color: Color.fromRGBO(91, 158, 130, 1),
-                                borderRadius: BorderRadius.all(
-                                  Radius.circular(30),
-                                )),
-                            child: const Text(
-                              "กลับสู่เมนูหลัก",
-                              style: TextStyle(
-                                  color: Colors.white,
-                                  fontSize: 26,
-                                  fontWeight: FontWeight.bold),
-                              textAlign: TextAlign.center,
-                            ),
-                          ),
-                        )),
-                  ],
+                Expanded(
+                  flex: 10,
+                  child: Row(
+                    children: [
+                      GestureDetector(
+                        onTap: () {
+                          Navigator.pop(context);
+                        },
+                        child: const Padding(
+                          padding: EdgeInsets.symmetric(horizontal: 20),
+                          child: BoxButtonToMenu(),
+                        ),
+                      ),
+                    ],
+                  ),
                 ),
-                const TextFieldExample(),
+                const Expanded(
+                    flex: 75,
+                    child: TextFieldExample()),
+                Expanded(
+                    flex: 15,
+                    child: SizedBox(
+                      width: MediaQuery.of(context).size.width,
+                      
+                      child: Align(
+                        alignment: Alignment.center,
+                        child: Container(
+                          padding: const EdgeInsets.all(10),
+                          decoration: const BoxDecoration(
+                            color: Color.fromRGBO(255, 120, 63, 1),
+                            shape: BoxShape.circle
+                          ),
+                          
+                          child: const Icon(
+                            size: 65.0,
+                            Icons.camera_alt,
+                            color: Colors.white,
+                          ),
+                        ),
+                      ),
+                    ))
               ],
             ),
           ),
         ));
+  }
+}
+
+class BoxButtonToMenu extends StatelessWidget {
+  const BoxButtonToMenu({
+    super.key,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 25),
+      decoration: const BoxDecoration(
+          color: Color.fromRGBO(91, 158, 130, 1),
+          borderRadius: BorderRadius.all(
+            Radius.circular(30),
+          )),
+      child: const Text(
+        "กลับสู่เมนูหลัก",
+        style: TextStyle(
+            color: Colors.white, fontSize: 26, fontWeight: FontWeight.bold),
+        textAlign: TextAlign.center,
+      ),
+    );
   }
 }
 
@@ -271,22 +308,24 @@ class _TextFieldExampleState extends State<TextFieldExample> {
           ),
         ),
         (_active)
-            ? Padding(
-                padding: const EdgeInsets.only(top: 15),
-                child: SizedBox(
-                    height: 640,
-                    child: GridView.count(
-                      crossAxisCount: 2,
-                      children: foodQuery
-                          .map((food) => Expanded(
-                                child: Padding(
-                                  padding: const EdgeInsets.only(
-                                      left: 15, right: 15),
-                                  child: FoodIcons(food: food),
-                                ),
-                              ))
-                          .toList(),
-                    )),
+            ? Expanded(
+                flex: 4,
+                child: Padding(
+                  padding: const EdgeInsets.only(top: 15),
+                  child: SizedBox(
+                      child: GridView.count(
+                    crossAxisCount: 2,
+                    children: foodQuery
+                        .map((food) => Expanded(
+                              child: Padding(
+                                padding:
+                                    const EdgeInsets.only(left: 15, right: 15),
+                                child: FoodIcons(food: food),
+                              ),
+                            ))
+                        .toList(),
+                  )),
+                ),
               )
             : Padding(
                 padding: const EdgeInsets.all(8.0),
