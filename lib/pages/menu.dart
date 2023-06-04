@@ -52,7 +52,7 @@ class MenuPage extends StatelessWidget {
                     MaterialPageRoute(
                         builder: (context) => const InformationPage()));
               },
-              child: const Text("information"),
+              child: const Text("informations"),
             )
           ],
         ),

@@ -73,7 +73,7 @@ class _HomeState extends State<Home> {
       drawer: Drawer(
         child: ListView(
           children: [
-            Text("YEEE"),
+            Text("YEEEKAKA"),
             IconButton(
                 onPressed: () async {
                   await Auth().signOut();
@@ -97,7 +97,7 @@ class _HomeState extends State<Home> {
               flex: 6,
               child: SectionButtonClick(),
             ),
-            // 
+            //
             const Expanded(
               flex: 1,
               child: FooterSection(),
@@ -172,9 +172,8 @@ class FlagNutritionBox extends StatelessWidget {
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () {
-        Navigator.of(context).push(MaterialPageRoute(
-            builder: (context) =>
-                const FlagNutrition()));
+        Navigator.of(context).push(
+            MaterialPageRoute(builder: (context) => const FlagNutrition()));
       },
       child: SizedBox(
         width: MediaQuery.of(context).size.width,
@@ -185,10 +184,8 @@ class FlagNutritionBox extends StatelessWidget {
               child: MenuBlock(
                 menuName: 'ธงโภชนาการ',
                 innerColor: Colors.white,
-                outerColor:
-                    Color.fromRGBO(197, 235, 246, 1),
-                textColor:
-                    Color.fromRGBO(58, 0, 131, 1),
+                outerColor: Color.fromRGBO(197, 235, 246, 1),
+                textColor: Color.fromRGBO(58, 0, 131, 1),
                 //height: 120,
               ),
             ),
@@ -208,9 +205,8 @@ class HistoryBox extends StatelessWidget {
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () {
-        Navigator.of(context).push(MaterialPageRoute(
-            builder: (context) =>
-                const EatHistoryPage()));
+        Navigator.of(context).push(
+            MaterialPageRoute(builder: (context) => const EatHistoryPage()));
       },
       child: SizedBox(
         width: MediaQuery.of(context).size.width,
@@ -220,10 +216,8 @@ class HistoryBox extends StatelessWidget {
               alignment: Alignment.center,
               child: MenuBlock(
                 menuName: 'ประวัติการ\nรับประทานอาหาร',
-                innerColor:
-                    Color.fromRGBO(255, 238, 225, 1),
-                outerColor:
-                    Color.fromRGBO(240, 164, 164, 1),
+                innerColor: Color.fromRGBO(255, 238, 225, 1),
+                outerColor: Color.fromRGBO(240, 164, 164, 1),
                 //height: 150,
               ),
             ),
@@ -257,10 +251,7 @@ class SearchMenuBox extends StatelessWidget {
     return GestureDetector(
       onTap: () {
         Navigator.push(
-            context,
-            MaterialPageRoute(
-                builder: (context) =>
-                    const MenuPage()));
+            context, MaterialPageRoute(builder: (context) => const MenuPage()));
       },
       child: SizedBox(
         width: MediaQuery.of(context).size.width,
@@ -272,8 +263,7 @@ class SearchMenuBox extends StatelessWidget {
               child: MenuBlock(
                 menuName: 'ค้นหาเมนู\nอาหาร',
                 innerColor: Colors.yellow.shade100,
-                outerColor:
-                    Colors.greenAccent.shade100,
+                outerColor: Colors.greenAccent.shade100,
                 //height: 140,
               ),
             ),
@@ -303,7 +293,6 @@ class HeaderSection extends StatelessWidget {
   Widget build(BuildContext context) {
     return SizedBox(
       width: MediaQuery.of(context).size.width,
-      
       child: Row(
         //crossAxisAlignment: CrossAxisAlignment.center,
         mainAxisAlignment: MainAxisAlignment.spaceAround,
@@ -316,8 +305,7 @@ class HeaderSection extends StatelessWidget {
             children: [
               const Text(
                 'ยินต้อนรับ',
-                style: TextStyle(
-                    fontSize: 25, fontWeight: FontWeight.bold),
+                style: TextStyle(fontSize: 25, fontWeight: FontWeight.bold),
               ),
               Padding(
                 padding: const EdgeInsets.symmetric(vertical: 10),
@@ -354,10 +342,7 @@ class LamponTemplate extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const SizedBox(
-        width: 150,
-        height: 150,
-        child: LamponIcon());
+    return const SizedBox(width: 150, height: 150, child: LamponIcon());
   }
 }
 
