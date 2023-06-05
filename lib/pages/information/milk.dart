@@ -63,8 +63,13 @@ class _MilkPageState extends State<MilkPage> {
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceAround,
                       children: [
-                        Image.asset("assets/images/drink_eat/drink.png"),
-                        Image.asset("assets/images/drink_eat/eat.png")
+                        (status_milk0)
+                            ? Image.asset(
+                                "assets/images/drink_eat/no_drink.png")
+                            : Image.asset("assets/images/drink_eat/drink.png"),
+                        (status_eat0)
+                            ? Image.asset("assets/images/drink_eat/no_eat.png")
+                            : Image.asset("assets/images/drink_eat/eat.png")
                       ],
                     )),
                 Row(
