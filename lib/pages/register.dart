@@ -221,7 +221,7 @@ String? _emailValidator(String? val) {
     String text = val.trim();
     if (text.isEmpty) {
       return "กรุณากรอกอีเมลของท่าน";
-    } else if (!EmailValidator.validate(val)) {
+    } else if (!EmailValidator.validate(text)) {
       return "กรุณากรอกรูปแบบอีเมลให้ถูกต้อง";
     }
   }
@@ -229,6 +229,17 @@ String? _emailValidator(String? val) {
 }
 
 String? _phoneValidator(String? val) {
+  if (val != null) {
+    String text = val.trim();
+    if (text.isEmpty) {
+      return "กรุณากรอกเบอร์โทรศัพท์ของท่าน";
+    } else if (text.contains(RegExp(r'\D'))) {
+      return "กรุณากรอกเพียงตัวเลข";
+    } else if (!text.contains(RegExp(r'^0')) ||
+        (text.length != 9 && text.length != 10)) {
+      return "กรุณากรอกด้วยรูปแบบที่ถูกต้อง";
+    }
+  }
   return null;
 }
 
