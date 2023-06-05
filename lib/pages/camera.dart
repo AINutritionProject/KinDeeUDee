@@ -87,9 +87,6 @@ class _CameraPageState extends State<CameraPage> {
           },
           child: const Icon(Icons.image),
         ),
-        appBar: AppBar(
-          title: const Text("Camera Page"),
-        ),
         backgroundColor: Colors.black,
         body: FutureBuilder(
           future: _initCamera(),
