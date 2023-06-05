@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:appfood2/db.dart';
-import 'package:appfood2/pages/information/bmi.dart';
+import 'bmi.dart';
 
 class MilkPage extends StatefulWidget {
   final User user;
