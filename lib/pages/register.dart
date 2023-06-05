@@ -181,14 +181,17 @@ class _RegisterFormState extends State<RegisterForm> {
 }
 
 class TextFormSlot extends StatelessWidget {
-  const TextFormSlot(
-      {super.key,
-      required this.controller,
-      required this.name,
-      required this.validator});
+  const TextFormSlot({
+    super.key,
+    required this.controller,
+    required this.name,
+    required this.validator,
+    this.autovalidateMode = AutovalidateMode.onUserInteraction,
+  });
   final TextEditingController controller;
   final String name;
   final String? Function(String? val) validator;
+  final AutovalidateMode autovalidateMode;
 
   @override
   Widget build(BuildContext context) {
@@ -203,7 +206,7 @@ class TextFormSlot extends StatelessWidget {
         TextFormField(
           controller: controller,
           validator: validator,
-          autovalidateMode: AutovalidateMode.onUserInteraction,
+          autovalidateMode: autovalidateMode,
           style: const TextStyle(fontSize: 23),
           decoration: const InputDecoration(
             errorStyle: TextStyle(fontSize: 18, color: Colors.red),
