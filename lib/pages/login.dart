@@ -53,7 +53,6 @@ class _LogInFormState extends State<LogInForm> {
                 padding: const EdgeInsets.only(
                     left: 30, right: 24, top: 20, bottom: 60),
                 child: TextFormField(
-                  autovalidateMode: AutovalidateMode.onUserInteraction,
                   controller: _usernameController,
                   cursorHeight: 30,
                   decoration: const InputDecoration(
