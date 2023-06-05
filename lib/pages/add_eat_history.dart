@@ -22,9 +22,6 @@ class _AddEatHistoryPageState extends State<AddEatHistoryPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.yellow.shade50,
-      appBar: AppBar(
-        title: const Text("Add eat history page"),
-      ),
       body: SingleChildScrollView(
         child: Column(
           children: [
