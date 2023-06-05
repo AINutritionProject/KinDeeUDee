@@ -11,7 +11,7 @@ class InformationPage extends StatelessWidget {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       title: "InformationPage",
-      theme: ThemeData(fontFamily: 'Inter'),
+      theme: ThemeData(fontFamily: 'Anuphan'),
       home: Scaffold(
         resizeToAvoidBottomInset: true,
         body: SafeArea(

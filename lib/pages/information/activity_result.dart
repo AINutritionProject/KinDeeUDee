@@ -11,15 +11,19 @@ class ActivityResult extends StatelessWidget {
   });
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      resizeToAvoidBottomInset: true,
-      body: Center(
-        child: Column(
-          children: [
-            const ActivityResultHeader(),
-            ActivityResultBody(user: user),
-            ActivityResultFooter(user: user),
-          ],
+    return MaterialApp(
+      debugShowCheckedModeBanner: false,
+      theme: ThemeData(fontFamily: 'Anuphan'),
+      home: Scaffold(
+        resizeToAvoidBottomInset: true,
+        body: Center(
+          child: Column(
+            children: [
+              const ActivityResultHeader(),
+              ActivityResultBody(user: user),
+              ActivityResultFooter(user: user),
+            ],
+          ),
         ),
       ),
     );
