@@ -115,7 +115,7 @@ class _PersonalBodyState extends State<PersonalBody> {
                     padding: EdgeInsets.symmetric(vertical: 8.0),
                     child: Text("ชื่อ - นามสกุล",
                         style: TextStyle(
-                            fontSize: 22, fontWeight: FontWeight.w700)),
+                            fontSize: 24, fontWeight: FontWeight.w600)),
                   ),
                   TextFormField(
                     keyboardType: TextInputType.text,
@@ -151,7 +151,7 @@ class _PersonalBodyState extends State<PersonalBody> {
                             padding: EdgeInsets.symmetric(vertical: 8.0),
                             child: Text("เพศ",
                                 style: TextStyle(
-                                    fontSize: 22, fontWeight: FontWeight.w700)),
+                                    fontSize: 24, fontWeight: FontWeight.w600)),
                           ),
                           SizedBox(
                             width: 130, //temporary
@@ -191,7 +191,7 @@ class _PersonalBodyState extends State<PersonalBody> {
                             padding: EdgeInsets.symmetric(vertical: 8.0),
                             child: Text("อายุ",
                                 style: TextStyle(
-                                    fontSize: 22, fontWeight: FontWeight.w700)),
+                                    fontSize: 24, fontWeight: FontWeight.w600)),
                           ),
                           SizedBox(
                             width: 130,
@@ -236,7 +236,7 @@ class _PersonalBodyState extends State<PersonalBody> {
                             padding: EdgeInsets.symmetric(vertical: 8.0),
                             child: Text("น้ำหนัก",
                                 style: TextStyle(
-                                    fontSize: 22, fontWeight: FontWeight.w700)),
+                                    fontSize: 24, fontWeight: FontWeight.w600)),
                           ),
                           SizedBox(
                             width: 130, //temporary
@@ -276,7 +276,7 @@ class _PersonalBodyState extends State<PersonalBody> {
                             padding: EdgeInsets.symmetric(vertical: 8.0),
                             child: Text("ส่วนสูง",
                                 style: TextStyle(
-                                    fontSize: 22, fontWeight: FontWeight.w700)),
+                                    fontSize: 24, fontWeight: FontWeight.w600)),
                           ),
                           SizedBox(
                             width: 130,
@@ -340,7 +340,7 @@ class _PersonalBodyState extends State<PersonalBody> {
                     child: Text(
                       "ประวัติการแพ้อาหาร",
                       style:
-                          TextStyle(fontSize: 22, fontWeight: FontWeight.w700),
+                          TextStyle(fontSize: 24, fontWeight: FontWeight.w600),
                     ),
                   ),
                   TextFormField(
@@ -408,7 +408,7 @@ class _PersonalBodyState extends State<PersonalBody> {
                       style: TextStyle(
                           fontSize: 32,
                           color: Colors.white,
-                          fontWeight: FontWeight.w700),
+                          fontWeight: FontWeight.w600),
                     ),
                   ),
                 ),
