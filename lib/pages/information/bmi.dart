@@ -227,13 +227,12 @@ class _BMIState extends State<BMIPage> {
                                           ? const FaIcon(
                                               FontAwesomeIcons.thumbsUp,
                                               color: Color.fromRGBO(
-                                                  222, 192, 32, 1),
+                                                  44, 169, 13, 1),
                                             )
                                           : const FaIcon(
                                               FontAwesomeIcons.thumbsUp,
                                               color: Color.fromRGBO(
-                                                  44, 169, 13, 1),
-                                            ))
+                                                  222, 192, 32, 1)))
                     ],
                   )),
               Padding(
