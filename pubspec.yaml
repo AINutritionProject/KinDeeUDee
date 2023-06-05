@@ -47,6 +47,7 @@ dependencies:
   loading_animation_widget: ^1.2.0+4
   flutter_svg: ^2.0.6
   email_validator: ^2.1.17
+  vector_math: ^2.1.4
 
 dev_dependencies:
   flutter_test:
