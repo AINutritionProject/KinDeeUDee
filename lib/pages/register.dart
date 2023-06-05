@@ -14,11 +14,17 @@ class RegisterPage extends StatelessWidget {
       title: "RegisterPage",
       debugShowCheckedModeBanner: false,
       theme: ThemeData(fontFamily: "Anuphan"),
-      home: const Scaffold(
+      home: Scaffold(
         body: SafeArea(
-          child: SingleChildScrollView(
-            child: RegisterForm(),
-          ),
+          child: LayoutBuilder(
+              builder: (BuildContext context, BoxConstraints constraints) {
+            return SingleChildScrollView(
+              child: ConstrainedBox(
+                constraints: BoxConstraints(minHeight: constraints.maxHeight),
+                child: const RegisterForm(),
+              ),
+            );
+          }),
         ),
       ),
     );
@@ -66,7 +72,7 @@ class _RegisterFormState extends State<RegisterForm> {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           const Padding(
-            padding: EdgeInsets.only(left: 24, top: 20, bottom: 30),
+            padding: EdgeInsets.only(left: 10, top: 30, bottom: 30),
             child: ButtonBack(
               colorCircle: Color(0xFF09B7AD),
               color: Color(0xFFFFFFFF),
@@ -94,7 +100,6 @@ class _RegisterFormState extends State<RegisterForm> {
           Container(
               margin:
                   const EdgeInsets.symmetric(vertical: 18.0, horizontal: 12.0),
-              height: 620,
               width: double.infinity,
               decoration: BoxDecoration(
                   color: const Color.fromRGBO(174, 254, 196, 0.65),
@@ -166,7 +171,8 @@ class _RegisterFormState extends State<RegisterForm> {
                   ],
                 ),
                 Container(
-                    margin: const EdgeInsets.symmetric(horizontal: 84),
+                    margin: const EdgeInsets.symmetric(
+                        horizontal: 84, vertical: 30),
                     child: ElevatedButton(
                       style: ElevatedButton.styleFrom(
                         foregroundColor: Colors.white,
