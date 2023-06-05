@@ -7,14 +7,18 @@ class SmallDropDown extends StatefulWidget {
   final Color dropdownColor;
   final Border border;
   final BorderRadius borderRadius;
+  final String fontFamily;
+  final FontWeight fontWeight;
   const SmallDropDown({
     super.key,
     required this.data,
     required this.setSelectedItem,
+    required this.border,
     this.buttonColor = Colors.white,
     this.dropdownColor = Colors.white,
-    required this.border,
     this.borderRadius = BorderRadius.zero,
+    this.fontFamily = 'Anuphan',
+    this.fontWeight = FontWeight.w600,
   });
 
   @override
@@ -58,7 +62,12 @@ class _SmallDropDownState extends State<SmallDropDown> {
           items: widget.data.map<DropdownMenuItem<String>>((String value) {
             return DropdownMenuItem<String>(
               value: value,
-              child: Text(value),
+              child: Text(
+                value,
+                style: TextStyle(
+                    fontFamily: widget.fontFamily,
+                    fontWeight: widget.fontWeight),
+              ),
             );
           }).toList(),
         ),

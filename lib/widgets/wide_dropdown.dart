@@ -6,13 +6,17 @@ class WideDropDown extends StatefulWidget {
   final Color color;
   final Function(String val) setSelectedItem;
   final BorderSide border;
+  final String fontFamily;
+  final FontWeight fontWeight;
   const WideDropDown({
     super.key,
     required this.data,
+    required this.setSelectedItem,
     this.title = "",
     this.color = Colors.white,
     this.border = BorderSide.none,
-    required this.setSelectedItem,
+    this.fontFamily = "Anuphan",
+    this.fontWeight = FontWeight.w600,
   });
 
   @override
@@ -39,8 +43,10 @@ class _WideDropDownState extends State<WideDropDown> {
                         top: 20, left: 10, right: 10, bottom: 8),
                     child: Text(
                       widget.title,
-                      style: const TextStyle(
+                      style: TextStyle(
+                        fontFamily: widget.fontFamily,
                         fontSize: 24,
+                        fontWeight: widget.fontWeight,
                       ),
                     ),
                   );
@@ -66,8 +72,10 @@ class _WideDropDownState extends State<WideDropDown> {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Text(selectedItem,
-                        style:
-                            const TextStyle(fontSize: 20, color: Colors.black)),
+                        style: TextStyle(
+                            fontSize: 20,
+                            color: Colors.black,
+                            fontFamily: widget.fontFamily)),
                     const Icon(
                       Icons.arrow_drop_down,
                       color: Colors.black,
@@ -127,8 +135,10 @@ class _WideDropDownState extends State<WideDropDown> {
                                   alignment: Alignment.centerLeft,
                                   child: Text(
                                     widget.data[index],
-                                    style: const TextStyle(
-                                        fontSize: 20, color: Colors.black),
+                                    style: TextStyle(
+                                        fontSize: 20,
+                                        color: Colors.black,
+                                        fontFamily: widget.fontFamily),
                                   ),
                                 ),
                               );
