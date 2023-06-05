@@ -223,7 +223,7 @@ class _BMIState extends State<BMIPage> {
                                 : (valBMI >= 18.5 && valBMI <= 22.9)
                                 ? const FaIcon(
                           FontAwesomeIcons.thumbsUp,
-                          color: Color.fromRGBO(44, 169, 13, 1),
+                          color: Color.fromRGBO(222, 192, 32, 1),
                         )
                                 : const FaIcon(
                           FontAwesomeIcons.thumbsUp,
