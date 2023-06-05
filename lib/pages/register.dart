@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:appfood2/pages/register_success.dart';
 import 'package:appfood2/auth.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:email_validator/email_validator.dart';
 
 class RegisterPage extends StatelessWidget {
   const RegisterPage({super.key});
@@ -216,6 +217,14 @@ class TextFormSlot extends StatelessWidget {
 }
 
 String? _emailValidator(String? val) {
+  if (val != null) {
+    String text = val.trim();
+    if (text.isEmpty) {
+      return "กรุณากรอกอีเมลของท่าน";
+    } else if (!EmailValidator.validate(val)) {
+      return "กรุณากรอกรูปแบบอีเมลให้ถูกต้อง";
+    }
+  }
   return null;
 }
 
