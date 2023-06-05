@@ -10,22 +10,17 @@ class RegisterPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      title: "RegisterPage",
-      debugShowCheckedModeBanner: false,
-      theme: ThemeData(fontFamily: "Anuphan"),
-      home: Scaffold(
-        body: SafeArea(
-          child: LayoutBuilder(
-              builder: (BuildContext context, BoxConstraints constraints) {
-            return SingleChildScrollView(
-              child: ConstrainedBox(
-                constraints: BoxConstraints(minHeight: constraints.maxHeight),
-                child: const RegisterForm(),
-              ),
-            );
-          }),
-        ),
+    return Scaffold(
+      body: SafeArea(
+        child: LayoutBuilder(
+            builder: (BuildContext context, BoxConstraints constraints) {
+          return SingleChildScrollView(
+            child: ConstrainedBox(
+              constraints: BoxConstraints(minHeight: constraints.maxHeight),
+              child: const RegisterForm(),
+            ),
+          );
+        }),
       ),
     );
   }
