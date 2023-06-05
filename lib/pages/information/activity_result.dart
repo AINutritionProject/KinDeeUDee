@@ -266,6 +266,7 @@ class ActivityResultFooter extends StatefulWidget {
 
 class _ActivityResultFooterState extends State<ActivityResultFooter> {
   bool isChecked = false;
+  bool checkboxError = false;
   final GlobalKey<ShakerState> _shakeKey = GlobalKey<ShakerState>();
 
   @override
@@ -308,13 +309,21 @@ class _ActivityResultFooterState extends State<ActivityResultFooter> {
                     width: 30,
                     child: Shaker(
                       key: _shakeKey,
+                      speed: 8,
+                      duration: const Duration(milliseconds: 500),
+                      range: 5,
                       child: Checkbox(
+                          side: !checkboxError
+                              ? const BorderSide(
+                                  color: Colors.black38, width: 2)
+                              : const BorderSide(color: Colors.red, width: 2),
                           overlayColor:
                               const MaterialStatePropertyAll(Color(0xFFC6FF9A)),
                           value: isChecked,
                           activeColor: const Color(0xFFBAEBC8),
                           onChanged: (bool? val) {
                             setState(() {
+                              checkboxError = false;
                               isChecked = val!;
                             });
                           }),
@@ -367,6 +376,9 @@ class _ActivityResultFooterState extends State<ActivityResultFooter> {
                     });
                   } else {
                     _shakeKey.currentState?.shake();
+                    setState(() {
+                      checkboxError = true;
+                    });
                   }
                 },
                 child: const Text(
