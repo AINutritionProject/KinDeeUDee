@@ -1,3 +1,4 @@
+import 'package:appfood2/pages/information/information.dart';
 import 'package:flutter/material.dart';
 import 'package:appfood2/pages/menu.dart';
 import 'package:appfood2/pages/flag_nutrition.dart';
@@ -70,16 +71,26 @@ class _HomeState extends State<Home> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      drawer: Drawer(
-        child: ListView(
-          children: [
-            Text("YEEEKAKA"),
-            IconButton(
-                onPressed: () async {
-                  await Auth().signOut();
-                },
-                icon: Icon(Icons.logout))
-          ],
+      drawer: SafeArea(
+        child: Drawer(
+          child: ListView(
+            children: [
+              TextButton(
+                  onPressed: () {
+                    Navigator.of(context).push(MaterialPageRoute(
+                        builder: (context) => const InformationPage()));
+                  },
+                  child: const Text(
+                    "แก้ไขข้อมูลส่วนตัว",
+                    style: TextStyle(fontSize: 22),
+                  )),
+              IconButton(
+                  onPressed: () async {
+                    await Auth().signOut();
+                  },
+                  icon: const Icon(Icons.logout))
+            ],
+          ),
         ),
       ),
       backgroundColor: const Color.fromRGBO(255, 251, 242, 1),
