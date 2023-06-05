@@ -54,10 +54,14 @@ class _LogInFormState extends State<LogInForm> {
                 padding: const EdgeInsets.only(
                     left: 30, right: 24, top: 20, bottom: 60),
                 child: TextFormField(
+                  autovalidateMode: AutovalidateMode.onUserInteraction,
+                  validator: _usernameValidator,
                   controller: _usernameController,
                   cursorHeight: 30,
                   decoration: const InputDecoration(
                     border: UnderlineInputBorder(),
+                    errorStyle: TextStyle(fontSize: 18, color: Colors.red),
+                    errorMaxLines: 2,
                   ),
                   style: const TextStyle(fontSize: 20),
                 )),
@@ -78,9 +82,14 @@ class _LogInFormState extends State<LogInForm> {
                 ),
                 child: TextFormField(
                     controller: _passwordController,
+                    validator: _passwordValidator,
+                    autovalidateMode: AutovalidateMode.onUserInteraction,
                     obscureText: isObscure,
                     decoration: InputDecoration(
                         // this button is used to toggle the password visibility
+                        errorStyle:
+                            const TextStyle(fontSize: 18, color: Colors.red),
+                        errorMaxLines: 2,
                         suffixIcon: IconButton(
                             icon: Icon(isObscure
                                 ? Icons.visibility
@@ -258,4 +267,24 @@ class _LoginPageState extends State<LoginPage> {
           }),
         ));
   }
+}
+
+String? _usernameValidator(String? val) {
+  if (val != null) {
+    String text = val.trim();
+    if (text.isEmpty) {
+      return "กรุณากรอกชื่อผู้ใช้ของท่าน";
+    }
+  }
+  return null;
+}
+
+String? _passwordValidator(String? val) {
+  if (val != null) {
+    String text = val.trim();
+    if (text.isEmpty) {
+      return "กรุณากรอกรหัสผ่านของท่าน";
+    }
+  }
+  return null;
 }
