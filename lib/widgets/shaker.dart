@@ -4,9 +4,15 @@ import 'package:vector_math/vector_math_64.dart' as math;
 
 class Shaker extends StatefulWidget {
   final Widget child;
+  final Duration duration;
+  final double speed;
+  final double range;
   const Shaker({
     super.key,
     required this.child,
+    required this.duration,
+    this.speed = 10,
+    this.range = 25,
   });
 
   @override
@@ -22,7 +28,7 @@ class ShakerState extends State<Shaker> with SingleTickerProviderStateMixin {
     super.initState();
     animationController = AnimationController(
       vsync: this,
-      duration: const Duration(milliseconds: 800), // how long the shake happens
+      duration: widget.duration, // how long the shake happens
     )..addListener(() => setState(() {}));
 
     animation = Tween<double>(
@@ -33,10 +39,10 @@ class ShakerState extends State<Shaker> with SingleTickerProviderStateMixin {
 
   math.Vector3 _shake() {
     double progress = animationController.value;
-    double offset =
-        sin(progress * pi * 10.0); // change 10 to make it vibrate faster
+    double offset = sin(
+        progress * pi * widget.speed); // change 10 to make it vibrate faster
     return math.Vector3(
-        offset * 25, 0.0, 0.0); // change 25 to make it vibrate wider
+        offset * widget.range, 0.0, 0.0); // change 25 to make it vibrate wider
   }
 
   shake() {
