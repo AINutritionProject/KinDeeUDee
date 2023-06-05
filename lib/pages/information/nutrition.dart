@@ -89,36 +89,31 @@ class Nutrition extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      title: "NutritionPage",
-      debugShowCheckedModeBanner: false,
-      theme: ThemeData(fontFamily: 'Anuphan'),
-      home: Scaffold(
-          appBar: AppBar(title: const Text("nutririon")),
-          body: SafeArea(
-            child: ListView.builder(
-              itemCount: dataInSection.length + 2,
-              itemBuilder: (context, index) {
-                if (index == dataInSection.length + 1) {
-                  return ButtonSave(user: user);
-                } else if (index == 0) {
-                  return const ContainerHeader(
-                    calAmount: 1800,
-                  );
-                } else {
-                  return SectionNutrition(
-                      imgTypeNutritionPath: dataInSection[index - 1]
-                          ['imgTypeNutritionPath'],
-                      nameTypeNutrition: dataInSection[index - 1]['name'],
-                      amount: amountList[index - 1],
-                      nameAmount: dataInSection[index - 1]['nameAmount'],
-                      widget: dataInSection[index - 1]['amountWiget']
-                          [amountList[index - 1]]);
-                }
-              },
-            ),
-          )),
-    );
+    return Scaffold(
+        appBar: AppBar(title: const Text("nutririon")),
+        body: SafeArea(
+          child: ListView.builder(
+            itemCount: dataInSection.length + 2,
+            itemBuilder: (context, index) {
+              if (index == dataInSection.length + 1) {
+                return ButtonSave(user: user);
+              } else if (index == 0) {
+                return const ContainerHeader(
+                  calAmount: 1800,
+                );
+              } else {
+                return SectionNutrition(
+                    imgTypeNutritionPath: dataInSection[index - 1]
+                        ['imgTypeNutritionPath'],
+                    nameTypeNutrition: dataInSection[index - 1]['name'],
+                    amount: amountList[index - 1],
+                    nameAmount: dataInSection[index - 1]['nameAmount'],
+                    widget: dataInSection[index - 1]['amountWiget']
+                        [amountList[index - 1]]);
+              }
+            },
+          ),
+        ));
   }
 }
 
