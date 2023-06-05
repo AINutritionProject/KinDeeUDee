@@ -99,7 +99,17 @@ class _CameraPageState extends State<CameraPage> {
                   Expanded(
                     flex: 1,
                     child: Center(
-                      child: CameraPreview(controller),
+                      child: CameraPreview(
+                        controller,
+                        child: const Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Image(
+                              image: AssetImage('assets/cameraFrame.png'),
+                            )
+                          ],
+                        ),
+                      ),
                     ),
                   ),
                   Container(
