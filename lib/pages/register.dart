@@ -265,5 +265,15 @@ String? _usernameValidator(String? val) {
 }
 
 String? _passwordValidator(String? val) {
+  if (val != null) {
+    String text = val.trim();
+    if (text.isEmpty) {
+      return "กรุณากรอกรหัสผ่านของท่าน";
+    } else if (text.contains(" ")) {
+      return "รหัสผ่านต้องไม่มีช่องว่าง";
+    } else if (text.length <= 8) {
+      return "รหัสผ่านต้องมีความยาวอย่างน้อย 8 ตัวอักษร";
+    }
+  }
   return null;
 }
