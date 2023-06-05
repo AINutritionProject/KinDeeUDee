@@ -115,7 +115,9 @@ class _PersonalBodyState extends State<PersonalBody> {
                     padding: EdgeInsets.symmetric(vertical: 8.0),
                     child: Text("ชื่อ - นามสกุล",
                         style: TextStyle(
-                            fontSize: 22, fontWeight: FontWeight.w700)),
+                            fontSize: 22,
+                            fontFamily: 'Kadwa',
+                            fontWeight: FontWeight.w700)),
                   ),
                   TextFormField(
                     keyboardType: TextInputType.text,

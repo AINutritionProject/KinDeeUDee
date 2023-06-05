@@ -98,28 +98,16 @@ flutter:
   # list giving the asset and other descriptors for the font. For
   # example:
   fonts:
-    - family: Inter
+    - family: Anuphan
       fonts:
-        - asset: assets/fonts/Inter-Black.ttf
-        - asset: assets/fonts/Inter-Bold.ttf
-        - asset: assets/fonts/Inter-ExtraBold.ttf
-        - asset: assets/fonts/Inter-ExtraLight.ttf
-        - asset: assets/fonts/Inter-Light.ttf
-        - asset: assets/fonts/Inter-Medium.ttf
-        - asset: assets/fonts/Inter-Regular.ttf
-        - asset: assets/fonts/Inter-SemiBold.ttf
-        - asset: assets/fonts/Inter-Thin.ttf
-    - family: Kadwa
-      fonts:
-        - asset: assets/fonts/Kadwa-Bold.ttf
-        - asset: assets/fonts/Kadwa-Regular.ttf
-    - family: KohSantepheap
-      fonts:
-        - asset: assets/fonts/KohSantepheap-Black.ttf
-        - asset: assets/fonts/KohSantepheap-Bold.ttf
-        - asset: assets/fonts/KohSantepheap-Light.ttf
-        - asset: assets/fonts/KohSantepheap-Regular.ttf
-        - asset: assets/fonts/KohSantepheap-Thin.ttf
+        - asset: assets/fonts/Anuphan/Anuphan-Bold.ttf
+        - asset: assets/fonts/Anuphan/Anuphan-ExtraLight.ttf
+        - asset: assets/fonts/Anuphan/Anuphan-Light.ttf
+        - asset: assets/fonts/Anuphan/Anuphan-Medium.ttf
+        - asset: assets/fonts/Anuphan/Anuphan-Regular.ttf
+        - asset: assets/fonts/Anuphan/Anuphan-SemiBold.ttf
+        - asset: assets/fonts/Anuphan/Anuphan-Thin.ttf
+        - asset: assets/fonts/Anuphan/Anuphan-VariableFont_wght.ttf
   #
   # For details regarding fonts from package dependencies,
   # see https://flutter.dev/custom-fonts/#from-packages
