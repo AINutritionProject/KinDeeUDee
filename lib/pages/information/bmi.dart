@@ -181,9 +181,9 @@ class _BMIState extends State<BMIPage> {
                                               255, 208, 87, 1)
                                           : (valBMI >= 18.5 && valBMI <= 22.9)
                                               ? const Color.fromRGBO(
-                                                  255, 208, 87, 1)
+                                                  98, 233, 35, 1)
                                               : const Color.fromRGBO(
-                                                  98, 233, 35, 1),
+                                                  255, 208, 87, 1),
                               borderRadius: const BorderRadius.all(
                                 Radius.circular(50),
                               )),
