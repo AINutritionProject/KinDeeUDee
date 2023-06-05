@@ -14,7 +14,6 @@ class AIOutputPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: const Color.fromRGBO(233, 255, 223, 1),
-      appBar: AppBar(title: const Text("AI Output Page")),
       body: SingleChildScrollView(
         child: Center(
           child: Column(

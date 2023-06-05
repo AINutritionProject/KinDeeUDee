@@ -27,35 +27,6 @@ class MenuPage extends StatelessWidget {
         //     Icons.camera_alt,
         //   ),
         // ),
-        appBar: AppBar(
-          title: const Text("Find Menu"),
-          actions: [
-            IconButton(
-                onPressed: () {
-                  Navigator.of(context).push(MaterialPageRoute(
-                      builder: (context) => const RealAllFoodPage(
-                            type: "Fruit",
-                          )));
-                },
-                icon: const Icon(Icons.tv)),
-            IconButton(
-                onPressed: () {
-                  Navigator.of(context).push(MaterialPageRoute(
-                      builder: (context) =>
-                          const RealAllFoodPage(type: "Flour")));
-                },
-                icon: const Icon(Icons.tv)),
-            ElevatedButton(
-              onPressed: () {
-                Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                        builder: (context) => const InformationPage()));
-              },
-              child: const Text("informations"),
-            )
-          ],
-        ),
         backgroundColor: const Color.fromRGBO(234, 255, 241, 1),
         body: SafeArea(
           child: Container(
