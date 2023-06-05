@@ -39,7 +39,7 @@ class _ActivityFormState extends State<ActivityForm> {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       title: "activity_form",
-      theme: ThemeData(fontFamily: 'Kadwa'),
+      theme: ThemeData(fontFamily: 'Anuphan'),
       home: Scaffold(
         body: SafeArea(
           child: LayoutBuilder(
