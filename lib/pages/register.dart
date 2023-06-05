@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:appfood2/pages/register_success.dart';
 import 'package:appfood2/auth.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:email_validator/email_validator.dart';
+import 'package:appfood2/widgets/button_back.dart';
 
 class RegisterPage extends StatelessWidget {
   const RegisterPage({super.key});
@@ -9,11 +11,16 @@ class RegisterPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text("Register"),
-      ),
-      body: const SingleChildScrollView(
-        child: RegisterForm(),
+      body: SafeArea(
+        child: LayoutBuilder(
+            builder: (BuildContext context, BoxConstraints constraints) {
+          return SingleChildScrollView(
+            child: ConstrainedBox(
+              constraints: BoxConstraints(minHeight: constraints.maxHeight),
+              child: const RegisterForm(),
+            ),
+          );
+        }),
       ),
     );
   }
@@ -57,7 +64,15 @@ class _RegisterFormState extends State<RegisterForm> {
     return Form(
       key: _formKey,
       child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
         children: [
+          const Padding(
+            padding: EdgeInsets.only(left: 10, top: 30, bottom: 30),
+            child: ButtonBack(
+              colorCircle: Color(0xFF09B7AD),
+              color: Color(0xFFFFFFFF),
+            ),
+          ),
           const Align(
               alignment: Alignment.centerLeft,
               child: Padding(
@@ -80,34 +95,41 @@ class _RegisterFormState extends State<RegisterForm> {
           Container(
               margin:
                   const EdgeInsets.symmetric(vertical: 18.0, horizontal: 12.0),
-              height: 620,
               width: double.infinity,
               decoration: BoxDecoration(
                   color: const Color.fromRGBO(174, 254, 196, 0.65),
                   borderRadius: BorderRadius.circular(40)),
               child: Column(children: [
                 Padding(
-                  padding: EdgeInsets.symmetric(horizontal: 14, vertical: 30),
-                  child:
-                      TextFormSlot(controller: _emailController, name: "อีเมล"),
+                  padding:
+                      const EdgeInsets.symmetric(horizontal: 14, vertical: 30),
+                  child: TextFormSlot(
+                    controller: _emailController,
+                    name: "อีเมล",
+                    validator: _emailValidator,
+                  ),
                 ),
                 Padding(
-                    padding: EdgeInsets.symmetric(horizontal: 12),
+                    padding: const EdgeInsets.symmetric(horizontal: 12),
                     child: TextFormSlot(
                       controller: _phoneNumberController,
                       name: "หมายเลขโทรศัพท์",
+                      validator: _phoneValidator,
                     )),
                 Padding(
-                    padding: EdgeInsets.symmetric(horizontal: 14, vertical: 30),
+                    padding: const EdgeInsets.symmetric(
+                        horizontal: 14, vertical: 30),
                     child: TextFormSlot(
                       controller: _usernameController,
                       name: "ชื่อผู้ใช้",
+                      validator: _usernameValidator,
                     )),
                 Padding(
-                    padding: EdgeInsets.symmetric(horizontal: 14),
+                    padding: const EdgeInsets.symmetric(horizontal: 14),
                     child: TextFormSlot(
                       controller: _passwordController,
                       name: "รหัสผ่าน",
+                      validator: _passwordValidator,
                     )),
                 Row(
                   children: [
@@ -128,7 +150,7 @@ class _RegisterFormState extends State<RegisterForm> {
                             });
                       },
                       child: Container(
-                          margin: EdgeInsets.symmetric(vertical: 30),
+                          margin: const EdgeInsets.symmetric(vertical: 30),
                           child: const Text(
                             "ฉันยอมรับข้อตกลงและเงื่อนไข นโยบายความเป็นส่วนตัว",
                             style: TextStyle(color: Colors.blue, fontSize: 12),
@@ -144,7 +166,8 @@ class _RegisterFormState extends State<RegisterForm> {
                   ],
                 ),
                 Container(
-                    margin: const EdgeInsets.symmetric(horizontal: 84),
+                    margin: const EdgeInsets.symmetric(
+                        horizontal: 84, vertical: 30),
                     child: ElevatedButton(
                       style: ElevatedButton.styleFrom(
                         foregroundColor: Colors.white,
@@ -172,9 +195,17 @@ class _RegisterFormState extends State<RegisterForm> {
 }
 
 class TextFormSlot extends StatelessWidget {
-  const TextFormSlot({super.key, required this.controller, required this.name});
+  const TextFormSlot({
+    super.key,
+    required this.controller,
+    required this.name,
+    required this.validator,
+    this.autovalidateMode = AutovalidateMode.onUserInteraction,
+  });
   final TextEditingController controller;
   final String name;
+  final String? Function(String? val) validator;
+  final AutovalidateMode autovalidateMode;
 
   @override
   Widget build(BuildContext context) {
@@ -188,10 +219,75 @@ class TextFormSlot extends StatelessWidget {
             )),
         TextFormField(
           controller: controller,
+          validator: validator,
+          autovalidateMode: autovalidateMode,
           style: const TextStyle(fontSize: 23),
+          decoration: const InputDecoration(
+            errorStyle: TextStyle(fontSize: 18, color: Colors.red),
+            errorMaxLines: 2,
+          ),
           obscureText: name == "รหัสผ่าน" ? true : false,
         ),
       ],
     );
   }
+}
+
+String? _emailValidator(String? val) {
+  if (val != null) {
+    String text = val.trim();
+    if (text.isEmpty) {
+      return "กรุณากรอกอีเมลของท่าน";
+    } else if (!EmailValidator.validate(text)) {
+      return "กรุณากรอกรูปแบบอีเมลให้ถูกต้อง";
+    }
+  }
+  return null;
+}
+
+String? _phoneValidator(String? val) {
+  if (val != null) {
+    String text = val.trim();
+    if (text.isEmpty) {
+      return "กรุณากรอกเบอร์โทรศัพท์ของท่าน";
+    } else if (text.contains(RegExp(r'\D'))) {
+      return "กรุณากรอกเพียงตัวเลข";
+    } else if (!text.contains(RegExp(r'^0')) ||
+        (text.length != 9 && text.length != 10)) {
+      return "กรุณากรอกด้วยรูปแบบที่ถูกต้อง";
+    }
+  }
+  return null;
+}
+
+String? _usernameValidator(String? val) {
+  if (val != null) {
+    String text = val.trim();
+    if (text.isEmpty) {
+      return "กรุณากรอกชื่อผู้ใช้ของท่าน";
+    } else if (text.contains(" ")) {
+      return "ชื่อผู้ใช้ต้องไม่มีช่องว่าง";
+    } else if (text.contains(RegExp('[^A-Za-z\u0E00-\u0E7F_0-9]'))) {
+      return "ชื่อผู้ใช้ต้องไม่มีตัวอักษรพิเศษอื่นนอกจาก \"_\"";
+    } else if (!text.contains(RegExp('^[A-Za-z\u0E00-\u0E7F]'))) {
+      return "ชื่อผู้ใช้ต้องขึ้นต้นด้วยตัวอักษรธรรมดาเท่านั้น";
+    } else if (text.length < 3 || text.length > 15) {
+      return "ืชื่อผู้ใช้ต้องมีความยาวอย่างน้อย 3 ตัวอักษร แต่ไม่เกิน 15 ตัวอักษร";
+    }
+  }
+  return null;
+}
+
+String? _passwordValidator(String? val) {
+  if (val != null) {
+    String text = val.trim();
+    if (text.isEmpty) {
+      return "กรุณากรอกรหัสผ่านของท่าน";
+    } else if (text.contains(" ")) {
+      return "รหัสผ่านต้องไม่มีช่องว่าง";
+    } else if (text.length <= 8) {
+      return "รหัสผ่านต้องมีความยาวอย่างน้อย 8 ตัวอักษร";
+    }
+  }
+  return null;
 }

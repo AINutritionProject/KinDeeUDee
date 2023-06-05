@@ -9,13 +9,31 @@ Future<User> getUser() async {
       .get();
   final doc = userData.docs.first;
   return User(
+    docID: doc.id,
+    uid: doc.get("uid"),
     email: doc.get("email"),
     username: doc.get("username"),
     hasData: doc.get("hasData"),
   );
 }
 
+Future<bool> updateDoc(User user) async {
+  final userRef =
+      FirebaseFirestore.instance.collection("users").doc(user.docID);
+  final userData = user.toMap();
+  try {
+    await userRef.update(userData);
+  } catch (e) {
+    print(e);
+    return false;
+  }
+  print("write to doc success");
+  return true;
+}
+
 class User {
+  final String docID;
+  final String uid;
   final String email;
   final bool hasData;
   final String username;
@@ -39,6 +57,8 @@ class User {
   double bmr;
 
   User({
+    required this.docID,
+    required this.uid,
     required this.email,
     required this.username,
     required this.hasData,
@@ -60,6 +80,33 @@ class User {
     this.bmi = 0,
     this.bmr = 0,
   });
+
+  Map<String, dynamic> toMap() {
+    return {
+      'hasData': true,
+      'fullname': fullname,
+      'gender': gender,
+      'age': age,
+      'weight': weight,
+      'height': height,
+      'career': career,
+      'chronicDisease': chronicDisease,
+      'foodAllergy': foodAllergy,
+      if (extraLightActivities != null)
+        'extraLightActivities': extraLightActivities!.map((e) => e.toMap()),
+      if (lightActivities != null)
+        'lightActivities': lightActivities!.map((e) => e.toMap()),
+      if (mediumActivities != null)
+        'mediumActivities': mediumActivities!.map((e) => e.toMap()),
+      if (customActivities != null)
+        'customActivities': customActivities!.map((e) => e.toMap()),
+      'activityLevel': activityLevel,
+      'milkGlass': milkGlass,
+      'milkProduct': milkProduct,
+      'bmi': bmi,
+      'bmr': bmr,
+    };
+  }
 }
 
 class UserActivity {
@@ -68,6 +115,13 @@ class UserActivity {
 
   UserActivity({
     this.activityName = "",
-    this.frequency = 0,
+    this.frequency = 1,
   });
+
+  Map<String, dynamic> toMap() {
+    return {
+      'activityName': activityName,
+      'frequency': frequency,
+    };
+  }
 }

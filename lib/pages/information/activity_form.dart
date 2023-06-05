@@ -42,18 +42,16 @@ class _ActivityFormState extends State<ActivityForm> {
             builder: (BuildContext context, BoxConstraints constraints) {
           return Center(
             child: Stack(alignment: Alignment.bottomCenter, children: [
-              Padding(
-                padding: const EdgeInsets.only(bottom: 50.0),
-                child: SingleChildScrollView(
-                  child: ConstrainedBox(
-                    constraints:
-                        BoxConstraints(minHeight: constraints.maxHeight),
-                    child: Column(
-                      children: [
-                        const ActivityFormHeader(),
-                        ActivityFormBody(user: widget.user),
-                      ],
-                    ),
+              SingleChildScrollView(
+                child: ConstrainedBox(
+                  constraints: BoxConstraints(minHeight: constraints.maxHeight),
+                  child: Column(
+                    children: [
+                      ActivityFormHeader(
+                        username: widget.user.username,
+                      ),
+                      ActivityFormBody(user: widget.user),
+                    ],
                   ),
                 ),
               ),
@@ -327,7 +325,8 @@ class _ActivityFormBodyState extends State<ActivityFormBody> {
           ),
           Center(
             child: FloatingActionButton.extended(
-              icon: const Icon(CupertinoIcons.plus_circle, color: Colors.black),
+              icon: const Icon(CupertinoIcons.plus_circle,
+                  color: Colors.black, weight: 700),
               foregroundColor: const Color(0xFFFFD18B),
               splashColor: const Color(0xFFFFD18B),
               elevation: 0,
@@ -457,7 +456,10 @@ class _ActivityFormBodyState extends State<ActivityFormBody> {
               },
               label: const Text(
                 "เพิ่มกิจกรรม",
-                style: TextStyle(color: Colors.black, fontSize: 22),
+                style: TextStyle(
+                    color: Colors.black,
+                    fontSize: 22,
+                    fontWeight: FontWeight.w700),
               ),
             ),
           ),
@@ -476,9 +478,24 @@ class _ActivityFormBodyState extends State<ActivityFormBody> {
                       ))),
                   onPressed: () {
                     setState(() {
-                      widget.user.extraLightActivities = extraLightActivities;
-                      widget.user.lightActivities = lightActivities;
-                      widget.user.mediumActivities = mediumActivities;
+                      widget.user.extraLightActivities = [];
+                      widget.user.lightActivities = [];
+                      widget.user.mediumActivities = [];
+                      for (var element in extraLightActivities) {
+                        if (element.activityName != "") {
+                          widget.user.extraLightActivities!.add(element);
+                        }
+                      }
+                      for (var element in lightActivities) {
+                        if (element.activityName != "") {
+                          widget.user.lightActivities!.add(element);
+                        }
+                      }
+                      for (var element in mediumActivities) {
+                        if (element.activityName != "") {
+                          widget.user.mediumActivities!.add(element);
+                        }
+                      }
                       widget.user.customActivities = customActivities;
                       Navigator.of(context).push(MaterialPageRoute(
                           builder: (context) =>
@@ -570,8 +587,10 @@ class _ActivityDisplayState extends State<ActivityDisplay> {
 }
 
 class ActivityFormHeader extends StatelessWidget {
+  final String username;
   const ActivityFormHeader({
     super.key,
+    required this.username,
   });
 
   @override
@@ -603,12 +622,13 @@ class ActivityFormHeader extends StatelessWidget {
                     ),
                   ),
                 )),
-            const Expanded(
+            Expanded(
                 flex: 1,
                 child: Center(
                     child: Text(
-                  "ของคุณ\"แจ่มใส\"",
-                  style: TextStyle(fontSize: 26, fontWeight: FontWeight.w700),
+                  "ของคุณ\"$username\"",
+                  style: const TextStyle(
+                      fontSize: 26, fontWeight: FontWeight.w700),
                 ))),
           ],
         ));

@@ -140,7 +140,7 @@ class ButtonSave extends StatelessWidget {
           child: GestureDetector(
             onTap: () {
               Navigator.of(context).push(MaterialPageRoute(
-                  builder: (context) => const SaveDataSuccessPage()));
+                  builder: (context) => SaveDataSuccessPage(user: user)));
             },
             child: const Center(
               child: Text(

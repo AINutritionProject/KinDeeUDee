@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:appfood2/pages/register.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:appfood2/widgets/button_back.dart';
 import 'dart:async';
 
 class LogInForm extends StatefulWidget {
@@ -46,17 +47,21 @@ class _LogInFormState extends State<LogInForm> {
               padding: EdgeInsets.only(left: 30, top: 34),
               child: Text(
                 "ชื่อผู้ใช้",
-                style: TextStyle(fontSize: 24, fontWeight: FontWeight.w300),
+                style: TextStyle(fontSize: 24, fontWeight: FontWeight.w400),
               ),
             ),
             Padding(
                 padding: const EdgeInsets.only(
                     left: 30, right: 24, top: 20, bottom: 60),
                 child: TextFormField(
+                  autovalidateMode: AutovalidateMode.onUserInteraction,
+                  validator: _usernameValidator,
                   controller: _usernameController,
                   cursorHeight: 30,
                   decoration: const InputDecoration(
                     border: UnderlineInputBorder(),
+                    errorStyle: TextStyle(fontSize: 18, color: Colors.red),
+                    errorMaxLines: 2,
                   ),
                   style: const TextStyle(fontSize: 20),
                 )),
@@ -66,7 +71,7 @@ class _LogInFormState extends State<LogInForm> {
               ),
               child: Text(
                 "รหัสผ่าน",
-                style: TextStyle(fontSize: 24, fontWeight: FontWeight.w300),
+                style: TextStyle(fontSize: 24, fontWeight: FontWeight.w400),
               ),
             ),
             Padding(
@@ -77,9 +82,14 @@ class _LogInFormState extends State<LogInForm> {
                 ),
                 child: TextFormField(
                     controller: _passwordController,
+                    validator: _passwordValidator,
+                    autovalidateMode: AutovalidateMode.onUserInteraction,
                     obscureText: isObscure,
                     decoration: InputDecoration(
                         // this button is used to toggle the password visibility
+                        errorStyle:
+                            const TextStyle(fontSize: 18, color: Colors.red),
+                        errorMaxLines: 2,
                         suffixIcon: IconButton(
                             icon: Icon(isObscure
                                 ? Icons.visibility
@@ -112,7 +122,7 @@ class _LogInFormState extends State<LogInForm> {
                   "ลงชื่อเข้าใช้",
                   style: TextStyle(
                     fontSize: 32,
-                    fontWeight: FontWeight.w300,
+                    fontWeight: FontWeight.w400,
                   ),
                 ),
               ),
@@ -132,27 +142,30 @@ class _LogInFormState extends State<LogInForm> {
             const SizedBox(
               height: 15,
             ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                const Text(
-                  "หรือ",
-                  style: TextStyle(fontSize: 20, fontWeight: FontWeight.w400),
-                ),
-                GestureDetector(
-                  onTap: () {
-                    Navigator.of(context).push(MaterialPageRoute(
-                        builder: (context) => const RegisterPage()));
-                  },
-                  child: const Text(
-                    " สร้างบัญชีผู้ใช้",
-                    style: TextStyle(
-                        fontSize: 20,
-                        fontWeight: FontWeight.w400,
-                        color: Colors.deepOrange),
+            Padding(
+              padding: const EdgeInsets.only(bottom: 30.0),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  const Text(
+                    "หรือ",
+                    style: TextStyle(fontSize: 20, fontWeight: FontWeight.w400),
                   ),
-                )
-              ],
+                  GestureDetector(
+                    onTap: () {
+                      Navigator.of(context).push(MaterialPageRoute(
+                          builder: (context) => const RegisterPage()));
+                    },
+                    child: const Text(
+                      " สร้างบัญชีผู้ใช้",
+                      style: TextStyle(
+                          fontSize: 20,
+                          fontWeight: FontWeight.w400,
+                          color: Colors.deepOrange),
+                    ),
+                  )
+                ],
+              ),
             )
           ],
         ));
@@ -170,91 +183,108 @@ class _LoginPageState extends State<LoginPage> {
     return Scaffold(
         backgroundColor: const Color.fromRGBO(255, 251, 242, 1),
         body: SafeArea(
-          child: SingleChildScrollView(
+          child: LayoutBuilder(
+              builder: (BuildContext context, BoxConstraints constraints) {
+            return SingleChildScrollView(
+                child: ConstrainedBox(
+              constraints: BoxConstraints(minHeight: constraints.maxHeight),
               child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Padding(
-                  padding: const EdgeInsets.only(left: 24, top: 20),
-                  child: ElevatedButton(
-                    style: ElevatedButton.styleFrom(
-                        backgroundColor: const Color.fromRGBO(255, 120, 63, 1),
-                        minimumSize: const Size(50, 50),
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(30.0),
-                        )),
-                    onPressed: () => {},
-                    child: const Text(
-                      "<",
-                      textAlign: TextAlign.center,
-                      style: TextStyle(fontSize: 28),
+                crossAxisAlignment: CrossAxisAlignment.start,
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  const Padding(
+                    padding: EdgeInsets.only(left: 24, top: 20),
+                    child: ButtonBack(
+                      colorCircle: Color(0xFFFF783F),
+                      color: Colors.white,
                     ),
-                  )),
-              const Padding(
-                padding: EdgeInsets.only(top: 38, left: 28),
-                child: Text(
-                  "ลงชื่อเข้าใช้",
-                  style: TextStyle(fontWeight: FontWeight.bold, fontSize: 30),
-                ),
-              ),
-              Padding(
-                padding: const EdgeInsets.only(
-                    left: 12, right: 12, top: 20, bottom: 22),
-                child: Container(
-                  width: double.infinity,
-                  height: 540,
-                  decoration: const BoxDecoration(
-                      color: Color.fromRGBO(254, 246, 174, 1),
-                      borderRadius: BorderRadius.all(Radius.circular(45))),
-                  child: const LogInForm(),
-                ),
-              ),
-              Padding(
-                padding: const EdgeInsets.only(bottom: 100),
-                child: Container(
-                  margin:
-                      const EdgeInsets.symmetric(vertical: 10, horizontal: 20),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                    mainAxisSize: MainAxisSize.max,
-                    children: [
-                      const FaIcon(
-                        FontAwesomeIcons.line,
-                        color: Colors.green,
-                        size: 35,
-                      ),
-                      const FaIcon(
-                        FontAwesomeIcons.squareFacebook,
-                        color: Colors.blue,
-                        size: 37,
-                      ),
-                      const FaIcon(
-                        FontAwesomeIcons.instagram,
-                        color: Colors.deepOrangeAccent,
-                        size: 37,
-                      ),
-                      GestureDetector(
-                        onTap: () async {
-                          await Auth().signInWithGoogle(_googleSignIn);
-                        },
-                        child: const FaIcon(
-                          FontAwesomeIcons.google,
-                          color: Colors.deepOrange,
-                          size: 34,
-                        ),
-                      ),
-                      const FaIcon(
-                        FontAwesomeIcons.envelope,
-                        color: Colors.indigo,
-                        size: 37,
-                      )
-                    ],
                   ),
-                ),
-              )
-            ],
-          )),
+                  const Padding(
+                    padding: EdgeInsets.only(top: 38, left: 28),
+                    child: Text(
+                      "ลงชื่อเข้าใช้",
+                      style:
+                          TextStyle(fontWeight: FontWeight.w700, fontSize: 40),
+                    ),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.only(
+                        left: 12, right: 12, top: 20, bottom: 22),
+                    child: Container(
+                      width: double.infinity,
+                      decoration: const BoxDecoration(
+                          color: Color.fromRGBO(254, 246, 174, 1),
+                          borderRadius: BorderRadius.all(Radius.circular(45))),
+                      child: const LogInForm(),
+                    ),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.only(bottom: 40),
+                    child: Container(
+                      margin: const EdgeInsets.symmetric(
+                          vertical: 10, horizontal: 20),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                        mainAxisSize: MainAxisSize.max,
+                        children: [
+                          const FaIcon(
+                            FontAwesomeIcons.line,
+                            color: Colors.green,
+                            size: 35,
+                          ),
+                          const FaIcon(
+                            FontAwesomeIcons.squareFacebook,
+                            color: Colors.blue,
+                            size: 37,
+                          ),
+                          const FaIcon(
+                            FontAwesomeIcons.instagram,
+                            color: Colors.deepOrangeAccent,
+                            size: 37,
+                          ),
+                          GestureDetector(
+                            onTap: () async {
+                              await Auth().signInWithGoogle(_googleSignIn);
+                            },
+                            child: const FaIcon(
+                              FontAwesomeIcons.google,
+                              color: Colors.deepOrange,
+                              size: 34,
+                            ),
+                          ),
+                          const FaIcon(
+                            FontAwesomeIcons.envelope,
+                            color: Colors.indigo,
+                            size: 37,
+                          )
+                        ],
+                      ),
+                    ),
+                  )
+                ],
+              ),
+            ));
+          }),
         ));
   }
+}
+
+String? _usernameValidator(String? val) {
+  if (val != null) {
+    String text = val.trim();
+    if (text.isEmpty) {
+      return "กรุณากรอกชื่อผู้ใช้ของท่าน";
+    }
+  }
+  return null;
+}
+
+String? _passwordValidator(String? val) {
+  if (val != null) {
+    String text = val.trim();
+    if (text.isEmpty) {
+      return "กรุณากรอกรหัสผ่านของท่าน";
+    }
+  }
+  return null;
 }

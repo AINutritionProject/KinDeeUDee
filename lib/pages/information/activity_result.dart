@@ -12,7 +12,6 @@ class ActivityResult extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      resizeToAvoidBottomInset: true,
       body: Center(
         child: Column(
           children: [
@@ -65,6 +64,9 @@ class _ActivityResultBodyState extends State<ActivityResultBody> {
         activities.add(element.activityName);
         activityLevel = 3;
       }
+    }
+    for (var element in widget.user.customActivities!) {
+      activities.add(element.activityName);
     }
     super.initState();
   }
