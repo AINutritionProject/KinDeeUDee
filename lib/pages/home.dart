@@ -71,7 +71,7 @@ class _HomeState extends State<Home> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      drawer: SafeArea(
+      endDrawer: SafeArea(
         child: Drawer(
           child: ListView(
             children: [
@@ -333,7 +333,7 @@ class HeaderSection extends StatelessWidget {
               alignment: Alignment.topRight,
               child: IconButton(
                 onPressed: () => {
-                  Scaffold.of(context).openDrawer(),
+                  Scaffold.of(context).openEndDrawer(),
                 },
                 icon: const Icon(Icons.settings),
                 iconSize: 30,
