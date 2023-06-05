@@ -8,7 +8,6 @@ class RegisterSuccesPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text("Register Success Page")),
       body: Column(
         children: [
           const Padding(

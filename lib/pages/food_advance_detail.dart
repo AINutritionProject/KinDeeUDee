@@ -2,8 +2,9 @@ import 'package:appfood2/pages/food_detailed.dart';
 import 'package:flutter/material.dart';
 
 class FoodAdvanceDetailPage extends StatelessWidget {
-  const FoodAdvanceDetailPage({super.key, required this.name});
-
+  const FoodAdvanceDetailPage(
+      {super.key, required this.name, required this.foodDetail});
+  final FoodNutritionDetail foodDetail;
   final String name;
 
   @override
@@ -22,9 +23,10 @@ class FoodAdvanceDetailPage extends StatelessWidget {
                     color: Colors.white,
                     borderRadius: BorderRadius.circular(50)),
                 constraints: const BoxConstraints(minWidth: 100, minHeight: 50),
-                child: const Text(
-                  'กล้วยไข่,สุก',
-                  style: TextStyle(fontSize: 28, fontWeight: FontWeight.bold),
+                child: Text(
+                  foodDetail.name,
+                  style: const TextStyle(
+                      fontSize: 28, fontWeight: FontWeight.bold),
                 ),
               ),
             ),
@@ -42,16 +44,16 @@ class FoodAdvanceDetailPage extends StatelessWidget {
                 ),
               ),
             ),
-            const BoxNutritionDetail(
-              textDetailLeft: 'พลังงาน\n111\nกิโลแคลอรี่',
-              textDetailRight: 'โปรตีน\n111\nกรัม',
+            BoxNutritionDetail(
+              textDetailLeft: "พลังงาน\n${foodDetail.power}\nกิโลแคลอรี่",
+              textDetailRight: 'โปรตีน\n${foodDetail.protein}\nกรัม',
             ),
-            const BoxNutritionDetail(
-                textDetailLeft: 'ไขมัน\n111\nกรัม',
-                textDetailRight: 'คาร์โบไฮเดรต\n111\nกรัม'),
-            const BoxNutritionDetail(
-                textDetailLeft: 'ใยอาหาร\n111\nกรัม',
-                textDetailRight: 'น้ำตาล\n111\nกรัม'),
+            BoxNutritionDetail(
+                textDetailLeft: 'ไขมัน\n${foodDetail.fat}\nกรัม',
+                textDetailRight: 'คาร์โบไฮเดรต\n${foodDetail.carbo}\nกรัม'),
+            BoxNutritionDetail(
+                textDetailLeft: 'ใยอาหาร\n${foodDetail.fiber}\nกรัม',
+                textDetailRight: 'น้ำตาล\n${foodDetail.sugar}\nกรัม'),
             SizedBox(
               width: MediaQuery.of(context).size.width,
               height: 100,
