@@ -243,8 +243,8 @@ String? _usernameValidator(String? val) {
       return "ชื่อผู้ใช้ต้องไม่มีตัวอักษรพิเศษอื่นนอกจาก \"_\"";
     } else if (!text.contains(RegExp('^[A-Za-z\u0E00-\u0E7F]'))) {
       return "ชื่อผู้ใช้ต้องขึ้นต้นด้วยตัวอักษรธรรมดาเท่านั้น";
-    } else if (text.length < 5 || text.length > 15) {
-      return "ืชื่อผู้ใช้ต้องมีความยาวอย่างน้อย 5 ตัวอักษร แต่ไม่เกิน 15 ตัวอักษร";
+    } else if (text.length < 3 || text.length > 15) {
+      return "ืชื่อผู้ใช้ต้องมีความยาวอย่างน้อย 3 ตัวอักษร แต่ไม่เกิน 15 ตัวอักษร";
     }
   }
   return null;
