@@ -6,6 +6,7 @@ class SmallDropDown extends StatefulWidget {
   final Color buttonColor;
   final Color dropdownColor;
   final Border border;
+  final BorderRadius borderRadius;
   const SmallDropDown({
     super.key,
     required this.data,
@@ -13,6 +14,7 @@ class SmallDropDown extends StatefulWidget {
     this.buttonColor = Colors.white,
     this.dropdownColor = Colors.white,
     required this.border,
+    this.borderRadius = BorderRadius.zero,
   });
 
   @override
@@ -37,8 +39,10 @@ class _SmallDropDownState extends State<SmallDropDown> {
         decoration: BoxDecoration(
           color: widget.buttonColor,
           border: widget.border,
+          borderRadius: widget.borderRadius,
         ),
         child: DropdownButton(
+          borderRadius: widget.borderRadius,
           padding: const EdgeInsets.all(7),
           icon: const Icon(Icons.arrow_drop_down),
           dropdownColor: widget.dropdownColor,

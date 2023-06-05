@@ -20,6 +20,7 @@ class LoginPage extends StatefulWidget {
 }
 
 class _LogInFormState extends State<LogInForm> {
+  bool isObscure = true;
   final _formKey = GlobalKey<FormState>();
   final TextEditingController _usernameController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
@@ -76,10 +77,19 @@ class _LogInFormState extends State<LogInForm> {
                 ),
                 child: TextFormField(
                     controller: _passwordController,
-                    obscureText: true,
-                    decoration: const InputDecoration(
-                      border: UnderlineInputBorder(),
-                    ),
+                    obscureText: isObscure,
+                    decoration: InputDecoration(
+                        // this button is used to toggle the password visibility
+                        suffixIcon: IconButton(
+                            icon: Icon(isObscure
+                                ? Icons.visibility
+                                // ignore: dead_code
+                                : Icons.visibility_off),
+                            onPressed: () {
+                              setState(() {
+                                isObscure = !isObscure;
+                              });
+                            })),
                     style: const TextStyle(fontSize: 20))),
             const SizedBox(
               height: 20,
