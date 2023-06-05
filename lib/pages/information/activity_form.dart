@@ -36,65 +36,59 @@ class ActivityForm extends StatefulWidget {
 class _ActivityFormState extends State<ActivityForm> {
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      debugShowCheckedModeBanner: false,
-      title: "activity_form",
-      theme: ThemeData(fontFamily: 'Anuphan'),
-      home: Scaffold(
-        body: SafeArea(
-          child: LayoutBuilder(
-              builder: (BuildContext context, BoxConstraints constraints) {
-            return Center(
-              child: Stack(alignment: Alignment.bottomCenter, children: [
-                SingleChildScrollView(
-                  child: ConstrainedBox(
-                    constraints:
-                        BoxConstraints(minHeight: constraints.maxHeight),
-                    child: Column(
-                      children: [
-                        ActivityFormHeader(
-                          username: widget.user.username,
-                        ),
-                        ActivityFormBody(user: widget.user),
-                      ],
-                    ),
+    return Scaffold(
+      body: SafeArea(
+        child: LayoutBuilder(
+            builder: (BuildContext context, BoxConstraints constraints) {
+          return Center(
+            child: Stack(alignment: Alignment.bottomCenter, children: [
+              SingleChildScrollView(
+                child: ConstrainedBox(
+                  constraints: BoxConstraints(minHeight: constraints.maxHeight),
+                  child: Column(
+                    children: [
+                      ActivityFormHeader(
+                        username: widget.user.username,
+                      ),
+                      ActivityFormBody(user: widget.user),
+                    ],
                   ),
                 ),
-                // Padding(
-                //   padding: const EdgeInsets.only(left: 8, right: 8, bottom: 20),
-                //   child: Row(
-                //     mainAxisAlignment: MainAxisAlignment.center,
-                //     children: [
-                //       ElevatedButton(
-                //         style: ButtonStyle(
-                //             backgroundColor:
-                //                 const MaterialStatePropertyAll(Color(0xFFED7E7E)),
-                //             shape:
-                //                 MaterialStateProperty.all(RoundedRectangleBorder(
-                //               borderRadius: BorderRadius.circular(30),
-                //             ))),
-                //         onPressed: () {
-                //           setState(() {
-                //             Navigator.of(context).push(MaterialPageRoute(
-                //                 builder: (context) => const ActivityResult()));
-                //           });
-                //         },
-                //         child: const Padding(
-                //           padding:
-                //               EdgeInsets.symmetric(vertical: 3, horizontal: 15),
-                //           child: Text(
-                //             "ถัดไป",
-                //             style: TextStyle(fontSize: 32),
-                //           ),
-                //         ),
-                //       ),
-                //     ],
-                //   ),
-                // ),
-              ]),
-            );
-          }),
-        ),
+              ),
+              // Padding(
+              //   padding: const EdgeInsets.only(left: 8, right: 8, bottom: 20),
+              //   child: Row(
+              //     mainAxisAlignment: MainAxisAlignment.center,
+              //     children: [
+              //       ElevatedButton(
+              //         style: ButtonStyle(
+              //             backgroundColor:
+              //                 const MaterialStatePropertyAll(Color(0xFFED7E7E)),
+              //             shape:
+              //                 MaterialStateProperty.all(RoundedRectangleBorder(
+              //               borderRadius: BorderRadius.circular(30),
+              //             ))),
+              //         onPressed: () {
+              //           setState(() {
+              //             Navigator.of(context).push(MaterialPageRoute(
+              //                 builder: (context) => const ActivityResult()));
+              //           });
+              //         },
+              //         child: const Padding(
+              //           padding:
+              //               EdgeInsets.symmetric(vertical: 3, horizontal: 15),
+              //           child: Text(
+              //             "ถัดไป",
+              //             style: TextStyle(fontSize: 32),
+              //           ),
+              //         ),
+              //       ),
+              //     ],
+              //   ),
+              // ),
+            ]),
+          );
+        }),
       ),
     );
   }
