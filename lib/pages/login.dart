@@ -176,9 +176,12 @@ class _LoginPageState extends State<LoginPage> {
             crossAxisAlignment: CrossAxisAlignment.start,
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              Padding(
-                padding: const EdgeInsets.only(left: 24, top: 20),
-                child: ButtonBack(),
+              const Padding(
+                padding: EdgeInsets.only(left: 24, top: 20),
+                child: ButtonBack(
+                  colorCircle: Color(0xFFFF783F),
+                  color: Colors.white,
+                ),
               ),
               const Padding(
                 padding: EdgeInsets.only(top: 38, left: 28),
