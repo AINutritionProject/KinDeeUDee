@@ -435,59 +435,62 @@ class PersonalHeader extends StatefulWidget {
 class _PersonalHeaderState extends State<PersonalHeader> {
   @override
   Widget build(BuildContext context) {
-    return SizedBox(
-      height: 200,
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        crossAxisAlignment: CrossAxisAlignment.stretch,
-        children: [
-          const UserAvatar(),
-          Expanded(
-            flex: 1,
-            child: Column(
-              children: [
-                Expanded(
-                  flex: 1,
-                  child: Container(
-                    margin: const EdgeInsets.all(8.0),
-                    alignment: Alignment.center,
-                    child: const Text("ยินดีต้อนรับ",
-                        style: TextStyle(
-                            fontSize: 32, fontWeight: FontWeight.w600)),
-                  ),
-                ),
-                Expanded(
-                  flex: 1,
-                  child: Container(
-                      alignment: Alignment.center,
-                      margin: const EdgeInsets.all(8.0),
-                      child: Text(
-                        "\"${widget.user.username}\"",
-                        style: const TextStyle(
-                            fontSize: 24, fontWeight: FontWeight.w600),
-                      )),
-                ),
-                Expanded(
-                  flex: 2,
-                  child: Padding(
-                    padding: const EdgeInsets.symmetric(
-                        vertical: 25, horizontal: 15),
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 10.0),
+      child: SizedBox(
+        height: 200,
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          children: [
+            const Center(child: UserAvatar()),
+            Expanded(
+              flex: 1,
+              child: Column(
+                children: [
+                  Expanded(
+                    flex: 1,
                     child: Container(
-                      decoration: const BoxDecoration(
-                        color: Color(0xFF99F9B4),
-                        borderRadius: BorderRadius.all(Radius.circular(30)),
-                      ),
+                      margin: const EdgeInsets.all(8.0),
                       alignment: Alignment.center,
-                      child: const Text("ข้อมูลส่วนตัว",
+                      child: const Text("ยินดีต้อนรับ",
                           style: TextStyle(
-                              fontSize: 24, fontWeight: FontWeight.w600)),
+                              fontSize: 32, fontWeight: FontWeight.w600)),
                     ),
                   ),
-                ),
-              ],
+                  Expanded(
+                    flex: 1,
+                    child: Container(
+                        alignment: Alignment.center,
+                        margin: const EdgeInsets.all(8.0),
+                        child: Text(
+                          "\"${widget.user.username}\"",
+                          style: const TextStyle(
+                              fontSize: 24, fontWeight: FontWeight.w600),
+                        )),
+                  ),
+                  Expanded(
+                    flex: 2,
+                    child: Padding(
+                      padding: const EdgeInsets.symmetric(
+                          vertical: 25, horizontal: 15),
+                      child: Container(
+                        decoration: const BoxDecoration(
+                          color: Color(0xFF99F9B4),
+                          borderRadius: BorderRadius.all(Radius.circular(30)),
+                        ),
+                        alignment: Alignment.center,
+                        child: const Text("ข้อมูลส่วนตัว",
+                            style: TextStyle(
+                                fontSize: 24, fontWeight: FontWeight.w600)),
+                      ),
+                    ),
+                  ),
+                ],
+              ),
             ),
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }
