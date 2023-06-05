@@ -3,6 +3,7 @@ import 'package:appfood2/pages/register_success.dart';
 import 'package:appfood2/auth.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:email_validator/email_validator.dart';
+import 'package:appfood2/widgets/button_back.dart';
 
 class RegisterPage extends StatelessWidget {
   const RegisterPage({super.key});
@@ -62,7 +63,15 @@ class _RegisterFormState extends State<RegisterForm> {
     return Form(
       key: _formKey,
       child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
         children: [
+          const Padding(
+            padding: EdgeInsets.only(left: 24, top: 20, bottom: 30),
+            child: ButtonBack(
+              colorCircle: Color(0xFF09B7AD),
+              color: Color(0xFFFFFFFF),
+            ),
+          ),
           const Align(
               alignment: Alignment.centerLeft,
               child: Padding(
