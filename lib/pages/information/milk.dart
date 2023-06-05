@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:appfood2/db.dart';
-import 'package:appfood2/pages/information/bmi.dart';
+import 'bmi.dart';
 
 class MilkPage extends StatefulWidget {
   final User user;
@@ -64,8 +64,12 @@ class _MilkPageState extends State<MilkPage> {
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceAround,
                     children: [
-                      Image.asset("assets/images/drink_eat/drink.png"),
-                      Image.asset("assets/images/drink_eat/eat.png")
+                      (status_milk0)
+                          ? Image.asset("assets/images/drink_eat/no_drink.png")
+                          : Image.asset("assets/images/drink_eat/drink.png"),
+                      (status_eat0)
+                          ? Image.asset("assets/images/drink_eat/no_eat.png")
+                          : Image.asset("assets/images/drink_eat/eat.png")
                     ],
                   )),
               Row(
@@ -77,7 +81,7 @@ class _MilkPageState extends State<MilkPage> {
                           padding: const EdgeInsets.only(left: 57, right: 22),
                           child: ElevatedButton(
                             style: ElevatedButton.styleFrom(
-                                primary: status_milk0
+                                backgroundColor: status_milk0
                                     ? const Color.fromRGBO(131, 255, 158, 1)
                                     : (!(status_milk0 ||
                                             status_milk1 ||
