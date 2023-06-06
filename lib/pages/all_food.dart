@@ -345,12 +345,14 @@ class BoxTitleNameType extends StatelessWidget {
           Radius.circular(30),
         ),
       ),
-      child: Text(
-        type == "Fruit" ? "ผลไม้" : "ข้าวแป้ง",
-        style: const TextStyle(
-          fontSize: 50,
+      child: Center(
+        child: Text(
+          type == "Fruit" ? "ผลไม้" : "ข้าวแป้ง",
+          style: const TextStyle(
+            fontSize: 50,
+          ),
+          textAlign: TextAlign.center,
         ),
-        textAlign: TextAlign.center,
       ),
     );
   }
