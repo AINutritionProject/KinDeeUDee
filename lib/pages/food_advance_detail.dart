@@ -11,7 +11,6 @@ class FoodAdvanceDetailPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: const Color.fromRGBO(255, 248, 225, 1),
-      appBar: AppBar(title: const Text("Food Advance Detail")),
       body: SingleChildScrollView(
         child: Column(
           children: [
