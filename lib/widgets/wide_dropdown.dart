@@ -15,7 +15,7 @@ class WideDropDown extends StatefulWidget {
     this.title = "",
     this.color = Colors.white,
     this.border = BorderSide.none,
-    this.fontFamily = "Anuphan",
+    this.fontFamily = "NotoSansThai",
     this.fontWeight = FontWeight.w600,
   });
 
