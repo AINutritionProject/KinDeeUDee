@@ -19,7 +19,7 @@ class RiceFlourPage extends StatelessWidget {
                     child: Stack(
                       children: [
                         const Padding(
-                          padding: EdgeInsets.all(8.0),
+                          padding: EdgeInsets.all(20.0),
                           child: Align(
                               alignment: AlignmentDirectional(-1, 0),
                               child: ButtonBack(
