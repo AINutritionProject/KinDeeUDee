@@ -438,29 +438,25 @@ class _PersonalHeaderState extends State<PersonalHeader> {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 10.0),
       child: SizedBox(
-        height: 200,
+        height: 220,
         child: Row(
           mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
             const Center(child: UserAvatar()),
             Expanded(
-              flex: 1,
-              child: Column(
-                children: [
-                  Expanded(
-                    flex: 1,
-                    child: Container(
+              child: Padding(
+                padding: const EdgeInsets.only(top: 20.0),
+                child: Column(
+                  children: [
+                    Container(
                       margin: const EdgeInsets.all(8.0),
                       alignment: Alignment.center,
                       child: const Text("ยินดีต้อนรับ",
                           style: TextStyle(
                               fontSize: 32, fontWeight: FontWeight.w600)),
                     ),
-                  ),
-                  Expanded(
-                    flex: 1,
-                    child: Container(
+                    Container(
                         alignment: Alignment.center,
                         margin: const EdgeInsets.all(8.0),
                         child: Text(
@@ -468,13 +464,12 @@ class _PersonalHeaderState extends State<PersonalHeader> {
                           style: const TextStyle(
                               fontSize: 24, fontWeight: FontWeight.w600),
                         )),
-                  ),
-                  Expanded(
-                    flex: 2,
-                    child: Padding(
+                    Padding(
                       padding: const EdgeInsets.symmetric(
-                          vertical: 25, horizontal: 15),
+                          vertical: 15, horizontal: 15),
                       child: Container(
+                        width: 185,
+                        height: 59,
                         decoration: const BoxDecoration(
                           color: Color(0xFF99F9B4),
                           borderRadius: BorderRadius.all(Radius.circular(30)),
@@ -485,8 +480,8 @@ class _PersonalHeaderState extends State<PersonalHeader> {
                                 fontSize: 24, fontWeight: FontWeight.w600)),
                       ),
                     ),
-                  ),
-                ],
+                  ],
+                ),
               ),
             ),
           ],
