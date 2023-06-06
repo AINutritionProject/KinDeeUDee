@@ -100,16 +100,45 @@ flutter:
   # list giving the asset and other descriptors for the font. For
   # example:
   fonts:
-    - family: Anuphan
+    - family: NotoSansThai
       fonts:
-        - asset: assets/fonts/Anuphan/Anuphan-Bold.ttf
-        - asset: assets/fonts/Anuphan/Anuphan-ExtraLight.ttf
-        - asset: assets/fonts/Anuphan/Anuphan-Light.ttf
-        - asset: assets/fonts/Anuphan/Anuphan-Medium.ttf
-        - asset: assets/fonts/Anuphan/Anuphan-Regular.ttf
-        - asset: assets/fonts/Anuphan/Anuphan-SemiBold.ttf
-        - asset: assets/fonts/Anuphan/Anuphan-Thin.ttf
-        - asset: assets/fonts/Anuphan/Anuphan-VariableFont_wght.ttf
+        - asset: assets/fonts/NotoSansThai/NotoSansThai-Black.ttf
+        - asset: assets/fonts/NotoSansThai/NotoSansThai-Bold.ttf
+        - asset: assets/fonts/NotoSansThai/NotoSansThai_Condensed-Black.ttf
+        - asset: assets/fonts/NotoSansThai/NotoSansThai_Condensed-Bold.ttf
+        - asset: assets/fonts/NotoSansThai/NotoSansThai_Condensed-ExtraBold.ttf
+        - asset: assets/fonts/NotoSansThai/NotoSansThai_Condensed-ExtraLight.ttf
+        - asset: assets/fonts/NotoSansThai/NotoSansThai_Condensed-Light.ttf
+        - asset: assets/fonts/NotoSansThai/NotoSansThai_Condensed-Medium.ttf
+        - asset: assets/fonts/NotoSansThai/NotoSansThai_Condensed-Regular.ttf
+        - asset: assets/fonts/NotoSansThai/NotoSansThai_Condensed-SemiBold.ttf
+        - asset: assets/fonts/NotoSansThai/NotoSansThai_Condensed-Thin.ttf
+        - asset: assets/fonts/NotoSansThai/NotoSansThai-ExtraBold.ttf
+        - asset: assets/fonts/NotoSansThai/NotoSansThai_ExtraCondensed-Black.ttf
+        - asset: assets/fonts/NotoSansThai/NotoSansThai_ExtraCondensed-Bold.ttf
+        - asset: assets/fonts/NotoSansThai/NotoSansThai_ExtraCondensed-ExtraBold.ttf
+        - asset: assets/fonts/NotoSansThai/NotoSansThai_ExtraCondensed-ExtraLight.ttf
+        - asset: assets/fonts/NotoSansThai/NotoSansThai_ExtraCondensed-Light.ttf
+        - asset: assets/fonts/NotoSansThai/NotoSansThai_ExtraCondensed-Medium.ttf
+        - asset: assets/fonts/NotoSansThai/NotoSansThai_ExtraCondensed-Regular.ttf
+        - asset: assets/fonts/NotoSansThai/NotoSansThai_ExtraCondensed-SemiBold.ttf
+        - asset: assets/fonts/NotoSansThai/NotoSansThai_ExtraCondensed-Thin.ttf
+        - asset: assets/fonts/NotoSansThai/NotoSansThai-ExtraLight.ttf
+        - asset: assets/fonts/NotoSansThai/NotoSansThai-Light.ttf
+        - asset: assets/fonts/NotoSansThai/NotoSansThai-Medium.ttf
+        - asset: assets/fonts/NotoSansThai/NotoSansThai-Regular.ttf
+        - asset: assets/fonts/NotoSansThai/NotoSansThai-SemiBold.ttf
+        - asset: assets/fonts/NotoSansThai/NotoSansThai_SemiCondensed-Black.ttf
+        - asset: assets/fonts/NotoSansThai/NotoSansThai_SemiCondensed-Bold.ttf
+        - asset: assets/fonts/NotoSansThai/NotoSansThai_SemiCondensed-ExtraBold.ttf
+        - asset: assets/fonts/NotoSansThai/NotoSansThai_SemiCondensed-ExtraLight.ttf
+        - asset: assets/fonts/NotoSansThai/NotoSansThai_SemiCondensed-Light.ttf
+        - asset: assets/fonts/NotoSansThai/NotoSansThai_SemiCondensed-Medium.ttf
+        - asset: assets/fonts/NotoSansThai/NotoSansThai_SemiCondensed-Regular.ttf
+        - asset: assets/fonts/NotoSansThai/NotoSansThai_SemiCondensed-SemiBold.ttf
+        - asset: assets/fonts/NotoSansThai/NotoSansThai_SemiCondensed-Thin.ttf
+        - asset: assets/fonts/NotoSansThai/NotoSansThai-Thin.ttf
+
   #
   # For details regarding fonts from package dependencies,
   # see https://flutter.dev/custom-fonts/#from-packages
