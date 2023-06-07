@@ -1,4 +1,4 @@
-import 'package:appfood2/widgets/small_dropdown.dart';
+// ignore_for_file: dead_code
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:appfood2/pages/add_eat_history.dart';
@@ -53,206 +53,225 @@ class _EatHistoryPageState extends State<EatHistoryPage> {
   }
 }
 
+class SelectDate extends StatefulWidget {
+  const SelectDate({super.key});
+
+  @override
+  State<SelectDate> createState() => _SelectDateState();
+}
+
+class _SelectDateState extends State<SelectDate> {
+  // ignore: non_constant_identifier_names
+  bool Buttondate = false;
+  String _selectedDate = 'Tap to select date';
+  @override
+  Widget build(BuildContext context) {
+    return ElevatedButton(
+        onPressed: () {
+          setState(
+            () {
+              showDatePicker(
+                context: context,
+                initialDate: DateTime.now(),
+                firstDate: DateTime(2015, 8),
+                lastDate: DateTime(2101),
+              );
+            },
+          );
+        },
+        child: (Buttondate)
+            ? const Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Expanded(
+                      flex: 1,
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Text("วันที่",
+                              style: TextStyle(
+                                  fontSize: 22, fontWeight: FontWeight.w700)),
+                          Text("1")
+                        ],
+                      )),
+                  Expanded(
+                      flex: 1,
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Text("เดือน",
+                              style: TextStyle(
+                                  fontSize: 22, fontWeight: FontWeight.w700)),
+                          Text("1")
+                        ],
+                      )),
+                  Expanded(
+                      flex: 1,
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Text(
+                            "ปี",
+                            style: TextStyle(
+                                fontSize: 22, fontWeight: FontWeight.w700),
+                          ),
+                          Text("2566")
+                        ],
+                      ))
+                ],
+              )
+            : const Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Padding(
+                    padding: EdgeInsets.all(8.0),
+                    child: Text('เลือกช่วงเวลา'),
+                  ),
+                  Icon(Icons.calendar_today)
+                ],
+              ));
+  }
+}
+
 class EatHistoryComponent extends StatelessWidget {
   const EatHistoryComponent({super.key, required this.historySlots});
   final List<HistorySlot> historySlots;
+
   @override
   Widget build(BuildContext context) {
-    return SingleChildScrollView(
-        child: SizedBox(
-            child: Column(children: [
-      SizedBox(
-          height: 122,
-          width: double.infinity,
-          child: DecoratedBox(
-              decoration:
-                  const BoxDecoration(color: Color.fromRGBO(255, 214, 113, 1)),
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.end,
-                children: [
-                  Row(
-                    children: [
-                      Padding(
-                        padding: const EdgeInsets.only(left: 15, right: 6),
-                        child: Container(
-                          width: 48,
-                          height: 48,
-                          decoration: const BoxDecoration(
-                              color: Color.fromRGBO(18, 109, 104, 1),
-                              shape: BoxShape.circle),
-                          child: IconButton(
-                            onPressed: () {
-                              Navigator.of(context).pop();
-                            },
-                            icon: const Icon(Icons.skip_previous,
-                                size: 35, color: Colors.red),
+    return SafeArea(
+      child: SingleChildScrollView(
+          child: SizedBox(
+              child: Column(children: [
+        SizedBox(
+            height: 122,
+            width: double.infinity,
+            child: DecoratedBox(
+                decoration: const BoxDecoration(
+                    color: Color.fromRGBO(255, 214, 113, 1)),
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.end,
+                  children: [
+                    Row(
+                      children: [
+                        Padding(
+                          padding: const EdgeInsets.only(left: 15, right: 6),
+                          child: Container(
+                            width: 48,
+                            height: 48,
+                            decoration: const BoxDecoration(
+                                color: Color.fromRGBO(18, 109, 104, 1),
+                                shape: BoxShape.circle),
+                            child: IconButton(
+                              onPressed: () {
+                                Navigator.of(context).pop();
+                              },
+                              icon: const Icon(Icons.skip_previous,
+                                  size: 35, color: Colors.red),
+                            ),
                           ),
                         ),
-                      ),
-                      Container(
+                        Container(
+                            alignment: Alignment.center,
+                            width: 109,
+                            height: 41,
+                            decoration: BoxDecoration(
+                                color: const Color.fromRGBO(125, 144, 243, 1),
+                                borderRadius: BorderRadius.circular(20.0)),
+                            child: const Align(
+                              alignment: Alignment.center,
+                              child: Text(
+                                "เมนู",
+                                style: TextStyle(
+                                    fontSize: 24,
+                                    fontWeight: FontWeight.bold,
+                                    color: Colors.white),
+                              ),
+                            )),
+                      ],
+                    ),
+                    Padding(
+                      padding:
+                          const EdgeInsets.only(left: 44, right: 35, top: 10),
+                      child: Container(
                           alignment: Alignment.center,
-                          width: 109,
-                          height: 41,
+                          width: double.infinity,
+                          height: 60,
                           decoration: BoxDecoration(
-                              color: const Color.fromRGBO(125, 144, 243, 1),
+                              color: Colors.white,
                               borderRadius: BorderRadius.circular(20.0)),
                           child: const Align(
                             alignment: Alignment.center,
                             child: Text(
-                              "เมนู",
+                              "ประวัติการรับประทานอาหาร",
                               style: TextStyle(
-                                  fontSize: 24,
-                                  fontWeight: FontWeight.bold,
-                                  color: Colors.white),
+                                  fontSize: 24, fontWeight: FontWeight.bold),
                             ),
                           )),
-                    ],
-                  ),
-                  Padding(
-                    padding:
-                        const EdgeInsets.only(left: 44, right: 35, top: 10),
-                    child: Container(
-                        alignment: Alignment.center,
-                        width: double.infinity,
-                        height: 60,
-                        decoration: BoxDecoration(
-                            color: Colors.white,
-                            borderRadius: BorderRadius.circular(20.0)),
-                        child: const Align(
-                          alignment: Alignment.center,
-                          child: Text(
-                            "ประวัติการรับประทานอาหาร",
-                            style: TextStyle(
-                                fontSize: 24, fontWeight: FontWeight.bold),
-                          ),
-                        )),
-                  ),
-                ],
-              ))),
-      SizedBox(
-          width: double.infinity,
-          height: 88,
-          child: DecoratedBox(
-            decoration:
-                const BoxDecoration(color: Color.fromRGBO(200, 211, 239, 1)),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Expanded(
-                    flex: 1,
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        const Text("วันที่",
-                            style: TextStyle(
-                                fontSize: 22, fontWeight: FontWeight.w700)),
-                        SmallDropDown(
-                          data: const ["1", "2", "3"],
-                          setSelectedItem: (String val) {
-                            return;
-                          },
-                          border: Border.all(
-                              width: 0, color: const Color(0x00000000)),
-                          borderRadius: BorderRadius.circular(15),
-                        )
-                      ],
-                    )),
-                Expanded(
-                    flex: 1,
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        const Text("เดือน",
-                            style: TextStyle(
-                                fontSize: 22, fontWeight: FontWeight.w700)),
-                        SmallDropDown(
-                          data: const ["1", "2", "3"],
-                          setSelectedItem: (String val) {
-                            return;
-                          },
-                          border: Border.all(
-                              width: 0, color: const Color(0x00000000)),
-                          borderRadius: BorderRadius.circular(15),
-                        )
-                      ],
-                    )),
-                Expanded(
-                    flex: 1,
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        const Text(
-                          "ปี",
-                          style: TextStyle(
-                              fontSize: 22, fontWeight: FontWeight.w700),
-                        ),
-                        SmallDropDown(
-                          data: const ["1", "2", "3"],
-                          setSelectedItem: (String val) {
-                            return;
-                          },
-                          border: Border.all(
-                              width: 0, color: const Color(0x00000000)),
-                          borderRadius: BorderRadius.circular(15),
-                        )
-                      ],
-                    ))
-              ],
-            ),
-          )),
-      Column(
-        children: [
-          ...historySlots,
-          Container(
+                    ),
+                  ],
+                ))),
+        const SizedBox(
             width: double.infinity,
-            height: 125,
-            color: historySlots.length % 2 == 0
-                ? const Color.fromRGBO(134, 251, 166, 0.65)
-                : const Color.fromRGBO(221, 255, 231, 0.65),
-            child: Row(
-              children: [
-                Container(
-                  padding: const EdgeInsets.all(10),
-                  margin: const EdgeInsets.all(10),
-                  decoration: const BoxDecoration(
-                      shape: BoxShape.circle, color: Colors.white),
-                  child: Text(
-                    (historySlots.length + 1).toString(),
-                    style: const TextStyle(
-                        fontSize: 20, fontWeight: FontWeight.bold),
+            height: 88,
+            child: DecoratedBox(
+                decoration:
+                    BoxDecoration(color: Color.fromRGBO(200, 211, 239, 1)),
+                child: SelectDate())),
+        Column(
+          children: [
+            ...historySlots,
+            Container(
+              width: double.infinity,
+              height: 125,
+              color: historySlots.length % 2 == 0
+                  ? const Color.fromRGBO(134, 251, 166, 0.65)
+                  : const Color.fromRGBO(221, 255, 231, 0.65),
+              child: Row(
+                children: [
+                  Container(
+                    padding: const EdgeInsets.all(10),
+                    margin: const EdgeInsets.all(10),
+                    decoration: const BoxDecoration(
+                        shape: BoxShape.circle, color: Colors.white),
+                    child: Text(
+                      (historySlots.length + 1).toString(),
+                      style: const TextStyle(
+                          fontSize: 20, fontWeight: FontWeight.bold),
+                    ),
                   ),
-                ),
-                const SizedBox(
-                  width: 10,
-                ),
-                GestureDetector(
-                  onTap: () {
-                    Navigator.of(context).push(MaterialPageRoute(
-                        builder: (context) => const AddEatHistoryPage()));
-                  },
-                  child: const Row(
-                    children: [
-                      FaIcon(
-                        FontAwesomeIcons.plus,
-                        size: 35,
-                      ),
-                      SizedBox(
-                        width: 10,
-                      ),
-                      Text(
-                        "เพิ่มข้อมูล",
-                        style: TextStyle(
-                            fontSize: 30, fontWeight: FontWeight.bold),
-                      ),
-                    ],
+                  const SizedBox(
+                    width: 10,
                   ),
-                )
-              ],
+                  GestureDetector(
+                    onTap: () {
+                      Navigator.of(context).push(MaterialPageRoute(
+                          builder: (context) => const AddEatHistoryPage()));
+                    },
+                    child: const Row(
+                      children: [
+                        FaIcon(
+                          FontAwesomeIcons.plus,
+                          size: 35,
+                        ),
+                        SizedBox(
+                          width: 10,
+                        ),
+                        Text(
+                          "เพิ่มข้อมูล",
+                          style: TextStyle(
+                              fontSize: 30, fontWeight: FontWeight.bold),
+                        ),
+                      ],
+                    ),
+                  )
+                ],
+              ),
             ),
-          ),
-        ],
-      ),
-    ])));
+          ],
+        ),
+      ]))),
+    );
   }
 }
 
