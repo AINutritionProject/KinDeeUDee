@@ -438,7 +438,7 @@ class _PersonalHeaderState extends State<PersonalHeader> {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 10.0),
       child: SizedBox(
-        height: 220,
+        height: 240,
         child: Row(
           mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.stretch,
