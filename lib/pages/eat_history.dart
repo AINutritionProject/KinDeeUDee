@@ -64,8 +64,23 @@ class SelectDate extends StatefulWidget {
 class _SelectDateState extends State<SelectDate> {
   // ignore: non_constant_identifier_names
   bool Buttondate = false;
-  DateTime date = DateTime.now();
-
+  DateTime date1 = DateTime.now();
+  DateTime date2 = DateTime.now();
+  // ignore: non_constant_identifier_names
+  List<String> Mont = [
+    "ม.ค.",
+    "ก.พ.",
+    "มี.ค.",
+    "เม.ย.",
+    "พ.ค.",
+    "มิ.ย.",
+    "ก.ค.",
+    "ส.ค.",
+    "ก.ย.",
+    "ต.ค.",
+    "พ.ย.",
+    "ธ.ค."
+  ];
   @override
   Widget build(BuildContext context) {
     return ElevatedButton(
@@ -74,19 +89,71 @@ class _SelectDateState extends State<SelectDate> {
               MaterialStateProperty.all(const Color.fromRGBO(200, 211, 239, 1)),
         ),
         onPressed: () async {
-          DateTime? newDate = await showDatePicker(
-            context: context,
-            initialDate: date,
-            firstDate: DateTime(2015, 8),
-            lastDate: DateTime(2101),
-          );
-          if (newDate != null) {
-            setState(
-              () {
-                Buttondate = true;
-                date = newDate;
-              },
-            );
+          DateTime? newDate1 = await showDatePicker(
+              context: context,
+              initialDate: date1,
+              firstDate: DateTime(2015, 8),
+              lastDate: DateTime(2101),
+              builder: (BuildContext context, Widget? child) {
+                return Theme(
+                  data: ThemeData(
+                    primarySwatch: Colors.grey,
+                    splashColor: Colors.black,
+                    textTheme: const TextTheme(
+                      titleMedium: TextStyle(color: Colors.black),
+                      labelLarge: TextStyle(color: Colors.black),
+                    ),
+                    hintColor: Colors.black,
+                    colorScheme: ColorScheme.light(
+                        primary: Colors.green.shade500,
+                        onSecondary: Colors.black,
+                        onPrimary: Colors.white,
+                        surface: Colors.black,
+                        onSurface: Colors.black,
+                        secondary: Colors.black),
+                    dialogBackgroundColor: Colors.white,
+                  ),
+                  child: child ?? const Text(""),
+                );
+              });
+          if (newDate1 != null) {
+            // ignore: use_build_context_synchronously
+            DateTime? newDate2 = await showDatePicker(
+                context: context,
+                initialDate: date2,
+                firstDate: DateTime(2015, 8),
+                lastDate: DateTime(2101),
+                builder: (BuildContext context, Widget? child) {
+                  return Theme(
+                    data: ThemeData(
+                      primarySwatch: Colors.grey,
+                      splashColor: Colors.black,
+                      textTheme: const TextTheme(
+                        titleMedium: TextStyle(color: Colors.black),
+                        labelLarge: TextStyle(color: Colors.black),
+                      ),
+                      hintColor: Colors.black,
+                      colorScheme: const ColorScheme.light(
+                          primary: Color(0xffffbc00),
+                          onSecondary: Colors.black,
+                          onPrimary: Colors.white,
+                          surface: Colors.black,
+                          onSurface: Colors.black,
+                          secondary: Colors.black),
+                      dialogBackgroundColor: Colors.white,
+                    ),
+                    child: child ?? const Text(""),
+                  );
+                });
+            if (newDate2 != null) {
+              setState(
+                () {
+                  Buttondate = true;
+                  date1 = newDate1;
+                  date2 = newDate2;
+                },
+              );
+            }
           }
         },
         child: (Buttondate)
@@ -109,11 +176,17 @@ class _SelectDateState extends State<SelectDate> {
                               decoration: BoxDecoration(
                                   color: Colors.white,
                                   borderRadius: BorderRadius.circular(20.0)),
-                              child: Text(date.day.toString(),
-                                  style: const TextStyle(
-                                      color: Colors.black,
-                                      fontSize: 18,
-                                      fontWeight: FontWeight.w700)))
+                              child: Text(
+                                (date1.day == date2.day)
+                                    ? date1.day.toString()
+                                    : "${date1.day}-${date2.day}",
+                                style: const TextStyle(
+                                    color: Colors.black,
+                                    fontSize: 18,
+                                    fontWeight: FontWeight.w700),
+                                textAlign: TextAlign.center,
+                                overflow: TextOverflow.visible,
+                              ))
                         ],
                       )),
                   Expanded(
@@ -133,7 +206,9 @@ class _SelectDateState extends State<SelectDate> {
                                   color: Colors.white,
                                   borderRadius: BorderRadius.circular(20.0)),
                               child: Text(
-                                date.month.toString(),
+                                (date1.month == date2.month)
+                                    ? Mont[date1.month - 1]
+                                    : "${Mont[date1.month - 1]}-${Mont[date2.month - 1]}",
                                 style: const TextStyle(
                                     color: Colors.black,
                                     fontSize: 18,
@@ -155,11 +230,14 @@ class _SelectDateState extends State<SelectDate> {
                           ),
                           Container(
                               padding: const EdgeInsets.symmetric(
-                                  vertical: 5, horizontal: 20),
+                                  vertical: 5, horizontal: 10),
                               decoration: BoxDecoration(
                                   color: Colors.white,
                                   borderRadius: BorderRadius.circular(20.0)),
-                              child: Text(date.year.toString(),
+                              child: Text(
+                                  (date1.year == date2.year)
+                                      ? date1.year.toString()
+                                      : "${date1.year}-${date2.year}",
                                   style: const TextStyle(
                                       color: Colors.black,
                                       fontSize: 18,
@@ -267,7 +345,7 @@ class EatHistoryComponent extends StatelessWidget {
                 ))),
         const SizedBox(
             width: double.infinity,
-            height: 88,
+            height: 100,
             child: DecoratedBox(
                 decoration:
                     BoxDecoration(color: Color.fromRGBO(200, 211, 239, 1)),
