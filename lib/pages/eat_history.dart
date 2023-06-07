@@ -250,10 +250,10 @@ class EatHistoryComponent extends StatelessWidget {
                       child: Container(
                           alignment: Alignment.center,
                           width: double.infinity,
-                          height: 60,
+                          height: 47,
                           decoration: BoxDecoration(
                               color: Colors.white,
-                              borderRadius: BorderRadius.circular(20.0)),
+                              borderRadius: BorderRadius.circular(30.0)),
                           child: const Align(
                             alignment: Alignment.center,
                             child: Text(
