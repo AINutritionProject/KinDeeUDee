@@ -25,26 +25,27 @@ class Nutrition extends StatelessWidget {
         9: NineSpoonRice()
       },
       'sugest': '',
-      'imgTypeNutritionPath': "assets/images/NutritionImg/peanutcut.png"
+      'imgTypeNutritionPath': "assets/images/Menu/rice.png"
     },
     {
       'name': 'ผัก',
       'nameAmount': 'ทัพพี',
       'amountWiget': {3: ThreeSpoonVeg()},
       'sugest': '',
-      'imgTypeNutritionPath': "assets/images/NutritionImg/peanutcut.png"
+      'imgTypeNutritionPath': "assets/images/NutritionImg/vegetables.png"
     },
     {
       'name': 'ผลไม้',
       'nameAmount': 'ส่วน',
       'amountWiget': {2: TwoFruit(), 3: ThreeFruit(), 4: FourFruit()},
       'sugest': '',
-      'imgTypeNutritionPath': "assets/images/NutritionImg/peanutcut.png"
+      'imgTypeNutritionPath': "assets/images/NutritionImg/fruits.png"
     },
     {
       'name': 'เนื้อสัตว-ไข่',
       'nameAmount': 'ช้อนโต้ะ',
       'amountWiget': {
+        6: SixMeat(),
         7: SevenMeat(),
         8: EightMeat(),
         9: NineMeat(),
@@ -393,7 +394,7 @@ class FiveSpoonRice extends StatelessWidget {
   Widget build(BuildContext context) {
     return Image.asset(
       'assets/images/NutritionImg/5spoonRice.png',
-      fit: BoxFit.cover,
+      fit: BoxFit.scaleDown,
       width: 150,
       height: 100,
     );
@@ -586,9 +587,9 @@ class OneMilk extends StatelessWidget {
     return Image.asset(
       'assets/images/NutritionImg/waterCupcut.png',
       fit: BoxFit.scaleDown,
-      width: 150,
-      height: 60,
-      color: Colors.grey[200],
+      width: 130,
+      height: 100,
+      color: Colors.grey[300],
     );
   }
 }
@@ -603,9 +604,9 @@ class TwoMilk extends StatelessWidget {
     return Image.asset(
       'assets/images/NutritionImg/2WaterCup.png',
       fit: BoxFit.scaleDown,
-      width: 150,
-      height: 60,
-      color: Colors.grey[700],
+      width: 130,
+      height: 100,
+      color: Colors.grey[300],
     );
   }
 }
@@ -716,7 +717,7 @@ class ZeroMilk extends StatelessWidget {
     return Image.asset(
       'assets/images/NutritionImg/NotMilkcut.png',
       fit: BoxFit.scaleDown,
-      width: 150,
+      width: 130,
       height: 100,
     );
   }

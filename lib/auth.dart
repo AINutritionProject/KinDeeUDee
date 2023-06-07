@@ -68,9 +68,8 @@ class Auth {
       if (firebaseUser.additionalUserInfo!.isNewUser) {
         AppFoodUser appFoodUser = AppFoodUser(
             uid: firebaseUser.user!.uid,
-            username: "",
             email: firebaseUser.user!.email ?? "email boom",
-            fullName: firebaseUser.user!.displayName,
+            username: firebaseUser.user!.displayName,
             hasData: false);
         await FirebaseFirestore.instance
             .collection("users")
@@ -92,19 +91,17 @@ class AppFoodUser {
     this.username,
     required this.email,
     this.photoUrl,
-    this.fullName,
     this.phoneNumber,
     required this.hasData,
   });
   String uid, email;
-  String? photoUrl, fullName, phoneNumber, username;
+  String? photoUrl, phoneNumber, username;
   bool hasData;
 
   Map<String, dynamic> toMap() {
     return {
       "uid": uid,
       "email": email,
-      "fullName": fullName,
       "phoneNumber": phoneNumber,
       "username": username,
       "hasData": hasData,
