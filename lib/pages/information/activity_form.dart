@@ -13,15 +13,6 @@ List<String> lightActivitiesData = [
   "สวดมนต์",
 ];
 
-class Activity {
-  String name;
-  int frequency;
-  Activity({
-    required this.name,
-    required this.frequency,
-  });
-}
-
 class ActivityForm extends StatefulWidget {
   final User user;
   const ActivityForm({
