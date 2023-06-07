@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:appfood2/db.dart';
 import 'package:appfood2/pages/information/milk.dart';
+import 'package:appfood2/widgets/shaker.dart';
 
 class ActivityResult extends StatelessWidget {
   final User user;
@@ -89,7 +90,7 @@ class _ActivityResultBodyState extends State<ActivityResultBody> {
                     child: Text("กิจกรรมที่ทำ", style: TextStyle(fontSize: 22)),
                   ),
                   SizedBox(
-                    height: 220,
+                    height: 210,
                     child: Scrollbar(
                       child: ListView.builder(
                         itemCount: activities.length,
@@ -140,17 +141,6 @@ class _ActivityResultBodyState extends State<ActivityResultBody> {
       ),
     );
   }
-}
-
-class ActivityResultFooter extends StatefulWidget {
-  final User user;
-  const ActivityResultFooter({
-    super.key,
-    required this.user,
-  });
-
-  @override
-  State<ActivityResultFooter> createState() => _ActivityResultFooterState();
 }
 
 class ActivityResultHeader extends StatelessWidget {
@@ -263,8 +253,21 @@ class SmileFace extends StatelessWidget {
   }
 }
 
+class ActivityResultFooter extends StatefulWidget {
+  final User user;
+  const ActivityResultFooter({
+    super.key,
+    required this.user,
+  });
+
+  @override
+  State<ActivityResultFooter> createState() => _ActivityResultFooterState();
+}
+
 class _ActivityResultFooterState extends State<ActivityResultFooter> {
   bool isChecked = false;
+  bool checkboxError = false;
+  final GlobalKey<ShakerState> _shakeKey = GlobalKey<ShakerState>();
 
   @override
   Widget build(BuildContext context) {
@@ -304,16 +307,27 @@ class _ActivityResultFooterState extends State<ActivityResultFooter> {
                   SizedBox(
                     height: 30,
                     width: 30,
-                    child: Checkbox(
-                        overlayColor:
-                            const MaterialStatePropertyAll(Color(0xFFC6FF9A)),
-                        value: isChecked,
-                        activeColor: const Color(0xFFBAEBC8),
-                        onChanged: (bool? val) {
-                          setState(() {
-                            isChecked = val!;
-                          });
-                        }),
+                    child: Shaker(
+                      key: _shakeKey,
+                      speed: 8,
+                      duration: const Duration(milliseconds: 500),
+                      range: 5,
+                      child: Checkbox(
+                          side: !checkboxError
+                              ? const BorderSide(
+                                  color: Colors.black38, width: 2)
+                              : const BorderSide(color: Colors.red, width: 2),
+                          overlayColor:
+                              const MaterialStatePropertyAll(Color(0xFFC6FF9A)),
+                          value: isChecked,
+                          activeColor: const Color(0xFFBAEBC8),
+                          onChanged: (bool? val) {
+                            setState(() {
+                              checkboxError = false;
+                              isChecked = val!;
+                            });
+                          }),
+                    ),
                   ),
                   const Text(
                     "ต้องการให้ระบบบันทึกกิจกรรมสำหรับวันถัดไป",
@@ -330,7 +344,7 @@ class _ActivityResultFooterState extends State<ActivityResultFooter> {
               ),
             ),
             Padding(
-              padding: const EdgeInsets.only(top: 30.0),
+              padding: const EdgeInsets.only(top: 23.0),
               child: ElevatedButton(
                 style: ButtonStyle(
                     shape: MaterialStatePropertyAll(RoundedRectangleBorder(
@@ -359,6 +373,11 @@ class _ActivityResultFooterState extends State<ActivityResultFooter> {
                       }
                       Navigator.of(context).push(MaterialPageRoute(
                           builder: (context) => MilkPage(user: widget.user)));
+                    });
+                  } else {
+                    _shakeKey.currentState?.shake();
+                    setState(() {
+                      checkboxError = true;
                     });
                   }
                 },

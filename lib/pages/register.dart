@@ -4,6 +4,7 @@ import 'package:appfood2/auth.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:email_validator/email_validator.dart';
 import 'package:appfood2/widgets/button_back.dart';
+import 'package:appfood2/widgets/shaker.dart';
 
 class RegisterPage extends StatelessWidget {
   const RegisterPage({super.key});
@@ -59,6 +60,9 @@ class _RegisterFormState extends State<RegisterForm> {
   }
 
   bool? isAccept = false;
+  bool checkboxError = false;
+  final GlobalKey<ShakerState> _shakeKey = GlobalKey<ShakerState>();
+
   @override
   Widget build(BuildContext context) {
     return Form(
@@ -133,14 +137,25 @@ class _RegisterFormState extends State<RegisterForm> {
                     )),
                 Row(
                   children: [
-                    Checkbox(
-                        value: isAccept,
-                        activeColor: Colors.blue,
-                        onChanged: (newValue) {
-                          setState(() {
-                            isAccept = newValue;
-                          });
-                        }),
+                    Shaker(
+                      key: _shakeKey,
+                      speed: 8,
+                      duration: const Duration(milliseconds: 500),
+                      range: 5,
+                      child: Checkbox(
+                          side: !checkboxError
+                              ? const BorderSide(
+                                  color: Colors.black38, width: 2)
+                              : const BorderSide(color: Colors.red, width: 2),
+                          value: isAccept,
+                          activeColor: Colors.blue,
+                          onChanged: (newValue) {
+                            setState(() {
+                              checkboxError = false;
+                              isAccept = newValue;
+                            });
+                          }),
+                    ),
                     GestureDetector(
                       onTap: () {
                         showModalBottomSheet(
@@ -180,7 +195,15 @@ class _RegisterFormState extends State<RegisterForm> {
                             const Size(double.infinity, 54), //////// HERE
                       ),
                       onPressed: () {
-                        _onRegistry();
+                        if (isAccept != null && isAccept!) {
+                          _onRegistry();
+                        } else {
+                          setState(() {
+                            _shakeKey.currentState?.shake();
+                            checkboxError = true;
+                            _formKey.currentState?.validate();
+                          });
+                        }
                       },
                       child: const Text(
                         'ลงทะเบียน',

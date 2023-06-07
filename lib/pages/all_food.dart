@@ -370,18 +370,17 @@ class FoodIcons extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.only(bottom: 40),
+      padding: const EdgeInsets.only(bottom: 30),
       child: GestureDetector(
         onTap: () {
           Navigator.of(context).push(MaterialPageRoute(
               builder: (context) => FoodDetailPage(detail: food.detail)));
         },
-        child: Container(
-          width: MediaQuery.of(context).size.width * 0.4,
-          //margin: EdgeInsets.symmetric(vertical: 10),
-          //padding: EdgeInsets.symmetric(vertical: 10, horizontal: 10),
-          
+        child: SizedBox(
+          width: MediaQuery.of(context).size.width * 0.42,
           child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            //crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Container(
                 decoration: const BoxDecoration(
@@ -393,7 +392,8 @@ class FoodIcons extends StatelessWidget {
                 child: Column(children: [
                   Align(
                     child: Container(
-                      margin: const EdgeInsets.only(top: 12, bottom: 12),
+                      padding: EdgeInsets.symmetric(vertical: 10, horizontal: 15),
+                      //margin: const EdgeInsets.symmetric(vertical: 10),
                       width: 120,
                       height: 120,
                       child: Image.asset(
@@ -404,25 +404,22 @@ class FoodIcons extends StatelessWidget {
                   ),
                 ]),
               ),
-              Align(
-                alignment: const AlignmentDirectional(0, 1),
-                child: Container(
-                  width: double.infinity,
-                  padding: const EdgeInsets.symmetric(horizontal: 5, vertical: 5),
-                  decoration: BoxDecoration(
-                    color: Colors.green.shade100,
-                    borderRadius: const BorderRadius.all(
-                      Radius.circular(30),
-                    ),
+              Container(
+                width: double.infinity,
+                padding: const EdgeInsets.symmetric(horizontal: 3, vertical: 5),
+                decoration: BoxDecoration(
+                  color: Colors.green.shade100,
+                  borderRadius: const BorderRadius.all(
+                    Radius.circular(30),
                   ),
-                  child: Text(
-                    food.name,
-                    style: const TextStyle(
-                      fontSize: 20,
-                      fontWeight: FontWeight.bold,
-                    ),
-                    textAlign: TextAlign.center,
+                ),
+                child: Text(
+                  food.name,
+                  style: const TextStyle(
+                    fontSize: 17,
+                    fontWeight: FontWeight.bold,
                   ),
+                  textAlign: TextAlign.center,
                 ),
               )
             ],

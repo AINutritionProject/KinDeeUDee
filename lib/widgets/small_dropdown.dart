@@ -17,7 +17,7 @@ class SmallDropDown extends StatefulWidget {
     this.buttonColor = Colors.white,
     this.dropdownColor = Colors.white,
     this.borderRadius = BorderRadius.zero,
-    this.fontFamily = 'Anuphan',
+    this.fontFamily = 'NotoSansThai',
     this.fontWeight = FontWeight.w600,
   });
 

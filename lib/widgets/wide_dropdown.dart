@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 class WideDropDown extends StatefulWidget {
   final List<String> data;
+  final String? initialValue;
   final String title;
   final Color color;
   final Function(String val) setSelectedItem;
@@ -12,10 +13,11 @@ class WideDropDown extends StatefulWidget {
     super.key,
     required this.data,
     required this.setSelectedItem,
+    this.initialValue,
     this.title = "",
     this.color = Colors.white,
     this.border = BorderSide.none,
-    this.fontFamily = "Anuphan",
+    this.fontFamily = "NotoSansThai",
     this.fontWeight = FontWeight.w600,
   });
 
@@ -26,6 +28,16 @@ class WideDropDown extends StatefulWidget {
 class _WideDropDownState extends State<WideDropDown> {
   late String selectedItem;
   bool boxOpen = false;
+
+  @override
+  void initState() {
+    if (widget.initialValue != null) {
+      selectedItem = widget.initialValue!;
+    } else {
+      selectedItem = widget.data.first;
+    }
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -157,11 +169,5 @@ class _WideDropDownState extends State<WideDropDown> {
         );
       },
     );
-  }
-
-  @override
-  void initState() {
-    selectedItem = widget.data.first;
-    super.initState();
   }
 }
