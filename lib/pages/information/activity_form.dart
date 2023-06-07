@@ -13,15 +13,6 @@ List<String> lightActivitiesData = [
   "สวดมนต์",
 ];
 
-class Activity {
-  String name;
-  int frequency;
-  Activity({
-    required this.name,
-    required this.frequency,
-  });
-}
-
 class ActivityForm extends StatefulWidget {
   final User user;
   const ActivityForm({
@@ -123,6 +114,33 @@ class _ActivityFormBodyState extends State<ActivityFormBody> {
   final _popupFormKey = GlobalKey<FormState>();
 
   @override
+  void initState() {
+    if (widget.user.extraLightActivities != null) {
+      extraLightActivities = widget.user.extraLightActivities!;
+      print(extraLightActivities[0].activityName);
+      if (extraLightActivities.length < 3) {
+        extraLightActivities.add(UserActivity());
+      }
+    }
+    if (widget.user.lightActivities != null) {
+      lightActivities = widget.user.lightActivities!;
+      if (lightActivities.length < 3) {
+        lightActivities.add(UserActivity());
+      }
+    }
+    if (widget.user.mediumActivities != null) {
+      mediumActivities = widget.user.mediumActivities!;
+      if (mediumActivities.length < 3) {
+        mediumActivities.add(UserActivity());
+      }
+    }
+    if (widget.user.customActivities != null) {
+      customActivities = widget.user.customActivities!;
+    }
+    super.initState();
+  }
+
+  @override
   Widget build(BuildContext context) {
     //changed when widget tree is dirty
     return Padding(
@@ -160,20 +178,24 @@ class _ActivityFormBodyState extends State<ActivityFormBody> {
                 child: ActivityDisplay(
                   nameColor: const Color(0xFFFFD7D7),
                   frequencyColor: const Color(0xFFFFEBEB),
+                  initialSelectedName:
+                      extraLightActivities[index].activityName == ""
+                          ? null
+                          : extraLightActivities[index].activityName,
                   data: lightActivitiesData,
                   setSelectedName: (String val) {
-                    if (val != "-----" &&
-                        extraLightActivities.length < 3 &&
-                        index == extraLightActivities.length - 1) {
-                      setState(() {
+                    setState(() {
+                      if (val != "-----" &&
+                          extraLightActivities.length < 3 &&
+                          index == extraLightActivities.length - 1) {
                         extraLightActivities.add(UserActivity());
-                        extraLightActivities[index].activityName = val;
                         extraLightListKey.currentState!.insertItem(
                           index + 1,
                           duration: const Duration(milliseconds: 1000),
                         );
-                      });
-                    }
+                      }
+                      extraLightActivities[index].activityName = val;
+                    });
                   },
                   setSelectedFrequency: (String val) {
                     extraLightActivities[index].frequency = int.parse(val);
@@ -205,6 +227,9 @@ class _ActivityFormBodyState extends State<ActivityFormBody> {
                     CurvedAnimation(parent: animation, curve: Curves.linear),
                 child: ActivityDisplay(
                   nameColor: const Color(0xFFFFD7D7),
+                  initialSelectedName: lightActivities[index].activityName == ""
+                      ? null
+                      : lightActivities[index].activityName,
                   frequencyColor: const Color(0xFFFFEBEB),
                   data: lightActivitiesData,
                   setSelectedName: (String val) {
@@ -252,6 +277,10 @@ class _ActivityFormBodyState extends State<ActivityFormBody> {
                     CurvedAnimation(parent: animation, curve: Curves.linear),
                 child: ActivityDisplay(
                   nameColor: const Color(0xFFFFD7D7),
+                  initialSelectedName:
+                      mediumActivities[index].activityName == ""
+                          ? null
+                          : mediumActivities[index].activityName,
                   frequencyColor: const Color(0xFFFFEBEB),
                   data: lightActivitiesData,
                   setSelectedName: (String val) {
@@ -482,6 +511,7 @@ class _ActivityFormBodyState extends State<ActivityFormBody> {
                       widget.user.lightActivities = [];
                       widget.user.mediumActivities = [];
                       for (var element in extraLightActivities) {
+                        print(element.activityName);
                         if (element.activityName != "") {
                           widget.user.extraLightActivities!.add(element);
                         }
@@ -522,6 +552,7 @@ class _ActivityFormBodyState extends State<ActivityFormBody> {
 class ActivityDisplay extends StatefulWidget {
   final Function(String val) setSelectedName;
   final Function(String val) setSelectedFrequency;
+  final String? initialSelectedName;
   final Color nameColor;
   final Color frequencyColor;
   final List<String> data;
@@ -530,6 +561,7 @@ class ActivityDisplay extends StatefulWidget {
     required this.setSelectedName,
     required this.setSelectedFrequency,
     required this.data,
+    this.initialSelectedName,
     this.nameColor = Colors.white,
     this.frequencyColor = Colors.white,
   });
@@ -555,6 +587,7 @@ class _ActivityDisplayState extends State<ActivityDisplay> {
                   data: widget.data,
                   border: const BorderSide(color: Colors.black38),
                   color: widget.nameColor,
+                  initialValue: widget.initialSelectedName,
                   setSelectedItem: widget.setSelectedName,
                 ),
               ),

@@ -71,13 +71,24 @@ class _PersonalBodyState extends State<PersonalBody> {
   final TextEditingController _heightTextController = TextEditingController();
   final TextEditingController _foodAllergyTextController =
       TextEditingController();
-  String selectedCareer = "";
-  String selectedChronicDisease = "";
+  late String selectedCareer;
+  late String selectedChronicDisease;
 
   final _formKey = GlobalKey<FormState>();
 
   @override
   void initState() {
+    _nameTextController.text = widget.user.fullname;
+    _genderTextController.text = widget.user.gender;
+    _ageTextController.text =
+        widget.user.age == 0 ? "" : widget.user.age.toString();
+    _weightTextController.text =
+        widget.user.weight == 0 ? "" : widget.user.weight.toString();
+    _heightTextController.text =
+        widget.user.height == 0 ? "" : widget.user.height.toString();
+    _foodAllergyTextController.text = widget.user.foodAllergy;
+    selectedCareer = widget.user.career;
+    selectedChronicDisease = widget.user.chronicDisease;
     super.initState();
   }
 
