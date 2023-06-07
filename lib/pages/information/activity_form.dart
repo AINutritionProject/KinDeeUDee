@@ -117,7 +117,6 @@ class _ActivityFormBodyState extends State<ActivityFormBody> {
   void initState() {
     if (widget.user.extraLightActivities != null) {
       extraLightActivities = widget.user.extraLightActivities!;
-      print(extraLightActivities[0].activityName);
       if (extraLightActivities.length < 3) {
         extraLightActivities.add(UserActivity());
       }
@@ -511,7 +510,6 @@ class _ActivityFormBodyState extends State<ActivityFormBody> {
                       widget.user.lightActivities = [];
                       widget.user.mediumActivities = [];
                       for (var element in extraLightActivities) {
-                        print(element.activityName);
                         if (element.activityName != "") {
                           widget.user.extraLightActivities!.add(element);
                         }
