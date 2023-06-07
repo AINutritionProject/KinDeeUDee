@@ -184,18 +184,18 @@ class _ActivityFormBodyState extends State<ActivityFormBody> {
                           : extraLightActivities[index].activityName,
                   data: lightActivitiesData,
                   setSelectedName: (String val) {
-                    if (val != "-----" &&
-                        extraLightActivities.length < 3 &&
-                        index == extraLightActivities.length - 1) {
-                      setState(() {
+                    setState(() {
+                      if (val != "-----" &&
+                          extraLightActivities.length < 3 &&
+                          index == extraLightActivities.length - 1) {
                         extraLightActivities.add(UserActivity());
-                        extraLightActivities[index].activityName = val;
                         extraLightListKey.currentState!.insertItem(
                           index + 1,
                           duration: const Duration(milliseconds: 1000),
                         );
-                      });
-                    }
+                      }
+                      extraLightActivities[index].activityName = val;
+                    });
                   },
                   setSelectedFrequency: (String val) {
                     extraLightActivities[index].frequency = int.parse(val);
@@ -511,6 +511,7 @@ class _ActivityFormBodyState extends State<ActivityFormBody> {
                       widget.user.lightActivities = [];
                       widget.user.mediumActivities = [];
                       for (var element in extraLightActivities) {
+                        print(element.activityName);
                         if (element.activityName != "") {
                           widget.user.extraLightActivities!.add(element);
                         }
