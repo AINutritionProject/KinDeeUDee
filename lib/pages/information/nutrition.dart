@@ -32,14 +32,14 @@ class Nutrition extends StatelessWidget {
       'nameAmount': 'ทัพพี',
       'amountWiget': {3: ThreeSpoonVeg()},
       'sugest': '',
-      'imgTypeNutritionPath': "assets/images/NutritionImg/peanutcut.png"
+      'imgTypeNutritionPath': "assets/images/NutritionImg/vegetables.png"
     },
     {
       'name': 'ผลไม้',
       'nameAmount': 'ส่วน',
       'amountWiget': {2: TwoFruit(), 3: ThreeFruit(), 4: FourFruit()},
       'sugest': '',
-      'imgTypeNutritionPath': "assets/images/NutritionImg/peanutcut.png"
+      'imgTypeNutritionPath': "assets/images/NutritionImg/fruits.png"
     },
     {
       'name': 'เนื้อสัตว-ไข่',
