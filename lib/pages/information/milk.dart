@@ -292,8 +292,8 @@ class _MilkPageState extends State<MilkPage> {
                   visible: ((status_eat0 || status_eat1) &&
                       (status_milk0 || status_milk1 || status_milk2)),
                   child: Padding(
-                    padding: const EdgeInsets.only(
-                        left: 140, right: 140, top: 100, bottom: 70),
+                    padding:
+                        const EdgeInsets.only(left: 140, right: 140, top: 80),
                     child: ElevatedButton(
                         style: ElevatedButton.styleFrom(
                             backgroundColor:
