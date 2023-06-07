@@ -90,7 +90,7 @@ class _ActivityResultBodyState extends State<ActivityResultBody> {
                     child: Text("กิจกรรมที่ทำ", style: TextStyle(fontSize: 22)),
                   ),
                   SizedBox(
-                    height: 230,
+                    height: 210,
                     child: Scrollbar(
                       child: ListView.builder(
                         itemCount: activities.length,
