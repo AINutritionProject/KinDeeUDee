@@ -21,7 +21,7 @@ class VetABPage extends StatelessWidget {
                     //mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       const Padding(
-                        padding: EdgeInsets.all(8.0),
+                        padding: EdgeInsets.all(15.0),
                         child: Align(
                             alignment: Alignment.centerLeft,
                             child: ButtonBack(

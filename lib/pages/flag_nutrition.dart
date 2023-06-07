@@ -36,15 +36,17 @@ class FlagNutrition extends StatelessWidget {
                         color: const Color.fromRGBO(125, 144, 243, 1),
                         borderRadius: BorderRadius.circular(30)
                       ),
-                      child: const Text(
-                        'เมนู',
-                        style: TextStyle(
-                          fontSize: 28,
-                          fontWeight: FontWeight.bold,
-                        ),
-                        textAlign: TextAlign.center,
-                        
-                        )
+                      child: const Center(
+                        child: Text(
+                          'เมนู',
+                          style: TextStyle(
+                            fontSize: 28,
+                            fontWeight: FontWeight.bold,
+                          ),
+                          textAlign: TextAlign.center,
+                          
+                          ),
+                      )
                     ),
                   ],
                 ),
