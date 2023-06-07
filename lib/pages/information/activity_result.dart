@@ -90,7 +90,7 @@ class _ActivityResultBodyState extends State<ActivityResultBody> {
                     child: Text("กิจกรรมที่ทำ", style: TextStyle(fontSize: 22)),
                   ),
                   SizedBox(
-                    height: 220,
+                    height: 230,
                     child: Scrollbar(
                       child: ListView.builder(
                         itemCount: activities.length,
@@ -344,7 +344,7 @@ class _ActivityResultFooterState extends State<ActivityResultFooter> {
               ),
             ),
             Padding(
-              padding: const EdgeInsets.only(top: 30.0),
+              padding: const EdgeInsets.only(top: 23.0),
               child: ElevatedButton(
                 style: ButtonStyle(
                     shape: MaterialStatePropertyAll(RoundedRectangleBorder(
