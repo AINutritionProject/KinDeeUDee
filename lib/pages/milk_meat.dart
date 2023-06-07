@@ -22,7 +22,7 @@ class MilkMeatPage extends StatelessWidget {
               child: Row(
                 children: [
                   Padding(
-                    padding: EdgeInsets.symmetric(vertical: 20, horizontal: 20),
+                    padding: EdgeInsets.all(20),
                     child: ButtonBack(
                       colorCircle: Color.fromRGBO(130, 151, 223, 1),
                       color: Colors.white,

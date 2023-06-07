@@ -29,7 +29,7 @@ class VetFruitPage extends StatelessWidget {
                           fit: StackFit.loose,
                           children: [
                             const Padding(
-                              padding: EdgeInsets.symmetric(horizontal: 8),
+                              padding: EdgeInsets.symmetric(horizontal: 20),
                               child: Align(
                                 alignment: AlignmentDirectional(-1,-1),
                                 child: ButtonBack(colorCircle: Color.fromRGBO(130, 151, 223, 1), color: Colors.white,)),
