@@ -136,39 +136,35 @@ class AllFoodPage extends StatelessWidget {
               ...foodData.map((e) {
                 if (e.length == 2) {
                   return Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         Expanded(
                             flex: 1,
-                            child: Padding(
-                              padding:
-                                  const EdgeInsets.only(left: 34, right: 15),
-                              child: FoodIcons(food: e[0]),
-                            )),
+                            child: Align(
+                              alignment: Alignment.center,
+                              child: FoodIcons(food: e[0]))),
                         Expanded(
                             flex: 1,
-                            child: Padding(
-                              padding:
-                                  const EdgeInsets.only(left: 15, right: 34),
-                              child: FoodIcons(food: e[1]),
-                            )),
+                            child: Align(
+                              alignment: Alignment.center,
+                              child: FoodIcons(food: e[1]))),
                       ]);
                 } else {
                   return Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
+                      mainAxisAlignment: MainAxisAlignment.start,
                       children: [
                         Expanded(
                             flex: 1,
-                            child: Padding(
-                              padding:
-                                  const EdgeInsets.only(left: 34, right: 15),
-                              child: FoodIcons(food: e[0]),
-                            )),
+                            child: Align(
+                              alignment: Alignment.center,
+                              child: FoodIcons(food: e[0]))),
                         const Expanded(
                             flex: 1,
-                            child: Padding(
-                              padding: EdgeInsets.only(left: 15, right: 34),
-                            )),
+                            child: Align(
+                              alignment: Alignment.center,
+                              child: SizedBox()
+                            )
+                        )
                       ]);
                 }
               })
@@ -345,12 +341,14 @@ class BoxTitleNameType extends StatelessWidget {
           Radius.circular(30),
         ),
       ),
-      child: Text(
-        type == "Fruit" ? "ผลไม้" : "ข้าวแป้ง",
-        style: const TextStyle(
-          fontSize: 50,
+      child: Center(
+        child: Text(
+          type == "Fruit" ? "ผลไม้" : "ข้าวแป้ง",
+          style: const TextStyle(
+            fontSize: 50,
+          ),
+          textAlign: TextAlign.center,
         ),
-        textAlign: TextAlign.center,
       ),
     );
   }
@@ -378,50 +376,57 @@ class FoodIcons extends StatelessWidget {
           Navigator.of(context).push(MaterialPageRoute(
               builder: (context) => FoodDetailPage(detail: food.detail)));
         },
-        child: Column(
-          children: [
-            Container(
-              decoration: const BoxDecoration(
-                color: Colors.white,
-                borderRadius: BorderRadius.all(
-                  Radius.circular(30),
-                ),
-              ),
-              child: Column(children: [
-                Align(
-                  child: Container(
-                    margin: const EdgeInsets.only(top: 12, bottom: 12),
-                    width: 100,
-                    height: 100,
-                    child: Image.asset(
-                      food.imageAssetPath,
-                      fit: BoxFit.scaleDown,
-                    ),
-                  ),
-                ),
-              ]),
-            ),
-            Align(
-              alignment: const AlignmentDirectional(0, 1),
-              child: Container(
-                width: double.infinity,
-                padding: const EdgeInsets.symmetric(horizontal: 5, vertical: 5),
-                decoration: BoxDecoration(
-                  color: Colors.green.shade100,
-                  borderRadius: const BorderRadius.all(
+        child: Container(
+          width: MediaQuery.of(context).size.width * 0.4,
+          //margin: EdgeInsets.symmetric(vertical: 10),
+          //padding: EdgeInsets.symmetric(vertical: 10, horizontal: 10),
+          
+          child: Column(
+            children: [
+              Container(
+                decoration: const BoxDecoration(
+                  color: Colors.white,
+                  borderRadius: BorderRadius.all(
                     Radius.circular(30),
                   ),
                 ),
-                child: Text(
-                  food.name,
-                  style: const TextStyle(
-                    fontWeight: FontWeight.bold,
+                child: Column(children: [
+                  Align(
+                    child: Container(
+                      margin: const EdgeInsets.only(top: 12, bottom: 12),
+                      width: 120,
+                      height: 120,
+                      child: Image.asset(
+                        food.imageAssetPath,
+                        fit: BoxFit.scaleDown,
+                      ),
+                    ),
                   ),
-                  textAlign: TextAlign.center,
-                ),
+                ]),
               ),
-            )
-          ],
+              Align(
+                alignment: const AlignmentDirectional(0, 1),
+                child: Container(
+                  width: double.infinity,
+                  padding: const EdgeInsets.symmetric(horizontal: 5, vertical: 5),
+                  decoration: BoxDecoration(
+                    color: Colors.green.shade100,
+                    borderRadius: const BorderRadius.all(
+                      Radius.circular(30),
+                    ),
+                  ),
+                  child: Text(
+                    food.name,
+                    style: const TextStyle(
+                      fontSize: 20,
+                      fontWeight: FontWeight.bold,
+                    ),
+                    textAlign: TextAlign.center,
+                  ),
+                ),
+              )
+            ],
+          ),
         ),
       ),
     );
