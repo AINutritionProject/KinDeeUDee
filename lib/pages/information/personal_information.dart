@@ -80,9 +80,12 @@ class _PersonalBodyState extends State<PersonalBody> {
   void initState() {
     _nameTextController.text = widget.user.fullname;
     _genderTextController.text = widget.user.gender;
-    _ageTextController.text = widget.user.age.toString();
-    _weightTextController.text = widget.user.weight.toString();
-    _heightTextController.text = widget.user.height.toString();
+    _ageTextController.text =
+        widget.user.age == 0 ? "" : widget.user.age.toString();
+    _weightTextController.text =
+        widget.user.weight == 0 ? "" : widget.user.weight.toString();
+    _heightTextController.text =
+        widget.user.height == 0 ? "" : widget.user.height.toString();
     _foodAllergyTextController.text = widget.user.foodAllergy;
     selectedCareer = widget.user.career;
     selectedChronicDisease = widget.user.chronicDisease;
