@@ -26,6 +26,27 @@ class _MilkPageState extends State<MilkPage> {
   bool status_eat1 = false;
 
   @override
+  void initState() {
+    if (widget.user.hasData) {
+      if (widget.user.milkGlass == 0) {
+        status_milk0 = true;
+      } else if (widget.user.milkGlass == 1) {
+        status_milk1 = true;
+      } else if (widget.user.milkGlass == 2) {
+        status_milk2 = true;
+      }
+
+      if (widget.user.milkProduct) {
+        status_eat1 = true;
+      } else {
+        status_eat0 = true;
+      }
+    }
+
+    super.initState();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
         backgroundColor: const Color.fromRGBO(255, 251, 242, 1),
