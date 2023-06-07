@@ -22,16 +22,15 @@ class _BMIState extends State<BMIPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: 
-        (valBMI >= 30)
-        ? const Color.fromRGBO(255, 175, 175, 1)
-        : (valBMI >= 25 && valBMI <= 29.9)
-        ? const Color.fromRGBO(255, 208, 193, 1)
-        : (valBMI >= 23 && valBMI <= 24.9)
-        ? const Color.fromRGBO(255, 245, 220, 1)
-        : (valBMI >= 18.5 && valBMI <= 22.9)
-        ? const Color.fromRGBO(217, 255, 200, 1)
-        : const Color.fromRGBO(255, 245, 220, 1),
+      backgroundColor: (valBMI >= 30)
+          ? const Color.fromRGBO(255, 175, 175, 1)
+          : (valBMI >= 25 && valBMI <= 29.9)
+              ? const Color.fromRGBO(255, 208, 193, 1)
+              : (valBMI >= 23 && valBMI <= 24.9)
+                  ? const Color.fromRGBO(255, 245, 220, 1)
+                  : (valBMI >= 18.5 && valBMI <= 22.9)
+                      ? const Color.fromRGBO(217, 255, 200, 1)
+                      : const Color.fromRGBO(255, 245, 220, 1),
       body: SafeArea(
         child: SingleChildScrollView(
           child: Column(
@@ -161,27 +160,30 @@ class _BMIState extends State<BMIPage> {
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       SizedBox(
-                          width: (valBMI >= 30)
-                                ? 265
-                                : (valBMI >= 25 && valBMI <= 29.9)
+                        width: (valBMI >= 30)
+                            ? 265
+                            : (valBMI >= 25 && valBMI <= 29.9)
                                 ? 216
                                 : (valBMI >= 23 && valBMI <= 24.9)
-                                ? 246
-                                : (valBMI >= 18.5 && valBMI <= 22.9)
-                                ? 223
-                                : 204,
-                          height: 54,
-                          child: DecoratedBox(
+                                    ? 246
+                                    : (valBMI >= 18.5 && valBMI <= 22.9)
+                                        ? 223
+                                        : 204,
+                        height: 54,
+                        child: DecoratedBox(
                           decoration: BoxDecoration(
                               color: (valBMI >= 30)
-                                ? const Color.fromRGBO(255, 59, 59, 1)
-                                : (valBMI >= 25 && valBMI <= 29.9)
-                                ? const Color.fromRGBO(255, 148, 87, 1)
-                                : (valBMI >= 23 && valBMI <= 24.9)
-                                ? const Color.fromRGBO( 255, 208, 87, 1)
-                                : (valBMI >= 18.5 && valBMI <= 22.9)
-                                ? const Color.fromRGBO(255, 208, 87, 1)
-                                : const Color.fromRGBO(98, 233, 35, 1),
+                                  ? const Color.fromRGBO(255, 59, 59, 1)
+                                  : (valBMI >= 25 && valBMI <= 29.9)
+                                      ? const Color.fromRGBO(255, 148, 87, 1)
+                                      : (valBMI >= 23 && valBMI <= 24.9)
+                                          ? const Color.fromRGBO(
+                                              255, 208, 87, 1)
+                                          : (valBMI >= 18.5 && valBMI <= 22.9)
+                                              ? const Color.fromRGBO(
+                                                  98, 233, 35, 1)
+                                              : const Color.fromRGBO(
+                                                  255, 208, 87, 1),
                               borderRadius: const BorderRadius.all(
                                 Radius.circular(50),
                               )),
@@ -189,47 +191,48 @@ class _BMIState extends State<BMIPage> {
                             alignment: Alignment.center,
                             child: Text(
                               (valBMI >= 30)
-                                ? ">= 30 โรคอ้วน"
-                                : (valBMI >= 25 && valBMI <= 29.9)
-                                ? "25 - 29.9 โรคอ้วน"
-                                : (valBMI >= 23 && valBMI <= 24.9)
-                                ? "23 - 24.9 น้ำหนักเกิน"
-                                : (valBMI >= 18.5 && valBMI <= 22.9)
-                                ? "18.5 - 22.9 ปกติ"
-                                : "< 18.5 ต่ำกว่าเกณฑ์",
+                                  ? ">= 30 โรคอ้วน"
+                                  : (valBMI >= 25 && valBMI <= 29.9)
+                                      ? "25 - 29.9 โรคอ้วน"
+                                      : (valBMI >= 23 && valBMI <= 24.9)
+                                          ? "23 - 24.9 น้ำหนักเกิน"
+                                          : (valBMI >= 18.5 && valBMI <= 22.9)
+                                              ? "18.5 - 22.9 ปกติ"
+                                              : "< 18.5 ต่ำกว่าเกณฑ์",
                               style: const TextStyle(
                                   fontSize: 24, fontWeight: FontWeight.w700),
                             ), //wait data from database
                           ),
                         ),
                       ),
-                       Padding(
-                        padding: const EdgeInsets.only(left: 10),
-                        child: (valBMI >= 30)
-                                ? const FaIcon(
-                          FontAwesomeIcons.thumbsUp,
-                          color: Color.fromRGBO(155, 6, 6, 1),
-                        )
-                                : (valBMI >= 25 && valBMI <= 29.9)
-                                ? const FaIcon(
-                          FontAwesomeIcons.thumbsUp,
-                          color: Color.fromRGBO(206, 101, 25, 1),
-                        )
-                                : (valBMI >= 23 && valBMI <= 24.9)
-                                ? const FaIcon(
-                          FontAwesomeIcons.thumbsUp,
-                          color: Color.fromRGBO(222, 192, 32, 1),
-                        )
-                                : (valBMI >= 18.5 && valBMI <= 22.9)
-                                ? const FaIcon(
-                          FontAwesomeIcons.thumbsUp,
-                          color: Color.fromRGBO(222, 192, 32, 1),
-                        )
-                                : const FaIcon(
-                          FontAwesomeIcons.thumbsUp,
-                          color: Color.fromRGBO(44, 169, 13, 1),
-                        )
-                      )
+                      Padding(
+                          padding: const EdgeInsets.only(left: 10),
+                          child: (valBMI >= 30)
+                              ? const FaIcon(
+                                  FontAwesomeIcons.thumbsUp,
+                                  color: Color.fromRGBO(155, 6, 6, 1),
+                                )
+                              : (valBMI >= 25 && valBMI <= 29.9)
+                                  ? const FaIcon(
+                                      FontAwesomeIcons.thumbsUp,
+                                      color: Color.fromRGBO(206, 101, 25, 1),
+                                    )
+                                  : (valBMI >= 23 && valBMI <= 24.9)
+                                      ? const FaIcon(
+                                          FontAwesomeIcons.thumbsUp,
+                                          color:
+                                              Color.fromRGBO(222, 192, 32, 1),
+                                        )
+                                      : (valBMI >= 18.5 && valBMI <= 22.9)
+                                          ? const FaIcon(
+                                              FontAwesomeIcons.thumbsUp,
+                                              color: Color.fromRGBO(
+                                                  44, 169, 13, 1),
+                                            )
+                                          : const FaIcon(
+                                              FontAwesomeIcons.thumbsUp,
+                                              color: Color.fromRGBO(
+                                                  222, 192, 32, 1)))
                     ],
                   )),
               Padding(
@@ -400,7 +403,7 @@ class _BMIState extends State<BMIPage> {
                 ),
               ),
               Padding(
-                padding: const EdgeInsets.only(top: 160, bottom: 46),
+                padding: const EdgeInsets.only(top: 50, bottom: 46),
                 child: ElevatedButton(
                   style: ButtonStyle(
                       backgroundColor:
