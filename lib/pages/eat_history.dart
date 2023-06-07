@@ -4,6 +4,7 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:appfood2/pages/add_eat_history.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:appfood2/widgets/button_back.dart';
 
 class EatHistoryPage extends StatefulWidget {
   const EatHistoryPage({super.key});
@@ -68,6 +69,10 @@ class _SelectDateState extends State<SelectDate> {
   @override
   Widget build(BuildContext context) {
     return ElevatedButton(
+        style: ButtonStyle(
+          backgroundColor:
+              MaterialStateProperty.all(const Color.fromRGBO(200, 211, 239, 1)),
+        ),
         onPressed: () async {
           DateTime? newDate = await showDatePicker(
             context: context,
@@ -95,8 +100,20 @@ class _SelectDateState extends State<SelectDate> {
                         children: [
                           const Text("วันที่",
                               style: TextStyle(
-                                  fontSize: 22, fontWeight: FontWeight.w700)),
-                          Text(date.day.toString())
+                                  fontSize: 22,
+                                  fontWeight: FontWeight.w700,
+                                  color: Color.fromRGBO(52, 52, 52, 1))),
+                          Container(
+                              padding: const EdgeInsets.symmetric(
+                                  vertical: 5, horizontal: 20),
+                              decoration: BoxDecoration(
+                                  color: Colors.white,
+                                  borderRadius: BorderRadius.circular(20.0)),
+                              child: Text(date.day.toString(),
+                                  style: const TextStyle(
+                                      color: Colors.black,
+                                      fontSize: 18,
+                                      fontWeight: FontWeight.w700)))
                         ],
                       )),
                   Expanded(
@@ -106,8 +123,22 @@ class _SelectDateState extends State<SelectDate> {
                         children: [
                           const Text("เดือน",
                               style: TextStyle(
-                                  fontSize: 22, fontWeight: FontWeight.w700)),
-                          Text(date.month.toString())
+                                  fontSize: 22,
+                                  fontWeight: FontWeight.w700,
+                                  color: Color.fromRGBO(52, 52, 52, 1))),
+                          Container(
+                              padding: const EdgeInsets.symmetric(
+                                  vertical: 5, horizontal: 20),
+                              decoration: BoxDecoration(
+                                  color: Colors.white,
+                                  borderRadius: BorderRadius.circular(20.0)),
+                              child: Text(
+                                date.month.toString(),
+                                style: const TextStyle(
+                                    color: Colors.black,
+                                    fontSize: 18,
+                                    fontWeight: FontWeight.w700),
+                              ))
                         ],
                       )),
                   Expanded(
@@ -118,9 +149,21 @@ class _SelectDateState extends State<SelectDate> {
                           const Text(
                             "ปี",
                             style: TextStyle(
-                                fontSize: 22, fontWeight: FontWeight.w700),
+                                fontSize: 22,
+                                fontWeight: FontWeight.w700,
+                                color: Color.fromRGBO(52, 52, 52, 1)),
                           ),
-                          Text(date.year.toString())
+                          Container(
+                              padding: const EdgeInsets.symmetric(
+                                  vertical: 5, horizontal: 20),
+                              decoration: BoxDecoration(
+                                  color: Colors.white,
+                                  borderRadius: BorderRadius.circular(20.0)),
+                              child: Text(date.year.toString(),
+                                  style: const TextStyle(
+                                      color: Colors.black,
+                                      fontSize: 18,
+                                      fontWeight: FontWeight.w700)))
                         ],
                       ))
                 ],
@@ -130,9 +173,19 @@ class _SelectDateState extends State<SelectDate> {
                 children: [
                   Padding(
                     padding: EdgeInsets.all(8.0),
-                    child: Text('เลือกช่วงเวลา'),
+                    child: Text(
+                      'เลือกช่วงเวลา',
+                      style: TextStyle(
+                        fontSize: 20,
+                        color: Colors.black,
+                      ),
+                    ),
                   ),
-                  Icon(Icons.calendar_today)
+                  Icon(
+                    Icons.calendar_today,
+                    size: 30,
+                    color: Colors.black,
+                  )
                 ],
               ));
   }
@@ -162,19 +215,15 @@ class EatHistoryComponent extends StatelessWidget {
                         Padding(
                           padding: const EdgeInsets.only(left: 15, right: 6),
                           child: Container(
-                            width: 48,
-                            height: 48,
-                            decoration: const BoxDecoration(
-                                color: Color.fromRGBO(18, 109, 104, 1),
-                                shape: BoxShape.circle),
-                            child: IconButton(
-                              onPressed: () {
-                                Navigator.of(context).pop();
-                              },
-                              icon: const Icon(Icons.skip_previous,
-                                  size: 35, color: Colors.red),
-                            ),
-                          ),
+                              width: 48,
+                              height: 48,
+                              decoration: const BoxDecoration(
+                                  color: Color.fromRGBO(18, 109, 104, 1),
+                                  shape: BoxShape.circle),
+                              child: const ButtonBack(
+                                colorCircle: Color.fromRGBO(18, 109, 104, 1),
+                                color: Colors.white,
+                              )),
                         ),
                         Container(
                             alignment: Alignment.center,
