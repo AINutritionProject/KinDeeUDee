@@ -63,7 +63,6 @@ class SelectDate extends StatefulWidget {
 class _SelectDateState extends State<SelectDate> {
   // ignore: non_constant_identifier_names
   bool Buttondate = false;
-  String _selectedDate = 'Tap to select date';
   @override
   Widget build(BuildContext context) {
     return ElevatedButton(
