@@ -63,23 +63,29 @@ class SelectDate extends StatefulWidget {
 class _SelectDateState extends State<SelectDate> {
   // ignore: non_constant_identifier_names
   bool Buttondate = false;
+  DateTime date = DateTime.now();
+
   @override
   Widget build(BuildContext context) {
     return ElevatedButton(
-        onPressed: () {
-          setState(
-            () {
-              showDatePicker(
-                context: context,
-                initialDate: DateTime.now(),
-                firstDate: DateTime(2015, 8),
-                lastDate: DateTime(2101),
-              );
-            },
+        onPressed: () async {
+          DateTime? newDate = await showDatePicker(
+            context: context,
+            initialDate: date,
+            firstDate: DateTime(2015, 8),
+            lastDate: DateTime(2101),
           );
+          if (newDate != null) {
+            setState(
+              () {
+                Buttondate = true;
+                date = newDate;
+              },
+            );
+          }
         },
         child: (Buttondate)
-            ? const Row(
+            ? Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   Expanded(
@@ -87,10 +93,10 @@ class _SelectDateState extends State<SelectDate> {
                       child: Column(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
-                          Text("วันที่",
+                          const Text("วันที่",
                               style: TextStyle(
                                   fontSize: 22, fontWeight: FontWeight.w700)),
-                          Text("1")
+                          Text(date.day.toString())
                         ],
                       )),
                   Expanded(
@@ -98,10 +104,10 @@ class _SelectDateState extends State<SelectDate> {
                       child: Column(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
-                          Text("เดือน",
+                          const Text("เดือน",
                               style: TextStyle(
                                   fontSize: 22, fontWeight: FontWeight.w700)),
-                          Text("1")
+                          Text(date.month.toString())
                         ],
                       )),
                   Expanded(
@@ -109,12 +115,12 @@ class _SelectDateState extends State<SelectDate> {
                       child: Column(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
-                          Text(
+                          const Text(
                             "ปี",
                             style: TextStyle(
                                 fontSize: 22, fontWeight: FontWeight.w700),
                           ),
-                          Text("2566")
+                          Text(date.year.toString())
                         ],
                       ))
                 ],
