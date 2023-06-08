@@ -130,7 +130,7 @@ class AllFoodPage extends StatelessWidget {
                 ),
               ),
               const Padding(
-                padding: EdgeInsets.fromLTRB(0, 20, 0, 50),
+                padding: EdgeInsets.fromLTRB(0, 0, 0, 50),
                 child: BoxContainSmileIcon(),
               ),
               ...foodData.map((e) {
@@ -247,11 +247,10 @@ class BoxContainSmileIcon extends StatelessWidget {
           alignment: Alignment.center,
           width: 250,
           child: Row(
-            mainAxisAlignment: MainAxisAlignment.center,
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
               Container(
-                height: 53,
-                width: 64,
+                padding: const EdgeInsets.symmetric(horizontal: 10),
                 decoration: const BoxDecoration(
                   color: Colors.white,
                   borderRadius: BorderRadius.all(
@@ -262,39 +261,21 @@ class BoxContainSmileIcon extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     Padding(
-                      padding: EdgeInsets.only(bottom: 5),
-                      child: Text("ต่ำ"),
+                      padding: EdgeInsets.only(bottom: 2),
+                      child: Text("ต่ำ", style: TextStyle(
+                        fontSize: 20,
+                        fontWeight: FontWeight.bold
+                      ),),
                     ),
-                    Text("GI<55")
+                    Text("GI<55", style: TextStyle(
+                        fontSize: 16,
+                        fontWeight: FontWeight.bold
+                      ),),
                   ],
                 ),
               ),
-              Padding(
-                padding: const EdgeInsets.only(left: 10, right: 10),
-                child: Container(
-                  height: 53,
-                  width: 73,
-                  decoration: const BoxDecoration(
-                    color: Colors.white,
-                    borderRadius: BorderRadius.all(
-                      Radius.circular(10),
-                    ),
-                  ),
-                  child: const Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Padding(
-                        padding: EdgeInsets.only(bottom: 5),
-                        child: Text("กลาง"),
-                      ),
-                      Text("GI 55-69")
-                    ],
-                  ),
-                ),
-              ),
               Container(
-                height: 53,
-                width: 64,
+                padding: const EdgeInsets.symmetric(horizontal: 10),
                 decoration: const BoxDecoration(
                   color: Colors.white,
                   borderRadius: BorderRadius.all(
@@ -305,10 +286,41 @@ class BoxContainSmileIcon extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     Padding(
-                      padding: EdgeInsets.only(bottom: 5),
-                      child: Text("สูง"),
+                      padding: EdgeInsets.only(bottom: 2),
+                      child: Text("กลาง", style: TextStyle(
+                      fontSize: 20,
+                      fontWeight: FontWeight.bold
+                    ),),
                     ),
-                    Text("GI>70")
+                    Text("GI 55-69", style: TextStyle(
+                      fontSize: 16,
+                      fontWeight: FontWeight.bold
+                    ),)
+                  ],
+                ),
+              ),
+              Container(
+                padding: const EdgeInsets.symmetric(horizontal: 10),
+                decoration: const BoxDecoration(
+                  color: Colors.white,
+                  borderRadius: BorderRadius.all(
+                    Radius.circular(10),
+                  ),
+                ),
+                child: const Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Padding(
+                      padding: EdgeInsets.only(bottom: 2),
+                      child: Text("สูง", style: TextStyle(
+                        fontSize: 20,
+                        fontWeight: FontWeight.bold
+                      ),),
+                    ),
+                    Text("GI>70", style: TextStyle(
+                        fontSize: 16,
+                        fontWeight: FontWeight.bold
+                      ),)
                   ],
                 ),
               )
