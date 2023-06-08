@@ -171,10 +171,10 @@ class _SelectDateState extends State<SelectDate> {
         child: (buttondate)
             ? Text(
                 (_startDate == " ")
-                    ? "กรุณาเลือกช่วงเวลาใหม่อีกครั้ง"
+                    ? "กรุณาเลือกช่วงเวลาใหม่อีกครั้ง!"
                     : (_startDate == _endDate)
                         ? '${_startDate[0]}${_startDate[1]} ${(_startDate[3] == '1') ? mont[int.parse(_startDate[3])] : mont[int.parse("${_startDate[3]}${_startDate[4]}")]} ${int.parse("${_startDate[6]}${_startDate[7]}${_startDate[8]}${_startDate[9]}") + 543}'
-                        : ('${_startDate[0]}${_startDate[1]} ${(_startDate[3] == '1') ? mont[int.parse(_startDate[3])] : mont[int.parse("${_startDate[3]}${_startDate[4]}")]}  ${int.parse("${_startDate[6]}${_startDate[7]}${_startDate[8]}${_startDate[9]}") + 543} - ${_endDate[0]}${_endDate[1]} ${(_endDate[3] == '1') ? mont[int.parse(_endDate[3])] : mont[int.parse("${_endDate[3]}${_endDate[4]}")]} ${int.parse("${_endDate[6]}${_endDate[7]}${_endDate[8]}${_endDate[9]}") + 543}'),
+                        : ('${_startDate[0]}${_startDate[1]} ${(_startDate[3] == '1') ? mont[int.parse(_startDate[3])] : mont[int.parse("${_startDate[3]}${_startDate[4]}")]} ${int.parse("${_startDate[6]}${_startDate[7]}${_startDate[8]}${_startDate[9]}") + 543} - ${_endDate[0]}${_endDate[1]} ${(_endDate[3] == '1') ? mont[int.parse(_endDate[3])] : mont[int.parse("${_endDate[3]}${_endDate[4]}")]} ${int.parse("${_endDate[6]}${_endDate[7]}${_endDate[8]}${_endDate[9]}") + 543}'),
                 style: const TextStyle(
                     fontSize: 22,
                     fontWeight: FontWeight.w700,
