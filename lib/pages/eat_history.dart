@@ -5,6 +5,7 @@ import 'package:appfood2/pages/add_eat_history.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:appfood2/widgets/button_back.dart';
+import 'package:syncfusion_flutter_datepicker/datepicker.dart';
 
 class EatHistoryPage extends StatefulWidget {
   const EatHistoryPage({super.key});
@@ -81,6 +82,14 @@ class _SelectDateState extends State<SelectDate> {
     "พ.ย.",
     "ธ.ค."
   ];
+  final DateRangePickerController _dateRangePickerController =
+      DateRangePickerController();
+
+  void _onSelectionChanged(
+      DateRangePickerSelectionChangedArgs dateRangePickerSelectionChangedArgs) {
+    print(dateRangePickerSelectionChangedArgs.value);
+  }
+
   @override
   Widget build(BuildContext context) {
     return ElevatedButton(
@@ -89,72 +98,48 @@ class _SelectDateState extends State<SelectDate> {
               MaterialStateProperty.all(const Color.fromRGBO(200, 211, 239, 1)),
         ),
         onPressed: () async {
-          DateTime? newDate1 = await showDatePicker(
-              context: context,
-              initialDate: date1,
-              firstDate: DateTime(2015, 8),
-              lastDate: DateTime(2101),
-              builder: (BuildContext context, Widget? child) {
-                return Theme(
-                  data: ThemeData(
-                    primarySwatch: Colors.grey,
-                    splashColor: Colors.black,
-                    textTheme: const TextTheme(
-                      titleMedium: TextStyle(color: Colors.black),
-                      labelLarge: TextStyle(color: Colors.black),
-                    ),
-                    hintColor: Colors.black,
-                    colorScheme: ColorScheme.light(
-                        primary: Colors.green.shade500,
-                        onSecondary: Colors.black,
-                        onPrimary: Colors.white,
-                        surface: Colors.black,
-                        onSurface: Colors.black,
-                        secondary: Colors.black),
-                    dialogBackgroundColor: Colors.white,
-                  ),
-                  child: child ?? const Text(""),
-                );
-              });
-          if (newDate1 != null) {
-            // ignore: use_build_context_synchronously
-            DateTime? newDate2 = await showDatePicker(
-                context: context,
-                initialDate: date2,
-                firstDate: DateTime(2015, 8),
-                lastDate: DateTime(2101),
-                builder: (BuildContext context, Widget? child) {
-                  return Theme(
-                    data: ThemeData(
-                      primarySwatch: Colors.grey,
-                      splashColor: Colors.black,
-                      textTheme: const TextTheme(
-                        titleMedium: TextStyle(color: Colors.black),
-                        labelLarge: TextStyle(color: Colors.black),
-                      ),
-                      hintColor: Colors.black,
-                      colorScheme: const ColorScheme.light(
-                          primary: Color(0xffffbc00),
-                          onSecondary: Colors.black,
-                          onPrimary: Colors.white,
-                          surface: Colors.black,
-                          onSurface: Colors.black,
-                          secondary: Colors.black),
-                      dialogBackgroundColor: Colors.white,
-                    ),
-                    child: child ?? const Text(""),
-                  );
-                });
-            if (newDate2 != null) {
-              setState(
-                () {
-                  Buttondate = true;
-                  date1 = newDate1;
-                  date2 = newDate2;
-                },
-              );
-            }
-          }
+          (Buttondate)
+              ? setState(() {
+                  Buttondate = !Buttondate;
+                })
+              : showDialog(
+                  context: context,
+                  builder: (BuildContext context) {
+                    return Dialog(
+                        child:
+                            Column(mainAxisSize: MainAxisSize.min, children: [
+                      Container(
+                        padding: const EdgeInsets.all(5.0),
+                        height: MediaQuery.of(context).size.height * 0.65,
+                        width: MediaQuery.of(context).size.width * 0.85,
+                        child: Scaffold(
+                          body: SfDateRangePicker(
+                            view: DateRangePickerView.month,
+                            selectionMode:
+                                DateRangePickerSelectionMode.multiple,
+                            onSelectionChanged: _onSelectionChanged,
+                            monthViewSettings:
+                                const DateRangePickerMonthViewSettings(
+                                    firstDayOfWeek: 6),
+                            showActionButtons: true,
+                            controller: _dateRangePickerController,
+                            onSubmit: (p0) {
+                              if (p0 != null && p0.toString() != "[]") {
+                                Navigator.pop(context);
+                                setState(() {
+                                  Buttondate = true;
+                                  print(p0);
+                                });
+                              } else {}
+                            },
+                            onCancel: () {
+                              Navigator.pop(context);
+                            },
+                          ),
+                        ),
+                      )
+                    ]));
+                  });
         },
         child: (Buttondate)
             ? Row(
