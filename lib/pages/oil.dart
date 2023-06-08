@@ -20,7 +20,7 @@ class OilPage extends StatelessWidget {
                 child: const Align(
                   alignment: Alignment.centerLeft,
                   child: Padding(
-                    padding: EdgeInsets.all(20),
+                    padding: EdgeInsets.symmetric(horizontal: 20),
                     child: ButtonBack(colorCircle: Color.fromRGBO(130, 151, 223, 1), color: Colors.white,),
                   )),
               ),
