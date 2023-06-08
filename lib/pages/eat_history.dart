@@ -4,6 +4,7 @@ import 'package:appfood2/pages/add_eat_history.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:appfood2/widgets/button_back.dart';
+import 'package:intl/intl.dart' show DateFormat;
 import 'package:syncfusion_flutter_datepicker/datepicker.dart';
 
 class EatHistoryPage extends StatefulWidget {
@@ -65,7 +66,6 @@ class _SelectDateState extends State<SelectDate> {
   // ignore: non_constant_identifier_names
   bool Buttondate = false;
   List<DateTime> mydate = [];
-  Object? Myobj;
   List<String>? strarray;
   DateTime date1 = DateTime.now();
   DateTime date2 = DateTime.now();
@@ -84,12 +84,18 @@ class _SelectDateState extends State<SelectDate> {
     "พ.ย.",
     "ธ.ค."
   ];
-  final DateRangePickerController _dateRangePickerController =
-      DateRangePickerController();
+  String _startDate = "กรุณาเลือกช่วงเวลาอีกครั้ง",
+      _endDate = "กรุณาเลือกช่วงเวลาอีกครั้ง";
+  final DateRangePickerController _controller = DateRangePickerController();
 
-  void _onSelectionChanged(
-      DateRangePickerSelectionChangedArgs dateRangePickerSelectionChangedArgs) {
-    print(dateRangePickerSelectionChangedArgs.value);
+  void selectionChanged(DateRangePickerSelectionChangedArgs args) {
+    setState(() {
+      _startDate =
+          DateFormat('dd MMMM yyyy').format(args.value.startDate).toString();
+      _endDate = DateFormat('dd MMMM yyyy')
+          .format(args.value.endDate ?? args.value.startDate)
+          .toString();
+    });
   }
 
   @override
@@ -115,36 +121,65 @@ class _SelectDateState extends State<SelectDate> {
                         height: MediaQuery.of(context).size.height * 0.65,
                         width: MediaQuery.of(context).size.width * 0.85,
                         child: Scaffold(
-                          body: SfDateRangePicker(
-                            view: DateRangePickerView.month,
-                            selectionMode:
-                                DateRangePickerSelectionMode.multiple,
-                            onSelectionChanged: _onSelectionChanged,
-                            monthViewSettings:
-                                const DateRangePickerMonthViewSettings(
-                                    firstDayOfWeek: 6),
-                            showActionButtons: true,
-                            controller: _dateRangePickerController,
-                            onSubmit: (p0) {
-                              if (p0 != null && p0.toString() != "[]") {
-                                Navigator.pop(context);
-                                setState(() {
-                                  Buttondate = true;
-                                  Myobj = p0;
-                                });
-                              } else {}
-                            },
-                            onCancel: () {
-                              Navigator.pop(context);
-                            },
-                          ),
-                        ),
+                            appBar: AppBar(
+                              title: const Text('เลือกช่วงเวลา'),
+                            ),
+                            body: Stack(
+                              children: <Widget>[
+                                const Positioned(
+                                  left: 0,
+                                  right: 0,
+                                  top: 0,
+                                  height: 80,
+                                  child: Column(
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceEvenly,
+                                    mainAxisSize: MainAxisSize.min,
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                  ),
+                                ),
+                                Positioned(
+                                  left: 0,
+                                  top: 0,
+                                  right: 0,
+                                  bottom: 0,
+                                  child: SfDateRangePicker(
+                                    selectionMode:
+                                        DateRangePickerSelectionMode.range,
+                                    initialSelectedRange: PickerDateRange(
+                                        DateTime.now()
+                                            .subtract(const Duration(days: 4)),
+                                        DateTime.now()
+                                            .add(const Duration(days: 3))),
+                                    showActionButtons: true,
+                                    controller: _controller,
+                                    onSelectionChanged: selectionChanged,
+                                    onSubmit: (p0) {
+                                      if (p0 != null && p0.toString() != "[]") {
+                                        Navigator.pop(context);
+                                        setState(() {
+                                          Buttondate = true;
+                                          selectionChanged;
+                                        });
+                                      } else {}
+                                    },
+                                    onCancel: () {
+                                      Navigator.pop(context);
+                                    },
+                                  ),
+                                )
+                              ],
+                            )),
                       )
                     ]));
                   });
         },
         child: (Buttondate)
-            ? Text((""),
+            ? Text(
+                (_startDate == _endDate)
+                    ? _startDate
+                    : ('$_startDate - $_endDate'),
                 style: const TextStyle(
                     fontSize: 22,
                     fontWeight: FontWeight.w700,
