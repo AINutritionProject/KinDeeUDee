@@ -63,14 +63,8 @@ class SelectDate extends StatefulWidget {
 }
 
 class _SelectDateState extends State<SelectDate> {
-  // ignore: non_constant_identifier_names
-  bool Buttondate = false;
-  List<DateTime> mydate = [];
-  List<String>? strarray;
-  DateTime date1 = DateTime.now();
-  DateTime date2 = DateTime.now();
-  // ignore: non_constant_identifier_names
-  List<String> Mont = [
+  bool buttondate = false;
+  List<String> mont = [
     "ม.ค.",
     "ก.พ.",
     "มี.ค.",
@@ -84,15 +78,14 @@ class _SelectDateState extends State<SelectDate> {
     "พ.ย.",
     "ธ.ค."
   ];
-  String _startDate = "กรุณาเลือกช่วงเวลาอีกครั้ง",
-      _endDate = "กรุณาเลือกช่วงเวลาอีกครั้ง";
+  String _startDate = " ", _endDate = " ";
   final DateRangePickerController _controller = DateRangePickerController();
 
   void selectionChanged(DateRangePickerSelectionChangedArgs args) {
     setState(() {
       _startDate =
-          DateFormat('dd MMMM yyyy').format(args.value.startDate).toString();
-      _endDate = DateFormat('dd MMMM yyyy')
+          DateFormat('dd MM yyyy').format(args.value.startDate).toString();
+      _endDate = DateFormat('dd MM yyyy')
           .format(args.value.endDate ?? args.value.startDate)
           .toString();
     });
@@ -106,9 +99,9 @@ class _SelectDateState extends State<SelectDate> {
               MaterialStateProperty.all(const Color.fromRGBO(200, 211, 239, 1)),
         ),
         onPressed: () async {
-          (Buttondate)
+          (buttondate)
               ? setState(() {
-                  Buttondate = !Buttondate;
+                  buttondate = !buttondate;
                 })
               : showDialog(
                   context: context,
@@ -159,7 +152,7 @@ class _SelectDateState extends State<SelectDate> {
                                       if (p0 != null && p0.toString() != "[]") {
                                         Navigator.pop(context);
                                         setState(() {
-                                          Buttondate = true;
+                                          buttondate = true;
                                           selectionChanged;
                                         });
                                       } else {}
@@ -175,11 +168,13 @@ class _SelectDateState extends State<SelectDate> {
                     ]));
                   });
         },
-        child: (Buttondate)
+        child: (buttondate)
             ? Text(
-                (_startDate == _endDate)
-                    ? _startDate
-                    : ('$_startDate - $_endDate'),
+                (_startDate == " ")
+                    ? "กรุณาเลือกช่วงเวลาใหม่อีกครั้ง"
+                    : (_startDate == _endDate)
+                        ? '${_startDate[0]}${_startDate[1]} ${(_startDate[3] == '1') ? mont[int.parse(_startDate[3])] : mont[int.parse("${_startDate[3]}${_startDate[4]}")]} ${int.parse("${_startDate[6]}${_startDate[7]}${_startDate[8]}${_startDate[9]}") + 543}'
+                        : ('${_startDate[0]}${_startDate[1]} ${(_startDate[3] == '1') ? mont[int.parse(_startDate[3])] : mont[int.parse("${_startDate[3]}${_startDate[4]}")]}  ${int.parse("${_startDate[6]}${_startDate[7]}${_startDate[8]}${_startDate[9]}") + 543} - ${_endDate[0]}${_endDate[1]} ${(_endDate[3] == '1') ? mont[int.parse(_endDate[3])] : mont[int.parse("${_endDate[3]}${_endDate[4]}")]} ${int.parse("${_endDate[6]}${_endDate[7]}${_endDate[8]}${_endDate[9]}") + 543}'),
                 style: const TextStyle(
                     fontSize: 22,
                     fontWeight: FontWeight.w700,
