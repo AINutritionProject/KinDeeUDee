@@ -1,4 +1,3 @@
-// ignore_for_file: dead_code
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:appfood2/pages/add_eat_history.dart';
@@ -65,6 +64,9 @@ class SelectDate extends StatefulWidget {
 class _SelectDateState extends State<SelectDate> {
   // ignore: non_constant_identifier_names
   bool Buttondate = false;
+  List<DateTime> mydate = [];
+  Object? Myobj;
+  List<String>? strarray;
   DateTime date1 = DateTime.now();
   DateTime date2 = DateTime.now();
   // ignore: non_constant_identifier_names
@@ -128,7 +130,7 @@ class _SelectDateState extends State<SelectDate> {
                                 Navigator.pop(context);
                                 setState(() {
                                   Buttondate = true;
-                                  print(p0);
+                                  Myobj = p0;
                                 });
                               } else {}
                             },
@@ -142,95 +144,11 @@ class _SelectDateState extends State<SelectDate> {
                   });
         },
         child: (Buttondate)
-            ? Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Expanded(
-                      flex: 1,
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          const Text("วันที่",
-                              style: TextStyle(
-                                  fontSize: 22,
-                                  fontWeight: FontWeight.w700,
-                                  color: Color.fromRGBO(52, 52, 52, 1))),
-                          Container(
-                              padding: const EdgeInsets.symmetric(
-                                  vertical: 5, horizontal: 20),
-                              decoration: BoxDecoration(
-                                  color: Colors.white,
-                                  borderRadius: BorderRadius.circular(20.0)),
-                              child: Text(
-                                (date1.day == date2.day)
-                                    ? date1.day.toString()
-                                    : "${date1.day}-${date2.day}",
-                                style: const TextStyle(
-                                    color: Colors.black,
-                                    fontSize: 18,
-                                    fontWeight: FontWeight.w700),
-                                textAlign: TextAlign.center,
-                                overflow: TextOverflow.visible,
-                              ))
-                        ],
-                      )),
-                  Expanded(
-                      flex: 1,
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          const Text("เดือน",
-                              style: TextStyle(
-                                  fontSize: 22,
-                                  fontWeight: FontWeight.w700,
-                                  color: Color.fromRGBO(52, 52, 52, 1))),
-                          Container(
-                              padding: const EdgeInsets.symmetric(
-                                  vertical: 5, horizontal: 20),
-                              decoration: BoxDecoration(
-                                  color: Colors.white,
-                                  borderRadius: BorderRadius.circular(20.0)),
-                              child: Text(
-                                (date1.month == date2.month)
-                                    ? Mont[date1.month - 1]
-                                    : "${Mont[date1.month - 1]}-${Mont[date2.month - 1]}",
-                                style: const TextStyle(
-                                    color: Colors.black,
-                                    fontSize: 18,
-                                    fontWeight: FontWeight.w700),
-                              ))
-                        ],
-                      )),
-                  Expanded(
-                      flex: 1,
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          const Text(
-                            "ปี",
-                            style: TextStyle(
-                                fontSize: 22,
-                                fontWeight: FontWeight.w700,
-                                color: Color.fromRGBO(52, 52, 52, 1)),
-                          ),
-                          Container(
-                              padding: const EdgeInsets.symmetric(
-                                  vertical: 5, horizontal: 10),
-                              decoration: BoxDecoration(
-                                  color: Colors.white,
-                                  borderRadius: BorderRadius.circular(20.0)),
-                              child: Text(
-                                  (date1.year == date2.year)
-                                      ? date1.year.toString()
-                                      : "${date1.year}-${date2.year}",
-                                  style: const TextStyle(
-                                      color: Colors.black,
-                                      fontSize: 18,
-                                      fontWeight: FontWeight.w700)))
-                        ],
-                      ))
-                ],
-              )
+            ? Text((""),
+                style: const TextStyle(
+                    fontSize: 22,
+                    fontWeight: FontWeight.w700,
+                    color: Color.fromRGBO(52, 52, 52, 1)))
             : const Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
