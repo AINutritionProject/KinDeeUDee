@@ -6,49 +6,45 @@ class AppLogo extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return SizedBox(
-      height: 325,
-      width: 700,
-      child: Stack(
-        alignment: Alignment.center,
-        children: [
-          Positioned(
-            top: 105,
-            left: 130,
-            child: Text(
-              "กินดี",
-              textAlign: TextAlign.left,
-              style: TextStyle(
+    return Stack(
+      //alignment: Alignment.center,
+      children: [
+        Positioned(
+          top: 45,
+          left: 130,
+          child: Text(
+            "กินดี",
+            textAlign: TextAlign.left,
+            style: TextStyle(
+              fontWeight: FontWeight.bold,
+              fontSize: 60,
+              color: Colors.green.shade900,
+            ),
+          ),
+        ),
+        Positioned(
+            top: 110,
+            left: 110,
+            child: Container(
+              width: 155,
+              alignment: Alignment.center,
+              child: const Divider(
+                thickness: 3,
+                color: Colors.black,
+              ),
+            )),
+        const Positioned(
+          top: 105,
+          left: 210,
+          child: Text(
+            "อยู่ดี",
+            style: TextStyle(
                 fontWeight: FontWeight.bold,
                 fontSize: 60,
-                color: Colors.green.shade900,
-              ),
-            ),
+                color: Colors.orange),
           ),
-          Positioned(
-              top: 170,
-              left: 110,
-              child: Container(
-                width: 155,
-                alignment: Alignment.center,
-                child: const Divider(
-                  thickness: 3,
-                  color: Colors.black,
-                ),
-              )),
-          const Positioned(
-            top: 155,
-            left: 215,
-            child: Text(
-              "อยู่ดี",
-              style: TextStyle(
-                  fontWeight: FontWeight.bold,
-                  fontSize: 60,
-                  color: Colors.orange),
-            ),
-          ),
-        ],
-      ),
+        ),
+      ],
     );
   }
 }
@@ -61,34 +57,63 @@ class WelcomePage extends StatelessWidget {
     return Scaffold(
         body: SafeArea(
       child: Container(
+        width: MediaQuery.of(context).size.width,
+        height: MediaQuery.of(context).size.height,
         color: const Color(0xFFFAFFE6),
-        child: Column(
+        child: const Column(
           children: [
-            const ImageLogo(),
-            const AppLogo(),
-            Container(
-              decoration: const BoxDecoration(
-                  color: Colors.lightGreen,
-                  borderRadius: BorderRadius.all(Radius.elliptical(300, 220))),
-              padding: const EdgeInsets.all(10),
-              child: GestureDetector(
-                onTap: () {
-                  Navigator.of(context).push(MaterialPageRoute(
-                      builder: (context) => const LandingPage()));
-                },
-                child: const Text(
-                  "เริ่มต้นใช้งาน",
-                  style: TextStyle(
-                      fontSize: 30,
-                      color: Colors.black,
-                      fontWeight: FontWeight.bold),
-                ),
+            Expanded(
+              flex: 33,
+              child: Center(child: ImageLogo()),
+            ),
+            Expanded(
+              flex: 34,
+              child: Align(
+                alignment: Alignment.center,
+                child: AppLogo()),
+            ),
+            Expanded(
+              flex: 34,
+              child: Padding(
+                padding: EdgeInsets.symmetric(vertical: 40),
+                child: Align(
+                  alignment: Alignment.topCenter,
+                  child: ButtonStart()),
               ),
             )
           ],
         ),
       ),
     ));
+  }
+}
+
+class ButtonStart extends StatelessWidget {
+  const ButtonStart({
+    super.key,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      decoration: const BoxDecoration(
+          color: Colors.lightGreen,
+          borderRadius: BorderRadius.all(Radius.elliptical(300, 220))),
+      padding: const EdgeInsets.all(10),
+      child: GestureDetector(
+        onTap: () {
+          Navigator.of(context).push(MaterialPageRoute(
+              builder: (context) => const LandingPage()));
+        },
+        child: const Text(
+          "เริ่มต้นใช้งาน",
+          style: TextStyle(
+              fontSize: 30,
+              color: Colors.black,
+              fontWeight: FontWeight.bold),
+        ),
+      ),
+    );
   }
 }
 
