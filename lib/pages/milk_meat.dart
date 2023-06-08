@@ -76,9 +76,9 @@ class SectionMilk extends StatelessWidget {
           ),
         ),
         Image.asset(
-          'assets/images/NutritionImg/peanut.png',
-          width: 190,
-          height: 120,
+          'assets/images/NutritionImg/peanutcut.png',
+          width: 170,
+          height: 100,
           fit: BoxFit.cover,
         ),
         const Padding(
