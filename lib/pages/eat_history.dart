@@ -89,10 +89,6 @@ class _SelectDateState extends State<SelectDate> {
       _endDate = DateFormat('dd MM yyyy')
           .format(args.value.endDate ?? args.value.startDate)
           .toString();
-      widget.updateDateInParent({
-        "start": _startDate,
-        "end": _endDate,
-      });
     });
   }
 
@@ -107,6 +103,10 @@ class _SelectDateState extends State<SelectDate> {
           (buttondate)
               ? setState(() {
                   buttondate = !buttondate;
+                  widget.updateDateInParent({
+                    "start": " ",
+                    "end": " ",
+                  });
                 })
               : showDialog(
                   context: context,
@@ -159,6 +159,10 @@ class _SelectDateState extends State<SelectDate> {
                                         setState(() {
                                           buttondate = true;
                                           selectionChanged;
+                                          widget.updateDateInParent({
+                                            "start": _startDate,
+                                            "end": _endDate,
+                                          });
                                         });
                                       } else {}
                                     },
@@ -217,11 +221,32 @@ class EatHistoryComponent extends StatefulWidget {
 
 class _EatHistoryComponentState extends State<EatHistoryComponent> {
   String _startDate = " ", _endDate = " ";
+  late List<HistorySlot> filteredHistorySlots = widget.historySlots;
 
   void _updateDate(Map<String, String> interval) {
     setState(() {
       _startDate = interval['start']!;
       _endDate = interval['end']!;
+      if (_startDate == " ") {
+        filteredHistorySlots = widget.historySlots;
+      } else if (_endDate == _startDate) {
+        filteredHistorySlots = [];
+        int checkstart = DateTime.parse(
+                "${_startDate[6]}${_startDate[7]}${_startDate[8]}${_startDate[9]}-${_startDate[3]}${_startDate[4]}-${_startDate[0]}${_startDate[1]} 00:00:00")
+            .millisecondsSinceEpoch;
+        int checkend = DateTime.parse(
+                "${_startDate[6]}${_startDate[7]}${_startDate[8]}${_startDate[9]}-${_startDate[3]}${_startDate[4]}-${_startDate[0]}${_startDate[1]} 12:00:00Z")
+            .millisecondsSinceEpoch;
+        int count = 0;
+        for (var i in widget.historySlots) {
+          if (i.timestamp >= checkstart && checkend >= i.timestamp) {
+            filteredHistorySlots.add(i);
+            i.number = count;
+            print(filteredHistorySlots[count].number);
+            count++;
+          }
+        }
+      }
     });
   }
 
@@ -242,10 +267,6 @@ class _EatHistoryComponentState extends State<EatHistoryComponent> {
                   children: [
                     Row(
                       children: [
-                        Text(
-                          "${_startDate}WTF",
-                          style: const TextStyle(fontSize: 32),
-                        ),
                         Padding(
                           padding: const EdgeInsets.only(left: 15, right: 6),
                           child: Container(
@@ -310,11 +331,11 @@ class _EatHistoryComponentState extends State<EatHistoryComponent> {
                 ))),
         Column(
           children: [
-            ...widget.historySlots,
+            ...filteredHistorySlots,
             Container(
               width: double.infinity,
               height: 125,
-              color: widget.historySlots.length % 2 == 0
+              color: filteredHistorySlots.length % 2 == 0
                   ? const Color.fromRGBO(134, 251, 166, 0.65)
                   : const Color.fromRGBO(221, 255, 231, 0.65),
               child: Row(
@@ -325,7 +346,7 @@ class _EatHistoryComponentState extends State<EatHistoryComponent> {
                     decoration: const BoxDecoration(
                         shape: BoxShape.circle, color: Colors.white),
                     child: Text(
-                      (widget.historySlots.length + 1).toString(),
+                      (filteredHistorySlots.length + 1).toString(),
                       style: const TextStyle(
                           fontSize: 20, fontWeight: FontWeight.bold),
                     ),
