@@ -197,7 +197,7 @@ class _SelectDateState extends State<SelectDate> {
                     ? "กรุณาเลือกช่วงเวลาใหม่อีกครั้ง!"
                     : (_startDate == _endDate)
                         ? '${_startDate[0]}${_startDate[1]} ${(_startDate[3] == '1') ? mont[int.parse(_startDate[3]) - 1] : mont[int.parse("${_startDate[3]}${_startDate[4]}") - 1]} ${int.parse("${_startDate[6]}${_startDate[7]}${_startDate[8]}${_startDate[9]}") + 543}'
-                        : ('${_startDate[0]}${_startDate[1]} ${(_startDate[3] == '1') ? mont[int.parse(_startDate[3]) - 1] : mont[int.parse("${_startDate[3]}${_startDate[4]}") - 1]} ${int.parse("${_startDate[6]}${_startDate[7]}${_startDate[8]}${_startDate[9]}") + 543} - ${_endDate[0]}${_endDate[1]} ${(_endDate[3] == '1') ? mont[int.parse(_endDate[3])] : mont[int.parse("${_endDate[3]}${_endDate[4]}")]} ${int.parse("${_endDate[6]}${_endDate[7]}${_endDate[8]}${_endDate[9]}") + 543}'),
+                        : ('${_startDate[0]}${_startDate[1]} ${(_startDate[3] == '1') ? mont[int.parse(_startDate[3]) - 1] : mont[int.parse("${_startDate[3]}${_startDate[4]}") - 1]} ${int.parse("${_startDate[6]}${_startDate[7]}${_startDate[8]}${_startDate[9]}") + 543} - ${_endDate[0]}${_endDate[1]} ${(_endDate[3] == '1') ? mont[int.parse(_endDate[3]) - 1] : mont[int.parse("${_endDate[3]}${_endDate[4]}") - 1]} ${int.parse("${_endDate[6]}${_endDate[7]}${_endDate[8]}${_endDate[9]}") + 543}'),
                 style: const TextStyle(
                     fontSize: 22,
                     fontWeight: FontWeight.w700,
@@ -272,17 +272,42 @@ class _EatHistoryComponentState extends State<EatHistoryComponent> {
         int checkend = DateTime.parse(
                 "${_startDate[6]}${_startDate[7]}${_startDate[8]}${_startDate[9]}-${_startDate[3]}${_startDate[4]}-${_startDate[0]}${_startDate[1]} 12:00:00Z")
             .millisecondsSinceEpoch;
+        int count = 0;
         for (var i = 0; i < widget.history.length; i++) {
           if (widget.history[i].timestamp >= checkstart &&
               checkend >= widget.history[i].timestamp) {
             filteredHistorySlots.add(HistorySlot(
-              number: i,
-              image: widget.history[i].unit,
+              number: count,
+              image: widget.history[i].image,
               foodName: widget.history[i].foodName,
               quantity: widget.history[i].quantity,
               timestamp: widget.history[i].timestamp,
               unit: widget.history[i].unit,
             ));
+            count++;
+          }
+        }
+      } else {
+        filteredHistorySlots = [];
+        int checkstart = DateTime.parse(
+                "${_startDate[6]}${_startDate[7]}${_startDate[8]}${_startDate[9]}-${_startDate[3]}${_startDate[4]}-${_startDate[0]}${_startDate[1]} 00:00:00")
+            .millisecondsSinceEpoch;
+        int checkend = DateTime.parse(
+                "${_endDate[6]}${_endDate[7]}${_endDate[8]}${_endDate[9]}-${_endDate[3]}${_endDate[4]}-${_endDate[0]}${_endDate[1]} 12:00:00Z")
+            .millisecondsSinceEpoch;
+        int count = 0;
+        for (var i = 0; i < widget.history.length; i++) {
+          if (widget.history[i].timestamp >= checkstart &&
+              checkend >= widget.history[i].timestamp) {
+            filteredHistorySlots.add(HistorySlot(
+              number: count,
+              image: widget.history[i].image,
+              foodName: widget.history[i].foodName,
+              quantity: widget.history[i].quantity,
+              timestamp: widget.history[i].timestamp,
+              unit: widget.history[i].unit,
+            ));
+            count++;
           }
         }
       }
