@@ -56,14 +56,15 @@ class _EatHistoryPageState extends State<EatHistoryPage> {
 }
 
 class SelectDate extends StatefulWidget {
-  const SelectDate({super.key});
-
+  const SelectDate({super.key, required this.updateDateInParent});
+  final ValueChanged<Map<String, String>> updateDateInParent;
   @override
   State<SelectDate> createState() => _SelectDateState();
 }
 
 class _SelectDateState extends State<SelectDate> {
   bool buttondate = false;
+
   List<String> mont = [
     "ม.ค.",
     "ก.พ.",
@@ -88,6 +89,10 @@ class _SelectDateState extends State<SelectDate> {
       _endDate = DateFormat('dd MM yyyy')
           .format(args.value.endDate ?? args.value.startDate)
           .toString();
+      widget.updateDateInParent({
+        "start": _startDate,
+        "end": _endDate,
+      });
     });
   }
 
@@ -202,9 +207,23 @@ class _SelectDateState extends State<SelectDate> {
   }
 }
 
-class EatHistoryComponent extends StatelessWidget {
+class EatHistoryComponent extends StatefulWidget {
   const EatHistoryComponent({super.key, required this.historySlots});
   final List<HistorySlot> historySlots;
+
+  @override
+  State<EatHistoryComponent> createState() => _EatHistoryComponentState();
+}
+
+class _EatHistoryComponentState extends State<EatHistoryComponent> {
+  String _startDate = " ", _endDate = " ";
+
+  void _updateDate(Map<String, String> interval) {
+    setState(() {
+      _startDate = interval['start']!;
+      _endDate = interval['end']!;
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -223,6 +242,10 @@ class EatHistoryComponent extends StatelessWidget {
                   children: [
                     Row(
                       children: [
+                        Text(
+                          "${_startDate}WTF",
+                          style: const TextStyle(fontSize: 32),
+                        ),
                         Padding(
                           padding: const EdgeInsets.only(left: 15, right: 6),
                           child: Container(
@@ -276,20 +299,22 @@ class EatHistoryComponent extends StatelessWidget {
                     ),
                   ],
                 ))),
-        const SizedBox(
+        SizedBox(
             width: double.infinity,
             height: 100,
             child: DecoratedBox(
-                decoration:
-                    BoxDecoration(color: Color.fromRGBO(200, 211, 239, 1)),
-                child: SelectDate())),
+                decoration: const BoxDecoration(
+                    color: Color.fromRGBO(200, 211, 239, 1)),
+                child: SelectDate(
+                  updateDateInParent: _updateDate,
+                ))),
         Column(
           children: [
-            ...historySlots,
+            ...widget.historySlots,
             Container(
               width: double.infinity,
               height: 125,
-              color: historySlots.length % 2 == 0
+              color: widget.historySlots.length % 2 == 0
                   ? const Color.fromRGBO(134, 251, 166, 0.65)
                   : const Color.fromRGBO(221, 255, 231, 0.65),
               child: Row(
@@ -300,7 +325,7 @@ class EatHistoryComponent extends StatelessWidget {
                     decoration: const BoxDecoration(
                         shape: BoxShape.circle, color: Colors.white),
                     child: Text(
-                      (historySlots.length + 1).toString(),
+                      (widget.historySlots.length + 1).toString(),
                       style: const TextStyle(
                           fontSize: 20, fontWeight: FontWeight.bold),
                     ),
