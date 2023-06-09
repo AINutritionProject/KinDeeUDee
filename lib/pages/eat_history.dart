@@ -7,6 +7,21 @@ import 'package:appfood2/widgets/button_back.dart';
 import 'package:intl/intl.dart' show DateFormat;
 import 'package:syncfusion_flutter_datepicker/datepicker.dart';
 
+class History {
+  const History({
+    required this.image,
+    required this.unit,
+    required this.foodName,
+    required this.quantity,
+    required this.timestamp,
+  });
+  final String image;
+  final String unit;
+  final String foodName;
+  final int quantity;
+  final int timestamp;
+}
+
 class EatHistoryPage extends StatefulWidget {
   const EatHistoryPage({super.key});
 
@@ -15,17 +30,16 @@ class EatHistoryPage extends StatefulWidget {
 }
 
 class _EatHistoryPageState extends State<EatHistoryPage> {
-  Future<List<HistorySlot>> _getHistoryData() async {
+  Future<List<History>> _getHistoryData() async {
     final uid = FirebaseAuth.instance.currentUser!.uid;
     final historyData = await FirebaseFirestore.instance
         .collection("eatHistory")
         .where("uid", isEqualTo: uid)
         .get();
-    List<HistorySlot> historySlots = [];
+    List<History> historySlots = [];
     for (var i = 0; i < historyData.docs.length; i++) {
       final history = historyData.docs[i];
-      historySlots.add(HistorySlot(
-        number: i,
+      historySlots.add(History(
         image: history["foodPhoto"],
         unit: history["unit"],
         foodName: history["foodName"],
@@ -42,7 +56,7 @@ class _EatHistoryPageState extends State<EatHistoryPage> {
       body: FutureBuilder(
         builder: (context, snapshot) {
           if (snapshot.hasData) {
-            return EatHistoryComponent(historySlots: snapshot.data!);
+            return EatHistoryComponent(history: snapshot.data!);
           } else if (snapshot.hasError) {
             return Text("${snapshot.error} ?? `ERR`");
           } else {
@@ -212,8 +226,8 @@ class _SelectDateState extends State<SelectDate> {
 }
 
 class EatHistoryComponent extends StatefulWidget {
-  const EatHistoryComponent({super.key, required this.historySlots});
-  final List<HistorySlot> historySlots;
+  const EatHistoryComponent({super.key, required this.history});
+  final List<History> history;
 
   @override
   State<EatHistoryComponent> createState() => _EatHistoryComponentState();
@@ -221,14 +235,35 @@ class EatHistoryComponent extends StatefulWidget {
 
 class _EatHistoryComponentState extends State<EatHistoryComponent> {
   String _startDate = " ", _endDate = " ";
-  late List<HistorySlot> filteredHistorySlots = widget.historySlots;
+  late List<HistorySlot> filteredHistorySlots;
+  @override
+  void initState() {
+    super.initState();
+    filteredHistorySlots = widget.history.asMap().entries.map((e) {
+      return HistorySlot(
+          number: e.key,
+          image: e.value.image,
+          foodName: e.value.foodName,
+          quantity: e.value.quantity,
+          timestamp: e.value.timestamp,
+          unit: e.value.unit);
+    }).toList();
+  }
 
   void _updateDate(Map<String, String> interval) {
     setState(() {
       _startDate = interval['start']!;
       _endDate = interval['end']!;
       if (_startDate == " ") {
-        filteredHistorySlots = widget.historySlots;
+        filteredHistorySlots = widget.history.asMap().entries.map((e) {
+          return HistorySlot(
+              number: e.key,
+              image: e.value.image,
+              foodName: e.value.foodName,
+              quantity: e.value.quantity,
+              timestamp: e.value.timestamp,
+              unit: e.value.unit);
+        }).toList();
       } else if (_endDate == _startDate) {
         filteredHistorySlots = [];
         int checkstart = DateTime.parse(
@@ -237,13 +272,17 @@ class _EatHistoryComponentState extends State<EatHistoryComponent> {
         int checkend = DateTime.parse(
                 "${_startDate[6]}${_startDate[7]}${_startDate[8]}${_startDate[9]}-${_startDate[3]}${_startDate[4]}-${_startDate[0]}${_startDate[1]} 12:00:00Z")
             .millisecondsSinceEpoch;
-        int count = 0;
-        for (var i in widget.historySlots) {
-          if (i.timestamp >= checkstart && checkend >= i.timestamp) {
-            filteredHistorySlots.add(i);
-            i.number = count;
-            print(filteredHistorySlots[count].number);
-            count++;
+        for (var i = 0; i < widget.history.length; i++) {
+          if (widget.history[i].timestamp >= checkstart &&
+              checkend >= widget.history[i].timestamp) {
+            filteredHistorySlots.add(HistorySlot(
+              number: i,
+              image: widget.history[i].unit,
+              foodName: widget.history[i].foodName,
+              quantity: widget.history[i].quantity,
+              timestamp: widget.history[i].timestamp,
+              unit: widget.history[i].unit,
+            ));
           }
         }
       }
