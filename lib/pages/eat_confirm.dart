@@ -33,7 +33,7 @@ class _EatConfirmPageState extends State<EatConfirmPage> {
     var interpreterOptions = InterpreterOptions()..addDelegate(gpuDelegateV2);
     try {
       _intepreter = await Interpreter.fromAsset('assets/models/detect.tflite',
-          options: interpreterOptions);
+          options: InterpreterOptions());
     } catch (e) {
       print("=============Unable to add GPU===================");
       print(e);
