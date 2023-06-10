@@ -47,7 +47,7 @@ dependencies:
   loading_animation_widget: ^1.2.0+4
   flutter_svg: ^2.0.6
   email_validator: ^2.1.17
-  flutter_tflite: ^1.0.1
+  tflite_flutter: ^0.10.1
 
 dev_dependencies:
   flutter_test:
