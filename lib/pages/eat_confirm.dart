@@ -8,26 +8,31 @@ import 'package:firebase_storage/firebase_storage.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
-class EatConfirmPage extends StatelessWidget {
+class EatConfirmPage extends StatefulWidget {
   const EatConfirmPage(
       {super.key, required this.image, this.name, this.unit, this.quantity});
   final XFile? image;
   final String? name, unit;
   final int? quantity;
 
+  @override
+  State<EatConfirmPage> createState() => _EatConfirmPageState();
+}
+
+class _EatConfirmPageState extends State<EatConfirmPage> {
   Future<void> _saveEatHistory() async {
     final uid = FirebaseAuth.instance.currentUser!.uid;
     final nowTimestamp = DateTime.now().millisecondsSinceEpoch;
     final filePath = "history/$uid/$nowTimestamp";
     final storageRef = FirebaseStorage.instance.ref().child(filePath);
-    await storageRef.putFile(File(image!.path));
+    await storageRef.putFile(File(widget.image!.path));
     final String downloadUrl = await storageRef.getDownloadURL();
     await FirebaseFirestore.instance.collection("eatHistory").add({
       "uid": uid,
       "timestamp": nowTimestamp,
-      "foodName": name ?? "ไม่มีชื่อ",
-      "quantity": quantity ?? 0,
-      "unit": unit ?? "ไร้หน่วย",
+      "foodName": widget.name ?? "ไม่มีชื่อ",
+      "quantity": widget.quantity ?? 0,
+      "unit": widget.unit ?? "ไร้หน่วย",
       "foodPhoto": downloadUrl,
     });
   }
@@ -43,7 +48,7 @@ class EatConfirmPage extends StatelessWidget {
             height: 340,
             width: 340,
             child: Image.file(
-              File(image!.path),
+              File(widget.image!.path),
             ),
           ),
           const Padding(
@@ -82,7 +87,7 @@ class EatConfirmPage extends StatelessWidget {
 
                   Navigator.of(context).pushReplacement(MaterialPageRoute(
                       builder: (context) => AIOutputPage(
-                            foodImage: image,
+                            foodImage: widget.image,
                             food: resultFood,
                           )));
                 },
