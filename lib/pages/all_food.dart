@@ -4,6 +4,7 @@ import 'package:csv/csv.dart';
 import 'package:flutter/services.dart' show rootBundle;
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:appfood2/widgets/button_back.dart';
+import 'package:appfood2/screen_size.dart';
 
 class RealAllFoodPage extends StatefulWidget {
   const RealAllFoodPage({super.key, required this.type});
@@ -76,99 +77,119 @@ class AllFoodPage extends StatelessWidget {
   const AllFoodPage({super.key, required this.type, required this.foodData});
   final String type;
   final List<List<Food>> foodData;
+  
 
   @override
   Widget build(BuildContext context) {
+    final mediaQueryData = MediaQuery.of(context);
+    final screenSizeData = ScreenSizeData(
+      screenWidth: mediaQueryData.size.width,
+      screenHeight: mediaQueryData.size.height,
+    );
     return Scaffold(
-      backgroundColor: const Color.fromRGBO(255, 241, 224, 1),
+      //backgroundColor: const Color.fromRGBO(255, 241, 224, 1),
       body: SafeArea(
         child: SingleChildScrollView(
-          child: Column(
-            children: [
-              SizedBox(
-                height: 200,
-                width: MediaQuery.of(context).size.width,
-                child: Stack(
+          child: Container(
+            color: screenSizeData.screenWidth <= screenSizeData.maxWidth
+              ? Colors.white
+              : Colors.black,
+            child: Center(
+              child: Container(
+                width: screenSizeData.screenSizeWidth,
+                decoration: const BoxDecoration(
+                  color: Color.fromRGBO(255, 241, 224, 1),
+                  
+                ),
+                child: Column(
                   children: [
-                    ClipPath(
-                      clipper: CustomClipPath(),
-                      child: Container(
-                        width: MediaQuery.of(context).size.width,
-                        height: 130,
-                        decoration: BoxDecoration(
-                            color: type == "Fruit"
-                                ? const Color.fromRGBO(198, 242, 178, 0.65)
-                                : const Color.fromRGBO(255, 115, 55, 0.65)),
+                    SizedBox(
+                      height: 200,
+                      width: screenSizeData.screenSizeWidth,
+                      child: Stack(
+                        children: [
+                          ClipPath(
+                            clipper: CustomClipPath(),
+                            child: Container(
+                              width: MediaQuery.of(context).size.width,
+                              height: 130,
+                              decoration: BoxDecoration(
+                                  color: type == "Fruit"
+                                      ? const Color.fromRGBO(198, 242, 178, 0.65)
+                                      : const Color.fromRGBO(255, 115, 55, 0.65)),
+                            ),
+                          ),
+                          Padding(
+                            padding: const EdgeInsets.symmetric(vertical: 55),
+                            child: Align(
+                                alignment: Alignment.bottomCenter,
+                                child: BoxTitleNameType(type: type)),
+                          ),
+                          Padding(
+                            padding: const EdgeInsets.all(10.0),
+                            child: Align(
+                              alignment: Alignment.topLeft,
+                              child: ButtonBack(
+                                color: Colors.white,
+                                colorCircle: type == "Fruit"
+                                    ? const Color.fromRGBO(18, 109, 104, 1)
+                                    : const Color.fromRGBO(163, 70, 30, 1),
+                              ),
+                            ),
+                          ),
+                        ],
                       ),
                     ),
-                    Padding(
-                      padding: const EdgeInsets.symmetric(vertical: 55),
-                      child: Align(
-                          alignment: Alignment.bottomCenter,
-                          child: BoxTitleNameType(type: type)),
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.all(10.0),
-                      child: Align(
-                        alignment: Alignment.topLeft,
-                        child: ButtonBack(
-                          color: Colors.white,
-                          colorCircle: type == "Fruit"
-                              ? const Color.fromRGBO(18, 109, 104, 1)
-                              : const Color.fromRGBO(163, 70, 30, 1),
-                        ),
+                    const Padding(
+                      padding: EdgeInsets.symmetric(vertical: 10),
+                      child: Text(
+                        "GI = ค่าดัชนีน้ำตาล",
+                        style: TextStyle(fontSize: 24, fontWeight: FontWeight.w700),
                       ),
                     ),
+                    const Padding(
+                      padding: EdgeInsets.fromLTRB(0, 0, 0, 50),
+                      child: BoxContainSmileIcon(),
+                    ),
+                    ...foodData.map((e) {
+                      if (e.length == 2) {
+                        return Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Expanded(
+                                  flex: 1,
+                                  child: Align(
+                                    alignment: Alignment.center,
+                                    child: FoodIcons(food: e[0], width: screenSizeData.screenSizeWidth,))),
+                              Expanded(
+                                  flex: 1,
+                                  child: Align(
+                                    alignment: Alignment.center,
+                                    child: FoodIcons(food: e[1], width: screenSizeData.screenSizeWidth,))),
+                            ]);
+                      } else {
+                        return Row(
+                            mainAxisAlignment: MainAxisAlignment.start,
+                            children: [
+                              Expanded(
+                                  flex: 1,
+                                  child: Align(
+                                    alignment: Alignment.center,
+                                    child: FoodIcons(food: e[0], width: screenSizeData.screenSizeWidth,))),
+                              const Expanded(
+                                  flex: 1,
+                                  child: Align(
+                                    alignment: Alignment.center,
+                                    child: SizedBox()
+                                  )
+                              )
+                            ]);
+                      }
+                    })
                   ],
                 ),
               ),
-              const Padding(
-                padding: EdgeInsets.symmetric(vertical: 10),
-                child: Text(
-                  "GI = ค่าดัชนีน้ำตาล",
-                  style: TextStyle(fontSize: 24, fontWeight: FontWeight.w700),
-                ),
-              ),
-              const Padding(
-                padding: EdgeInsets.fromLTRB(0, 0, 0, 50),
-                child: BoxContainSmileIcon(),
-              ),
-              ...foodData.map((e) {
-                if (e.length == 2) {
-                  return Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Expanded(
-                            flex: 1,
-                            child: Align(
-                              alignment: Alignment.center,
-                              child: FoodIcons(food: e[0]))),
-                        Expanded(
-                            flex: 1,
-                            child: Align(
-                              alignment: Alignment.center,
-                              child: FoodIcons(food: e[1]))),
-                      ]);
-                } else {
-                  return Row(
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      children: [
-                        Expanded(
-                            flex: 1,
-                            child: Align(
-                              alignment: Alignment.center,
-                              child: FoodIcons(food: e[0]))),
-                        const Expanded(
-                            flex: 1,
-                            child: Align(
-                              alignment: Alignment.center,
-                              child: SizedBox()
-                            )
-                        )
-                      ]);
-                }
-              })
-            ],
+            ),
           ),
         ),
       ),
@@ -376,8 +397,9 @@ class MenuTypeIcon extends StatelessWidget {
 }
 
 class FoodIcons extends StatelessWidget {
-  const FoodIcons({super.key, required this.food});
+  const FoodIcons({super.key, required this.food, required this.width});
   final Food food;
+  final double width;
 
   @override
   Widget build(BuildContext context) {
@@ -389,7 +411,7 @@ class FoodIcons extends StatelessWidget {
               builder: (context) => FoodDetailPage(detail: food.detail)));
         },
         child: SizedBox(
-          width: MediaQuery.of(context).size.width * 0.42,
+          width: width* 0.42,
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             //crossAxisAlignment: CrossAxisAlignment.start,

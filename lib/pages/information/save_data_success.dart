@@ -3,6 +3,7 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:appfood2/pages/home.dart';
 import 'package:appfood2/db.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
+import 'package:appfood2/screen_size.dart';
 
 class SaveDataSuccessPage extends StatelessWidget {
   final User user;
@@ -13,6 +14,12 @@ class SaveDataSuccessPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final mediaQueryData = MediaQuery.of(context);
+    final screenSizeData = ScreenSizeData(
+      screenWidth: mediaQueryData.size.width,
+      screenHeight: mediaQueryData.size.height,
+    );
+    final double sizeFont = screenSizeData.screenSizeWidth < 600 ? 32 : 40;
     return Scaffold(
         body: SafeArea(
             child: FutureBuilder(
@@ -20,74 +27,89 @@ class SaveDataSuccessPage extends StatelessWidget {
                 builder: (BuildContext context, AsyncSnapshot<bool> snapshot) {
                   if (snapshot.hasData) {
                     if (snapshot.data == true) {
-                      return Column(
-                        children: [
-                          const Padding(
-                            padding: EdgeInsets.only(top: 160),
-                            child: FaIcon(
-                              FontAwesomeIcons.circleCheck,
-                              color: Color.fromRGBO(65, 199, 175, 1),
-                              size: 190,
-                            ),
-                          ),
-                          const Padding(
-                              padding: EdgeInsets.only(top: 20),
-                              child: Align(
-                                  alignment: Alignment.center,
-                                  child: Text("บันทึกสำเร็จ",
-                                      style: TextStyle(
-                                          color:
-                                              Color.fromRGBO(118, 183, 68, 1),
-                                          fontSize: 35,
-                                          fontWeight: FontWeight.w600)))),
-                          Padding(
-                            padding: const EdgeInsets.only(
-                                top: 50, left: 53, right: 30),
-                            child: ElevatedButton(
-                                onPressed: () {
-                                  Navigator.of(context).push(MaterialPageRoute(
-                                      builder: (context) => const HomePage()));
-                                },
-                                style: ElevatedButton.styleFrom(
-                                    backgroundColor:
-                                        const Color.fromRGBO(178, 237, 255, 1),
-                                    shape: RoundedRectangleBorder(
-                                      borderRadius: BorderRadius.circular(40),
-                                    )),
-                                child: Container(
-                                  alignment: Alignment.center,
-                                  width: double.infinity,
-                                  height: 80,
-                                  child: const Row(
-                                    children: [
-                                      Expanded(
-                                          flex: 1,
-                                          child: Icon(
-                                            Icons.arrow_circle_right_outlined,
+                      return Container(
+                        color: screenSizeData.screenWidth <=
+                                screenSizeData.maxWidth
+                            ? Colors.white
+                            : Colors.black,
+                        child: Center(
+                          child: Container(
+                            color: Colors.white,
+                            width: screenSizeData.screenSizeWidth,
+                            height: screenSizeData.screenHeight,
+                            child: Column(
+                              //crossAxisAlignment: CrossAxisAlignment.center,
+                              //mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                Padding(
+                                  padding: EdgeInsets.only(bottom: screenSizeData.screenHeight * 0.05, top: screenSizeData.screenHeight * 0.25),
+                                  child: const FaIcon(
+                                    FontAwesomeIcons.circleCheck,
+                                    color: Color.fromRGBO(65, 199, 175, 1),
+                                    size: 190,
+                                  ),
+                                ),
+                                Padding(
+                                   padding: EdgeInsets.only(bottom: screenSizeData.screenHeight * 0.05),
+                                  child: Align(
+                                      alignment: Alignment.center,
+                                      child: Text("บันทึกสำเร็จ",
+                                          style: TextStyle(
+                                              color: const Color.fromRGBO(
+                                                  118, 183, 68, 1),
+                                              fontSize: sizeFont,
+                                              fontWeight: FontWeight.w600))),
+                                ),
+                                ElevatedButton(
+                                    onPressed: () {
+                                      Navigator.of(context).push(
+                                          MaterialPageRoute(
+                                              builder: (context) =>
+                                                  const HomePage()));
+                                    },
+                                    style: ElevatedButton.styleFrom(
+                                        backgroundColor: const Color.fromRGBO(
+                                            178, 237, 255, 1),
+                                        shape: RoundedRectangleBorder(
+                                          borderRadius:
+                                              BorderRadius.circular(40),
+                                        )),
+                                    child: Container(
+                                      alignment: Alignment.center,
+                                      //padding: const EdgeInsets.all(20),
+                                      width: screenSizeData.screenSizeWidth < 600 ? screenSizeData.screenSizeWidth * 0.7 : screenSizeData.screenSizeWidth * 0.5,
+                                      height: 80,
+                                      child: Row(
+                                        children: [
+                                          const Icon(
+                                            Icons
+                                                .arrow_circle_right_outlined,
                                             size: 49,
-                                          )),
-                                      Expanded(
-                                        flex: 6,
-                                        child: Padding(
-                                            padding:
-                                                EdgeInsets.only(bottom: 10),
+                                          ),
+                                          Padding(
+                                            padding: const EdgeInsets.only(left: 10),
                                             child: Align(
                                               alignment: Alignment.center,
                                               child: Text(
                                                 "เข้าสู่เมนูหลัก",
                                                 style: TextStyle(
-                                                    fontSize: 36,
-                                                    fontWeight: FontWeight.w600,
+                                                    fontSize: sizeFont,
+                                                    fontWeight:
+                                                        FontWeight.w600,
                                                     color: Colors.black),
-                                                textAlign: TextAlign.center,
+                                                textAlign:
+                                                    TextAlign.center,
                                               ),
-                                            )),
-                                      )
-                                    ],
+                                            ),
+                                          )
+                                        ],
+                                      ),
+                                    )
                                   ),
-                                )),
+                              ],
+                            ),
                           ),
-                        ],
+                        ),
                       );
                     } else {
                       return const Text("Save to Firestore failed");

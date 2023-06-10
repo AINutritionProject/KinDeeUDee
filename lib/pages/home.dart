@@ -13,6 +13,7 @@ import 'package:image_picker/image_picker.dart';
 import 'dart:io';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'dart:math' as math;
+import 'package:appfood2/screen_size.dart';
 
 class Home extends StatefulWidget {
   final String username;
@@ -47,6 +48,7 @@ class _HomePageState extends State<HomePage> {
 
   @override
   Widget build(BuildContext context) {
+    
     return FutureBuilder(
       builder: (context, snapshot) {
         if (snapshot.hasData) {
@@ -71,6 +73,11 @@ class _HomeState extends State<Home> {
   final String assetName = 'assets/icons/book-1.svg';
   @override
   Widget build(BuildContext context) {
+    final mediaQueryData = MediaQuery.of(context);
+    final screenSizeData = ScreenSizeData(
+      screenWidth: mediaQueryData.size.width,
+      screenHeight: mediaQueryData.size.height,
+    );
     return Scaffold(
       endDrawer: SafeArea(
         child: Drawer(
@@ -94,27 +101,39 @@ class _HomeState extends State<Home> {
           ),
         ),
       ),
-      backgroundColor: const Color.fromRGBO(255, 251, 242, 1),
+      //backgroundColor: const Color.fromRGBO(255, 251, 242, 1),
       body: SafeArea(
-        child: Column(
-          mainAxisSize: MainAxisSize.max,
-          mainAxisAlignment: MainAxisAlignment.center,
-          //crossAxisAlignment: CrossAxisAlignment.center,
-          children: [
-            Expanded(
-              flex: 2,
-              child: HeaderSection(widget: widget),
+        child: Container(
+          color: screenSizeData.screenWidth <= screenSizeData.maxWidth
+              ? Colors.white
+              : Colors.black,
+
+          child: Center(
+            child: Container(
+              color: const Color.fromRGBO(255, 251, 242, 1),
+              width: screenSizeData.screenSizeWidth,
+              child: Column(
+                mainAxisSize: MainAxisSize.max,
+                mainAxisAlignment: MainAxisAlignment.center,
+                //crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  Expanded(
+                    flex: 2,
+                    child: HeaderSection(widget: widget),
+                  ),
+                  Expanded(
+                    flex: 6,
+                    child: SectionButtonClick(width: screenSizeData.screenSizeWidth, height: screenSizeData.screenHeight,),
+                  ),
+                  //
+                  const Expanded(
+                    flex: 1,
+                    child: FooterSection(),
+                  )
+                ],
+              ),
             ),
-            const Expanded(
-              flex: 6,
-              child: SectionButtonClick(),
-            ),
-            //
-            const Expanded(
-              flex: 1,
-              child: FooterSection(),
-            )
-          ],
+          ),
         ),
       ),
     );
@@ -137,28 +156,34 @@ class FooterSection extends StatelessWidget {
 class SectionButtonClick extends StatelessWidget {
   const SectionButtonClick({
     super.key,
+    required this.width,
+    required this.height
   });
+  final double width;
+  final double height;
 
   @override
   Widget build(BuildContext context) {
     return SizedBox(
       width: MediaQuery.of(context).size.width,
       child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        crossAxisAlignment: CrossAxisAlignment.center,
         mainAxisSize: MainAxisSize.max,
         children: [
           Expanded(
             flex: 4,
             child: SizedBox(
-              width: MediaQuery.of(context).size.width,
+              width: width,
               child: Column(
                 children: [
-                  const Expanded(
+                  Expanded(
                     flex: 38,
-                    child: SearchMenuBox(),
+                    child: SearchMenuBox(width: width, height: height,),
                   ),
-                  const Expanded(
+                  Expanded(
                     flex: 36,
-                    child: HistoryBox(),
+                    child: HistoryBox(width: width, height: height,),
                   ),
                   const Expanded(
                     flex: 30,
@@ -211,7 +236,11 @@ class FlagNutritionBox extends StatelessWidget {
 class HistoryBox extends StatelessWidget {
   const HistoryBox({
     super.key,
+    required this.width,
+    required this.height,
   });
+  final double width;
+  final double height;
 
   @override
   Widget build(BuildContext context) {
@@ -221,7 +250,7 @@ class HistoryBox extends StatelessWidget {
             MaterialPageRoute(builder: (context) => const EatHistoryPage()));
       },
       child: SizedBox(
-        width: MediaQuery.of(context).size.width,
+        width: width,
         child: Stack(
           children: [
             const Align(
@@ -234,8 +263,8 @@ class HistoryBox extends StatelessWidget {
               ),
             ),
             Positioned(
-              left: 70,
-              top: 30,
+              left: width * 0.5 - 308/2 + 30,
+              top: height * 0.05 ,
               child: Align(
                 alignment: Alignment.center,
                 child: Image.asset(
@@ -256,7 +285,11 @@ class HistoryBox extends StatelessWidget {
 class SearchMenuBox extends StatelessWidget {
   const SearchMenuBox({
     super.key,
+    required this.width,
+    required this.height
   });
+  final double width;
+  final double height;
 
   @override
   Widget build(BuildContext context) {
@@ -266,7 +299,7 @@ class SearchMenuBox extends StatelessWidget {
             context, MaterialPageRoute(builder: (context) => const MenuPage()));
       },
       child: SizedBox(
-        width: MediaQuery.of(context).size.width,
+        width: width,
         child: Stack(
           clipBehavior: Clip.none,
           children: [
@@ -279,13 +312,11 @@ class SearchMenuBox extends StatelessWidget {
                 //height: 140,
               ),
             ),
-            const Positioned(
-              right: 10,
+            Positioned(
+            //left: 0,
+              left: width * 0.5 - 150/2 + 110,
               bottom: 60,
-              width: 150,
-              height: 150,
-              child: LamponTemplate(),
-            )
+              child: const LamponTemplate())
           ],
         ),
       ),
@@ -324,7 +355,8 @@ class HeaderSection extends StatelessWidget {
                 child: Text(
                   '"${widget.username}"',
                   style: const TextStyle(
-                      fontSize: 20, fontWeight: FontWeight.bold),
+                      fontSize: 20, fontWeight: FontWeight.bold
+                  ),
                 ),
               )
             ],
