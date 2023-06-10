@@ -48,6 +48,7 @@ dependencies:
   flutter_svg: ^2.0.6
   email_validator: ^2.1.17
   tflite_flutter: ^0.10.1
+  image: ^4.0.17
 
 dev_dependencies:
   flutter_test:
