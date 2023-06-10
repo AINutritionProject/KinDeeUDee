@@ -127,6 +127,8 @@ class _EatConfirmPageState extends State<EatConfirmPage> {
                     print("____________INPUTS____________");
                     var t1 = DateTime.now().millisecondsSinceEpoch;
                     _intepreter.runForMultipleInputs(inputs, outputs);
+                    var t2 = DateTime.now().millisecondsSinceEpoch;
+                    print("elapsed time: ${t2 - t1} ms");
                     print(outputs[0]);
                     print(outputs[1]);
                     print(outputs[2]);
