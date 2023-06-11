@@ -11,7 +11,7 @@ class Auth {
     await _firebaseAuth.signInAnonymously();
   }
 
-  Future<void> createUserWithEmailAndPassword(
+  Future<String?> createUserWithEmailAndPassword(
       String username, password, phoneNumber, email) async {
     try {
       UserCredential firebaseUser = await _firebaseAuth
@@ -27,10 +27,15 @@ class Auth {
       await FirebaseFirestore.instance.collection("users").add(
             appFoodUser.toMap(),
           );
+    } on FirebaseAuthException catch (error) {
+      print(error);
+      return error.message;
     } catch (error) {
       print("Got error when create user with email & password");
       print(error);
     }
+
+    return null;
   }
 
   Future<String?> signInWithUsername(String username, String password) async {
