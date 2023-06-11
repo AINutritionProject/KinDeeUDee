@@ -24,7 +24,10 @@ class ActivityForm extends StatefulWidget {
   State<ActivityForm> createState() => _ActivityFormState();
 }
 
-class _ActivityFormState extends State<ActivityForm> {
+class _ActivityFormState extends State<ActivityForm>
+    with AutomaticKeepAliveClientMixin {
+  @override
+  bool get wantKeepAlive => true;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
