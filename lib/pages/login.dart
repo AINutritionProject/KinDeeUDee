@@ -1,4 +1,5 @@
 import 'package:appfood2/auth.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:appfood2/pages/register.dart';
 import 'package:google_sign_in/google_sign_in.dart';
@@ -26,10 +27,29 @@ class _LogInFormState extends State<LogInForm> {
   final TextEditingController _usernameController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
 
-  Future<void> _onLogin() async {
+  void _onLogin() {
     if (_formKey.currentState!.validate()) {
-      await Auth().signInWithUsername(
+      Future<String?> result = Auth().signInWithUsername(
           _usernameController.text, _passwordController.text);
+      result.then((value) {
+        if (value != null) {
+          showDialog(
+            context: context,
+            builder: (context) {
+              return Dialog(
+                backgroundColor: const Color(0x00FFFFFF),
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(30),
+                ),
+                child: Container(
+                  color: Colors.red,
+                  child: const Text("error"),
+                ),
+              );
+            },
+          );
+        }
+      });
     }
   }
 

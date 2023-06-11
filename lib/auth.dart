@@ -33,7 +33,7 @@ class Auth {
     }
   }
 
-  Future<void> signInWithUsername(String username, String password) async {
+  Future<String?> signInWithUsername(String username, String password) async {
     try {
       // get email from username
       QuerySnapshot<Map<String, dynamic>> querySnapshot =
@@ -46,10 +46,18 @@ class Auth {
       UserCredential firebaseUser = await _firebaseAuth
           .signInWithEmailAndPassword(email: email, password: password);
       print(firebaseUser.user!.uid);
+    } on StateError catch (error) {
+      print("Doc could not be found in firestore");
+      return error.message;
+    } on FirebaseAuthException catch (error) {
+      print("Got firebase auth error when sign in with username & password");
+      print(error);
+      return error.message;
     } catch (error) {
       print("Got error when sign in with username & password");
       print(error);
     }
+    return null;
   }
 
   Future<void> signInWithGoogle(GoogleSignIn googleSignIn) async {
