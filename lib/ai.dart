@@ -56,7 +56,7 @@ class TFModel {
           name: row[1],
           type: row[11],
           detail: FoodNutritionDetail(
-            name: row[3],
+            name: row[3].toString().replaceAll("_", ","),
             giIndex: row[5],
             benefit: row[9],
             power: row[6],
