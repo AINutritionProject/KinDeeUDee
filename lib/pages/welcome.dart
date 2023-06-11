@@ -74,6 +74,7 @@ class WelcomePage extends StatelessWidget {
               child: GestureDetector(
                 onTap: () {
                   Navigator.of(context).push(MaterialPageRoute(
+                      settings: const RouteSettings(name: "home"),
                       builder: (context) => const LandingPage()));
                 },
                 child: const Text(

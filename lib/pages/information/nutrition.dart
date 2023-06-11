@@ -3,17 +3,12 @@ import 'package:appfood2/pages/information/save_data_success.dart';
 import 'package:flutter/material.dart';
 import 'package:appfood2/db.dart';
 
-
-
-
 class Nutrition extends StatelessWidget {
   final User user;
   const Nutrition({
     super.key,
     required this.user,
   });
-
-  
 
   static const List dataInSection = [
     {
@@ -91,7 +86,7 @@ class Nutrition extends StatelessWidget {
     },
   ];
   static List<dynamic> amountList = [];
-  
+
   //flour, veg, fruit, meat, nut, milk, water, oil, sugar
 
   List<dynamic> calShowWiget(User val) {
@@ -103,8 +98,7 @@ class Nutrition extends StatelessWidget {
       } else {
         return [9, 3, 4, 10, 1, 0, 8, 8, 6];
       }
-      
-    } else if (val.milkGlass == 1 && !val.milkProduct){
+    } else if (val.milkGlass == 1 && !val.milkProduct) {
       if (calAmountValue(val.bmr) == 1400) {
         return [5, 3, 3, 7, 1, 1, 8, 6, 6];
       } else if (calAmountValue(val.bmr) == 1600) {
@@ -112,7 +106,7 @@ class Nutrition extends StatelessWidget {
       } else {
         return [9, 3, 3, 9, 1, 1, 8, 8, 6];
       }
-    } else if (val.milkGlass == 2 && !val.milkProduct){
+    } else if (val.milkGlass == 2 && !val.milkProduct) {
       if (calAmountValue(val.bmr) == 1400) {
         return [5, 3, 2, 6, 1, 2, 8, 5, 6];
       } else if (calAmountValue(val.bmr) == 1600) {
@@ -120,7 +114,7 @@ class Nutrition extends StatelessWidget {
       } else {
         return [9, 3, 2, 8, 1, 2, 8, 7, 6];
       }
-    } else if (val.milkGlass == 0 && val.milkProduct){
+    } else if (val.milkGlass == 0 && val.milkProduct) {
       if (calAmountValue(val.bmr) == 1400) {
         return [5, 3, 3, 7, 1, 1, 8, 6, 6];
       } else if (calAmountValue(val.bmr) == 1600) {
@@ -137,38 +131,36 @@ class Nutrition extends StatelessWidget {
         return [9, 3, 2, 8, 1, 2, 8, 7, 6];
       }
     }
-
   }
 
-  
   @override
   Widget build(BuildContext context) {
     final widgetList = calShowWiget(user);
     return Scaffold(
         //appBar: AppBar(title: const Text("nutririon")),
         body: SafeArea(
-          child: ListView.builder(
-            itemCount: dataInSection.length + 2,
-            itemBuilder: (context, index) {
-              if (index == dataInSection.length + 1) {
-                return ButtonSave(user: user);
-              } else if (index == 0) {
-                return ContainerHeader(
-                  bmr: user.bmr,
-                );
-              } else {
-                return SectionNutrition(
-                    imgTypeNutritionPath: dataInSection[index - 1]
-                        ['imgTypeNutritionPath'],
-                    nameTypeNutrition: dataInSection[index - 1]['name'],
-                    amount: widgetList[index - 1],
-                    nameAmount: dataInSection[index - 1]['nameAmount'],
-                    widget: dataInSection[index - 1]['amountWiget']
-                        [widgetList[index - 1]]);
-              }
-            },
-          ),
-        ));
+      child: ListView.builder(
+        itemCount: dataInSection.length + 2,
+        itemBuilder: (context, index) {
+          if (index == dataInSection.length + 1) {
+            return ButtonSave(user: user);
+          } else if (index == 0) {
+            return ContainerHeader(
+              bmr: user.bmr,
+            );
+          } else {
+            return SectionNutrition(
+                imgTypeNutritionPath: dataInSection[index - 1]
+                    ['imgTypeNutritionPath'],
+                nameTypeNutrition: dataInSection[index - 1]['name'],
+                amount: widgetList[index - 1],
+                nameAmount: dataInSection[index - 1]['nameAmount'],
+                widget: dataInSection[index - 1]['amountWiget']
+                    [widgetList[index - 1]]);
+          }
+        },
+      ),
+    ));
   }
 }
 
@@ -190,7 +182,8 @@ class ButtonSave extends StatelessWidget {
           //height: 55,
           width: MediaQuery.of(context).size.width * 0.3,
           height: MediaQuery.of(context).size.height * 0.07,
-          constraints: const BoxConstraints(minWidth: 120, minHeight: 45, maxHeight: 55, maxWidth: 140),
+          constraints: const BoxConstraints(
+              minWidth: 120, minHeight: 45, maxHeight: 55, maxWidth: 140),
           decoration: BoxDecoration(
               color: const Color.fromRGBO(126, 204, 237, 1),
               borderRadius: BorderRadius.circular(30)),
@@ -214,8 +207,6 @@ class ButtonSave extends StatelessWidget {
     );
   }
 }
-
-
 
 class SectionNutrition extends StatelessWidget {
   const SectionNutrition(
@@ -255,32 +246,31 @@ class SectionNutrition extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.spaceAround,
                 children: [
                   Padding(
-                    padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 12),
+                    padding:
+                        const EdgeInsets.symmetric(vertical: 8, horizontal: 12),
                     child: DetailLeft(
                         nameTypeNutrition: nameTypeNutrition,
                         imgTypeNutritionPath: imgTypeNutritionPath),
                   ),
                   Padding(
-                    padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 12),
+                    padding:
+                        const EdgeInsets.symmetric(vertical: 8, horizontal: 12),
                     child: DetailRight(
-                        amount: amount, 
-                        nameAmount: nameAmount, 
-                        widget: widget),
+                        amount: amount, nameAmount: nameAmount, widget: widget),
                   ),
                   //const Text('')
                 ],
               ),
               nameTypeNutrition == 'เนื้อสัตว-ไข่'
                   ? const Padding(
-                    padding: EdgeInsets.fromLTRB(0, 0, 0, 10),
-                    child: Text(
+                      padding: EdgeInsets.fromLTRB(0, 0, 0, 10),
+                      child: Text(
                         'ไข่ 1 ฟอง = เนื้อสัตว์ 2 ช้อนโต๊ะ',
-                        style:
-                            TextStyle(fontSize: 24, fontWeight: FontWeight.w400),
+                        style: TextStyle(
+                            fontSize: 24, fontWeight: FontWeight.w400),
                       ),
-                  )
-                  : const SizedBox(
-                  )
+                    )
+                  : const SizedBox()
             ],
           )),
     );
@@ -358,14 +348,13 @@ class DetailLeft extends StatelessWidget {
   }
 }
 
-
 int calAmountValue(double val) {
   if (val <= 1500) {
     return 1400;
   } else if (val >= 1501 && val <= 1699) {
     return 1600;
   } else {
-    return 1800; 
+    return 1800;
   }
 }
 
@@ -731,8 +720,6 @@ class ContainerHeader extends StatelessWidget {
   //final int calAmount;
   final double bmr;
   @override
-  
-
   Widget build(BuildContext context) {
     return SizedBox(
       width: MediaQuery.of(context).size.width,
@@ -766,12 +753,8 @@ class AmountCalGreen extends StatelessWidget {
       height: MediaQuery.of(context).size.height * 0.08,
       decoration: const BoxDecoration(
           color: Color.fromRGBO(209, 255, 150, 1),
-          borderRadius: BorderRadius.all(Radius.circular(20))
-      ),
-      constraints: const BoxConstraints(
-        maxWidth: 200,
-        maxHeight: 70
-      ),
+          borderRadius: BorderRadius.all(Radius.circular(20))),
+      constraints: const BoxConstraints(maxWidth: 200, maxHeight: 70),
       child: const Center(
         child: Text(
           '1400 Kcal',
@@ -794,12 +777,8 @@ class AmountCalYellow extends StatelessWidget {
       height: MediaQuery.of(context).size.height * 0.08,
       decoration: const BoxDecoration(
           color: Color.fromRGBO(255, 244, 148, 1),
-          borderRadius: BorderRadius.all(Radius.circular(20))
-      ),
-      constraints: const BoxConstraints(
-        maxWidth: 200,
-        maxHeight: 70
-      ),
+          borderRadius: BorderRadius.all(Radius.circular(20))),
+      constraints: const BoxConstraints(maxWidth: 200, maxHeight: 70),
       child: const Center(
         child: Text(
           '1600 Kcal',
@@ -823,10 +802,7 @@ class AmountCalRed extends StatelessWidget {
       decoration: const BoxDecoration(
           color: Color.fromRGBO(255, 122, 122, 1),
           borderRadius: BorderRadius.all(Radius.circular(20))),
-      constraints: const BoxConstraints(
-        maxWidth: 200,
-        maxHeight: 70
-      ),
+      constraints: const BoxConstraints(maxWidth: 200, maxHeight: 70),
       child: const Center(
         child: Text(
           '1800 Kcal',
@@ -870,10 +846,7 @@ class TitleHeader extends StatelessWidget {
           color: Color.fromRGBO(136, 158, 238, 1),
           borderRadius: BorderRadius.only(
               topLeft: Radius.circular(50), bottomRight: Radius.circular(50))),
-      constraints: const BoxConstraints(
-        maxHeight: 80,
-        maxWidth: 350
-      ),
+      constraints: const BoxConstraints(maxHeight: 80, maxWidth: 350),
       child: const Center(
         child: Text(
           'ข้อมูลทางโภชนาการ',
