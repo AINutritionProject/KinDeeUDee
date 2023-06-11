@@ -134,10 +134,29 @@ class _RegisterFormState extends State<RegisterForm> {
                             padding: const EdgeInsets.symmetric(
                                 horizontal: 14, vertical: 30),
                             child: TextFormSlot(
-                              controller: _usernameController,
-                              name: "ชื่อผู้ใช้",
-                              validator: _usernameValidator,
-                            )),
+                                controller: _usernameController,
+                                name: "ชื่อผู้ใช้",
+                                validator: (String? val) {
+                                  if (val != null) {
+                                    String text = val.trim();
+                                    if (text.isEmpty) {
+                                      return "กรุณากรอกชื่อผู้ใช้ของท่าน";
+                                    } else if (text.contains(" ")) {
+                                      return "ชื่อผู้ใช้ต้องไม่มีช่องว่าง";
+                                    } else if (text.contains(
+                                        RegExp('[^A-Za-z\u0E00-\u0E7F_0-9]'))) {
+                                      return "ชื่อผู้ใช้ต้องไม่มีตัวอักษรพิเศษอื่นนอกจาก \"_\"";
+                                    } else if (!text.contains(
+                                        RegExp('^[A-Za-z\u0E00-\u0E7F]'))) {
+                                      return "ชื่อผู้ใช้ต้องขึ้นต้นด้วยตัวอักษรธรรมดาเท่านั้น";
+                                    } else if (text.length > 15) {
+                                      return "ชื่อผู้ใช้ต้องมีความยาวไม่เกิน 15 ตัวอักษร";
+                                    } else if (usernames.contains(text)) {
+                                      return "ชื่อผู้ใช้นี้ถูกใช้ไปแล้ว โปรดเลือกชื่อผู้ใช้อื่น";
+                                    }
+                                  }
+                                  return null;
+                                })),
                         Padding(
                             padding: const EdgeInsets.symmetric(horizontal: 14),
                             child: TextFormSlot(
@@ -299,41 +318,6 @@ String? _phoneValidator(String? val) {
     }
   }
   return null;
-}
-
-String? _usernameValidator(String? val) {
-  if (val != null) {
-    String text = val.trim();
-    if (text.isEmpty) {
-      return "กรุณากรอกชื่อผู้ใช้ของท่าน";
-    } else if (text.contains(" ")) {
-      return "ชื่อผู้ใช้ต้องไม่มีช่องว่าง";
-    } else if (text.contains(RegExp('[^A-Za-z\u0E00-\u0E7F_0-9]'))) {
-      return "ชื่อผู้ใช้ต้องไม่มีตัวอักษรพิเศษอื่นนอกจาก \"_\"";
-    } else if (!text.contains(RegExp('^[A-Za-z\u0E00-\u0E7F]'))) {
-      return "ชื่อผู้ใช้ต้องขึ้นต้นด้วยตัวอักษรธรรมดาเท่านั้น";
-    } else if (text.length < 3 || text.length > 15) {
-      return "ืชื่อผู้ใช้ต้องมีความยาวอย่างน้อย 3 ตัวอักษร แต่ไม่เกิน 15 ตัวอักษร";
-    }
-    checkUsernameIsUnique(text).then((val) {
-      if (val) {
-        return null;
-      } else {
-        return "ชื่อผู้ใช้ของท่านซ้ำ";
-      }
-    });
-  }
-  return null;
-}
-
-checkUsernameIsUnique(String username) async {
-  QuerySnapshot querySnapshot;
-  querySnapshot = await FirebaseFirestore.instance
-      .collection('users')
-      .where("username", isEqualTo: username)
-      .get();
-  print(querySnapshot.docs.isEmpty);
-  return querySnapshot.docs.isEmpty;
 }
 
 String? _passwordValidator(String? val) {
