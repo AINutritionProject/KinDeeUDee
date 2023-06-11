@@ -38,10 +38,10 @@ class TFModel {
   Future<void> loadLabels() async {
     // load labels
     labels.clear();
-    final rawDate = await rootBundle.loadString("assets/allfood.csv");
-    List<List<dynamic>> csvTable = const CsvToListConverter().convert(rawDate);
-    for (var row in csvTable) {
-      labels.add(row[0]);
+    final rawDate = await rootBundle.loadString("assets/models/labelmap.txt");
+    final labelsList = rawDate.split("\n");
+    for (var label in labelsList) {
+      labels.add(label.trim());
     }
   }
 
