@@ -13,7 +13,7 @@ class ErrorDialog extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return AlertDialog(
-      actionsPadding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+      actionsPadding: const EdgeInsets.only(right: 20, bottom: 10),
       title: Row(
         children: [
           const Padding(
@@ -21,7 +21,10 @@ class ErrorDialog extends StatelessWidget {
             child:
                 FaIcon(FontAwesomeIcons.circleExclamation, color: Colors.red),
           ),
-          Text(title),
+          Text(
+            title,
+            style: const TextStyle(fontSize: 25),
+          ),
         ],
       ),
       shape: RoundedRectangleBorder(
@@ -32,7 +35,10 @@ class ErrorDialog extends StatelessWidget {
             onPressed: () {
               Navigator.of(context).pop();
             },
-            child: const Text("Approve")),
+            child: const Text(
+              "OK",
+              style: TextStyle(fontSize: 18),
+            )),
       ],
       content: Container(
         padding: const EdgeInsets.all(20),
@@ -40,9 +46,12 @@ class ErrorDialog extends StatelessWidget {
           color: Colors.white,
           borderRadius: BorderRadius.circular(30),
         ),
-        height: 150,
+        height: 140,
         child: Center(
-          child: Text(errorString),
+          child: Text(
+            errorString,
+            style: const TextStyle(fontSize: 18),
+          ),
         ),
       ),
     );
