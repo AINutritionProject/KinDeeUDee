@@ -45,8 +45,10 @@ class SaveDataSuccessPage extends StatelessWidget {
                                 top: 50, left: 53, right: 30),
                             child: ElevatedButton(
                                 onPressed: () {
-                                  Navigator.of(context).push(MaterialPageRoute(
-                                      builder: (context) => const HomePage()));
+                                  // Navigator.of(context).push(MaterialPageRoute(
+                                  //     builder: (context) => const HomePage()));
+                                  Navigator.of(context)
+                                      .popUntil(ModalRoute.withName('home'));
                                 },
                                 style: ElevatedButton.styleFrom(
                                     backgroundColor:
