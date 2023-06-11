@@ -30,10 +30,11 @@ class _EatConfirmPageState extends State<EatConfirmPage> {
         options: GpuDelegateOptionsV2(
       isPrecisionLossAllowed: false,
     ));
-    var interpreterOptions = InterpreterOptions()..addDelegate(gpuDelegateV2);
+    var interpreterOptions = InterpreterOptions()
+      ..addDelegate(XNNPackDelegate());
     try {
       _intepreter = await Interpreter.fromAsset('assets/models/detect.tflite',
-          options: InterpreterOptions());
+          options: interpreterOptions);
     } catch (e) {
       print("=============Unable to add GPU===================");
       print(e);
