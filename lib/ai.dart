@@ -1,5 +1,7 @@
 import 'dart:typed_data';
 
+import 'package:appfood2/pages/all_food.dart';
+import 'package:appfood2/pages/food_detailed.dart';
 import 'package:csv/csv.dart';
 import 'package:flutter/services.dart';
 import 'package:tflite_flutter/tflite_flutter.dart';
@@ -18,6 +20,7 @@ class TFModel {
   // load model
   late Interpreter _interpreter;
   final List<String> labels = [];
+  late Map<String, Food> foodMap;
   Future<void> loadModel() async {
     _interpreter = await Interpreter.fromAsset('assets/models/detect.tflite');
   }
@@ -25,6 +28,7 @@ class TFModel {
   Future<void> init() async {
     await loadModel();
     await loadLabels();
+    await loadFoodMap();
   }
 
   void close() {
@@ -39,6 +43,37 @@ class TFModel {
     for (var row in csvTable) {
       labels.add(row[0]);
     }
+  }
+
+  Future<void> loadFoodMap() async {
+    // load labels
+    labels.clear();
+    final rawData = await rootBundle.loadString("assets/food.csv");
+    Map<String, Food> foodMap = {};
+    List<List<dynamic>> csvTable = const CsvToListConverter().convert(rawData);
+    for (var row in csvTable) {
+      final food = Food(
+          name: row[1],
+          type: row[11],
+          detail: FoodNutritionDetail(
+            name: row[3],
+            giIndex: row[5],
+            benefit: row[9],
+            power: row[6],
+            fiber: row[7],
+            sugar: row[8],
+            protein: row[12],
+            fat: row[13],
+            carbo: row[14],
+            nutrition: row[10],
+            realImageAssetPath: "assets/images/Real${row[11]}/" + row[4],
+          ),
+          imageAssetPath:
+              "assets/images/${row[11] == 'Fruit' ? 'Fruit' : 'RiceFlour'}/" +
+                  row[2]);
+      foodMap[row[0].toString().trim()] = food;
+    }
+    this.foodMap = foodMap;
   }
 
   String? runModel(imglib.Image baseImage) {
