@@ -68,10 +68,11 @@ class _RegisterFormState extends State<RegisterForm> {
   @override
   Widget build(BuildContext context) {
     return FutureBuilder(
-        future: getUsernames(),
+        future: getUsernamesAndEmails(),
         builder: (context, snapshot) {
           if (snapshot.hasData) {
-            List<String> usernames = snapshot.data!;
+            List<String> usernames = snapshot.data!["usernames"]!;
+            List<String> emails = snapshot.data!["emails"]!;
             return Form(
               key: _formKey,
               child: Column(
@@ -118,10 +119,21 @@ class _RegisterFormState extends State<RegisterForm> {
                           padding: const EdgeInsets.symmetric(
                               horizontal: 14, vertical: 30),
                           child: TextFormSlot(
-                            controller: _emailController,
-                            name: "อีเมล",
-                            validator: _emailValidator,
-                          ),
+                              controller: _emailController,
+                              name: "อีเมล",
+                              validator: (String? val) {
+                                if (val != null) {
+                                  String text = val.trim();
+                                  if (text.isEmpty) {
+                                    return "กรุณากรอกอีเมลของท่าน";
+                                  } else if (!EmailValidator.validate(text)) {
+                                    return "กรุณากรอกรูปแบบอีเมลให้ถูกต้อง";
+                                  } else if (emails.contains(text)) {
+                                    return "อีเมลนี้ถูกใช้ในการสมัครไปแล้ว โปรดใช้อีเมลอื่น";
+                                  }
+                                }
+                                return null;
+                              }),
                         ),
                         Padding(
                             padding: const EdgeInsets.symmetric(horizontal: 12),
@@ -291,18 +303,6 @@ class TextFormSlot extends StatelessWidget {
       ],
     );
   }
-}
-
-String? _emailValidator(String? val) {
-  if (val != null) {
-    String text = val.trim();
-    if (text.isEmpty) {
-      return "กรุณากรอกอีเมลของท่าน";
-    } else if (!EmailValidator.validate(text)) {
-      return "กรุณากรอกรูปแบบอีเมลให้ถูกต้อง";
-    }
-  }
-  return null;
 }
 
 String? _phoneValidator(String? val) {
