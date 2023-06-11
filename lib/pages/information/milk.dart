@@ -24,7 +24,6 @@ class _MilkPageState extends State<MilkPage> {
   bool status_eat0 = false;
   // ignore: non_constant_identifier_names
   bool status_eat1 = false;
-
   @override
   void initState() {
     if (widget.user.hasData) {
