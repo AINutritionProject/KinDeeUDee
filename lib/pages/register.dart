@@ -287,8 +287,10 @@ class _RegisterFormState extends State<RegisterForm> {
               ),
             );
           } else {
-            return LoadingAnimationWidget.prograssiveDots(
-                color: Colors.black, size: 150);
+            return Center(
+              child: LoadingAnimationWidget.prograssiveDots(
+                  color: Colors.black, size: 150),
+            );
           }
         });
   }
