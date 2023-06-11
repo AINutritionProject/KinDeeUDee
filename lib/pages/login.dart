@@ -1,5 +1,5 @@
 import 'package:appfood2/auth.dart';
-import 'package:firebase_auth/firebase_auth.dart';
+import 'package:appfood2/widgets/%20error_dialog.dart';
 import 'package:flutter/material.dart';
 import 'package:appfood2/pages/register.dart';
 import 'package:google_sign_in/google_sign_in.dart';
@@ -36,16 +36,7 @@ class _LogInFormState extends State<LogInForm> {
           showDialog(
             context: context,
             builder: (context) {
-              return Dialog(
-                backgroundColor: const Color(0x00FFFFFF),
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(30),
-                ),
-                child: Container(
-                  color: Colors.red,
-                  child: const Text("error"),
-                ),
-              );
+              return ErrorDialog(errorString: value);
             },
           );
         }
