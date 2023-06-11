@@ -33,43 +33,26 @@ class _LogInFormState extends State<LogInForm> {
           _usernameController.text, _passwordController.text);
       result.then((value) {
         if (value != null) {
-          print("errorstring:");
-          print(value);
+          var errorString = "พบปัญหาโปรดลองอีกครั้ง";
           if (value == "No element") {
-            showDialog(
-              context: context,
-              builder: (context) {
-                return const ErrorDialog(
-                    errorString:
-                        "ไม่มีชื่อผู้ใช้นี้อยู่ในระบบ\nกรุณาสร้างบัญชีผู้ใช้");
-              },
-            );
+            errorString = "ไม่มีชื่อผู้ใช้นี้อยู่ในระบบ\nกรุณาสร้างบัญชีผู้ใช้";
           } else if (value ==
               "The password is invalid or the user does not have a password.") {
-            showDialog(
-              context: context,
-              builder: (context) {
-                return const ErrorDialog(errorString: "รหัสผ่านไม่ถูกต้อง");
-              },
-            );
+            errorString = "รหัสผ่านไม่ถูกต้อง";
           } else if (value ==
               "We have blocked all requests from this device due to unusual activity. Try again later.") {
-            showDialog(
-              context: context,
-              builder: (context) {
-                return const ErrorDialog(
-                    errorString:
-                        "กรอกรหัสผ่านไม่ถูกต้องหลายครั้ง\nโปรดลองอีกครั้งในภายหลัง");
-              },
-            );
-          } else {
-            showDialog(
-              context: context,
-              builder: (context) {
-                return const ErrorDialog(errorString: "พบปัญหาโปรดลองอีกครั้ง");
-              },
-            );
+            errorString =
+                "กรอกรหัสผ่านไม่ถูกต้องหลายครั้ง\nโปรดลองอีกครั้งในภายหลัง";
+          } else if (value ==
+              "The user account has been disabled by an administrator.") {
+            errorString = "บัญชีนี้ถูกระงับการใช้งาน";
           }
+          showDialog(
+            context: context,
+            builder: (context) {
+              return ErrorDialog(errorString: errorString);
+            },
+          );
         }
       });
     }
