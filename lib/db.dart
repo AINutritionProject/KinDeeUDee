@@ -166,3 +166,14 @@ List<UserActivity>? activityListFromMap(List<dynamic>? activityListMap) {
   }
   return null;
 }
+
+Future<List<String>> getUsernames() async {
+  final querySnapshot =
+      await FirebaseFirestore.instance.collection('users').get();
+  List<String> usernames = [];
+  for (var docSnapshot in querySnapshot.docs) {
+    usernames.add(docSnapshot.get("username"));
+  }
+
+  return usernames;
+}
