@@ -480,6 +480,22 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "1.9.1"
+  native_image:
+    dependency: "direct main"
+    description:
+      name: native_image
+      sha256: faf04233a66b2e54d53e809d5fff00b04d28788ec69dcba188dc67ee64e08367
+      url: "https://pub.dev"
+    source: hosted
+    version: "1.0.2"
+  native_image_platform_interface:
+    dependency: transitive
+    description:
+      name: native_image_platform_interface
+      sha256: "517fb02ee7e1e5d156aac5fc028adac3831b364c25abf682213e795e1673dda6"
+      url: "https://pub.dev"
+    source: hosted
+    version: "1.0.2"
   path:
     dependency: transitive
     description:
