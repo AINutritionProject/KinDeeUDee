@@ -20,10 +20,11 @@ class AppLogo extends StatelessWidget {
       //alignment: Alignment.center,
       children: [
         Positioned(
-          top: 45,
+          top: 40,
           left: screenWidth * 0.5 - 200 / 2,
           child: const SizedBox(
             width: 200,
+            
             child: Text(
               "กินดี",
               textAlign: TextAlign.left,
@@ -37,7 +38,7 @@ class AppLogo extends StatelessWidget {
         ),
         Positioned(
             top: 110,
-            left: screenWidth * 0.5 - 155 / 2,
+            left: screenWidth * 0.5 - 155 / 2 - 40,
             child: Container(
               width: 155,
               alignment: Alignment.center,
@@ -47,10 +48,10 @@ class AppLogo extends StatelessWidget {
               ),
             )),
         Positioned(
-          top: 105,
+          top: 100,
           left: screenWidth * 0.5 -
               200 / 2 +
-              MediaQuery.of(context).size.width * 0.1,
+              screenWidth * 0.25,
           child: const SizedBox(
             width: 200,
             child: Text(

@@ -122,7 +122,7 @@ class _HomeState extends State<Home> {
                     child: HeaderSection(widget: widget),
                   ),
                   Expanded(
-                    flex: 6,
+                    flex: screenSizeData.screenWidth < 600 ? 6 : 3,
                     child: SectionButtonClick(width: screenSizeData.screenSizeWidth, height: screenSizeData.screenHeight,),
                   ),
                   //
@@ -149,7 +149,20 @@ class FooterSection extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       width: MediaQuery.of(context).size.width,
-    );
+      child: Column(
+        children: [
+          Expanded(
+            child: Container(
+            ),
+          ),
+          Expanded(
+            child: Container(
+              color: const Color.fromRGBO(95, 206, 126, 0.65),
+            ),
+          ),
+        ]
+        ),
+      );
   }
 }
 
@@ -165,33 +178,39 @@ class SectionButtonClick extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      width: MediaQuery.of(context).size.width,
+      width: width,
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
-        crossAxisAlignment: CrossAxisAlignment.center,
-        mainAxisSize: MainAxisSize.max,
+        //crossAxisAlignment: CrossAxisAlignment.center,
+        //mainAxisSize: MainAxisSize.max,
         children: [
           Expanded(
             flex: 4,
-            child: SizedBox(
-              width: width,
-              child: Column(
-                children: [
-                  Expanded(
-                    flex: 38,
-                    child: SearchMenuBox(width: width, height: height,),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.spaceAround,
+              children: [
+                Expanded(
+                  flex: width < 600 ? 3 : 1,
+                  child: const SizedBox(
                   ),
-                  Expanded(
-                    flex: 36,
-                    child: HistoryBox(width: width, height: height,),
+                ),     
+                Expanded(
+                  flex: 20,
+                  child: SearchMenuBox(width: width, height: height,)),
+                Expanded(
+                  flex: 18,
+                  child: HistoryBox(width: width, height: height,)),
+                const Expanded(
+                  flex: 15,
+                  child: FlagNutritionBox()),
+                Expanded(
+                  flex: width < 600 ? 2 : 15,
+                  child: const SizedBox(
                   ),
-                  const Expanded(
-                    flex: 30,
-                    child: FlagNutritionBox(),
-                  ),
-                  Expanded(flex: 6, child: Container())
-                ],
-              ),
+                ),
+                
+                
+              ],
             ),
           ),
         ],
@@ -263,16 +282,13 @@ class HistoryBox extends StatelessWidget {
               ),
             ),
             Positioned(
-              left: width * 0.5 - 308/2 + 30,
-              top: height * 0.05 ,
-              child: Align(
-                alignment: Alignment.center,
-                child: Image.asset(
-                  'assets/icons/book1.png',
-                  width: 50,
-                  height: 50,
-                  fit: BoxFit.scaleDown,
-                ),
+              left: width * 0.5 - 50/2 - (50 * 1.8),
+              top: 30,
+              child: Image.asset(
+                'assets/icons/book1.png',
+                width: 50,
+                height: 50,
+                fit: BoxFit.scaleDown,
               ),
             )
           ],
@@ -313,9 +329,8 @@ class SearchMenuBox extends StatelessWidget {
               ),
             ),
             Positioned(
-            //left: 0,
-              left: width * 0.5 - 150/2 + 110,
-              bottom: 60,
+              left: width * 0.5 - 150/2 + 150 - 40,
+              bottom: 150/2 - (75 * 0.2),
               child: const LamponTemplate())
           ],
         ),

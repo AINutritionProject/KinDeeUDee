@@ -45,27 +45,27 @@ class FoodAdvanceDetailPage extends StatelessWidget {
                               )),
                         ),
                         Align(
-                      alignment: Alignment.center,
-                      child: Padding(
-                        padding: const EdgeInsets.fromLTRB(0, 45, 0, 20),
-                        child: Container(
-                          padding: const EdgeInsets.fromLTRB(50, 15, 50, 15),
-                          decoration: BoxDecoration(
-                              color: Colors.white,
-                              borderRadius: BorderRadius.circular(50)),
-                          constraints:
-                              const BoxConstraints(minWidth: 100, minHeight: 50),
-                          child: const Text(
-                            'กล้วยไข่,สุก',
-                            style: TextStyle(
-                                fontSize: 28, fontWeight: FontWeight.bold),
+                          alignment: Alignment.center,
+                          child: Padding(
+                            padding: const EdgeInsets.fromLTRB(0, 70, 0, 20),
+                            child: Container(
+                              padding:
+                                  const EdgeInsets.fromLTRB(50, 15, 50, 15),
+                              decoration: BoxDecoration(
+                                  color: Colors.white,
+                                  borderRadius: BorderRadius.circular(50)),
+                              constraints: const BoxConstraints(
+                                  minWidth: 100, minHeight: 50),
+                              child: Text(
+                                foodDetail.name,
+                                style: const TextStyle(
+                                    fontSize: 28, fontWeight: FontWeight.bold),
+                              ),
+                            ),
                           ),
                         ),
-                      ),
-                    ),
                       ],
                     ),
-                    
                     Padding(
                       padding: const EdgeInsets.fromLTRB(0, 10, 0, 30),
                       child: Container(
@@ -84,7 +84,8 @@ class FoodAdvanceDetailPage extends StatelessWidget {
                     BoxNutritionDetail(
                       width: screenSizeData.screenSizeWidth,
                       height: screenSizeData.screenHeight,
-                      textDetailLeft: "พลังงาน\n${foodDetail.power}\nกิโลแคลอรี่",
+                      textDetailLeft:
+                          "พลังงาน\n${foodDetail.power}\nกิโลแคลอรี่",
                       textDetailRight: 'โปรตีน\n${foodDetail.protein}\nกรัม',
                     ),
                     BoxNutritionDetail(
