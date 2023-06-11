@@ -328,8 +328,8 @@ String? _passwordValidator(String? val) {
       return "กรุณากรอกรหัสผ่านของท่าน";
     } else if (text.contains(" ")) {
       return "รหัสผ่านต้องไม่มีช่องว่าง";
-    } else if (text.length <= 8) {
-      return "รหัสผ่านต้องมีความยาวอย่างน้อย 8 ตัวอักษร";
+    } else if (text.length <= 6) {
+      return "รหัสผ่านต้องมีความยาวอย่างน้อย 6 ตัวอักษร";
     }
   }
   return null;
