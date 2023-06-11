@@ -83,28 +83,11 @@ class _EatConfirmPageState extends State<EatConfirmPage> {
                   await _saveEatHistory();
                   final img.Image image = img
                       .decodeImage(File(widget.image!.path).readAsBytesSync())!;
-                  String? a = _tfModel.runModel(image);
-                  print("RESULT is $a");
-                  const Food resultFood = Food(
-                      name: "test",
-                      type: "Fruit",
-                      imageAssetPath: "",
-                      detail: FoodNutritionDetail(
-                          name: "test test",
-                          giIndex: 45.1,
-                          benefit: "Nice it is very nice",
-                          power: 333,
-                          fiber: 333,
-                          sugar: 333,
-                          protein: 333,
-                          fat: 333,
-                          carbo: 333,
-                          nutrition: "test 1 grams"));
-
+                  Food? resultFood = _tfModel.runModel(image);
                   Navigator.of(context).pushReplacement(MaterialPageRoute(
                       builder: (context) => AIOutputPage(
                             foodImage: widget.image,
-                            food: resultFood,
+                            food: resultFood!,
                           )));
                 },
                 style: ElevatedButton.styleFrom(
