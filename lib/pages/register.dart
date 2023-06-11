@@ -73,6 +73,18 @@ class _RegisterFormState extends State<RegisterForm> {
           if (snapshot.hasData) {
             List<String> usernames = snapshot.data!["usernames"]!;
             List<String> emails = snapshot.data!["emails"]!;
+            FirebaseFirestore.instance
+                .collection("users")
+                .snapshots()
+                .listen((event) {
+              for (var doc in event.docs) {
+                setState(() {
+                  usernames.add(doc.data()["username"]);
+                  emails.add(doc.data()["email"]);
+                });
+              }
+            });
+
             return Form(
               key: _formKey,
               child: Column(
