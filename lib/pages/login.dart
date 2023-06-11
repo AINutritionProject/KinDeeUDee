@@ -33,12 +33,43 @@ class _LogInFormState extends State<LogInForm> {
           _usernameController.text, _passwordController.text);
       result.then((value) {
         if (value != null) {
-          showDialog(
-            context: context,
-            builder: (context) {
-              return ErrorDialog(errorString: value);
-            },
-          );
+          print("errorstring:");
+          print(value);
+          if (value == "No element") {
+            showDialog(
+              context: context,
+              builder: (context) {
+                return const ErrorDialog(
+                    errorString:
+                        "ไม่มีชื่อผู้ใช้นี้อยู่ในระบบ\nกรุณาสร้างบัญชีผู้ใช้");
+              },
+            );
+          } else if (value ==
+              "The password is invalid or the user does not have a password.") {
+            showDialog(
+              context: context,
+              builder: (context) {
+                return const ErrorDialog(errorString: "รหัสผ่านไม่ถูกต้อง");
+              },
+            );
+          } else if (value ==
+              "We have blocked all requests from this device due to unusual activity. Try again later.") {
+            showDialog(
+              context: context,
+              builder: (context) {
+                return const ErrorDialog(
+                    errorString:
+                        "กรอกรหัสผ่านไม่ถูกต้องหลายครั้ง\nโปรดลองอีกครั้งในภายหลัง");
+              },
+            );
+          } else {
+            showDialog(
+              context: context,
+              builder: (context) {
+                return const ErrorDialog(errorString: "พบปัญหาโปรดลองอีกครั้ง");
+              },
+            );
+          }
         }
       });
     }
