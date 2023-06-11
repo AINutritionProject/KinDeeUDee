@@ -1,5 +1,5 @@
 import 'package:appfood2/auth.dart';
-import 'package:appfood2/widgets/%20error_dialog.dart';
+import 'package:appfood2/widgets/error_dialog.dart';
 import 'package:flutter/material.dart';
 import 'package:appfood2/pages/register.dart';
 import 'package:google_sign_in/google_sign_in.dart';

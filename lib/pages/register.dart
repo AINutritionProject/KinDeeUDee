@@ -6,7 +6,6 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:email_validator/email_validator.dart';
 import 'package:appfood2/widgets/button_back.dart';
 import 'package:appfood2/widgets/shaker.dart';
-import 'package:appfood2/db.dart';
 
 class RegisterPage extends StatelessWidget {
   const RegisterPage({super.key});
