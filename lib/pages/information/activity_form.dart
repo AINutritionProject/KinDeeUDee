@@ -30,6 +30,8 @@ class _ActivityFormState extends State<ActivityForm>
   bool get wantKeepAlive => true;
   @override
   Widget build(BuildContext context) {
+    super.build(context);
+
     return Scaffold(
       body: SafeArea(
         child: LayoutBuilder(
