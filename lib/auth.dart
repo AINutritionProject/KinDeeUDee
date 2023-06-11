@@ -57,7 +57,7 @@ class Auth {
     } on FirebaseAuthException catch (error) {
       print("Got firebase auth error when sign in with username & password");
       print(error);
-      return error.message;
+      return error.code;
     } catch (error) {
       print("Got error when sign in with username & password");
       print(error);

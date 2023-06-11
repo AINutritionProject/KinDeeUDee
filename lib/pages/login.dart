@@ -31,20 +31,17 @@ class _LogInFormState extends State<LogInForm> {
     if (_formKey.currentState!.validate()) {
       Future<String?> result = Auth().signInWithUsername(
           _usernameController.text, _passwordController.text);
-      result.then((value) {
-        if (value != null) {
+      result.then((errorCode) {
+        if (errorCode != null) {
           var errorString = "พบปัญหาโปรดลองอีกครั้ง";
-          if (value == "No element") {
+          if (errorCode == "No element") {
             errorString = "ไม่มีชื่อผู้ใช้นี้อยู่ในระบบ\nกรุณาสร้างบัญชีผู้ใช้";
-          } else if (value ==
-              "The password is invalid or the user does not have a password.") {
+          } else if (errorCode == "wrong-password") {
             errorString = "รหัสผ่านไม่ถูกต้อง";
-          } else if (value ==
-              "We have blocked all requests from this device due to unusual activity. Try again later.") {
+          } else if (errorCode == "too-many-requests") {
             errorString =
                 "กรอกรหัสผ่านไม่ถูกต้องหลายครั้ง\nโปรดลองอีกครั้งในภายหลัง";
-          } else if (value ==
-              "The user account has been disabled by an administrator.") {
+          } else if (errorCode == "user-disabled") {
             errorString = "บัญชีนี้ถูกระงับการใช้งาน";
           }
           showDialog(
