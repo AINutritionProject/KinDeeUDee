@@ -63,7 +63,8 @@ class PersonalBody extends StatefulWidget {
   State<PersonalBody> createState() => _PersonalBodyState();
 }
 
-class _PersonalBodyState extends State<PersonalBody> {
+class _PersonalBodyState extends State<PersonalBody>
+    with AutomaticKeepAliveClientMixin {
   final TextEditingController _nameTextController = TextEditingController();
   final TextEditingController _genderTextController = TextEditingController();
   final TextEditingController _ageTextController = TextEditingController();
@@ -75,6 +76,9 @@ class _PersonalBodyState extends State<PersonalBody> {
   late String selectedChronicDisease;
 
   final _formKey = GlobalKey<FormState>();
+
+  @override
+  bool get wantKeepAlive => true;
 
   @override
   void initState() {
