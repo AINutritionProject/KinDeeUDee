@@ -56,10 +56,18 @@ class _RegisterFormState extends State<RegisterForm> {
       _emailController.text,
     );
 
-    result.then((value) {
-      if (value != null) {
-        print("Value :$value");
+    result.then((errorCode) {
+      if (errorCode != null) {
+        print("Value :$errorCode");
         var errorString = "พบปัญหาโปรดลองอีกครั้ง";
+        if (errorCode == "email-already-in-use") {
+          errorString = "อีเมลนี้ถูกใช้สมัครไปแล้ว";
+        } else if (errorCode == "invalid-email") {
+          errorString = "ไม่ใช่ที่อยู่อีเมลที่ถูกต้อง";
+        } else if (errorCode == "weak-password") {
+          errorString =
+              "พาสเวิร์ดไม่ปลอดถัยมากพอ\nต้องมีความยาวอย่างน้อย 6 ตัวอักษร";
+        }
         showDialog(
           context: context,
           builder: (context) {

@@ -29,7 +29,7 @@ class Auth {
           );
     } on FirebaseAuthException catch (error) {
       print(error);
-      return error.message;
+      return error.code;
     } catch (error) {
       print("Got error when create user with email & password");
       print(error);
