@@ -58,44 +58,15 @@ class _ActivityFormState extends State<ActivityForm> {
                           ],
                         ),
                       ),
-                    ),
-                    // Padding(
-                    //   padding: const EdgeInsets.only(left: 8, right: 8, bottom: 20),
-                    //   child: Row(
-                    //     mainAxisAlignment: MainAxisAlignment.center,
-                    //     children: [
-                    //       ElevatedButton(
-                    //         style: ButtonStyle(
-                    //             backgroundColor:
-                    //                 const MaterialStatePropertyAll(Color(0xFFED7E7E)),
-                    //             shape:
-                    //                 MaterialStateProperty.all(RoundedRectangleBorder(
-                    //               borderRadius: BorderRadius.circular(30),
-                    //             ))),
-                    //         onPressed: () {
-                    //           setState(() {
-                    //             Navigator.of(context).push(MaterialPageRoute(
-                    //                 builder: (context) => const ActivityResult()));
-                    //           });
-                    //         },
-                    //         child: const Padding(
-                    //           padding:
-                    //               EdgeInsets.symmetric(vertical: 3, horizontal: 15),
-                    //           child: Text(
-                    //             "ถัดไป",
-                    //             style: TextStyle(fontSize: 32),
-                    //           ),
-                    //         ),
-                    //       ),
-                    //     ],
-                    //   ),
-                    // ),
-                  ]),
-                );
-              }),
-            ),
-          ),
-        ),
+                      ActivityFormBody(user: widget.user),
+                    ],
+                  ),
+                ),
+              ),
+            ]),
+          );
+        }),
+
       ),
     );
   }
