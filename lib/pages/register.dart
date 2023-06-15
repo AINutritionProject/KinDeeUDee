@@ -7,8 +7,8 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:email_validator/email_validator.dart';
 import 'package:appfood2/widgets/button_back.dart';
 import 'package:appfood2/widgets/shaker.dart';
+import 'package:appfood2/screen_size.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
-
 import '../widgets/error_dialog.dart';
 
 class RegisterPage extends StatelessWidget {
@@ -16,14 +16,31 @@ class RegisterPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final mediaQueryData = MediaQuery.of(context);
+    final screenSizeData = ScreenSizeData(
+      screenWidth: mediaQueryData.size.width,
+      screenHeight: mediaQueryData.size.height,
+    );
     return Scaffold(
       body: SafeArea(
         child: LayoutBuilder(
             builder: (BuildContext context, BoxConstraints constraints) {
-          return SingleChildScrollView(
-            child: ConstrainedBox(
-              constraints: BoxConstraints(minHeight: constraints.maxHeight),
-              child: const RegisterForm(),
+          return Container(
+            height: screenSizeData.screenHeight,
+              color: screenSizeData.screenWidth <= screenSizeData.maxWidth
+                  ? Colors.white
+                  : Colors.black,
+            child: Center(
+              child: Container(
+                color: const Color.fromRGBO(255, 251, 242, 1),
+                width: screenSizeData.screenSizeWidth,
+                child: SingleChildScrollView(
+                  child: ConstrainedBox(
+                    constraints: BoxConstraints(minHeight: constraints.maxHeight),
+                    child: const RegisterForm(),
+                  ),
+                ),
+              ),
             ),
           );
         }),
