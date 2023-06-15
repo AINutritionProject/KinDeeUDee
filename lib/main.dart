@@ -4,7 +4,6 @@ import 'package:appfood2/pages/welcome.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:appfood2/firebase_options.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:provider/provider.dart';
 import 'package:appfood2/screen_size.dart';
 
 Future<void> main() async {
@@ -29,14 +28,13 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(fontFamily: "NotoSansThai"),
       home: Container(
         color: screenSizeData.screenWidth <= screenSizeData.maxWidth
-              ? Colors.white
-              : Colors.black,
-        child: Center
-        (child: 
-        SizedBox(
-          width: screenSizeData.screenSizeWidth,
-          height: screenSizeData.screenHeight,
-          child: const WelcomePage())),
+            ? Colors.white
+            : Colors.black,
+        child: Center(
+            child: SizedBox(
+                width: screenSizeData.screenSizeWidth,
+                height: screenSizeData.screenHeight,
+                child: const WelcomePage())),
       ),
     );
   }
