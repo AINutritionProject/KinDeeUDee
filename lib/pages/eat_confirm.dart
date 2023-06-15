@@ -11,6 +11,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:tflite_flutter/tflite_flutter.dart';
 import 'package:image/image.dart' as img;
 import 'dart:typed_data';
+import 'package:appfood2/screen_size.dart';
 
 class EatConfirmPage extends StatefulWidget {
   const EatConfirmPage(
@@ -53,6 +54,11 @@ class _EatConfirmPageState extends State<EatConfirmPage> {
 
   @override
   Widget build(BuildContext context) {
+    final mediaQueryData = MediaQuery.of(context);
+    final screenSizeData = ScreenSizeData(
+      screenWidth: mediaQueryData.size.width,
+      screenHeight: mediaQueryData.size.height,
+    );
     return Scaffold(
       body: Column(
         mainAxisAlignment: MainAxisAlignment.center,

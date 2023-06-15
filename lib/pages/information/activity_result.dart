@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:appfood2/db.dart';
 import 'package:appfood2/pages/information/milk.dart';
+import 'package:appfood2/widgets/shaker.dart';
+import 'package:appfood2/screen_size.dart';
 
 class ActivityResult extends StatelessWidget {
   final User user;
@@ -11,14 +13,30 @@ class ActivityResult extends StatelessWidget {
   });
   @override
   Widget build(BuildContext context) {
+    final mediaQueryData = MediaQuery.of(context);
+    final screenSizeData = ScreenSizeData(
+      screenWidth: mediaQueryData.size.width,
+      screenHeight: mediaQueryData.size.height,
+    );
     return Scaffold(
-      body: Center(
-        child: Column(
-          children: [
-            const ActivityResultHeader(),
-            ActivityResultBody(user: user),
-            ActivityResultFooter(user: user),
-          ],
+      body: Container(
+        color: screenSizeData.screenWidth <= screenSizeData.maxWidth
+            ? Colors.white
+            : Colors.black,
+        child: Center(
+          child: Container(
+            width: screenSizeData.screenSizeWidth,
+            color: const Color.fromRGBO(255, 251, 242, 1),
+            child: Center(
+              child: Column(
+                children: [
+                  ActivityResultHeader(width: screenSizeData.screenSizeWidth, height: screenSizeData.screenHeight,),
+                  ActivityResultBody(user: user),
+                  ActivityResultFooter(user: user),
+                ],
+              ),
+            ),
+          ),
         ),
       ),
     );
@@ -84,43 +102,48 @@ class _ActivityResultBodyState extends State<ActivityResultBody> {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  const Padding(
-                    padding: EdgeInsets.only(left: 8.0, bottom: 30),
-                    child: Text("กิจกรรมที่ทำ", style: TextStyle(fontSize: 22)),
+                  Padding(
+                    padding: EdgeInsets.only(left: MediaQuery.of(context).size.width < 600 ? 8 : 25, bottom: 20),
+                    child: Text("กิจกรรมที่ทำ",
+                        style: TextStyle(
+                            fontSize: MediaQuery.of(context).size.width < 600 ? 22 : 28 , fontWeight: FontWeight.bold)),
                   ),
-                  SizedBox(
-                    height: 220,
-                    child: Scrollbar(
-                      child: ListView.builder(
-                        itemCount: activities.length,
-                        itemBuilder: (BuildContext context, int index) {
-                          return Padding(
-                            padding: const EdgeInsets.symmetric(vertical: 6),
-                            child: Row(
-                              children: [
-                                const Padding(
-                                  padding: EdgeInsets.only(right: 8.0),
-                                  child: Icon(
-                                    Icons.circle,
-                                    color: Color(0xFF636363),
-                                    size: 20,
+                  Padding(
+                    padding: EdgeInsets.only(left:  MediaQuery.of(context).size.width < 600 ? 8 : 25),
+                    child: SizedBox(
+                      height: MediaQuery.of(context).size.width < 550 ? 220 : 350,
+                      child: Scrollbar(
+                        child: ListView.builder(
+                          itemCount: activities.length,
+                          itemBuilder: (BuildContext context, int index) {
+                            return Padding(
+                              padding: const EdgeInsets.symmetric(vertical: 10),
+                              child: Row(
+                                children: [
+                                  const Padding(
+                                    padding: EdgeInsets.only(right: 8.0),
+                                    child: Icon(
+                                      Icons.circle,
+                                      color: Color(0xFF636363),
+                                      size: 20,
+                                    ),
                                   ),
-                                ),
-                                Container(
-                                  width: 150,
-                                  padding: const EdgeInsets.symmetric(
-                                      horizontal: 12, vertical: 9),
-                                  decoration: BoxDecoration(
-                                      color: activitiesColor[index % 2],
-                                      borderRadius: BorderRadius.circular(20)),
-                                  child: Text(activities[index],
-                                      textAlign: TextAlign.center,
-                                      style: const TextStyle(fontSize: 18)),
-                                ),
-                              ],
-                            ),
-                          );
-                        },
+                                  Container(
+                                    width: 150,
+                                    padding: const EdgeInsets.symmetric(
+                                        horizontal: 12, vertical: 9),
+                                    decoration: BoxDecoration(
+                                        color: activitiesColor[index % 2],
+                                        borderRadius: BorderRadius.circular(40)),
+                                    child: Text(activities[index],
+                                        textAlign: TextAlign.center,
+                                        style: TextStyle(fontSize: MediaQuery.of(context).size.width < 600 ? 20 : 28, fontWeight: FontWeight.w400)),
+                                  ),
+                                ],
+                              ),
+                            );
+                          },
+                        ),
                       ),
                     ),
                   ),
@@ -142,37 +165,33 @@ class _ActivityResultBodyState extends State<ActivityResultBody> {
   }
 }
 
-class ActivityResultFooter extends StatefulWidget {
-  final User user;
-  const ActivityResultFooter({
-    super.key,
-    required this.user,
-  });
-
-  @override
-  State<ActivityResultFooter> createState() => _ActivityResultFooterState();
-}
-
 class ActivityResultHeader extends StatelessWidget {
-  const ActivityResultHeader({super.key});
+  const ActivityResultHeader({super.key, required this.width, required this.height});
+  final double width;
+  final double height;
 
   @override
   Widget build(BuildContext context) {
     return Expanded(
       flex: 1,
-      child: Padding(
-        padding: const EdgeInsets.only(top: 50.0),
-        child: Center(
-          child: Container(
-            decoration: BoxDecoration(
-              color: const Color(0xFF1E807A),
-              borderRadius: BorderRadius.circular(30),
-            ),
-            child: const Padding(
-              padding: EdgeInsets.symmetric(horizontal: 20.0, vertical: 13),
+      child: SizedBox(        
+        child: Padding(
+          padding: EdgeInsets.symmetric(horizontal: width * 0.1),
+          child: Align(
+            alignment: Alignment.bottomLeft,
+            child: Container(
+              padding: const EdgeInsets.symmetric(vertical: 15, horizontal: 25),
+              decoration: BoxDecoration(
+                color: const Color(0xFF1E807A),
+                borderRadius: BorderRadius.circular(30),
+              ),
               child: Text(
                 "สรุปกิจกรรมประจำวัน",
-                style: TextStyle(fontSize: 25, color: Colors.white),
+                style: TextStyle(
+                    fontSize: width < 600 ?  24 : 32,
+                    color: Colors.white,
+                    fontWeight: FontWeight.bold),
+                    //textAlign: TextAlign.center,
               ),
             ),
           ),
@@ -263,26 +282,42 @@ class SmileFace extends StatelessWidget {
   }
 }
 
+class ActivityResultFooter extends StatefulWidget {
+  final User user;
+  const ActivityResultFooter({
+    super.key,
+    required this.user,
+  });
+
+  @override
+  State<ActivityResultFooter> createState() => _ActivityResultFooterState();
+}
+
 class _ActivityResultFooterState extends State<ActivityResultFooter> {
   bool isChecked = false;
+  bool checkboxError = false;
+  final GlobalKey<ShakerState> _shakeKey = GlobalKey<ShakerState>();
+  
 
   @override
   Widget build(BuildContext context) {
+    final double sizeText = MediaQuery.of(context).size.width < 600 ? 16 : 20;
+    final double sizeTextButton = MediaQuery.of(context).size.width < 600 ? 24 : 32;
     return Expanded(
       flex: 3,
       child: Padding(
         padding: const EdgeInsets.symmetric(vertical: 8.0),
         child: Column(
           children: [
-            const Padding(
-              padding: EdgeInsets.symmetric(vertical: 4.0),
+            Padding(
+              padding: const EdgeInsets.symmetric(vertical: 4.0),
               child: Text("กิจกรรมของคุณแจ่มใส",
-                  style: TextStyle(fontSize: 20), textAlign: TextAlign.center),
+                  style: TextStyle(fontSize:  MediaQuery.of(context).size.width < 600 ? 20 : 24), textAlign: TextAlign.center),
             ),
-            const Padding(
-              padding: EdgeInsets.symmetric(vertical: 4.0),
+            Padding(
+              padding: const EdgeInsets.symmetric(vertical: 4.0),
               child: Text("อยู่ในระดับ",
-                  style: TextStyle(fontSize: 20), textAlign: TextAlign.center),
+                  style: TextStyle(fontSize: MediaQuery.of(context).size.width < 600 ? 20 : 24), textAlign: TextAlign.center),
             ),
             Padding(
               padding: const EdgeInsets.symmetric(vertical: 12.0),
@@ -292,8 +327,8 @@ class _ActivityResultFooterState extends State<ActivityResultFooter> {
                     borderRadius: BorderRadius.circular(20)),
                 padding:
                     const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
-                child: const Text("กิจกรรมระดับปานกลาง",
-                    style: TextStyle(fontSize: 20)),
+                child: Text("กิจกรรมระดับปานกลาง",
+                    style: TextStyle(fontSize: MediaQuery.of(context).size.width < 600 ? 20 : 24)),
               ),
             ),
             Padding(
@@ -304,33 +339,44 @@ class _ActivityResultFooterState extends State<ActivityResultFooter> {
                   SizedBox(
                     height: 30,
                     width: 30,
-                    child: Checkbox(
-                        overlayColor:
-                            const MaterialStatePropertyAll(Color(0xFFC6FF9A)),
-                        value: isChecked,
-                        activeColor: const Color(0xFFBAEBC8),
-                        onChanged: (bool? val) {
-                          setState(() {
-                            isChecked = val!;
-                          });
-                        }),
+                    child: Shaker(
+                      key: _shakeKey,
+                      speed: 8,
+                      duration: const Duration(milliseconds: 500),
+                      range: 5,
+                      child: Checkbox(
+                          side: !checkboxError
+                              ? const BorderSide(
+                                  color: Colors.black38, width: 2)
+                              : const BorderSide(color: Colors.red, width: 2),
+                          overlayColor:
+                              const MaterialStatePropertyAll(Color(0xFFC6FF9A)),
+                          value: isChecked,
+                          activeColor: const Color(0xFFBAEBC8),
+                          onChanged: (bool? val) {
+                            setState(() {
+                              checkboxError = false;
+                              isChecked = val!;
+                            });
+                          }),
+                    ),
                   ),
-                  const Text(
+                  Text(
                     "ต้องการให้ระบบบันทึกกิจกรรมสำหรับวันถัดไป",
-                    style: TextStyle(fontSize: 18),
+                    style: TextStyle(fontSize: sizeText, fontWeight: FontWeight.w400),
                   ),
                 ],
               ),
             ),
-            const Padding(
-              padding: EdgeInsets.symmetric(vertical: 2.0),
+            Padding(
+              padding: const EdgeInsets.symmetric(vertical: 2.0),
               child: Text(
                 "เพื่อคำนวณค่าพลังงานความต้องการเบิ้องต้นหรือไม่",
-                style: TextStyle(fontSize: 18),
+                style: TextStyle(fontSize:  sizeText, fontWeight: FontWeight.w400),
               ),
             ),
             Padding(
-              padding: const EdgeInsets.only(top: 30.0),
+              padding: const EdgeInsets.only(top: 23.0),
               child: ElevatedButton(
                 style: ButtonStyle(
                     shape: MaterialStatePropertyAll(RoundedRectangleBorder(
@@ -360,11 +406,16 @@ class _ActivityResultFooterState extends State<ActivityResultFooter> {
                       Navigator.of(context).push(MaterialPageRoute(
                           builder: (context) => MilkPage(user: widget.user)));
                     });
+                  } else {
+                    _shakeKey.currentState?.shake();
+                    setState(() {
+                      checkboxError = true;
+                    });
                   }
                 },
-                child: const Text(
+                child: Text(
                   "บันทึก",
-                  style: TextStyle(fontSize: 28),
+                  style: TextStyle(fontSize: sizeTextButton, fontWeight: FontWeight.w400),
                 ),
               ),
             ),

@@ -5,80 +5,81 @@ import 'package:appfood2/pages/information/information.dart';
 import 'package:csv/csv.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:appfood2/screen_size.dart';
 
 class MenuPage extends StatelessWidget {
   const MenuPage({super.key});
 
   @override
   Widget build(BuildContext context) {
+    final mediaQueryData = MediaQuery.of(context);
+    final screenSizeData = ScreenSizeData(
+      screenWidth: mediaQueryData.size.width,
+      screenHeight: mediaQueryData.size.height,
+    );
+    
     return Scaffold(
         resizeToAvoidBottomInset: false,
         floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
-        // floatingActionButton: FloatingActionButton.large(
-        //   backgroundColor: const Color.fromARGB(255, 255, 120, 63),
-        //   hoverColor: const Color.fromRGBO(255, 120, 63, 0.5),
-        //   onPressed: () {
-        //     Navigator.of(context).push(MaterialPageRoute(
-        //         builder: (context) =>
-        //             const CameraPage(replaceWhenNavigate: false)));
-        //   },
-        //   child: const Icon(
-        //     size: 65.0,
-        //     Icons.camera_alt,
-        //   ),
-        // ),
         backgroundColor: const Color.fromRGBO(234, 255, 241, 1),
         body: SafeArea(
           child: Container(
-            width: MediaQuery.of(context).size.width,
-            height: MediaQuery.of(context).size.height,
-            color: const Color.fromRGBO(234, 255, 241, 1),
-            child: Column(
-              children: [
-                Expanded(
-                  flex: 10,
-                  child: Row(
-                    children: [
-                      GestureDetector(
-                        onTap: () {
-                          Navigator.pop(context);
-                        },
-                        child: const Padding(
-                          padding: EdgeInsets.symmetric(horizontal: 20),
-                          child: BoxButtonToMenu(),
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-                const Expanded(flex: 75, child: TextFieldExample()),
-                Expanded(
-                    flex: 15,
-                    child: SizedBox(
-                      width: MediaQuery.of(context).size.width,
-                      child: Align(
-                        alignment: Alignment.center,
-                        child: InkWell(
-                          onTap: () => {
-                            Navigator.of(context).push(MaterialPageRoute(
-                                builder: (context) => const CameraPage(
-                                    replaceWhenNavigate: false)))
-                          },
-                          child: Container(
-                            padding: const EdgeInsets.all(10),
-                            decoration: const BoxDecoration(
-                                color: Color.fromRGBO(255, 120, 63, 1),
-                                shape: BoxShape.circle),
-                            child: const Icon(
-                              size: 65.0,
-                              Icons.camera_alt,
-                              color: Colors.white,
+            color: screenSizeData.screenWidth <= screenSizeData.maxWidth
+              ? Colors.white
+              : Colors.black,
+            child: Center(
+              child: Container(
+                width: screenSizeData.screenSizeWidth,
+                height: screenSizeData.screenHeight,
+                color: const Color.fromRGBO(234, 255, 241, 1),
+                child: Column(
+                  children: [
+                    Expanded(
+                      flex: 10,
+                      child: Row(
+                        children: [
+                          GestureDetector(
+                            onTap: () {
+                              Navigator.pop(context);
+                            },
+                            child: const Padding(
+                              padding: EdgeInsets.symmetric(horizontal: 20),
+                              child: BoxButtonToMenu(),
                             ),
                           ),
-                        ),
+                        ],
                       ),
-                    ))
-              ],
+                    ),
+                    const Expanded(flex: 75, child: TextFieldExample()),
+                    Expanded(
+                        flex: 15,
+                        child: SizedBox(
+                          width: screenSizeData.screenSizeWidth,
+                          child: Align(
+                            alignment: Alignment.center,
+                            child: InkWell(
+                              onTap: () => {
+                                Navigator.of(context).push(MaterialPageRoute(
+                                    builder: (context) => const CameraPage(
+                                        replaceWhenNavigate: false)))
+                              },
+                              child: Container(
+                                padding: const EdgeInsets.all(10),
+                                decoration: const BoxDecoration(
+                                    color: Color.fromRGBO(255, 120, 63, 1),
+                                    shape: BoxShape.circle),
+                                child: const Icon(
+                                  size: 65.0,
+                                  Icons.camera_alt,
+                                  color: Colors.white,
+                                ),
+                              ),
+                            ),
+                          ),
+                        ))
+                  ],
+                ),
+              ),
             ),
           ),
         ));
@@ -233,6 +234,11 @@ class _TextFieldExampleState extends State<TextFieldExample> {
   String text_seach = "";
   @override
   Widget build(BuildContext context) {
+    final mediaQueryData = MediaQuery.of(context);
+    final screenSizeData = ScreenSizeData(
+      screenWidth: mediaQueryData.size.width,
+      screenHeight: mediaQueryData.size.height,
+    );
     return Column(
       children: [
         Padding(
@@ -282,22 +288,17 @@ class _TextFieldExampleState extends State<TextFieldExample> {
         ),
         (_active)
             ? Expanded(
-                flex: 4,
+                flex: 5,
                 child: Padding(
                   padding: const EdgeInsets.only(top: 15),
-                  child: SizedBox(
-                      child: GridView.count(
+                  child: GridView.count(
                     crossAxisCount: 2,
                     children: foodQuery
-                        .map((food) => Expanded(
-                              child: Padding(
-                                padding:
-                                    const EdgeInsets.only(left: 15, right: 15),
-                                child: FoodIcons(food: food),
-                              ),
-                            ))
-                        .toList(),
-                  )),
+                    .map((food) => Expanded(
+                          child: Center(child: FoodIcons(food: food, width: screenSizeData.screenSizeWidth,)),
+                        ))
+                    .toList(),
+                  ),
                 ),
               )
             : Padding(

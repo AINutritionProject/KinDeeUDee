@@ -3,6 +3,7 @@ import 'package:appfood2/pages/home.dart';
 import 'package:appfood2/widgets/wide_dropdown.dart';
 import 'package:appfood2/db.dart';
 import 'package:appfood2/pages/information/activity_form.dart';
+import 'package:appfood2/screen_size.dart';
 
 List<String> careers = <String>[
   "------------",
@@ -36,16 +37,32 @@ class PersonalInformation extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final mediaQueryData = MediaQuery.of(context);
+    final screenSizeData = ScreenSizeData(
+      screenWidth: mediaQueryData.size.width,
+      screenHeight: mediaQueryData.size.height,
+    );
     return LayoutBuilder(
         builder: (BuildContext context, BoxConstraints constraints) {
       return SingleChildScrollView(
-        child: ConstrainedBox(
-          constraints: BoxConstraints(minHeight: constraints.maxHeight),
-          child: Column(
-            children: [
-              PersonalHeader(user: user),
-              PersonalBody(user: user),
-            ],
+        child: Container(
+          color: screenSizeData.screenWidth <= screenSizeData.maxWidth
+                ? Colors.white
+                : Colors.black,
+          child: Center(
+            child: Container(
+              color: const Color(0xFFF8FFDD),
+              width: screenSizeData.screenSizeWidth,
+              child: ConstrainedBox(
+                constraints: BoxConstraints(minHeight: constraints.maxHeight),
+                child: Column(
+                  children: [
+                    PersonalHeader(user: user),
+                    PersonalBody(user: user),
+                  ],
+                ),
+              ),
+            ),
           ),
         ),
       );
@@ -71,13 +88,24 @@ class _PersonalBodyState extends State<PersonalBody> {
   final TextEditingController _heightTextController = TextEditingController();
   final TextEditingController _foodAllergyTextController =
       TextEditingController();
-  String selectedCareer = "";
-  String selectedChronicDisease = "";
+  late String selectedCareer;
+  late String selectedChronicDisease;
 
   final _formKey = GlobalKey<FormState>();
 
   @override
   void initState() {
+    _nameTextController.text = widget.user.fullname;
+    _genderTextController.text = widget.user.gender;
+    _ageTextController.text =
+        widget.user.age == 0 ? "" : widget.user.age.toString();
+    _weightTextController.text =
+        widget.user.weight == 0 ? "" : widget.user.weight.toString();
+    _heightTextController.text =
+        widget.user.height == 0 ? "" : widget.user.height.toString();
+    _foodAllergyTextController.text = widget.user.foodAllergy;
+    selectedCareer = widget.user.career;
+    selectedChronicDisease = widget.user.chronicDisease;
     super.initState();
   }
 
@@ -435,59 +463,57 @@ class PersonalHeader extends StatefulWidget {
 class _PersonalHeaderState extends State<PersonalHeader> {
   @override
   Widget build(BuildContext context) {
-    return SizedBox(
-      height: 200,
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        crossAxisAlignment: CrossAxisAlignment.stretch,
-        children: [
-          const UserAvatar(),
-          Expanded(
-            flex: 1,
-            child: Column(
-              children: [
-                Expanded(
-                  flex: 1,
-                  child: Container(
-                    margin: const EdgeInsets.all(8.0),
-                    alignment: Alignment.center,
-                    child: const Text("ยินดีต้อนรับ",
-                        style: TextStyle(
-                            fontSize: 32, fontWeight: FontWeight.w600)),
-                  ),
-                ),
-                Expanded(
-                  flex: 1,
-                  child: Container(
-                      alignment: Alignment.center,
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 10.0),
+      child: SizedBox(
+        height: 240,
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          children: [
+            const Center(child: UserAvatar()),
+            Expanded(
+              child: Padding(
+                padding: const EdgeInsets.only(top: 20.0),
+                child: Column(
+                  children: [
+                    Container(
                       margin: const EdgeInsets.all(8.0),
-                      child: Text(
-                        "\"${widget.user.username}\"",
-                        style: const TextStyle(
-                            fontSize: 24, fontWeight: FontWeight.w600),
-                      )),
-                ),
-                Expanded(
-                  flex: 2,
-                  child: Padding(
-                    padding: const EdgeInsets.symmetric(
-                        vertical: 25, horizontal: 15),
-                    child: Container(
-                      decoration: const BoxDecoration(
-                        color: Color(0xFF99F9B4),
-                        borderRadius: BorderRadius.all(Radius.circular(30)),
-                      ),
                       alignment: Alignment.center,
-                      child: const Text("ข้อมูลส่วนตัว",
+                      child: const Text("ยินดีต้อนรับ",
                           style: TextStyle(
-                              fontSize: 24, fontWeight: FontWeight.w600)),
+                              fontSize: 32, fontWeight: FontWeight.w600)),
                     ),
-                  ),
+                    Container(
+                        alignment: Alignment.center,
+                        margin: const EdgeInsets.all(8.0),
+                        child: Text(
+                          "\"${widget.user.username}\"",
+                          style: const TextStyle(
+                              fontSize: 24, fontWeight: FontWeight.w600),
+                        )),
+                    Padding(
+                      padding: const EdgeInsets.symmetric(
+                          vertical: 15, horizontal: 15),
+                      child: Container(
+                        width: 185,
+                        height: 59,
+                        decoration: const BoxDecoration(
+                          color: Color(0xFF99F9B4),
+                          borderRadius: BorderRadius.all(Radius.circular(30)),
+                        ),
+                        alignment: Alignment.center,
+                        child: const Text("ข้อมูลส่วนตัว",
+                            style: TextStyle(
+                                fontSize: 24, fontWeight: FontWeight.w600)),
+                      ),
+                    ),
+                  ],
                 ),
-              ],
+              ),
             ),
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }

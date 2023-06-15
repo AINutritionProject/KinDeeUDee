@@ -1,3 +1,5 @@
+import 'package:appfood2/pages/information/information.dart';
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:appfood2/pages/menu.dart';
 import 'package:appfood2/pages/flag_nutrition.dart';
@@ -11,6 +13,7 @@ import 'package:image_picker/image_picker.dart';
 import 'dart:io';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'dart:math' as math;
+import 'package:appfood2/screen_size.dart';
 
 class Home extends StatefulWidget {
   final String username;
@@ -45,6 +48,7 @@ class _HomePageState extends State<HomePage> {
 
   @override
   Widget build(BuildContext context) {
+    
     return FutureBuilder(
       builder: (context, snapshot) {
         if (snapshot.hasData) {
@@ -69,40 +73,67 @@ class _HomeState extends State<Home> {
   final String assetName = 'assets/icons/book-1.svg';
   @override
   Widget build(BuildContext context) {
+    final mediaQueryData = MediaQuery.of(context);
+    final screenSizeData = ScreenSizeData(
+      screenWidth: mediaQueryData.size.width,
+      screenHeight: mediaQueryData.size.height,
+    );
     return Scaffold(
-      drawer: Drawer(
-        child: ListView(
-          children: [
-            Text("YEEEKAKA"),
-            IconButton(
-                onPressed: () async {
-                  await Auth().signOut();
-                },
-                icon: Icon(Icons.logout))
-          ],
+      endDrawer: SafeArea(
+        child: Drawer(
+          child: ListView(
+            children: [
+              TextButton(
+                  onPressed: () {
+                    Navigator.of(context).push(MaterialPageRoute(
+                        builder: (context) => const InformationPage()));
+                  },
+                  child: const Text(
+                    "แก้ไขข้อมูลส่วนตัว",
+                    style: TextStyle(fontSize: 22),
+                  )),
+              IconButton(
+                  onPressed: () async {
+                    await Auth().signOut();
+                  },
+                  icon: const Icon(Icons.logout))
+            ],
+          ),
         ),
       ),
-      backgroundColor: const Color.fromRGBO(255, 251, 242, 1),
+      //backgroundColor: const Color.fromRGBO(255, 251, 242, 1),
       body: SafeArea(
-        child: Column(
-          mainAxisSize: MainAxisSize.max,
-          mainAxisAlignment: MainAxisAlignment.center,
-          //crossAxisAlignment: CrossAxisAlignment.center,
-          children: [
-            Expanded(
-              flex: 2,
-              child: HeaderSection(widget: widget),
+        child: Container(
+          color: screenSizeData.screenWidth <= screenSizeData.maxWidth
+              ? Colors.white
+              : Colors.black,
+
+          child: Center(
+            child: Container(
+              color: const Color.fromRGBO(255, 251, 242, 1),
+              width: screenSizeData.screenSizeWidth,
+              child: Column(
+                mainAxisSize: MainAxisSize.max,
+                mainAxisAlignment: MainAxisAlignment.center,
+                //crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  Expanded(
+                    flex: 2,
+                    child: HeaderSection(widget: widget),
+                  ),
+                  Expanded(
+                    flex: screenSizeData.screenWidth < 600 ? 6 : 3,
+                    child: SectionButtonClick(width: screenSizeData.screenSizeWidth, height: screenSizeData.screenHeight,),
+                  ),
+                  //
+                  const Expanded(
+                    flex: 1,
+                    child: FooterSection(),
+                  )
+                ],
+              ),
             ),
-            const Expanded(
-              flex: 6,
-              child: SectionButtonClick(),
-            ),
-            //
-            const Expanded(
-              flex: 1,
-              child: FooterSection(),
-            )
-          ],
+          ),
         ),
       ),
     );
@@ -118,43 +149,68 @@ class FooterSection extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       width: MediaQuery.of(context).size.width,
-    );
+      child: Column(
+        children: [
+          Expanded(
+            child: Container(
+            ),
+          ),
+          Expanded(
+            child: Container(
+              color: const Color.fromRGBO(95, 206, 126, 0.65),
+            ),
+          ),
+        ]
+        ),
+      );
   }
 }
 
 class SectionButtonClick extends StatelessWidget {
   const SectionButtonClick({
     super.key,
+    required this.width,
+    required this.height
   });
+  final double width;
+  final double height;
 
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      width: MediaQuery.of(context).size.width,
+      width: width,
       child: Column(
-        mainAxisSize: MainAxisSize.max,
+        mainAxisAlignment: MainAxisAlignment.center,
+        //crossAxisAlignment: CrossAxisAlignment.center,
+        //mainAxisSize: MainAxisSize.max,
         children: [
           Expanded(
             flex: 4,
-            child: SizedBox(
-              width: MediaQuery.of(context).size.width,
-              child: Column(
-                children: [
-                  const Expanded(
-                    flex: 38,
-                    child: SearchMenuBox(),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.spaceAround,
+              children: [
+                Expanded(
+                  flex: width < 600 ? 3 : 1,
+                  child: const SizedBox(
                   ),
-                  const Expanded(
-                    flex: 36,
-                    child: HistoryBox(),
+                ),     
+                Expanded(
+                  flex: 20,
+                  child: SearchMenuBox(width: width, height: height,)),
+                Expanded(
+                  flex: 18,
+                  child: HistoryBox(width: width, height: height,)),
+                const Expanded(
+                  flex: 15,
+                  child: FlagNutritionBox()),
+                Expanded(
+                  flex: width < 600 ? 2 : 15,
+                  child: const SizedBox(
                   ),
-                  const Expanded(
-                    flex: 30,
-                    child: FlagNutritionBox(),
-                  ),
-                  Expanded(flex: 6, child: Container())
-                ],
-              ),
+                ),
+                
+                
+              ],
             ),
           ),
         ],
@@ -199,7 +255,11 @@ class FlagNutritionBox extends StatelessWidget {
 class HistoryBox extends StatelessWidget {
   const HistoryBox({
     super.key,
+    required this.width,
+    required this.height,
   });
+  final double width;
+  final double height;
 
   @override
   Widget build(BuildContext context) {
@@ -209,7 +269,7 @@ class HistoryBox extends StatelessWidget {
             MaterialPageRoute(builder: (context) => const EatHistoryPage()));
       },
       child: SizedBox(
-        width: MediaQuery.of(context).size.width,
+        width: width,
         child: Stack(
           children: [
             const Align(
@@ -222,16 +282,13 @@ class HistoryBox extends StatelessWidget {
               ),
             ),
             Positioned(
-              left: 70,
+              left: width * 0.5 - 50/2 - (50 * 1.8),
               top: 30,
-              child: Align(
-                alignment: Alignment.center,
-                child: Image.asset(
-                  'assets/icons/book1.png',
-                  width: 50,
-                  height: 50,
-                  fit: BoxFit.scaleDown,
-                ),
+              child: Image.asset(
+                'assets/icons/book1.png',
+                width: 50,
+                height: 50,
+                fit: BoxFit.scaleDown,
               ),
             )
           ],
@@ -244,7 +301,11 @@ class HistoryBox extends StatelessWidget {
 class SearchMenuBox extends StatelessWidget {
   const SearchMenuBox({
     super.key,
+    required this.width,
+    required this.height
   });
+  final double width;
+  final double height;
 
   @override
   Widget build(BuildContext context) {
@@ -254,7 +315,7 @@ class SearchMenuBox extends StatelessWidget {
             context, MaterialPageRoute(builder: (context) => const MenuPage()));
       },
       child: SizedBox(
-        width: MediaQuery.of(context).size.width,
+        width: width,
         child: Stack(
           clipBehavior: Clip.none,
           children: [
@@ -267,13 +328,10 @@ class SearchMenuBox extends StatelessWidget {
                 //height: 140,
               ),
             ),
-            const Positioned(
-              right: 10,
-              bottom: 60,
-              width: 150,
-              height: 150,
-              child: LamponTemplate(),
-            )
+            Positioned(
+              left: width * 0.5 - 150/2 + 150 - 40,
+              bottom: 150/2 - (75 * 0.2),
+              child: const LamponTemplate())
           ],
         ),
       ),
@@ -312,7 +370,8 @@ class HeaderSection extends StatelessWidget {
                 child: Text(
                   '"${widget.username}"',
                   style: const TextStyle(
-                      fontSize: 20, fontWeight: FontWeight.bold),
+                      fontSize: 20, fontWeight: FontWeight.bold
+                  ),
                 ),
               )
             ],
@@ -322,7 +381,7 @@ class HeaderSection extends StatelessWidget {
               alignment: Alignment.topRight,
               child: IconButton(
                 onPressed: () => {
-                  Scaffold.of(context).openDrawer(),
+                  Scaffold.of(context).openEndDrawer(),
                 },
                 icon: const Icon(Icons.settings),
                 iconSize: 30,

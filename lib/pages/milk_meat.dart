@@ -1,44 +1,58 @@
 import 'package:flutter/material.dart';
 import 'package:dotted_border/dotted_border.dart';
 import 'package:appfood2/widgets/button_back.dart';
+import 'package:appfood2/screen_size.dart';
+
 
 class MilkMeatPage extends StatelessWidget {
   const MilkMeatPage({super.key});
 
   @override
   Widget build(BuildContext context) {
+    final mediaQueryData = MediaQuery.of(context);
+    final screenSizeData = ScreenSizeData(
+      screenWidth: mediaQueryData.size.width,
+      screenHeight: mediaQueryData.size.height,
+    );
     return Scaffold(
         body: SafeArea(
       child: SingleChildScrollView(
           child: Container(
-        width: MediaQuery.of(context).size.width,
-        height: 1500,
-        decoration: const BoxDecoration(color: Colors.white),
-        child: const Column(
-          mainAxisSize: MainAxisSize.max,
-          children: [
-            Expanded(
-              flex: 3,
-              child: Row(
-                children: [
-                  Padding(
-                    padding: EdgeInsets.all(20),
-                    child: ButtonBack(
-                      colorCircle: Color.fromRGBO(130, 151, 223, 1),
-                      color: Colors.white,
+            color: screenSizeData.screenWidth <= screenSizeData.maxWidth
+              ? Colors.white
+              : Colors.black,
+            child: Center(
+              child: Container(
+                    width: screenSizeData.screenSizeWidth,
+                    height: 1500,
+                    decoration: const BoxDecoration(color: Colors.white),
+                    child: const Column(
+              mainAxisSize: MainAxisSize.max,
+              children: [
+                Expanded(
+                  flex: 3,
+                  child: Row(
+                    children: [
+                      Padding(
+                        padding: EdgeInsets.all(20),
+                        child: ButtonBack(
+                          colorCircle: Color.fromRGBO(130, 151, 223, 1),
+                          color: Colors.white,
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+                Expanded(
+                  flex: 20,
+                  child: SectionMeat(),
+                ),
+                Expanded(flex: 20, child: SectionMilk())
+              ],
                     ),
                   ),
-                ],
-              ),
             ),
-            Expanded(
-              flex: 20,
-              child: SectionMeat(),
-            ),
-            Expanded(flex: 20, child: SectionMilk())
-          ],
-        ),
-      )),
+          )),
     ));
   }
 }
@@ -76,9 +90,9 @@ class SectionMilk extends StatelessWidget {
           ),
         ),
         Image.asset(
-          'assets/images/NutritionImg/peanut.png',
-          width: 190,
-          height: 120,
+          'assets/images/NutritionImg/peanutcut.png',
+          width: 170,
+          height: 100,
           fit: BoxFit.cover,
         ),
         const Padding(

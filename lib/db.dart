@@ -8,6 +8,33 @@ Future<User> getUser() async {
       .where("uid", isEqualTo: user!.uid)
       .get();
   final doc = userData.docs.first;
+  if (doc.get("hasData") == true) {
+    return User(
+      docID: doc.id,
+      uid: doc.get("uid"),
+      email: doc.get("email"),
+      username: doc.get("username"),
+      hasData: doc.get("hasData"),
+      fullname: doc.get("fullname"),
+      gender: doc.get("gender"),
+      age: doc.get("age"),
+      weight: doc.get("weight"),
+      height: doc.get("height"),
+      career: doc.get("career"),
+      chronicDisease: doc.get("chronicDisease"),
+      foodAllergy: doc.get("foodAllergy"),
+      extraLightActivities:
+          activityListFromMap(doc.get("extraLightActivities")),
+      lightActivities: activityListFromMap(doc.get("lightActivities")),
+      mediumActivities: activityListFromMap(doc.get("mediumActivities")),
+      customActivities: activityListFromMap(doc.get("customActivities")),
+      activityLevel: doc.get("activityLevel"),
+      milkGlass: doc.get("milkGlass"),
+      milkProduct: doc.get("milkProduct"),
+      bmi: doc.get("bmi"),
+      bmr: doc.get("bmr"),
+    );
+  }
   return User(
     docID: doc.id,
     uid: doc.get("uid"),
@@ -124,4 +151,31 @@ class UserActivity {
       'frequency': frequency,
     };
   }
+}
+
+List<UserActivity>? activityListFromMap(List<dynamic>? activityListMap) {
+  if (activityListMap != null) {
+    List<UserActivity> userActivities = [];
+    for (int i = 0; i < activityListMap.length; i++) {
+      userActivities.add(UserActivity(
+        frequency: activityListMap[i]["frequency"],
+        activityName: activityListMap[i]["activityName"],
+      ));
+    }
+    return userActivities;
+  }
+  return null;
+}
+
+Future<Map<String, List<String>>> getUsernamesAndEmails() async {
+  final querySnapshot =
+      await FirebaseFirestore.instance.collection('users').get();
+  List<String> usernames = [];
+  List<String> emails = [];
+  for (var docSnapshot in querySnapshot.docs) {
+    usernames.add(docSnapshot.get("username"));
+    emails.add(docSnapshot.get("email"));
+  }
+
+  return {"usernames": usernames, "emails": emails};
 }

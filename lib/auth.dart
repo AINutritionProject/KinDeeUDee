@@ -11,7 +11,7 @@ class Auth {
     await _firebaseAuth.signInAnonymously();
   }
 
-  Future<void> createUserWithEmailAndPassword(
+  Future<String?> createUserWithEmailAndPassword(
       String username, password, phoneNumber, email) async {
     try {
       UserCredential firebaseUser = await _firebaseAuth
@@ -27,13 +27,18 @@ class Auth {
       await FirebaseFirestore.instance.collection("users").add(
             appFoodUser.toMap(),
           );
+    } on FirebaseAuthException catch (error) {
+      print(error);
+      return error.code;
     } catch (error) {
       print("Got error when create user with email & password");
       print(error);
     }
+
+    return null;
   }
 
-  Future<void> signInWithUsername(String username, String password) async {
+  Future<String?> signInWithUsername(String username, String password) async {
     try {
       // get email from username
       QuerySnapshot<Map<String, dynamic>> querySnapshot =
@@ -46,10 +51,18 @@ class Auth {
       UserCredential firebaseUser = await _firebaseAuth
           .signInWithEmailAndPassword(email: email, password: password);
       print(firebaseUser.user!.uid);
+    } on StateError catch (error) {
+      print("Doc could not be found in firestore");
+      return error.message;
+    } on FirebaseAuthException catch (error) {
+      print("Got firebase auth error when sign in with username & password");
+      print(error);
+      return error.code;
     } catch (error) {
       print("Got error when sign in with username & password");
       print(error);
     }
+    return null;
   }
 
   Future<void> signInWithGoogle(GoogleSignIn googleSignIn) async {
@@ -68,9 +81,8 @@ class Auth {
       if (firebaseUser.additionalUserInfo!.isNewUser) {
         AppFoodUser appFoodUser = AppFoodUser(
             uid: firebaseUser.user!.uid,
-            username: "",
             email: firebaseUser.user!.email ?? "email boom",
-            fullName: firebaseUser.user!.displayName,
+            username: firebaseUser.user!.displayName,
             hasData: false);
         await FirebaseFirestore.instance
             .collection("users")
@@ -92,19 +104,17 @@ class AppFoodUser {
     this.username,
     required this.email,
     this.photoUrl,
-    this.fullName,
     this.phoneNumber,
     required this.hasData,
   });
   String uid, email;
-  String? photoUrl, fullName, phoneNumber, username;
+  String? photoUrl, phoneNumber, username;
   bool hasData;
 
   Map<String, dynamic> toMap() {
     return {
       "uid": uid,
       "email": email,
-      "fullName": fullName,
       "phoneNumber": phoneNumber,
       "username": username,
       "hasData": hasData,
