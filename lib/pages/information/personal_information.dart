@@ -3,6 +3,7 @@ import 'package:appfood2/pages/home.dart';
 import 'package:appfood2/widgets/wide_dropdown.dart';
 import 'package:appfood2/db.dart';
 import 'package:appfood2/pages/information/activity_form.dart';
+import 'package:appfood2/screen_size.dart';
 
 List<String> careers = <String>[
   "------------",
@@ -36,16 +37,32 @@ class PersonalInformation extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final mediaQueryData = MediaQuery.of(context);
+    final screenSizeData = ScreenSizeData(
+      screenWidth: mediaQueryData.size.width,
+      screenHeight: mediaQueryData.size.height,
+    );
     return LayoutBuilder(
         builder: (BuildContext context, BoxConstraints constraints) {
       return SingleChildScrollView(
-        child: ConstrainedBox(
-          constraints: BoxConstraints(minHeight: constraints.maxHeight),
-          child: Column(
-            children: [
-              PersonalHeader(user: user),
-              PersonalBody(user: user),
-            ],
+        child: Container(
+          color: screenSizeData.screenWidth <= screenSizeData.maxWidth
+                ? Colors.white
+                : Colors.black,
+          child: Center(
+            child: Container(
+              color: const Color(0xFFF8FFDD),
+              width: screenSizeData.screenSizeWidth,
+              child: ConstrainedBox(
+                constraints: BoxConstraints(minHeight: constraints.maxHeight),
+                child: Column(
+                  children: [
+                    PersonalHeader(user: user),
+                    PersonalBody(user: user),
+                  ],
+                ),
+              ),
+            ),
           ),
         ),
       );

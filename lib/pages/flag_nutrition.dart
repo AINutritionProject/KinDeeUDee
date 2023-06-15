@@ -5,125 +5,144 @@ import 'package:appfood2/pages/vet_fruit.dart';
 import 'package:appfood2/pages/milk_meat.dart';
 import 'package:dotted_border/dotted_border.dart';
 import 'package:appfood2/widgets/button_back.dart';
-
+import 'package:appfood2/screen_size.dart';
 class FlagNutrition extends StatelessWidget {
   const FlagNutrition({super.key});
 
   @override
   Widget build(BuildContext context) {
+    final mediaQueryData = MediaQuery.of(context);
+    final screenSizeData = ScreenSizeData(
+      screenWidth: mediaQueryData.size.width,
+      screenHeight: mediaQueryData.size.height,
+    );
+    
     return Scaffold(
-      backgroundColor: const Color.fromRGBO(74, 54, 131, 1),
+      //backgroundColor: const Color.fromRGBO(74, 54, 131, 1),
       body: SafeArea(
         child: SingleChildScrollView(
-          child: Column(
-            mainAxisSize: MainAxisSize.max,
-            children: [
-              SizedBox(
-                width: MediaQuery.of(context).size.width,
-                height: 100,
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  children: [
-                    const Padding(
-                      padding: EdgeInsets.symmetric(horizontal: 20),
-                      child: ButtonBack( colorCircle: Color.fromRGBO(201, 221, 220, 1),),
-                    ),
-                    Container(
-                      //padding: const EdgeInsets.symmetric(vertical: 5, horizontal: 30),
-                      width: 100,
-                      height: 50,
-                      decoration: BoxDecoration(
-                        color: const Color.fromRGBO(125, 144, 243, 1),
-                        borderRadius: BorderRadius.circular(30)
-                      ),
-                      child: const Center(
-                        child: Text(
-                          'เมนู',
-                          style: TextStyle(
-                            fontSize: 28,
-                            fontWeight: FontWeight.bold,
-                          ),
-                          textAlign: TextAlign.center,
-                          
-                          ),
-                      )
-                    ),
-                  ],
+          child: Container(
+            color: screenSizeData.screenWidth <= screenSizeData.maxWidth
+              ? Colors.white
+              : Colors.black,
+            child: Center(
+              child: Container(
+                decoration: const BoxDecoration(
+                  color: Color.fromRGBO(74, 54, 131, 1),
                 ),
-              ),
-              SizedBox(
-                width: MediaQuery.of(context).size.width,
-                height: 1100,
+                width: screenSizeData.screenSizeWidth,
                 child: Column(
                   mainAxisSize: MainAxisSize.max,
                   children: [
-                    Expanded(
-                      flex: 1,
-                      child: SizedBox(
-                          width: MediaQuery.of(context).size.width,
-                          child: const Align(
-                            alignment: AlignmentDirectional(0, 0),
-                            child: Text(
-                              'ธงโภชนาการ',
-                              style: TextStyle(
-                                  color: Colors.white,
-                                  fontSize: 32,
-                                  fontWeight: FontWeight.bold),
+                    SizedBox(
+                      width: MediaQuery.of(context).size.width,
+                      height: 100,
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        children: [
+                          const Padding(
+                            padding: EdgeInsets.symmetric(horizontal: 20),
+                            child: ButtonBack( colorCircle: Color.fromRGBO(201, 221, 220, 1),),
+                          ),
+                          Container(
+                            //padding: const EdgeInsets.symmetric(vertical: 5, horizontal: 30),
+                            width: 100,
+                            height: 50,
+                            decoration: BoxDecoration(
+                              color: const Color.fromRGBO(125, 144, 243, 1),
+                              borderRadius: BorderRadius.circular(30)
                             ),
-                          )),
+                            child: const Center(
+                              child: Text(
+                                'เมนู',
+                                style: TextStyle(
+                                  fontSize: 28,
+                                  fontWeight: FontWeight.bold,
+                                ),
+                                textAlign: TextAlign.center,
+                                
+                                ),
+                            )
+                          ),
+                        ],
+                      ),
                     ),
-                    Expanded(
-                      flex: 10,
-                      child: SizedBox(
-                        width: MediaQuery.of(context).size.width,
-                        child: const Column(
-                          mainAxisSize: MainAxisSize.max,
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            Expanded(
-                              flex: 5,
-                              child: Column(
+                    SizedBox(
+                      width: MediaQuery.of(context).size.width,
+                      height: 1100,
+                      child: Column(
+                        mainAxisSize: MainAxisSize.max,
+                        children: [
+                          Expanded(
+                            flex: 1,
+                            child: SizedBox(
+                                width: MediaQuery.of(context).size.width,
+                                child: const Align(
+                                  alignment: AlignmentDirectional(0, 0),
+                                  child: Text(
+                                    'ธงโภชนาการ',
+                                    style: TextStyle(
+                                        color: Colors.white,
+                                        fontSize: 32,
+                                        fontWeight: FontWeight.bold),
+                                  ),
+                                )),
+                          ),
+                          Expanded(
+                            flex: 10,
+                            child: SizedBox(
+                              width: MediaQuery.of(context).size.width,
+                              child: const Column(
+                                mainAxisSize: MainAxisSize.max,
                                 mainAxisAlignment: MainAxisAlignment.center,
                                 children: [
                                   Expanded(
-                                    flex: 8,
-                                    child: SizedBox(),
+                                    flex: 5,
+                                    child: Column(
+                                      mainAxisAlignment: MainAxisAlignment.center,
+                                      children: [
+                                        Expanded(
+                                          flex: 8,
+                                          child: SizedBox(),
+                                        ),
+                                        FlagSectionFlour(),
+                                        FlagSectionVegFruit(),
+                                        FlagSectionMilkMeat(),
+                                        FlagSectionOil()
+                                      ],
+                                    ),
                                   ),
-                                  FlagSectionFlour(),
-                                  FlagSectionVegFruit(),
-                                  FlagSectionMilkMeat(),
-                                  FlagSectionOil()
-                                ],
-                              ),
-                            ),
-                            Expanded(
-                              flex: 5,
-                              child: Column(
-                                children: [
-                                  Padding(
-                                    padding: EdgeInsets.symmetric(vertical: 25),
-                                    child: ContainTitleWater(),
-                                  ),
-                                  Padding(
-                                    padding: EdgeInsets.symmetric(vertical: 15),
-                                    child: BoxSugestionWater(),
-                                  ),
-                                  Padding(
-                                    padding: EdgeInsets.symmetric(
-                                        vertical: 15, horizontal: 20),
-                                    child: ContainEightCupWather(),
+                                  Expanded(
+                                    flex: 5,
+                                    child: Column(
+                                      children: [
+                                        Padding(
+                                          padding: EdgeInsets.symmetric(vertical: 25),
+                                          child: ContainTitleWater(),
+                                        ),
+                                        Padding(
+                                          padding: EdgeInsets.symmetric(vertical: 15),
+                                          child: BoxSugestionWater(),
+                                        ),
+                                        Padding(
+                                          padding: EdgeInsets.symmetric(
+                                              vertical: 15, horizontal: 20),
+                                          child: ContainEightCupWather(),
+                                        )
+                                      ],
+                                    ),
                                   )
                                 ],
                               ),
-                            )
-                          ],
-                        ),
+                            ),
+                          ),
+                        ],
                       ),
                     ),
                   ],
                 ),
               ),
-            ],
+            ),
           ),
         ),
       ),

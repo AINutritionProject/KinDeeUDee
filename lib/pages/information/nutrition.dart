@@ -2,6 +2,7 @@ import 'package:appfood2/pages/information/personal_information.dart';
 import 'package:appfood2/pages/information/save_data_success.dart';
 import 'package:flutter/material.dart';
 import 'package:appfood2/db.dart';
+import 'package:appfood2/screen_size.dart';
 
 class Nutrition extends StatelessWidget {
   final User user;
@@ -135,32 +136,49 @@ class Nutrition extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final mediaQueryData = MediaQuery.of(context);
+    final screenSizeData = ScreenSizeData(
+      screenWidth: mediaQueryData.size.width,
+      screenHeight: mediaQueryData.size.height,
+    );
     final widgetList = calShowWiget(user);
     return Scaffold(
         //appBar: AppBar(title: const Text("nutririon")),
         body: SafeArea(
-      child: ListView.builder(
-        itemCount: dataInSection.length + 2,
-        itemBuilder: (context, index) {
-          if (index == dataInSection.length + 1) {
-            return ButtonSave(user: user);
-          } else if (index == 0) {
-            return ContainerHeader(
-              bmr: user.bmr,
-            );
-          } else {
-            return SectionNutrition(
-                imgTypeNutritionPath: dataInSection[index - 1]
-                    ['imgTypeNutritionPath'],
-                nameTypeNutrition: dataInSection[index - 1]['name'],
-                amount: widgetList[index - 1],
-                nameAmount: dataInSection[index - 1]['nameAmount'],
-                widget: dataInSection[index - 1]['amountWiget']
-                    [widgetList[index - 1]]);
-          }
-        },
-      ),
-    ));
+          child: Container(
+            color: screenSizeData.screenWidth <= screenSizeData.maxWidth
+              ? Colors.white
+              : Colors.black,
+            child: Center(
+              child: Container(
+                color: Colors.white,
+                width: screenSizeData.screenSizeWidth,
+                height: screenSizeData.screenHeight,
+                child: ListView.builder(
+                  itemCount: dataInSection.length + 2,
+                  itemBuilder: (context, index) {
+                    if (index == dataInSection.length + 1) {
+                      return ButtonSave(user: user);
+                    } else if (index == 0) {
+                      return ContainerHeader(
+                        bmr: user.bmr,
+                      );
+                    } else {
+                      return SectionNutrition(
+                          imgTypeNutritionPath: dataInSection[index - 1]
+                              ['imgTypeNutritionPath'],
+                          nameTypeNutrition: dataInSection[index - 1]['name'],
+                          amount: widgetList[index - 1],
+                          nameAmount: dataInSection[index - 1]['nameAmount'],
+                          widget: dataInSection[index - 1]['amountWiget']
+                              [widgetList[index - 1]]);
+                    }
+                  },
+                ),
+              ),
+            ),
+          ),
+        ));
   }
 }
 
