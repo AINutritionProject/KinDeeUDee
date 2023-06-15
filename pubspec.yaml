@@ -47,6 +47,9 @@ dependencies:
   loading_animation_widget: ^1.2.0+4
   flutter_svg: ^2.0.6
   email_validator: ^2.1.17
+  tflite_flutter: ^0.10.1
+  image: ^4.0.17
+  native_image: ^1.0.2
   vector_math: ^2.1.4
 
 dev_dependencies:
@@ -84,7 +87,7 @@ flutter:
     - assets/images/RealFruit/
     - assets/images/RealFlour/
     - assets/images/Menu/
-    -
+    - assets/models/
   #   - images/a_dot_burr.jpeg
   #   - images/a_dot_ham.jpeg
 

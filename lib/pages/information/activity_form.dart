@@ -5,6 +5,7 @@ import 'package:appfood2/widgets/wide_dropdown.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:appfood2/screen_size.dart';
+
 List<String> frequency = ["1", "2", "3", "4", "5", "6", "7"];
 List<String> lightActivitiesData = [
   "-----",
@@ -34,40 +35,40 @@ class _ActivityFormState extends State<ActivityForm> {
     );
     return Scaffold(
       body: SafeArea(
-        child: Container(
-          color: screenSizeData.screenWidth <= screenSizeData.maxWidth
-                ? Colors.white
-                : Colors.black,
-          child: Center(
+          child: Container(
+        color: screenSizeData.screenWidth <= screenSizeData.maxWidth
+            ? Colors.white
+            : Colors.black,
+        child: Center(
             child: Container(
-              width: screenSizeData.screenSizeWidth,
-              color: const Color.fromRGBO(255, 251, 242, 1),
-              child: LayoutBuilder(
-                  builder: (BuildContext context, BoxConstraints constraints) {
-                return Center(
-                  child: Stack(alignment: Alignment.bottomCenter, children: [
-                    SingleChildScrollView(
-                      child: ConstrainedBox(
-                        constraints: BoxConstraints(minHeight: constraints.maxHeight),
-                        child: Column(
-                          children: [
-                            ActivityFormHeader(
-                              username: widget.user.username,
-                            ),
-                            ActivityFormBody(user: widget.user),
-                          ],
-                        ),
+          width: screenSizeData.screenSizeWidth,
+          color: const Color.fromRGBO(255, 251, 242, 1),
+          child: LayoutBuilder(
+              builder: (BuildContext context, BoxConstraints constraints) {
+            return Center(
+              child: Stack(
+                alignment: Alignment.bottomCenter,
+                children: [
+                  SingleChildScrollView(
+                    child: ConstrainedBox(
+                      constraints:
+                          BoxConstraints(minHeight: constraints.maxHeight),
+                      child: Column(
+                        children: [
+                          ActivityFormHeader(
+                            username: widget.user.username,
+                          ),
+                          ActivityFormBody(user: widget.user),
+                        ],
                       ),
-                      ActivityFormBody(user: widget.user),
-                    ],
-                  ),
-                ),
+                    ),
+                  )
+                ],
               ),
-            ]),
-          );
-        }),
-
-      ),
+            );
+          }),
+        )),
+      )),
     );
   }
 }
