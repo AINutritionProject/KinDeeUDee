@@ -23,7 +23,7 @@ class AIOutputPage extends StatelessWidget {
     );
 
     return Scaffold(
-      backgroundColor: const Color.fromRGBO(233, 255, 223, 1),
+      //backgroundColor: const Color.fromRGBO(233, 255, 223, 1),
       body: SafeArea(
         child: SingleChildScrollView(
           child: Container(
@@ -33,14 +33,14 @@ class AIOutputPage extends StatelessWidget {
             child: Center(
               child: Container(
                 width: screenSizeData.screenSizeWidth,
-                color: const Color.fromRGBO(233, 255, 223, 1),
+                color: FoodDetailPage(detail: food.detail).getGIColor(food.detail.giIndex),
                 child: Column(
                   children: [
                     Padding(
                       padding: const EdgeInsets.fromLTRB(0, 0, 0, 80),
                       child: Container(
                         width: screenSizeData.screenSizeWidth,
-                        height: screenSizeData.screenHeight * 0.2,
+                        height: screenSizeData.screenHeight * 0.15,
                         color: FoodDetailPage(detail: food.detail).getBarColor(food.detail.giIndex),
                         child: Stack(
                           clipBehavior: Clip.none,
@@ -55,7 +55,7 @@ class AIOutputPage extends StatelessWidget {
                                   )),
                             ),
                             Positioned(
-                              top: screenSizeData.screenHeight * 0.2 - 35,
+                              top: screenSizeData.screenHeight * 0.15 - 35,
                               left: screenSizeData.screenSizeWidth * 0.5 - 134,
                               child: Align(
                                 alignment: Alignment.bottomCenter,
@@ -66,7 +66,7 @@ class AIOutputPage extends StatelessWidget {
                               ),
                             ),
                             Padding(
-                              padding: const EdgeInsets.fromLTRB(0, 0, 15, 30),
+                              padding: const EdgeInsets.fromLTRB(0, 0, 25, 30),
                               child: Align(
                                 alignment: Alignment.centerRight,
                                 child: Container(
@@ -82,7 +82,7 @@ class AIOutputPage extends StatelessWidget {
                                       detail: food.detail,
                                     ).get_glycemic_index(food.detail.giIndex),
                                     style: const TextStyle(
-                                        fontSize: 16,
+                                        fontSize: 13,
                                         fontWeight: FontWeight.bold),
                                     textAlign: TextAlign.center,
                                   ),
@@ -129,14 +129,18 @@ class AIOutputPage extends StatelessWidget {
                         ),
                       ),
                     ),
-                    ImageContainer(
-                      pathImage: food.detail.realImageAssetPath ?? "t",
-                      width: screenSizeData.screenSizeWidth,
+                    Padding(
+                      padding: const EdgeInsets.only(top: 45),
+                      child: ImageContainer(
+                        pathImage: food.detail.realImageAssetPath ?? "t",
+                        width: screenSizeData.screenSizeWidth,
+                        color: FoodDetailPage(detail: food.detail).getBarColor(food.detail.giIndex),
+                      ),
                     ),
                     const TextDataNutrition(),
                     AmountDetailObject(
                       textAmountOfObj: food.detail.nutrition,
-                      colorBox: const Color.fromRGBO(175, 255, 207, 1),
+                      colorBox: Colors.white,
                       width: screenSizeData.screenSizeWidth,
                     ),
                     Padding(
@@ -144,7 +148,8 @@ class AIOutputPage extends StatelessWidget {
                       child: ChemicalDetail(
                           power: food.detail.power,
                           fiber: food.detail.fiber,
-                          sugar: food.detail.sugar),
+                          sugar: food.detail.sugar
+                          ),
                     ),
                     AmountObjectofUser(
                       foodImage: foodImage,
@@ -185,7 +190,7 @@ class PartOfObject extends StatelessWidget {
         width: width * 0.8,
         height: width * 0.6,
         decoration: const BoxDecoration(
-            color: Color.fromRGBO(175, 255, 207, 1),
+            color: Colors.white,
             borderRadius: BorderRadius.all(Radius.circular(20))),
         child: Stack(
           children: [
@@ -335,16 +340,17 @@ class TextDataNutrition extends StatelessWidget {
 
 class ImageContainer extends StatelessWidget {
   const ImageContainer(
-      {super.key, required this.pathImage, required this.width});
+      {super.key, required this.pathImage, required this.width, required this.color});
   final String pathImage;
   final double width;
+  final Color color;
 
   @override
   Widget build(BuildContext context) {
     return Container(
         padding: const EdgeInsets.all(15),
         decoration: BoxDecoration(
-            color: Colors.greenAccent.shade100,
+            color: color,
             borderRadius: const BorderRadius.all(Radius.circular(20))),
         width: width * 0.6,
         height: width * 0.6,
