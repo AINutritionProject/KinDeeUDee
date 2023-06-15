@@ -6,6 +6,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:appfood2/widgets/button_back.dart';
 import 'package:intl/intl.dart' show DateFormat;
 import 'package:syncfusion_flutter_datepicker/datepicker.dart';
+import 'package:appfood2/screen_size.dart';
 
 class History {
   const History({
@@ -52,18 +53,35 @@ class _EatHistoryPageState extends State<EatHistoryPage> {
 
   @override
   Widget build(BuildContext context) {
+    final mediaQueryData = MediaQuery.of(context);
+    final screenSizeData = ScreenSizeData(
+      screenWidth: mediaQueryData.size.width,
+      screenHeight: mediaQueryData.size.height,
+    );
     return Scaffold(
-      body: FutureBuilder(
-        builder: (context, snapshot) {
-          if (snapshot.hasData) {
-            return EatHistoryComponent(history: snapshot.data!);
-          } else if (snapshot.hasError) {
-            return Text("${snapshot.error} ?? `ERR`");
-          } else {
-            return const Center(child: CircularProgressIndicator());
-          }
-        },
-        future: _getHistoryData(),
+      body: Container(
+        color: screenSizeData.screenWidth <= screenSizeData.maxWidth
+                    ? Colors.white
+                    : Colors.black,
+        child: Center(
+          child: Container(
+            color: Colors.white,
+            width: screenSizeData.screenSizeWidth,
+            height: screenSizeData.screenHeight,
+            child: FutureBuilder(
+              builder: (context, snapshot) {
+                if (snapshot.hasData) {
+                  return EatHistoryComponent(history: snapshot.data!);
+                } else if (snapshot.hasError) {
+                  return Text("${snapshot.error} ?? `ERR`");
+                } else {
+                  return const Center(child: CircularProgressIndicator());
+                }
+              },
+              future: _getHistoryData(),
+            ),
+          ),
+        ),
       ),
     );
   }

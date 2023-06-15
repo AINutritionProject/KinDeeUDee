@@ -147,7 +147,7 @@ class FooterSection extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
+    return SizedBox(
       width: MediaQuery.of(context).size.width,
       child: Column(
         children: [
@@ -181,8 +181,6 @@ class SectionButtonClick extends StatelessWidget {
       width: width,
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
-        //crossAxisAlignment: CrossAxisAlignment.center,
-        //mainAxisSize: MainAxisSize.max,
         children: [
           Expanded(
             flex: 4,
@@ -200,16 +198,14 @@ class SectionButtonClick extends StatelessWidget {
                 Expanded(
                   flex: 18,
                   child: HistoryBox(width: width, height: height,)),
-                const Expanded(
+                Expanded(
                   flex: 15,
-                  child: FlagNutritionBox()),
+                  child: FlagNutritionBox(width: width, height: height)),
                 Expanded(
                   flex: width < 600 ? 2 : 15,
                   child: const SizedBox(
                   ),
                 ),
-                
-                
               ],
             ),
           ),
@@ -222,7 +218,11 @@ class SectionButtonClick extends StatelessWidget {
 class FlagNutritionBox extends StatelessWidget {
   const FlagNutritionBox({
     super.key,
+    required this.width,
+    required this.height,
   });
+  final double width;
+  final double height;
 
   @override
   Widget build(BuildContext context) {
@@ -233,15 +233,16 @@ class FlagNutritionBox extends StatelessWidget {
       },
       child: SizedBox(
         width: MediaQuery.of(context).size.width,
-        child: const Stack(
+        child: Stack(
           children: [
             Align(
               alignment: Alignment.center,
               child: MenuBlock(
                 menuName: 'ธงโภชนาการ',
                 innerColor: Colors.white,
-                outerColor: Color.fromRGBO(197, 235, 246, 1),
-                textColor: Color.fromRGBO(58, 0, 131, 1),
+                outerColor: const Color.fromRGBO(197, 235, 246, 1),
+                textColor: const Color.fromRGBO(58, 0, 131, 1),
+                width: width*0.65,
                 //height: 120,
               ),
             ),
@@ -272,13 +273,13 @@ class HistoryBox extends StatelessWidget {
         width: width,
         child: Stack(
           children: [
-            const Align(
+            Align(
               alignment: Alignment.center,
               child: MenuBlock(
                 menuName: 'ประวัติการ\nรับประทานอาหาร',
-                innerColor: Color.fromRGBO(255, 238, 225, 1),
-                outerColor: Color.fromRGBO(240, 164, 164, 1),
-                //height: 150,
+                innerColor: const Color.fromRGBO(255, 238, 225, 1),
+                outerColor: const Color.fromRGBO(240, 164, 164, 1),
+                width: width *0.65,
               ),
             ),
             Positioned(
@@ -325,7 +326,8 @@ class SearchMenuBox extends StatelessWidget {
                 menuName: 'ค้นหาเมนู\nอาหาร',
                 innerColor: Colors.yellow.shade100,
                 outerColor: Colors.greenAccent.shade100,
-                //height: 140,
+                height: 340,
+                width: width*0.65,
               ),
             ),
             Positioned(
