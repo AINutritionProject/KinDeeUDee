@@ -60,81 +60,102 @@ class _EatConfirmPageState extends State<EatConfirmPage> {
       screenHeight: mediaQueryData.size.height,
     );
     return Scaffold(
-      body: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        crossAxisAlignment: CrossAxisAlignment.center,
-        children: [
-          SizedBox(
-            height: 320,
-            width: 320,
-            child: Image.file(
-              File(widget.image!.path),
+      body: Container(
+        color: screenSizeData.screenWidth <= screenSizeData.maxWidth
+                ? Colors.white
+                : Colors.black,
+        child: Center(
+          child: Container(
+            width: screenSizeData.screenSizeWidth,
+            color: Colors.white,
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                Container(
+                  height: 320,
+                  width: 320,
+                  color: Colors.blue,
+                  child: Image.file(
+                    File(widget.image!.path),
+                    fit: BoxFit.cover,
+                    
+                  ),
+                ),
+                const Padding(
+                  padding: EdgeInsets.only(top: 40),
+                  child: Text(
+                    "คุณต้องการรับประทาน\nอาหารชนิดนี้?",
+                    style: TextStyle(fontSize: 30),
+                    textAlign: TextAlign.center,
+                  ),
+                ),
+                const SizedBox(
+                  height: 30,
+                ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceAround,
+                  children: [
+                    Padding(
+                      padding: const EdgeInsets.fromLTRB(50,10,0,0),
+                      child: ElevatedButton(
+                        onPressed: () async {
+                          await _saveEatHistory();
+                          final img.Image image = img
+                              .decodeImage(File(widget.image!.path).readAsBytesSync())!;
+                          Food? resultFood = _tfModel.runModel(image);
+                          Navigator.of(context).pushReplacement(MaterialPageRoute(
+                              builder: (context) => AIOutputPage(
+                                    foodImage: widget.image,
+                                    food: resultFood!,
+                                  )));
+                        },
+                        style: ElevatedButton.styleFrom(
+                          backgroundColor: const Color.fromRGBO(177, 254, 150, 1),
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(40),
+                          ),
+                        ),
+                        child: Container(
+                          alignment: Alignment.center,
+                          width: 70,
+                          height: 53,
+                          child: const Text(
+                            "ใช่",
+                            style: TextStyle(fontSize: 30, color: Colors.black),
+                          ),
+                        ),
+                      ),
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.fromLTRB(0,10,50,0),
+                      child: ElevatedButton(
+                        onPressed: () {
+                          Navigator.of(context).pop();
+                        },
+                        style: ElevatedButton.styleFrom(
+                          backgroundColor: const Color.fromRGBO(250, 138, 138, 1),
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(40),
+                          ),
+                        ),
+                        child: Container(
+                          alignment: Alignment.center,
+                          width: 70,
+                          height: 53,
+                          child: const Text(
+                            "ไม่",
+                            style: TextStyle(fontSize: 30, color: Colors.black),
+                          ),
+                        ),
+                      ),
+                    ),
+                  ],
+                )
+              ],
             ),
           ),
-          const Padding(
-            padding: EdgeInsets.only(top: 40),
-            child: Text(
-              "คุณต้องการรับประทาน\n        อาหารชนิดนี้?",
-              style: TextStyle(fontSize: 30),
-            ),
-          ),
-          const SizedBox(
-            height: 30,
-          ),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceAround,
-            children: [
-              ElevatedButton(
-                onPressed: () async {
-                  await _saveEatHistory();
-                  final img.Image image = img
-                      .decodeImage(File(widget.image!.path).readAsBytesSync())!;
-                  Food? resultFood = _tfModel.runModel(image);
-                  Navigator.of(context).pushReplacement(MaterialPageRoute(
-                      builder: (context) => AIOutputPage(
-                            foodImage: widget.image,
-                            food: resultFood!,
-                          )));
-                },
-                style: ElevatedButton.styleFrom(
-                  backgroundColor: const Color.fromRGBO(177, 254, 150, 1),
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(40),
-                  ),
-                ),
-                child: Container(
-                  alignment: Alignment.center,
-                  width: 70,
-                  height: 53,
-                  child: const Text(
-                    "ใช่",
-                    style: TextStyle(fontSize: 30, color: Colors.black),
-                  ),
-                ),
-              ),
-              ElevatedButton(
-                onPressed: () {
-                  Navigator.of(context).pop();
-                },
-                style: ElevatedButton.styleFrom(
-                  backgroundColor: const Color.fromRGBO(250, 138, 138, 1),
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(40),
-                  ),
-                ),
-                child: Container(
-                  alignment: Alignment.center,
-                  width: 70,
-                  height: 53,
-                  child: const Text(
-                    "ไม่",
-                    style: TextStyle(fontSize: 30, color: Colors.black),
-                  ),
-                ),
-              ),
-            ],
-          )
-        ],
+        ),
       ),
     );
   }
