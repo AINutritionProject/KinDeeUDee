@@ -1,9 +1,11 @@
 import 'package:appfood2/auth.dart';
+import 'package:appfood2/widgets/error_dialog.dart';
 import 'package:flutter/material.dart';
 import 'package:appfood2/pages/register.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:appfood2/widgets/button_back.dart';
+import 'package:appfood2/screen_size.dart';
 import 'dart:async';
 
 class LogInForm extends StatefulWidget {
@@ -26,10 +28,31 @@ class _LogInFormState extends State<LogInForm> {
   final TextEditingController _usernameController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
 
-  Future<void> _onLogin() async {
+  void _onLogin() {
     if (_formKey.currentState!.validate()) {
-      await Auth().signInWithUsername(
+      Future<String?> result = Auth().signInWithUsername(
           _usernameController.text, _passwordController.text);
+      result.then((errorCode) {
+        if (errorCode != null) {
+          var errorString = "พบปัญหาโปรดลองอีกครั้ง";
+          if (errorCode == "No element") {
+            errorString = "ไม่มีชื่อผู้ใช้นี้อยู่ในระบบ\nกรุณาสร้างบัญชีผู้ใช้";
+          } else if (errorCode == "wrong-password") {
+            errorString = "รหัสผ่านไม่ถูกต้อง";
+          } else if (errorCode == "too-many-requests") {
+            errorString =
+                "กรอกรหัสผ่านไม่ถูกต้องหลายครั้ง\nโปรดลองอีกครั้งในภายหลัง";
+          } else if (errorCode == "user-disabled") {
+            errorString = "บัญชีนี้ถูกระงับการใช้งาน";
+          }
+          showDialog(
+            context: context,
+            builder: (context) {
+              return ErrorDialog(errorString: errorString);
+            },
+          );
+        }
+      });
     }
   }
 
@@ -180,90 +203,110 @@ class _LoginPageState extends State<LoginPage> {
   // random backgroundColor every 0.2 second when start Widget
   @override
   Widget build(BuildContext context) {
+    final mediaQueryData = MediaQuery.of(context);
+    final screenSizeData = ScreenSizeData(
+      screenWidth: mediaQueryData.size.width,
+      screenHeight: mediaQueryData.size.height,
+    );
     return Scaffold(
-        backgroundColor: const Color.fromRGBO(255, 251, 242, 1),
+        //backgroundColor: const Color.fromRGBO(255, 251, 242, 1),
         body: SafeArea(
           child: LayoutBuilder(
               builder: (BuildContext context, BoxConstraints constraints) {
-            return SingleChildScrollView(
-                child: ConstrainedBox(
-              constraints: BoxConstraints(minHeight: constraints.maxHeight),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  const Padding(
-                    padding: EdgeInsets.only(left: 24, top: 20),
-                    child: ButtonBack(
-                      colorCircle: Color(0xFFFF783F),
-                      color: Colors.white,
-                    ),
-                  ),
-                  const Padding(
-                    padding: EdgeInsets.only(top: 38, left: 28),
-                    child: Text(
-                      "ลงชื่อเข้าใช้",
-                      style:
-                          TextStyle(fontWeight: FontWeight.w700, fontSize: 40),
-                    ),
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.only(
-                        left: 12, right: 12, top: 20, bottom: 22),
-                    child: Container(
-                      width: double.infinity,
-                      decoration: const BoxDecoration(
-                          color: Color.fromRGBO(254, 246, 174, 1),
-                          borderRadius: BorderRadius.all(Radius.circular(45))),
-                      child: const LogInForm(),
-                    ),
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.only(bottom: 40),
-                    child: Container(
-                      margin: const EdgeInsets.symmetric(
-                          vertical: 10, horizontal: 20),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                        mainAxisSize: MainAxisSize.max,
-                        children: [
-                          const FaIcon(
-                            FontAwesomeIcons.line,
-                            color: Colors.green,
-                            size: 35,
+            return Container(
+              height: screenSizeData.screenHeight,
+              color: screenSizeData.screenWidth <= screenSizeData.maxWidth
+                  ? Colors.white
+                  : Colors.black,
+              child: Center(
+                child: Container(
+                  width: screenSizeData.screenSizeWidth,
+                  color: const Color.fromRGBO(255, 251, 242, 1),
+                  child: SingleChildScrollView(
+                      child: ConstrainedBox(
+                    constraints:
+                        BoxConstraints(minHeight: constraints.maxHeight),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        const Padding(
+                          padding: EdgeInsets.only(left: 24, top: 20),
+                          child: ButtonBack(
+                            colorCircle: Color(0xFFFF783F),
+                            color: Colors.white,
                           ),
-                          const FaIcon(
-                            FontAwesomeIcons.squareFacebook,
-                            color: Colors.blue,
-                            size: 37,
+                        ),
+                        const Padding(
+                          padding: EdgeInsets.only(top: 38, left: 28),
+                          child: Text(
+                            "ลงชื่อเข้าใช้",
+                            style: TextStyle(
+                                fontWeight: FontWeight.w700, fontSize: 40),
                           ),
-                          const FaIcon(
-                            FontAwesomeIcons.instagram,
-                            color: Colors.deepOrangeAccent,
-                            size: 37,
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.only(
+                              left: 12, right: 12, top: 20, bottom: 22),
+                          child: Container(
+                            width: double.infinity,
+                            decoration: const BoxDecoration(
+                                color: Color.fromRGBO(254, 246, 174, 1),
+                                borderRadius:
+                                    BorderRadius.all(Radius.circular(45))),
+                            child: const LogInForm(),
                           ),
-                          GestureDetector(
-                            onTap: () async {
-                              await Auth().signInWithGoogle(_googleSignIn);
-                            },
-                            child: const FaIcon(
-                              FontAwesomeIcons.google,
-                              color: Colors.deepOrange,
-                              size: 34,
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.only(bottom: 40),
+                          child: Container(
+                            margin: const EdgeInsets.symmetric(
+                                vertical: 10, horizontal: 20),
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                              mainAxisSize: MainAxisSize.max,
+                              children: [
+                                const FaIcon(
+                                  FontAwesomeIcons.line,
+                                  color: Colors.green,
+                                  size: 35,
+                                ),
+                                const FaIcon(
+                                  FontAwesomeIcons.squareFacebook,
+                                  color: Colors.blue,
+                                  size: 37,
+                                ),
+                                const FaIcon(
+                                  FontAwesomeIcons.instagram,
+                                  color: Colors.deepOrangeAccent,
+                                  size: 37,
+                                ),
+                                GestureDetector(
+                                  onTap: () async {
+                                    await Auth()
+                                        .signInWithGoogle(_googleSignIn);
+                                  },
+                                  child: const FaIcon(
+                                    FontAwesomeIcons.google,
+                                    color: Colors.deepOrange,
+                                    size: 34,
+                                  ),
+                                ),
+                                const FaIcon(
+                                  FontAwesomeIcons.envelope,
+                                  color: Colors.indigo,
+                                  size: 37,
+                                )
+                              ],
                             ),
                           ),
-                          const FaIcon(
-                            FontAwesomeIcons.envelope,
-                            color: Colors.indigo,
-                            size: 37,
-                          )
-                        ],
-                      ),
+                        )
+                      ],
                     ),
-                  )
-                ],
+                  )),
+                ),
               ),
-            ));
+            );
           }),
         ));
   }
