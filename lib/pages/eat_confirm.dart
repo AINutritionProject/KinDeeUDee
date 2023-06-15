@@ -89,11 +89,18 @@ class _EatConfirmPageState extends State<EatConfirmPage> {
                   await _saveEatHistory();
                   final img.Image image = img
                       .decodeImage(File(widget.image!.path).readAsBytesSync())!;
-                  Food? resultFood = _tfModel.runModel(image);
+                  late Food resultFood;
+                  try {
+                    resultFood = _tfModel.runModel(image)!;
+                  } catch (e) {
+                    print("ERROR_ERROR_ERROR");
+                    print(e);
+                    print("ERROR_ERROR_ERROR");
+                  }
                   Navigator.of(context).pushReplacement(MaterialPageRoute(
                       builder: (context) => AIOutputPage(
                             foodImage: widget.image,
-                            food: resultFood!,
+                            food: resultFood,
                           )));
                 },
                 style: ElevatedButton.styleFrom(
