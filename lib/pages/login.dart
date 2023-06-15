@@ -1,4 +1,5 @@
 import 'package:appfood2/auth.dart';
+import 'package:appfood2/widgets/error_dialog.dart';
 import 'package:flutter/material.dart';
 import 'package:appfood2/pages/register.dart';
 import 'package:google_sign_in/google_sign_in.dart';
@@ -26,10 +27,31 @@ class _LogInFormState extends State<LogInForm> {
   final TextEditingController _usernameController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
 
-  Future<void> _onLogin() async {
+  void _onLogin() {
     if (_formKey.currentState!.validate()) {
-      await Auth().signInWithUsername(
+      Future<String?> result = Auth().signInWithUsername(
           _usernameController.text, _passwordController.text);
+      result.then((errorCode) {
+        if (errorCode != null) {
+          var errorString = "พบปัญหาโปรดลองอีกครั้ง";
+          if (errorCode == "No element") {
+            errorString = "ไม่มีชื่อผู้ใช้นี้อยู่ในระบบ\nกรุณาสร้างบัญชีผู้ใช้";
+          } else if (errorCode == "wrong-password") {
+            errorString = "รหัสผ่านไม่ถูกต้อง";
+          } else if (errorCode == "too-many-requests") {
+            errorString =
+                "กรอกรหัสผ่านไม่ถูกต้องหลายครั้ง\nโปรดลองอีกครั้งในภายหลัง";
+          } else if (errorCode == "user-disabled") {
+            errorString = "บัญชีนี้ถูกระงับการใช้งาน";
+          }
+          showDialog(
+            context: context,
+            builder: (context) {
+              return ErrorDialog(errorString: errorString);
+            },
+          );
+        }
+      });
     }
   }
 
