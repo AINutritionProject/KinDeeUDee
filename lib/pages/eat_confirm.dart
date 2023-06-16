@@ -98,9 +98,27 @@ class _EatConfirmPageState extends State<EatConfirmPage> {
                               food: resultFood,
                             )));
                   } catch (e) {
+                    // Alert Dialog
+                    await showDialog(
+                        context: context,
+                        builder: (context) {
+                          return AlertDialog(
+                            title: const Text("ไม่พบข้อมูล"),
+                            content: const Text("กรุณาลองใหม่อีกครั้ง"),
+                            actions: [
+                              TextButton(
+                                onPressed: () {
+                                  Navigator.of(context).pop();
+                                },
+                                child: const Text("ตกลง"),
+                              ),
+                            ],
+                          );
+                        });
                     print("ERROR_ERROR_ERROR");
                     print(e);
                     print("ERROR_ERROR_ERROR");
+                    Navigator.of(context).pop();
                   }
                 },
                 style: ElevatedButton.styleFrom(
