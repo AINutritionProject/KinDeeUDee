@@ -6,9 +6,11 @@ import 'package:appfood2/screen_size.dart';
 
 class BMIPage extends StatefulWidget {
   final db.User user;
+  final bool isDrawer;
   const BMIPage({
     super.key,
     required this.user,
+    this.isDrawer = false,
   });
 
   @override
@@ -19,6 +21,7 @@ class _BMIState extends State<BMIPage> {
   late String username = widget.user.username;
 
   late double valBMI = calculateBMI(widget.user.weight, widget.user.height);
+  late bool isDrawer = widget.isDrawer;
 
   @override
   Widget build(BuildContext context) {
@@ -425,33 +428,40 @@ class _BMIState extends State<BMIPage> {
                         ),
                       ),
                     ),
+                    
                     Padding(
-                      padding: const EdgeInsets.only(top: 50, bottom: 46),
-                      child: ElevatedButton(
-                        style: ButtonStyle(
-                            backgroundColor:
-                                const MaterialStatePropertyAll(Color(0xFFED7E7E)),
-                            shape: MaterialStateProperty.all(RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(30),
-                            ))),
-                        onPressed: () {
-                          widget.user.bmi =
-                              calculateBMI(widget.user.weight, widget.user.height);
-                          widget.user.bmr = calculateBMR(
-                              widget.user.bmi, widget.user.activityLevel);
-                          setState(() {
-                            Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                    builder: (context) =>
-                                        Nutrition(user: widget.user)));
-                          });
-                        },
-                        child: Container(
-                          padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 15),
-                          child: const Text(
-                            "ถัดไป",
-                            style: TextStyle(fontSize: 32, fontWeight: FontWeight.w400),
+                      padding: const EdgeInsets.only(bottom: 20),
+                      child: Visibility(
+                        visible: !isDrawer,
+                        child: Padding(
+                          padding: const EdgeInsets.only(top: 50, bottom: 46),
+                          child: ElevatedButton(
+                            style: ButtonStyle(
+                                backgroundColor:
+                                    const MaterialStatePropertyAll(Color(0xFFED7E7E)),
+                                shape: MaterialStateProperty.all(RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(30),
+                                ))),
+                            onPressed: () {
+                              widget.user.bmi =
+                                  calculateBMI(widget.user.weight, widget.user.height);
+                              widget.user.bmr = calculateBMR(
+                                  widget.user.bmi, widget.user.activityLevel);
+                              setState(() {
+                                Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                        builder: (context) =>
+                                            Nutrition(user: widget.user)));
+                              });
+                            },
+                            child: Container(
+                              padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 15),
+                              child: const Text(
+                                "ถัดไป",
+                                style: TextStyle(fontSize: 32, fontWeight: FontWeight.w400),
+                              ),
+                            ),
                           ),
                         ),
                       ),
