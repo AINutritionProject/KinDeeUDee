@@ -272,7 +272,7 @@ class _EatHistoryComponentState extends State<EatHistoryComponent> {
                 "${_startDate[6]}${_startDate[7]}${_startDate[8]}${_startDate[9]}-${_startDate[3]}${_startDate[4]}-${_startDate[0]}${_startDate[1]} 00:00:00")
             .millisecondsSinceEpoch;
         int checkend = DateTime.parse(
-                "${_startDate[6]}${_startDate[7]}${_startDate[8]}${_startDate[9]}-${_startDate[3]}${_startDate[4]}-${_startDate[0]}${_startDate[1]} 12:00:00Z")
+                "${_startDate[6]}${_startDate[7]}${_startDate[8]}${_startDate[9]}-${_startDate[3]}${_startDate[4]}-${_startDate[0]}${_startDate[1]} 23:59:59")
             .millisecondsSinceEpoch;
         int count = 0;
         for (var i = 0; i < widget.history.length; i++) {
@@ -295,7 +295,7 @@ class _EatHistoryComponentState extends State<EatHistoryComponent> {
                 "${_startDate[6]}${_startDate[7]}${_startDate[8]}${_startDate[9]}-${_startDate[3]}${_startDate[4]}-${_startDate[0]}${_startDate[1]} 00:00:00")
             .millisecondsSinceEpoch;
         int checkend = DateTime.parse(
-                "${_endDate[6]}${_endDate[7]}${_endDate[8]}${_endDate[9]}-${_endDate[3]}${_endDate[4]}-${_endDate[0]}${_endDate[1]} 12:00:00Z")
+                "${_endDate[6]}${_endDate[7]}${_endDate[8]}${_endDate[9]}-${_endDate[3]}${_endDate[4]}-${_endDate[0]}${_endDate[1]} 23:59:59")
             .millisecondsSinceEpoch;
         int count = 0;
         for (var i = 0; i < widget.history.length; i++) {
