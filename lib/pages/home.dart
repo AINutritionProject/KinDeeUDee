@@ -1,4 +1,6 @@
 import 'package:appfood2/pages/information/information.dart';
+import 'package:appfood2/pages/information/nutrition.dart';
+import 'package:appfood2/pages/information/bmi.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:appfood2/pages/menu.dart';
@@ -14,12 +16,13 @@ import 'dart:io';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'dart:math' as math;
 import 'package:appfood2/screen_size.dart';
+import 'package:appfood2/db.dart' as db;
 
 class Home extends StatefulWidget {
-  final String username;
+  final db.User user;
   const Home({
     super.key,
-    required this.username,
+    required this.user,
   });
 
   @override
@@ -34,27 +37,28 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  Future<Map<String, dynamic>> _checkIfUserHasData() async {
-    final user = FirebaseAuth.instance.currentUser;
-    final userData = await FirebaseFirestore.instance
-        .collection("users")
-        .where("uid", isEqualTo: user!.uid)
-        .get();
-    return {
-      'hasData': userData.docs.first.get("hasData"),
-      'username': userData.docs.first.get("username")
-    };
-  }
+  // Future<Map<String, dynamic>> _checkIfUserHasData() async {
+  //   final user = FirebaseAuth.instance.currentUser;
+  //   final userData = await FirebaseFirestore.instance
+  //       .collection("users")
+  //       .where("uid", isEqualTo: user!.uid)
+  //       .get();
+  //   return {
+  //     'hasData': userData.docs.first.get("hasData"),
+  //     'username': userData.docs.first.get("username")
+  //   };
+  // }
 
   @override
   Widget build(BuildContext context) {
-    
     return FutureBuilder(
       builder: (context, snapshot) {
         if (snapshot.hasData) {
-          if (snapshot.data?['hasData'] == true) {
+          if (snapshot.data?.hasData == true) {
             //TODO:check that map value is not null
-            return Home(username: snapshot.data?['username']);
+            return Home(
+              user: snapshot.data!,
+            );
           } else {
             return const RegisterSuccesPage();
           }
@@ -64,15 +68,18 @@ class _HomePageState extends State<HomePage> {
           );
         }
       },
-      future: _checkIfUserHasData(),
+      future: db.getUser(),
     );
   }
 }
 
 class _HomeState extends State<Home> {
   final String assetName = 'assets/icons/book-1.svg';
+  
+
   @override
   Widget build(BuildContext context) {
+    
     final mediaQueryData = MediaQuery.of(context);
     final screenSizeData = ScreenSizeData(
       screenWidth: mediaQueryData.size.width,
@@ -81,22 +88,131 @@ class _HomeState extends State<Home> {
     return Scaffold(
       endDrawer: SafeArea(
         child: Drawer(
-          child: ListView(
+          child: Column(
             children: [
-              TextButton(
-                  onPressed: () {
-                    Navigator.of(context).push(MaterialPageRoute(
-                        builder: (context) => const InformationPage()));
-                  },
-                  child: const Text(
-                    "แก้ไขข้อมูลส่วนตัว",
-                    style: TextStyle(fontSize: 22),
-                  )),
-              IconButton(
-                  onPressed: () async {
-                    await Auth().signOut();
-                  },
-                  icon: const Icon(Icons.logout))
+              Container(
+                padding: const EdgeInsets.only(bottom: 20),
+                width: screenSizeData.screenSizeWidth,
+                color: Colors.amber[100],
+                child: Column(
+                  children: [
+                    Padding(
+                      padding: const EdgeInsets.only(bottom: 20),
+                      child: InkWell(
+                        onTap: () {
+                          Navigator.pop(context);
+                        },
+                        child: Container(
+                          color: Colors.amber[500],
+                          child: Row(
+                            children: [
+                              IconButton(
+                                onPressed: () {
+                                  Navigator.pop(context);
+                                },
+                                icon: const Icon(Icons.arrow_back_rounded),
+                              ),
+                              const Text(
+                                'ย้อนกลับ',
+                                style: TextStyle(
+                                    fontSize: 22, fontWeight: FontWeight.bold),
+                              )
+                            ],
+                          ),
+                        ),
+                      ),
+                    ),
+                    const UserAvatar(),
+                    Text(widget.user.username),
+                    Text(widget.user.email),
+                  ],
+                ),
+              ),
+              Padding(
+                padding: const EdgeInsets.symmetric(vertical: 20),
+                child: Wrap(
+                  runSpacing: 16,
+                  children: [
+                    // ListTile(
+                    //   leading: const Icon(Icons.arrow_back_rounded),
+                    //   title: const Text(
+                    //     "ย้อนกลับ",
+                    //     style: TextStyle(fontSize: 18),
+                    //   ),
+                    //   onTap: () {
+                    //     Navigator.pop(context);
+                    //   },
+                    // ),
+                    ListTile(
+                      leading: const Icon(
+                        Icons.assignment_ind_rounded,
+                        size: 32,
+                      ),
+                      title: const Text(
+                        "แก้ไขข้อมูลส่วนตัว",
+                        style: TextStyle(fontSize: 18),
+                      ),
+                      onTap: () {
+                        Navigator.of(context).push(MaterialPageRoute(
+                            builder: (context) => const InformationPage()));
+                      },
+                    ),
+                    // ListTile(
+                    //   leading: const Icon(
+                    //     Icons.assignment_ind_rounded,
+                    //     size: 32,
+                    //   ),
+                    //   title: const Text(
+                    //     "กิจกรรมประจำวันของฉัน",
+                    //     style: TextStyle(fontSize: 18),
+                    //   ),
+                    //   onTap: () {},
+                    // ),
+                    ListTile(
+                      leading: const Icon(
+                        Icons.assignment_ind_rounded,
+                        size: 32,
+                      ),
+                      title: const Text(
+                        "ค่าดัชนีมวลกายของฉัน",
+                        style: TextStyle(fontSize: 18),
+                        //BMIPage
+                      ),
+                      onTap: () {
+                        Navigator.of(context).push(MaterialPageRoute(
+                            builder: (context) => BMIPage(user: widget.user, isDrawer: true,)));
+                      },
+                    ),
+                    ListTile(
+                      leading: const Icon(
+                        Icons.assignment_ind_rounded,
+                        size: 32,
+                      ),
+                      title: const Text(
+                        "ข้อมูลทางโภชนาการของฉัน",
+                        style: TextStyle(fontSize: 18),
+                      ),
+                      onTap: () {
+                        Navigator.of(context).push(MaterialPageRoute(
+                          builder: (context) => Nutrition(user: widget.user, isDrawer: true)));
+                      },
+                    ),
+                  ],
+                ),
+              ),
+              ListTile(
+                leading: const Icon(
+                  Icons.logout_outlined,
+                  size: 32,
+                ),
+                title: const Text(
+                  'ออกจากระบบ',
+                  style: TextStyle(fontSize: 18),
+                ),
+                onTap: () async {
+                  await Auth().signOut();
+                },
+              )
             ],
           ),
         ),
@@ -107,7 +223,6 @@ class _HomeState extends State<Home> {
           color: screenSizeData.screenWidth <= screenSizeData.maxWidth
               ? Colors.white
               : Colors.black,
-
           child: Center(
             child: Container(
               color: const Color.fromRGBO(255, 251, 242, 1),
@@ -123,7 +238,10 @@ class _HomeState extends State<Home> {
                   ),
                   Expanded(
                     flex: screenSizeData.screenWidth < 600 ? 6 : 3,
-                    child: SectionButtonClick(width: screenSizeData.screenSizeWidth, height: screenSizeData.screenHeight,),
+                    child: SectionButtonClick(
+                      width: screenSizeData.screenSizeWidth,
+                      height: screenSizeData.screenHeight,
+                    ),
                   ),
                   //
                   const Expanded(
@@ -149,29 +267,23 @@ class FooterSection extends StatelessWidget {
   Widget build(BuildContext context) {
     return SizedBox(
       width: MediaQuery.of(context).size.width,
-      child: Column(
-        children: [
-          Expanded(
-            child: Container(
-            ),
-          ),
-          Expanded(
-            child: Container(
-              color: const Color.fromRGBO(95, 206, 126, 0.65),
-            ),
-          ),
-        ]
+      child: Column(children: [
+        Expanded(
+          child: Container(),
         ),
-      );
+        Expanded(
+          child: Container(
+            color: const Color.fromRGBO(95, 206, 126, 0.65),
+          ),
+        ),
+      ]),
+    );
   }
 }
 
 class SectionButtonClick extends StatelessWidget {
-  const SectionButtonClick({
-    super.key,
-    required this.width,
-    required this.height
-  });
+  const SectionButtonClick(
+      {super.key, required this.width, required this.height});
   final double width;
   final double height;
 
@@ -189,22 +301,26 @@ class SectionButtonClick extends StatelessWidget {
               children: [
                 Expanded(
                   flex: width < 600 ? 3 : 1,
-                  child: const SizedBox(
-                  ),
-                ),     
+                  child: const SizedBox(),
+                ),
                 Expanded(
-                  flex: 20,
-                  child: SearchMenuBox(width: width, height: height,)),
+                    flex: 20,
+                    child: SearchMenuBox(
+                      width: width,
+                      height: height,
+                    )),
                 Expanded(
-                  flex: 18,
-                  child: HistoryBox(width: width, height: height,)),
+                    flex: 18,
+                    child: HistoryBox(
+                      width: width,
+                      height: height,
+                    )),
                 Expanded(
-                  flex: 15,
-                  child: FlagNutritionBox(width: width, height: height)),
+                    flex: 15,
+                    child: FlagNutritionBox(width: width, height: height)),
                 Expanded(
                   flex: width < 600 ? 2 : 15,
-                  child: const SizedBox(
-                  ),
+                  child: const SizedBox(),
                 ),
               ],
             ),
@@ -242,7 +358,7 @@ class FlagNutritionBox extends StatelessWidget {
                 innerColor: Colors.white,
                 outerColor: const Color.fromRGBO(197, 235, 246, 1),
                 textColor: const Color.fromRGBO(58, 0, 131, 1),
-                width: width*0.65,
+                width: width * 0.65,
                 //height: 120,
               ),
             ),
@@ -279,11 +395,11 @@ class HistoryBox extends StatelessWidget {
                 menuName: 'ประวัติการ\nรับประทานอาหาร',
                 innerColor: const Color.fromRGBO(255, 238, 225, 1),
                 outerColor: const Color.fromRGBO(240, 164, 164, 1),
-                width: width *0.65,
+                width: width * 0.65,
               ),
             ),
             Positioned(
-              left: width * 0.5 - 50/2 - (50 * 1.8),
+              left: width * 0.5 - 50 / 2 - (50 * 1.8),
               top: 30,
               child: Image.asset(
                 'assets/icons/book1.png',
@@ -300,11 +416,7 @@ class HistoryBox extends StatelessWidget {
 }
 
 class SearchMenuBox extends StatelessWidget {
-  const SearchMenuBox({
-    super.key,
-    required this.width,
-    required this.height
-  });
+  const SearchMenuBox({super.key, required this.width, required this.height});
   final double width;
   final double height;
 
@@ -327,13 +439,13 @@ class SearchMenuBox extends StatelessWidget {
                 innerColor: Colors.yellow.shade100,
                 outerColor: Colors.greenAccent.shade100,
                 height: 340,
-                width: width*0.65,
+                width: width * 0.65,
               ),
             ),
             Positioned(
-              left: width * 0.5 - 150/2 + 150 - 40,
-              bottom: 150/2 - (75 * 0.2),
-              child: const LamponTemplate())
+                left: width * 0.5 - 150 / 2 + 150 - 40,
+                bottom: 150 / 2 - (75 * 0.2),
+                child: const LamponTemplate())
           ],
         ),
       ),
@@ -370,10 +482,9 @@ class HeaderSection extends StatelessWidget {
               Padding(
                 padding: const EdgeInsets.symmetric(vertical: 10),
                 child: Text(
-                  '"${widget.username}"',
+                  '"${widget.user.username}"',
                   style: const TextStyle(
-                      fontSize: 20, fontWeight: FontWeight.bold
-                  ),
+                      fontSize: 20, fontWeight: FontWeight.bold),
                 ),
               )
             ],
