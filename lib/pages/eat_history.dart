@@ -6,6 +6,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:appfood2/widgets/button_back.dart';
 import 'package:intl/intl.dart' show DateFormat;
 import 'package:syncfusion_flutter_datepicker/datepicker.dart';
+import 'package:appfood2/screen_size.dart';
 
 class History {
   const History({
@@ -47,23 +48,42 @@ class _EatHistoryPageState extends State<EatHistoryPage> {
         timestamp: history["timestamp"],
       ));
     }
+    // sort by timestamp
+    historySlots.sort((a, b) => a.timestamp.compareTo(b.timestamp));
     return historySlots;
   }
 
   @override
   Widget build(BuildContext context) {
+    final mediaQueryData = MediaQuery.of(context);
+    final screenSizeData = ScreenSizeData(
+      screenWidth: mediaQueryData.size.width,
+      screenHeight: mediaQueryData.size.height,
+    );
     return Scaffold(
-      body: FutureBuilder(
-        builder: (context, snapshot) {
-          if (snapshot.hasData) {
-            return EatHistoryComponent(history: snapshot.data!);
-          } else if (snapshot.hasError) {
-            return Text("${snapshot.error} ?? `ERR`");
-          } else {
-            return const Center(child: CircularProgressIndicator());
-          }
-        },
-        future: _getHistoryData(),
+      body: Container(
+        color: screenSizeData.screenWidth <= screenSizeData.maxWidth
+                    ? Colors.white
+                    : Colors.black,
+        child: Center(
+          child: Container(
+            color: Colors.white,
+            width: screenSizeData.screenSizeWidth,
+            height: screenSizeData.screenHeight,
+            child: FutureBuilder(
+              builder: (context, snapshot) {
+                if (snapshot.hasData) {
+                  return EatHistoryComponent(history: snapshot.data!);
+                } else if (snapshot.hasError) {
+                  return Text("${snapshot.error} ?? `ERR`");
+                } else {
+                  return const Center(child: CircularProgressIndicator());
+                }
+              },
+              future: _getHistoryData(),
+            ),
+          ),
+        ),
       ),
     );
   }
@@ -270,7 +290,7 @@ class _EatHistoryComponentState extends State<EatHistoryComponent> {
                 "${_startDate[6]}${_startDate[7]}${_startDate[8]}${_startDate[9]}-${_startDate[3]}${_startDate[4]}-${_startDate[0]}${_startDate[1]} 00:00:00")
             .millisecondsSinceEpoch;
         int checkend = DateTime.parse(
-                "${_startDate[6]}${_startDate[7]}${_startDate[8]}${_startDate[9]}-${_startDate[3]}${_startDate[4]}-${_startDate[0]}${_startDate[1]} 12:00:00Z")
+                "${_startDate[6]}${_startDate[7]}${_startDate[8]}${_startDate[9]}-${_startDate[3]}${_startDate[4]}-${_startDate[0]}${_startDate[1]} 23:59:59")
             .millisecondsSinceEpoch;
         int count = 0;
         for (var i = 0; i < widget.history.length; i++) {
@@ -293,7 +313,7 @@ class _EatHistoryComponentState extends State<EatHistoryComponent> {
                 "${_startDate[6]}${_startDate[7]}${_startDate[8]}${_startDate[9]}-${_startDate[3]}${_startDate[4]}-${_startDate[0]}${_startDate[1]} 00:00:00")
             .millisecondsSinceEpoch;
         int checkend = DateTime.parse(
-                "${_endDate[6]}${_endDate[7]}${_endDate[8]}${_endDate[9]}-${_endDate[3]}${_endDate[4]}-${_endDate[0]}${_endDate[1]} 12:00:00Z")
+                "${_endDate[6]}${_endDate[7]}${_endDate[8]}${_endDate[9]}-${_endDate[3]}${_endDate[4]}-${_endDate[0]}${_endDate[1]} 23:59:59")
             .millisecondsSinceEpoch;
         int count = 0;
         for (var i = 0; i < widget.history.length; i++) {
@@ -321,7 +341,7 @@ class _EatHistoryComponentState extends State<EatHistoryComponent> {
           child: SizedBox(
               child: Column(children: [
         SizedBox(
-            height: 122,
+            height: 132,
             width: double.infinity,
             child: DecoratedBox(
                 decoration: const BoxDecoration(
@@ -364,22 +384,19 @@ class _EatHistoryComponentState extends State<EatHistoryComponent> {
                       ],
                     ),
                     Padding(
-                      padding:
-                          const EdgeInsets.only(left: 44, right: 35, top: 10),
+                      padding: const EdgeInsets.only(top: 15),
                       child: Container(
-                          alignment: Alignment.center,
-                          width: double.infinity,
-                          height: 47,
+                        padding: const EdgeInsets.symmetric(vertical: 5, horizontal: 15),
+                          //alignment: Alignment.center,
+                          //width: double.infinity,
+                          //height: 47,
                           decoration: BoxDecoration(
                               color: Colors.white,
                               borderRadius: BorderRadius.circular(30.0)),
-                          child: const Align(
-                            alignment: Alignment.center,
-                            child: Text(
-                              "ประวัติการรับประทานอาหาร",
-                              style: TextStyle(
-                                  fontSize: 24, fontWeight: FontWeight.bold),
-                            ),
+                          child: const Text(
+                            "ประวัติการรับประทานอาหาร",
+                            style: TextStyle(
+                                fontSize: 28, fontWeight: FontWeight.bold),
                           )),
                     ),
                   ],
@@ -458,13 +475,15 @@ class HistorySlot extends StatefulWidget {
       required this.foodName,
       required this.quantity,
       required this.timestamp,
-      required this.unit});
+      required this.unit,
+      this.oneDay = false});
   final int number;
   final String image;
   final String foodName;
   final int quantity;
   final int timestamp;
   final String unit;
+  final bool oneDay;
 
   @override
   State<HistorySlot> createState() => _HistorySlotState();
@@ -472,11 +491,14 @@ class HistorySlot extends StatefulWidget {
 
 class _HistorySlotState extends State<HistorySlot> {
   late String showTime;
+  late String showDateTime;
 
   @override
   void initState() {
     DateTime dateTime = DateTime.fromMillisecondsSinceEpoch(widget.timestamp);
     showTime = "${dateTime.hour}:${dateTime.minute.toString().padLeft(2, "0")}";
+    showDateTime =
+        "${dateTime.day}/${dateTime.month}/${dateTime.year + 543} ${showTime}";
     super.initState();
   }
 
@@ -522,7 +544,7 @@ class _HistorySlotState extends State<HistorySlot> {
                       fontSize: 20, fontWeight: FontWeight.bold),
                 ),
                 Text(
-                  "เวลา $showTime น.",
+                  widget.oneDay ? "เวลา $showTime น." : "วันที่ $showDateTime",
                   style: const TextStyle(
                       fontWeight: FontWeight.bold, fontSize: 20),
                 )
