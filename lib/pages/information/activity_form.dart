@@ -5,6 +5,7 @@ import 'package:appfood2/widgets/wide_dropdown.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:appfood2/screen_size.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 List<String> frequency = ["1", "2", "3", "4", "5", "6", "7"];
 List<String> lightActivitiesData = [
@@ -16,9 +17,12 @@ List<String> lightActivitiesData = [
 
 class ActivityForm extends StatefulWidget {
   final User user;
+  final bool
+      isConfig; //this variable is use to determine if to write to db when finish result
   const ActivityForm({
     super.key,
     required this.user,
+    this.isConfig = false,
   });
 
   @override
@@ -58,7 +62,8 @@ class _ActivityFormState extends State<ActivityForm> {
                           ActivityFormHeader(
                             username: widget.user.username,
                           ),
-                          ActivityFormBody(user: widget.user),
+                          ActivityFormBody(
+                              user: widget.user, isConfig: widget.isConfig),
                         ],
                       ),
                     ),
@@ -75,9 +80,11 @@ class _ActivityFormState extends State<ActivityForm> {
 
 class ActivityFormBody extends StatefulWidget {
   final User user;
+  final bool isConfig;
   const ActivityFormBody({
     super.key,
     required this.user,
+    this.isConfig = false,
   });
 
   @override
@@ -178,7 +185,7 @@ class _ActivityFormBodyState extends State<ActivityFormBody> {
                         extraLightActivities.add(UserActivity());
                         extraLightListKey.currentState!.insertItem(
                           index + 1,
-                          duration: const Duration(milliseconds: 1000),
+                          duration: const Duration(milliseconds: 500),
                         );
                       }
                       extraLightActivities[index].activityName = val;
@@ -227,7 +234,7 @@ class _ActivityFormBodyState extends State<ActivityFormBody> {
                         lightActivities.add(UserActivity());
                         lightListKey.currentState!.insertItem(
                           index + 1,
-                          duration: const Duration(milliseconds: 1000),
+                          duration: const Duration(milliseconds: 500),
                         );
                       }
                       lightActivities[index].activityName = val;
@@ -278,7 +285,7 @@ class _ActivityFormBodyState extends State<ActivityFormBody> {
                         mediumActivities.add(UserActivity());
                         mediumListKey.currentState!.insertItem(
                           index + 1,
-                          duration: const Duration(milliseconds: 1000),
+                          duration: const Duration(milliseconds: 500),
                         );
                       }
                       mediumActivities[index].activityName = val;
@@ -315,20 +322,37 @@ class _ActivityFormBodyState extends State<ActivityFormBody> {
                         return Padding(
                           padding: const EdgeInsets.symmetric(vertical: 8.0),
                           child: Row(
-                            crossAxisAlignment: CrossAxisAlignment.center,
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
-                              const Padding(
-                                padding: EdgeInsets.symmetric(horizontal: 8.0),
-                                child: Icon(
-                                  Icons.circle,
-                                  color: Color(0xFF636363),
-                                  size: 16,
+                              Row(
+                                crossAxisAlignment: CrossAxisAlignment.center,
+                                children: [
+                                  const Padding(
+                                    padding:
+                                        EdgeInsets.symmetric(horizontal: 8.0),
+                                    child: Icon(
+                                      Icons.circle,
+                                      color: Color(0xFF636363),
+                                      size: 16,
+                                    ),
+                                  ),
+                                  Text(
+                                    customActivities[index].activityName,
+                                    style: const TextStyle(fontSize: 18),
+                                  ),
+                                ],
+                              ),
+                              TextButton(
+                                onPressed: () {
+                                  setState(() {
+                                    customActivities.removeAt(index);
+                                  });
+                                },
+                                child: const FaIcon(
+                                  FontAwesomeIcons.circleXmark,
+                                  color: Colors.red,
                                 ),
-                              ),
-                              Text(
-                                customActivities[index].activityName,
-                                style: const TextStyle(fontSize: 18),
-                              ),
+                              )
                             ],
                           ),
                         );
@@ -365,7 +389,7 @@ class _ActivityFormBodyState extends State<ActivityFormBody> {
                                 color: const Color(0xFFFFD18B),
                                 borderRadius: BorderRadius.circular(30),
                               ),
-                              height: 220,
+                              height: 180,
                               child: Column(
                                 mainAxisAlignment:
                                     MainAxisAlignment.spaceEvenly,
@@ -373,7 +397,9 @@ class _ActivityFormBodyState extends State<ActivityFormBody> {
                                 children: [
                                   const Text(
                                     "กิจกรรมที่ทำ",
-                                    style: TextStyle(fontSize: 22),
+                                    style: TextStyle(
+                                        fontSize: 22,
+                                        fontWeight: FontWeight.w700),
                                   ),
                                   Padding(
                                     padding: const EdgeInsets.symmetric(
@@ -408,25 +434,6 @@ class _ActivityFormBodyState extends State<ActivityFormBody> {
                                       ),
                                     ),
                                   ),
-                                  Row(
-                                    mainAxisAlignment: MainAxisAlignment.start,
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.center,
-                                    children: [
-                                      const Text("จำนวน"),
-                                      SmallDropDown(
-                                          data: frequency,
-                                          border:
-                                              Border.all(color: Colors.black),
-                                          setSelectedItem: (String val) {
-                                            setState(() {
-                                              // ignore: prefer_typing_uninitialized_variables
-                                              tempFrequency = int.parse(val);
-                                            });
-                                          }),
-                                      const Text("ครั้ง/สัปดาห์"),
-                                    ],
-                                  ),
                                 ],
                               ),
                             ),
@@ -449,7 +456,7 @@ class _ActivityFormBodyState extends State<ActivityFormBody> {
                                       setState(() {
                                         customActivities.add(UserActivity(
                                             activityName: _popupController.text,
-                                            frequency: tempFrequency));
+                                            frequency: 0));
                                       });
                                       _popupController.clear();
                                       Navigator.of(context, rootNavigator: true)
@@ -514,8 +521,8 @@ class _ActivityFormBodyState extends State<ActivityFormBody> {
                       }
                       widget.user.customActivities = customActivities;
                       Navigator.of(context).push(MaterialPageRoute(
-                          builder: (context) =>
-                              ActivityResult(user: widget.user)));
+                          builder: (context) => ActivityResult(
+                              user: widget.user, isConfig: widget.isConfig)));
                     });
                   },
                   child: const Padding(

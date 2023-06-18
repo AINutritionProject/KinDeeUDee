@@ -1,3 +1,4 @@
+import 'package:appfood2/pages/information/activity_form.dart';
 import 'package:appfood2/pages/information/information.dart';
 import 'package:appfood2/pages/information/nutrition.dart';
 import 'package:appfood2/pages/information/bmi.dart';
@@ -55,10 +56,16 @@ class _HomePageState extends State<HomePage> {
       builder: (context, snapshot) {
         if (snapshot.hasData) {
           if (snapshot.data?.hasData == true) {
-            //TODO:check that map value is not null
-            return Home(
-              user: snapshot.data!,
-            );
+            if (!snapshot.data!.saveActivity &&
+                DateTime.now().millisecondsSinceEpoch -
+                        snapshot.data!.activityInputTime >=
+                    const Duration(days: 7).inMilliseconds) {
+              return ActivityForm(user: snapshot.data!, isConfig: true);
+            } else {
+              return Home(
+                user: snapshot.data!,
+              );
+            }
           } else {
             return const RegisterSuccesPage();
           }
@@ -75,11 +82,9 @@ class _HomePageState extends State<HomePage> {
 
 class _HomeState extends State<Home> {
   final String assetName = 'assets/icons/book-1.svg';
-  
 
   @override
   Widget build(BuildContext context) {
-    
     final mediaQueryData = MediaQuery.of(context);
     final screenSizeData = ScreenSizeData(
       screenWidth: mediaQueryData.size.width,
@@ -157,17 +162,21 @@ class _HomeState extends State<Home> {
                             builder: (context) => const InformationPage()));
                       },
                     ),
-                    // ListTile(
-                    //   leading: const Icon(
-                    //     Icons.assignment_ind_rounded,
-                    //     size: 32,
-                    //   ),
-                    //   title: const Text(
-                    //     "กิจกรรมประจำวันของฉัน",
-                    //     style: TextStyle(fontSize: 18),
-                    //   ),
-                    //   onTap: () {},
-                    // ),
+                    ListTile(
+                      leading: const Icon(
+                        Icons.assignment_ind_rounded,
+                        size: 32,
+                      ),
+                      title: const Text(
+                        "กิจกรรมประจำวันของฉัน",
+                        style: TextStyle(fontSize: 18),
+                      ),
+                      onTap: () {
+                        Navigator.of(context).push(MaterialPageRoute(
+                            builder: (context) => ActivityForm(
+                                user: widget.user, isConfig: true)));
+                      },
+                    ),
                     ListTile(
                       leading: const Icon(
                         Icons.assignment_ind_rounded,
@@ -180,7 +189,10 @@ class _HomeState extends State<Home> {
                       ),
                       onTap: () {
                         Navigator.of(context).push(MaterialPageRoute(
-                            builder: (context) => BMIPage(user: widget.user, isDrawer: true,)));
+                            builder: (context) => BMIPage(
+                                  user: widget.user,
+                                  isDrawer: true,
+                                )));
                       },
                     ),
                     ListTile(
@@ -194,7 +206,8 @@ class _HomeState extends State<Home> {
                       ),
                       onTap: () {
                         Navigator.of(context).push(MaterialPageRoute(
-                          builder: (context) => Nutrition(user: widget.user, isDrawer: true)));
+                            builder: (context) =>
+                                Nutrition(user: widget.user, isDrawer: true)));
                       },
                     ),
                   ],
