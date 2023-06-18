@@ -28,14 +28,13 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(fontFamily: "NotoSansThai"),
       home: Container(
         color: screenSizeData.screenWidth <= screenSizeData.maxWidth
-              ? Colors.white
-              : Colors.black,
-        child: Center
-        (child: 
-        SizedBox(
-          width: screenSizeData.screenSizeWidth,
-          height: screenSizeData.screenHeight,
-          child: const WelcomePage())),
+            ? Colors.white
+            : Colors.black,
+        child: Center(
+            child: SizedBox(
+                width: screenSizeData.screenSizeWidth,
+                height: screenSizeData.screenHeight,
+                child: const WelcomePage())),
       ),
     );
   }

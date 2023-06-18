@@ -78,6 +78,7 @@ class TFModel {
 
   Food? runModel(imglib.Image baseImage) {
     // convert image to input tensor
+    var _start = DateTime.now().millisecondsSinceEpoch;
     int imageSize = 320;
     final imglib.Image resizedImage =
         imglib.copyResize(baseImage, width: imageSize, height: imageSize);
@@ -98,6 +99,8 @@ class TFModel {
     print("confidence is $confidence");
     print("raw resource is $result, label is ${labels[result]}");
     print(foodMap[labels[result]]);
+    var _diff = DateTime.now().millisecondsSinceEpoch - _start;
+    print("run model time: $_diff");
     try {
       return foodMap[labels[result]];
     } catch (e) {

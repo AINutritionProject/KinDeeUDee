@@ -4,6 +4,7 @@ import 'package:appfood2/pages/camera.dart';
 import 'package:appfood2/pages/eat_confirm.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:appfood2/screen_size.dart';
+import 'package:appfood2/widgets/button_back.dart';
 
 class AddEatHistoryPage extends StatefulWidget {
   const AddEatHistoryPage({super.key});
@@ -40,33 +41,26 @@ class _AddEatHistoryPageState extends State<AddEatHistoryPage> {
               height: screenSizeData.screenHeight,
               child: SingleChildScrollView(
                 child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
-                    Align(
-                      alignment: Alignment.center,
-                      child: Padding(
-                        padding: const EdgeInsets.only(left: 55, right: 54, top: 5),
-                        child: Container(
-                          alignment: Alignment.bottomCenter,
-                          width: double.infinity,
-                          height: 110,
-                          decoration: BoxDecoration(
-                              color: const Color.fromRGBO(175, 236, 255, 1),
-                              borderRadius: BorderRadius.circular(50)),
-                          child: const Column(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              Text(
-                                "เพิ่มประวัติการ",
-                                style: TextStyle(
-                                    fontSize: 30, fontWeight: FontWeight.bold),
-                              ),
-                              Text(
-                                "รับประทานอาหาร",
-                                style: TextStyle(
-                                    fontSize: 30, fontWeight: FontWeight.bold),
-                              ),
-                            ],
-                          ),
+                    Padding(
+                      padding: EdgeInsets.only(top: screenSizeData.screenSizeWidth < 600 ? 10 : 30  ,left: 20),
+                      child: const Align(
+                        alignment: Alignment.centerLeft,
+                        child: ButtonBack(colorCircle: Color.fromRGBO(130, 151, 223, 1), color: Colors.white, sizeCircle: 60, size: 60,)),
+                    ),
+                    Padding(
+                      padding: EdgeInsets.only(top: screenSizeData.screenSizeWidth < 600 ? 20 : 40),
+                      child: Container(
+                        padding: EdgeInsets.symmetric(vertical: 15, horizontal: screenSizeData.screenSizeWidth * 0.15),
+                        decoration: BoxDecoration(
+                            color: const Color.fromRGBO(175, 236, 255, 1),
+                            borderRadius: BorderRadius.circular(50)),
+                        child: const Text(
+                          "เพิ่มประวัติการ\nรับประทานอาหาร",
+                          style: TextStyle(
+                              fontSize: 32, fontWeight: FontWeight.bold),
+                              textAlign: TextAlign.center,
                         ),
                       ),
                     ),
@@ -75,66 +69,70 @@ class _AddEatHistoryPageState extends State<AddEatHistoryPage> {
                       child: Column(
                         children: [
                           Padding(
-                            padding: const EdgeInsets.only(
-                                top: 28, left: 30, right: 200, bottom: 15),
-                            child: Container(
-                              alignment: Alignment.center,
-                              width: double.infinity,
-                              height: 60,
-                              decoration: BoxDecoration(
-                                  color: const Color.fromRGBO(255, 169, 90, 1),
-                                  borderRadius: BorderRadius.circular(20.0)),
-                              child: const Text(
-                                "ชื่ออาหาร",
-                                style: TextStyle(
-                                    fontSize: 30, fontWeight: FontWeight.w700),
+                            
+                            padding: EdgeInsets.only(left: 20, top: screenSizeData.screenHeight * 0.03, bottom: screenSizeData.screenHeight * 0.025),
+                            child: Align(
+                              alignment: Alignment.centerLeft,
+                              child: Container(
+                                padding: const EdgeInsets.symmetric(vertical: 18, horizontal: 30),
+                                decoration: BoxDecoration(
+                                    color: const Color.fromRGBO(255, 169, 90, 1),
+                                    borderRadius: BorderRadius.circular(30.0)),
+                                child: const Text(
+                                  "ชื่ออาหาร",
+                                  style: TextStyle(
+                                      fontSize: 32, fontWeight: FontWeight.w700),
+                                ),
                               ),
                             ),
                           ),
                           Padding(
                               padding: const EdgeInsets.only(left: 52, right: 52),
                               child: TextFormField(
+                                  
                                   controller: _foodNameController,
-                                  style: const TextStyle(fontSize: 20),
+                                  style: const TextStyle(fontSize: 32, fontWeight: FontWeight.bold),
                                   decoration: const InputDecoration(
                                       contentPadding: EdgeInsets.only(left: 12)))),
                           Padding(
-                            padding: const EdgeInsets.only(
-                                top: 28, left: 30, right: 200, bottom: 15),
-                            child: Container(
-                              alignment: Alignment.center,
-                              width: double.infinity,
-                              height: 60,
-                              decoration: BoxDecoration(
-                                  color: const Color.fromRGBO(136, 158, 238, 1),
-                                  borderRadius: BorderRadius.circular(20.0)),
-                              child: const Text(
-                                "ปริมาณ",
-                                style: TextStyle(
-                                    fontSize: 30, fontWeight: FontWeight.w700),
+                            padding: EdgeInsets.only(left: 20, top: screenSizeData.screenHeight * 0.015 ,bottom: screenSizeData.screenHeight * 0.025 ),
+                            child: Align(
+                              alignment: Alignment.centerLeft,
+                              child: Container(
+                                padding: const EdgeInsets.symmetric(vertical: 18, horizontal: 30),
+                                decoration: BoxDecoration(
+                                    color: const Color.fromRGBO(136, 158, 238, 1),
+                                    borderRadius: BorderRadius.circular(30.0)),
+                                child: const Text(
+                                  "ปริมาณ",
+                                  style: TextStyle(
+                                      fontSize: 32, fontWeight: FontWeight.w700),
+                                ),
                               ),
                             ),
                           ),
                           Padding(
                               padding: const EdgeInsets.only(left: 52, right: 52),
+                  
                               child: TextFormField(
                                   controller: _quantityController,
                                   keyboardType: TextInputType.number,
-                                  style: const TextStyle(fontSize: 20),
+                                  style: const TextStyle(fontSize: 32, fontWeight: FontWeight.bold),
                                   decoration: const InputDecoration(
+
                                       contentPadding: EdgeInsets.only(left: 12)))),
                           Column(
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
                               Padding(
-                                  padding: const EdgeInsets.only(right: 50, top: 15),
+                                  padding: EdgeInsets.only(left: screenSizeData.screenSizeWidth < 600 ? screenSizeData.screenSizeWidth * 0.25 : screenSizeData.screenSizeWidth * 0.35, top: screenSizeData.screenHeight * 0.025),
                                   child: SizedBox(
-                                    width: 150,
+                                    //width: 200,
                                     child: ListTile(
                                       title: const Text(
                                         "ผล",
                                         style: TextStyle(
-                                            fontSize: 25, fontWeight: FontWeight.w700),
+                                            fontSize: 32, fontWeight: FontWeight.w700),
                                       ),
                                       leading: Radio(
                                           activeColor: Colors.black,
@@ -148,14 +146,14 @@ class _AddEatHistoryPageState extends State<AddEatHistoryPage> {
                                     ),
                                   )),
                               Padding(
-                                  padding: const EdgeInsets.only(right: 50),
+                                  padding: EdgeInsets.only(left: screenSizeData.screenSizeWidth < 600 ? screenSizeData.screenSizeWidth * 0.25 : screenSizeData.screenSizeWidth * 0.35,),
                                   child: SizedBox(
-                                    width: 151,
+                                    //width: 200,
                                     child: ListTile(
                                       title: const Text(
                                         "ส่วน",
                                         style: TextStyle(
-                                            fontSize: 25, fontWeight: FontWeight.w700),
+                                            fontSize: 32, fontWeight: FontWeight.w700),
                                       ),
                                       leading: Radio(
                                           activeColor: Colors.black,
@@ -169,14 +167,14 @@ class _AddEatHistoryPageState extends State<AddEatHistoryPage> {
                                     ),
                                   )),
                               Padding(
-                                  padding: const EdgeInsets.only(right: 50),
+                                  padding: EdgeInsets.only(left: screenSizeData.screenSizeWidth < 600 ? screenSizeData.screenSizeWidth * 0.25 : screenSizeData.screenSizeWidth * 0.35,),
                                   child: SizedBox(
-                                    width: 151,
+                                    //width: 200,
                                     child: ListTile(
                                       title: const Text(
                                         "กรัม",
                                         style: TextStyle(
-                                            fontSize: 25, fontWeight: FontWeight.w700),
+                                            fontSize: 32, fontWeight: FontWeight.w700),
                                       ),
                                       leading: Radio(
                                           activeColor: Colors.black,
@@ -190,15 +188,15 @@ class _AddEatHistoryPageState extends State<AddEatHistoryPage> {
                                     ),
                                   )),
                               Padding(
-                                  padding: const EdgeInsets.only(left: 25, bottom: 15),
+                                  padding: EdgeInsets.only(left: screenSizeData.screenSizeWidth < 600 ? screenSizeData.screenSizeWidth * 0.25 : screenSizeData.screenSizeWidth * 0.35, bottom: 10),
                                   child: Container(
                                     alignment: Alignment.bottomLeft,
-                                    width: 225,
+                                    //width: 225,
                                     child: ListTile(
                                       title: const Text(
                                         "ขนาดพอคำ",
                                         style: TextStyle(
-                                            fontSize: 25, fontWeight: FontWeight.w700),
+                                            fontSize: 32, fontWeight: FontWeight.w700),
                                       ),
                                       leading: Radio(
                                           activeColor: Colors.black,
@@ -238,16 +236,13 @@ class _AddEatHistoryPageState extends State<AddEatHistoryPage> {
                                     unit: _unit)));
                           },
                           child: Padding(
-                            padding: const EdgeInsets.only(left: 63, bottom: 49),
+                            padding: EdgeInsets.only(top: screenSizeData.screenHeight * 0.05, left: screenSizeData.screenSizeWidth < 600 ? 45 : 60, bottom: 10),
                             child: Container(
-                              width: 213,
-                              height: 48,
-                              alignment: Alignment.center,
                               decoration: BoxDecoration(
-                                  color: Colors.red.shade200,
+                                  color: const Color.fromRGBO(255, 188, 188, 1),
                                   borderRadius: BorderRadius.circular(30)),
                               padding: const EdgeInsets.symmetric(
-                                  horizontal: 5, vertical: 5),
+                                  horizontal: 30, vertical: 10),
                               child: const Row(
                                 mainAxisSize: MainAxisSize.min,
                                 children: [
@@ -258,36 +253,39 @@ class _AddEatHistoryPageState extends State<AddEatHistoryPage> {
                                   Text(
                                     "นำเข้ารูปภาพ",
                                     style: TextStyle(
-                                        fontSize: 25, fontWeight: FontWeight.w700),
+                                        fontSize: 28, fontWeight: FontWeight.w700),
                                   )
                                 ],
                               ),
                             ),
                           )),
                     ),
-                    Container(
-                      width: 100,
-                      height: 100,
-                      margin: EdgeInsets.only(bottom: 70),
-                      decoration: const BoxDecoration(
-                          color: Colors.orange, shape: BoxShape.circle),
-                      child: IconButton(
-                        onPressed: () {
-                          // validate form
-                          if (!_formKey.currentState!.validate()) {
-                            return;
-                          }
-                          Navigator.of(context).push(MaterialPageRoute(
-                              builder: (context) => CameraPage(
-                                  replaceWhenNavigate: true,
-                                  foodName: _foodNameController.text,
-                                  quantiy: int.parse(_quantityController.text),
-                                  unit: _unit)));
-                        },
-                        icon: const Icon(
-                          Icons.camera_alt,
-                          color: Colors.white,
-                          size: 75,
+                    Padding(
+                      padding: EdgeInsets.only(top: screenSizeData.screenHeight * 0.05, bottom: 35),
+                      child: Container(
+                        width: 100,
+                        height: 100,
+                        //margin: const EdgeInsets.only(bottom: 20),
+                        decoration: const BoxDecoration(
+                            color: Colors.orange, shape: BoxShape.circle),
+                        child: IconButton(
+                          onPressed: () {
+                            // validate form
+                            if (!_formKey.currentState!.validate()) {
+                              return;
+                            }
+                            Navigator.of(context).push(MaterialPageRoute(
+                                builder: (context) => CameraPage(
+                                    replaceWhenNavigate: true,
+                                    foodName: _foodNameController.text,
+                                    quantiy: int.parse(_quantityController.text),
+                                    unit: _unit)));
+                          },
+                          icon: const Icon(
+                            Icons.camera_alt,
+                            color: Colors.white,
+                            size: 75,
+                          ),
                         ),
                       ),
                     )
