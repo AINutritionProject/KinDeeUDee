@@ -17,7 +17,7 @@ class MenuPage extends StatelessWidget {
       screenWidth: mediaQueryData.size.width,
       screenHeight: mediaQueryData.size.height,
     );
-    
+
     return Scaffold(
         resizeToAvoidBottomInset: false,
         floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
@@ -25,8 +25,8 @@ class MenuPage extends StatelessWidget {
         body: SafeArea(
           child: Container(
             color: screenSizeData.screenWidth <= screenSizeData.maxWidth
-              ? Colors.white
-              : Colors.black,
+                ? Colors.white
+                : Colors.black,
             child: Center(
               child: Container(
                 width: screenSizeData.screenSizeWidth,
@@ -60,8 +60,7 @@ class MenuPage extends StatelessWidget {
                             child: InkWell(
                               onTap: () => {
                                 Navigator.of(context).push(MaterialPageRoute(
-                                    builder: (context) => const CameraPage(
-                                        replaceWhenNavigate: false)))
+                                    builder: (context) => const CameraPage()))
                               },
                               child: Container(
                                 padding: const EdgeInsets.all(10),
@@ -294,10 +293,14 @@ class _TextFieldExampleState extends State<TextFieldExample> {
                   child: GridView.count(
                     crossAxisCount: 2,
                     children: foodQuery
-                    .map((food) => Expanded(
-                          child: Center(child: FoodIcons(food: food, width: screenSizeData.screenSizeWidth,)),
-                        ))
-                    .toList(),
+                        .map((food) => Expanded(
+                              child: Center(
+                                  child: FoodIcons(
+                                food: food,
+                                width: screenSizeData.screenSizeWidth,
+                              )),
+                            ))
+                        .toList(),
                   ),
                 ),
               )
