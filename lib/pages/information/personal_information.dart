@@ -47,8 +47,8 @@ class PersonalInformation extends StatelessWidget {
       return SingleChildScrollView(
         child: Container(
           color: screenSizeData.screenWidth <= screenSizeData.maxWidth
-                ? Colors.white
-                : Colors.black,
+              ? Colors.white
+              : Colors.black,
           child: Center(
             child: Container(
               color: const Color(0xFFF8FFDD),
@@ -389,7 +389,7 @@ class _PersonalBodyState extends State<PersonalBody> {
                       ),
                       filled: true,
                       fillColor: Colors.white,
-                      hintText: "แพ้แมว,แพ้เธอ,แพ้เกมแรงค์ตกแงงงง :(",
+                      hintText: "แพ้อาหารทะเล,แพ้ถั่ว",
                       helperText: "\n",
                       helperStyle:
                           const TextStyle(fontSize: 15, color: Colors.red),
