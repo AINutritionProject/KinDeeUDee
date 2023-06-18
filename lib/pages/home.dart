@@ -364,7 +364,7 @@ class HeaderSection extends StatelessWidget {
             mainAxisSize: MainAxisSize.max,
             children: [
               const Text(
-                'ยินต้อนรับ',
+                'ยินดีต้อนรับ',
                 style: TextStyle(fontSize: 25, fontWeight: FontWeight.bold),
               ),
               Padding(
