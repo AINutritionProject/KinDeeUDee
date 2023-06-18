@@ -9,7 +9,9 @@ class Nutrition extends StatelessWidget {
   const Nutrition({
     super.key,
     required this.user,
+    this.isDrawer = false,
   });
+  final bool isDrawer;
 
   static const List dataInSection = [
     {
@@ -158,7 +160,12 @@ class Nutrition extends StatelessWidget {
                   itemCount: dataInSection.length + 2,
                   itemBuilder: (context, index) {
                     if (index == dataInSection.length + 1) {
-                      return ButtonSave(user: user);
+                      return Padding(
+                        padding: const EdgeInsets.only(bottom: 20),
+                        child: Visibility(
+                          visible: !isDrawer,
+                          child: ButtonSave(user: user, isDrawer: isDrawer,)),
+                      ) ;
                     } else if (index == 0) {
                       return ContainerHeader(
                         bmr: user.bmr,
@@ -187,10 +194,16 @@ class ButtonSave extends StatelessWidget {
   const ButtonSave({
     super.key,
     required this.user,
+    this.isDrawer = false
+    
   });
+  final bool isDrawer;
 
   @override
   Widget build(BuildContext context) {
+    if (isDrawer) {
+      return const SizedBox.shrink();
+    }
     return SizedBox(
       //width: MediaQuery.of(context).size.width,
       height: 120,
