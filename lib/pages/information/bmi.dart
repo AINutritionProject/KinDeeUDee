@@ -59,6 +59,7 @@ class _BMIState extends State<BMIPage> {
                       ? const Color.fromRGBO(217, 255, 200, 1)
                       : const Color.fromRGBO(255, 245, 220, 1),
                 width: screenSizeData.screenSizeWidth,
+                height: screenSizeData.screenHeight,
                 child: Column(
                   children: [
                     Padding(
@@ -263,7 +264,7 @@ class _BMIState extends State<BMIPage> {
                       padding: const EdgeInsets.only(left: 15, right: 15, top: 30),
                       child: Container(
                         //height: 158,
-                        padding: EdgeInsets.symmetric(vertical: 20, horizontal: 15),
+                        padding: const EdgeInsets.symmetric(vertical: 20, horizontal: 15),
                         //margin: EdgeInsets.symmetric(horizontal: 10),
                         width: screenSizeData.screenSizeWidth * 0.9,
                         decoration: BoxDecoration(
