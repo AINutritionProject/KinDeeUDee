@@ -5,6 +5,7 @@ import 'package:appfood2/widgets/wide_dropdown.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:appfood2/screen_size.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 List<String> frequency = ["1", "2", "3", "4", "5", "6", "7"];
 List<String> lightActivitiesData = [
@@ -312,25 +313,39 @@ class _ActivityFormBodyState extends State<ActivityFormBody> {
                       physics: const NeverScrollableScrollPhysics(),
                       itemCount: customActivities.length,
                       itemBuilder: (BuildContext context, int index) {
-                        return Padding(
-                          padding: const EdgeInsets.symmetric(vertical: 8.0),
-                          child: Row(
-                            crossAxisAlignment: CrossAxisAlignment.center,
-                            children: [
-                              const Padding(
-                                padding: EdgeInsets.symmetric(horizontal: 8.0),
-                                child: Icon(
-                                  Icons.circle,
-                                  color: Color(0xFF636363),
-                                  size: 16,
+                        return Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Row(
+                              crossAxisAlignment: CrossAxisAlignment.center,
+                              children: [
+                                const Padding(
+                                  padding:
+                                      EdgeInsets.symmetric(horizontal: 8.0),
+                                  child: Icon(
+                                    Icons.circle,
+                                    color: Color(0xFF636363),
+                                    size: 16,
+                                  ),
                                 ),
+                                Text(
+                                  customActivities[index].activityName,
+                                  style: const TextStyle(fontSize: 18),
+                                ),
+                              ],
+                            ),
+                            TextButton(
+                              onPressed: () {
+                                setState(() {
+                                  customActivities.removeAt(index);
+                                });
+                              },
+                              child: const FaIcon(
+                                FontAwesomeIcons.circleXmark,
+                                color: Colors.red,
                               ),
-                              Text(
-                                customActivities[index].activityName,
-                                style: const TextStyle(fontSize: 18),
-                              ),
-                            ],
-                          ),
+                            )
+                          ],
                         );
                       },
                     ),
