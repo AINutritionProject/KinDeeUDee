@@ -179,7 +179,7 @@ class _ActivityFormBodyState extends State<ActivityFormBody> {
                         extraLightActivities.add(UserActivity());
                         extraLightListKey.currentState!.insertItem(
                           index + 1,
-                          duration: const Duration(milliseconds: 1000),
+                          duration: const Duration(milliseconds: 500),
                         );
                       }
                       extraLightActivities[index].activityName = val;
@@ -228,7 +228,7 @@ class _ActivityFormBodyState extends State<ActivityFormBody> {
                         lightActivities.add(UserActivity());
                         lightListKey.currentState!.insertItem(
                           index + 1,
-                          duration: const Duration(milliseconds: 1000),
+                          duration: const Duration(milliseconds: 500),
                         );
                       }
                       lightActivities[index].activityName = val;
@@ -279,7 +279,7 @@ class _ActivityFormBodyState extends State<ActivityFormBody> {
                         mediumActivities.add(UserActivity());
                         mediumListKey.currentState!.insertItem(
                           index + 1,
-                          duration: const Duration(milliseconds: 1000),
+                          duration: const Duration(milliseconds: 500),
                         );
                       }
                       mediumActivities[index].activityName = val;
@@ -313,39 +313,42 @@ class _ActivityFormBodyState extends State<ActivityFormBody> {
                       physics: const NeverScrollableScrollPhysics(),
                       itemCount: customActivities.length,
                       itemBuilder: (BuildContext context, int index) {
-                        return Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            Row(
-                              crossAxisAlignment: CrossAxisAlignment.center,
-                              children: [
-                                const Padding(
-                                  padding:
-                                      EdgeInsets.symmetric(horizontal: 8.0),
-                                  child: Icon(
-                                    Icons.circle,
-                                    color: Color(0xFF636363),
-                                    size: 16,
+                        return Padding(
+                          padding: const EdgeInsets.symmetric(vertical: 8.0),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Row(
+                                crossAxisAlignment: CrossAxisAlignment.center,
+                                children: [
+                                  const Padding(
+                                    padding:
+                                        EdgeInsets.symmetric(horizontal: 8.0),
+                                    child: Icon(
+                                      Icons.circle,
+                                      color: Color(0xFF636363),
+                                      size: 16,
+                                    ),
                                   ),
-                                ),
-                                Text(
-                                  customActivities[index].activityName,
-                                  style: const TextStyle(fontSize: 18),
-                                ),
-                              ],
-                            ),
-                            TextButton(
-                              onPressed: () {
-                                setState(() {
-                                  customActivities.removeAt(index);
-                                });
-                              },
-                              child: const FaIcon(
-                                FontAwesomeIcons.circleXmark,
-                                color: Colors.red,
+                                  Text(
+                                    customActivities[index].activityName,
+                                    style: const TextStyle(fontSize: 18),
+                                  ),
+                                ],
                               ),
-                            )
-                          ],
+                              TextButton(
+                                onPressed: () {
+                                  setState(() {
+                                    customActivities.removeAt(index);
+                                  });
+                                },
+                                child: const FaIcon(
+                                  FontAwesomeIcons.circleXmark,
+                                  color: Colors.red,
+                                ),
+                              )
+                            ],
+                          ),
                         );
                       },
                     ),
