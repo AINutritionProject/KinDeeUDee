@@ -365,7 +365,7 @@ class _ActivityFormBodyState extends State<ActivityFormBody> {
                                 color: const Color(0xFFFFD18B),
                                 borderRadius: BorderRadius.circular(30),
                               ),
-                              height: 220,
+                              height: 180,
                               child: Column(
                                 mainAxisAlignment:
                                     MainAxisAlignment.spaceEvenly,
@@ -373,7 +373,9 @@ class _ActivityFormBodyState extends State<ActivityFormBody> {
                                 children: [
                                   const Text(
                                     "กิจกรรมที่ทำ",
-                                    style: TextStyle(fontSize: 22),
+                                    style: TextStyle(
+                                        fontSize: 22,
+                                        fontWeight: FontWeight.w700),
                                   ),
                                   Padding(
                                     padding: const EdgeInsets.symmetric(
@@ -408,25 +410,6 @@ class _ActivityFormBodyState extends State<ActivityFormBody> {
                                       ),
                                     ),
                                   ),
-                                  Row(
-                                    mainAxisAlignment: MainAxisAlignment.start,
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.center,
-                                    children: [
-                                      const Text("จำนวน"),
-                                      SmallDropDown(
-                                          data: frequency,
-                                          border:
-                                              Border.all(color: Colors.black),
-                                          setSelectedItem: (String val) {
-                                            setState(() {
-                                              // ignore: prefer_typing_uninitialized_variables
-                                              tempFrequency = int.parse(val);
-                                            });
-                                          }),
-                                      const Text("ครั้ง/สัปดาห์"),
-                                    ],
-                                  ),
                                 ],
                               ),
                             ),
@@ -449,7 +432,7 @@ class _ActivityFormBodyState extends State<ActivityFormBody> {
                                       setState(() {
                                         customActivities.add(UserActivity(
                                             activityName: _popupController.text,
-                                            frequency: tempFrequency));
+                                            frequency: 0));
                                       });
                                       _popupController.clear();
                                       Navigator.of(context, rootNavigator: true)
