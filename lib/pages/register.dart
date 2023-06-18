@@ -27,16 +27,17 @@ class RegisterPage extends StatelessWidget {
             builder: (BuildContext context, BoxConstraints constraints) {
           return Container(
             height: screenSizeData.screenHeight,
-              color: screenSizeData.screenWidth <= screenSizeData.maxWidth
-                  ? Colors.white
-                  : Colors.black,
+            color: screenSizeData.screenWidth <= screenSizeData.maxWidth
+                ? Colors.white
+                : Colors.black,
             child: Center(
               child: Container(
                 color: const Color.fromRGBO(255, 251, 242, 1),
                 width: screenSizeData.screenSizeWidth,
                 child: SingleChildScrollView(
                   child: ConstrainedBox(
-                    constraints: BoxConstraints(minHeight: constraints.maxHeight),
+                    constraints:
+                        BoxConstraints(minHeight: constraints.maxHeight),
                     child: const RegisterForm(),
                   ),
                 ),
