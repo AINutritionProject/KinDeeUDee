@@ -115,9 +115,9 @@ class _LogInFormState extends State<LogInForm> {
                         errorMaxLines: 2,
                         suffixIcon: IconButton(
                             icon: Icon(isObscure
-                                ? Icons.visibility
+                                ? Icons.visibility_off
                                 // ignore: dead_code
-                                : Icons.visibility_off),
+                                : Icons.visibility),
                             onPressed: () {
                               setState(() {
                                 isObscure = !isObscure;
