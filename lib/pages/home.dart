@@ -57,9 +57,9 @@ class _HomePageState extends State<HomePage> {
         if (snapshot.hasData) {
           if (snapshot.data?.hasData == true) {
             if (!snapshot.data!.saveActivity &&
-                snapshot.data!.activityInputTime -
-                        DateTime.now().millisecondsSinceEpoch >=
-                    const Duration(seconds: 10).inMilliseconds) {
+                DateTime.now().millisecondsSinceEpoch -
+                        snapshot.data!.activityInputTime >=
+                    const Duration(days: 7).inMilliseconds) {
               return ActivityForm(user: snapshot.data!, isConfig: true);
             } else {
               return Home(
