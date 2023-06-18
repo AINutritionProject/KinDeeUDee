@@ -99,7 +99,7 @@ class SelectDate extends StatefulWidget {
 class _SelectDateState extends State<SelectDate> {
   bool buttondate = false;
 
-  List<String> mont = [
+  List<String> month = [
     "ม.ค.",
     "ก.พ.",
     "มี.ค.",
@@ -216,8 +216,8 @@ class _SelectDateState extends State<SelectDate> {
                 (_startDate == " ")
                     ? "กรุณาเลือกช่วงเวลาใหม่อีกครั้ง!"
                     : (_startDate == _endDate)
-                        ? '${_startDate[0]}${_startDate[1]} ${(_startDate[3] == '1') ? mont[int.parse(_startDate[3]) - 1] : mont[int.parse("${_startDate[3]}${_startDate[4]}") - 1]} ${int.parse("${_startDate[6]}${_startDate[7]}${_startDate[8]}${_startDate[9]}") + 543}'
-                        : ('${_startDate[0]}${_startDate[1]} ${(_startDate[3] == '1') ? mont[int.parse(_startDate[3]) - 1] : mont[int.parse("${_startDate[3]}${_startDate[4]}") - 1]} ${int.parse("${_startDate[6]}${_startDate[7]}${_startDate[8]}${_startDate[9]}") + 543} - ${_endDate[0]}${_endDate[1]} ${(_endDate[3] == '1') ? mont[int.parse(_endDate[3]) - 1] : mont[int.parse("${_endDate[3]}${_endDate[4]}") - 1]} ${int.parse("${_endDate[6]}${_endDate[7]}${_endDate[8]}${_endDate[9]}") + 543}'),
+                        ? '${_startDate[0]}${_startDate[1]} ${(_startDate[3] == '1') ? month[int.parse(_startDate[3]) - 1] : month[int.parse("${_startDate[3]}${_startDate[4]}") - 1]} ${int.parse("${_startDate[6]}${_startDate[7]}${_startDate[8]}${_startDate[9]}") + 543}'
+                        : ('${_startDate[0]}${_startDate[1]} ${(_startDate[3] == '1') ? month[int.parse(_startDate[3]) - 1] : month[int.parse("${_startDate[3]}${_startDate[4]}") - 1]} ${int.parse("${_startDate[6]}${_startDate[7]}${_startDate[8]}${_startDate[9]}") + 543} - ${_endDate[0]}${_endDate[1]} ${(_endDate[3] == '1') ? month[int.parse(_endDate[3]) - 1] : month[int.parse("${_endDate[3]}${_endDate[4]}") - 1]} ${int.parse("${_endDate[6]}${_endDate[7]}${_endDate[8]}${_endDate[9]}") + 543}'),
                 style: const TextStyle(
                     fontSize: 22,
                     fontWeight: FontWeight.w700,
@@ -266,12 +266,14 @@ class _EatHistoryComponentState extends State<EatHistoryComponent> {
           foodName: e.value.foodName,
           quantity: e.value.quantity,
           timestamp: e.value.timestamp,
-          unit: e.value.unit);
+          unit: e.value.unit,
+          oneDay: false);
     }).toList();
   }
 
   void _updateDate(Map<String, String> interval) {
     setState(() {
+      filteredHistorySlots = [];
       _startDate = interval['start']!;
       _endDate = interval['end']!;
       if (_startDate == " ") {
@@ -282,10 +284,10 @@ class _EatHistoryComponentState extends State<EatHistoryComponent> {
               foodName: e.value.foodName,
               quantity: e.value.quantity,
               timestamp: e.value.timestamp,
-              unit: e.value.unit);
+              unit: e.value.unit,
+              oneDay: false);
         }).toList();
       } else if (_endDate == _startDate) {
-        filteredHistorySlots = [];
         int checkstart = DateTime.parse(
                 "${_startDate[6]}${_startDate[7]}${_startDate[8]}${_startDate[9]}-${_startDate[3]}${_startDate[4]}-${_startDate[0]}${_startDate[1]} 00:00:00")
             .millisecondsSinceEpoch;
@@ -294,8 +296,9 @@ class _EatHistoryComponentState extends State<EatHistoryComponent> {
             .millisecondsSinceEpoch;
         int count = 0;
         for (var i = 0; i < widget.history.length; i++) {
-          if (widget.history[i].timestamp >= checkstart &&
-              checkend >= widget.history[i].timestamp) {
+          print(checkend);
+          if ((widget.history[i].timestamp  >= checkstart)&&
+              (checkend  >= widget.history[i].timestamp)) {
             filteredHistorySlots.add(HistorySlot(
               number: count,
               image: widget.history[i].image,
@@ -303,12 +306,12 @@ class _EatHistoryComponentState extends State<EatHistoryComponent> {
               quantity: widget.history[i].quantity,
               timestamp: widget.history[i].timestamp,
               unit: widget.history[i].unit,
+              oneDay: true
             ));
             count++;
           }
         }
-      } else {
-        filteredHistorySlots = [];
+      } else if (_endDate != _startDate){
         int checkstart = DateTime.parse(
                 "${_startDate[6]}${_startDate[7]}${_startDate[8]}${_startDate[9]}-${_startDate[3]}${_startDate[4]}-${_startDate[0]}${_startDate[1]} 00:00:00")
             .millisecondsSinceEpoch;
@@ -317,6 +320,7 @@ class _EatHistoryComponentState extends State<EatHistoryComponent> {
             .millisecondsSinceEpoch;
         int count = 0;
         for (var i = 0; i < widget.history.length; i++) {
+          print(checkend);
           if (widget.history[i].timestamp >= checkstart &&
               checkend >= widget.history[i].timestamp) {
             filteredHistorySlots.add(HistorySlot(
@@ -326,6 +330,7 @@ class _EatHistoryComponentState extends State<EatHistoryComponent> {
               quantity: widget.history[i].quantity,
               timestamp: widget.history[i].timestamp,
               unit: widget.history[i].unit,
+              oneDay: false
             ));
             count++;
           }
@@ -476,7 +481,7 @@ class HistorySlot extends StatefulWidget {
       required this.quantity,
       required this.timestamp,
       required this.unit,
-      this.oneDay = false});
+      required this.oneDay });
   final int number;
   final String image;
   final String foodName;
@@ -490,17 +495,7 @@ class HistorySlot extends StatefulWidget {
 }
 
 class _HistorySlotState extends State<HistorySlot> {
-  late String showTime;
-  late String showDateTime;
 
-  @override
-  void initState() {
-    DateTime dateTime = DateTime.fromMillisecondsSinceEpoch(widget.timestamp);
-    showTime = "${dateTime.hour}:${dateTime.minute.toString().padLeft(2, "0")}";
-    showDateTime =
-        "${dateTime.day}/${dateTime.month}/${dateTime.year + 543} ${showTime}";
-    super.initState();
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -544,9 +539,12 @@ class _HistorySlotState extends State<HistorySlot> {
                       fontSize: 20, fontWeight: FontWeight.bold),
                 ),
                 Text(
-                  widget.oneDay ? "เวลา $showTime น." : "วันที่ $showDateTime",
+                  widget.oneDay? 
+                  "เวลา ${DateTime.fromMillisecondsSinceEpoch(widget.timestamp).hour}:${DateTime.fromMillisecondsSinceEpoch(widget.timestamp).minute}น."
+                  :"วันที่ ${DateTime.fromMillisecondsSinceEpoch(widget.timestamp).day}/${DateTime.fromMillisecondsSinceEpoch(widget.timestamp).month}/${DateTime.fromMillisecondsSinceEpoch(widget.timestamp).year + 543} ${DateTime.fromMillisecondsSinceEpoch(widget.timestamp).hour}:${DateTime.fromMillisecondsSinceEpoch(widget.timestamp).minute}",
                   style: const TextStyle(
                       fontWeight: FontWeight.bold, fontSize: 20),
+                      overflow: TextOverflow.ellipsis
                 )
               ],
             ),
