@@ -108,25 +108,25 @@ class _CameraPageState extends State<CameraPage> {
                           flex: 1,
                           child: Center(
                             child: SizedBox(
-                              height: 620,
-                              width: 620,
+                              height: 520,
+                              width: 520,
                               child: CameraPreview(
                                 camController,
                               ),
                             ),
                           ),
                         ),
-                        Container(
-                          margin: const EdgeInsets.only(top: 10),
-                          decoration: const BoxDecoration(
-                              shape: BoxShape.circle, color: Colors.white70),
-                          child: IconButton(
-                              onPressed: () async {
-                                await takePicture();
-                              },
-                              icon: const Icon(Icons.camera_alt_rounded,
-                                  color: Colors.white)),
-                        )
+                        // Container(
+                        //   margin: const EdgeInsets.only(top: 10),
+                        //   decoration: const BoxDecoration(
+                        //       shape: BoxShape.circle, color: Colors.white70),
+                        //   child: IconButton(
+                        //       onPressed: () async {
+                        //         await takePicture();
+                        //       },
+                        //       icon: const Icon(Icons.camera_alt_rounded,
+                        //           color: Colors.white)),
+                        // )
                       ],
                     ),
                     Center(
@@ -178,6 +178,21 @@ class _CameraPageState extends State<CameraPage> {
                         ),
                       ),
                     ),
+                    Align(
+                      alignment: Alignment.bottomCenter,
+                      child: Container(
+                        //margin: const EdgeInsets.only(top: 10),
+                        decoration: const BoxDecoration(
+                            shape: BoxShape.circle, color: Colors.white),
+                        child: IconButton(
+                            onPressed: () async {
+                              await takePicture();
+                            },
+                            iconSize: 60,
+                            icon: Icon(Icons.camera_alt_rounded,
+                                color: Colors.orange[300])),
+                      ),
+                    )
                   ],
                 );
               } else {
