@@ -72,12 +72,13 @@ class _EatConfirmPageState extends State<EatConfirmPage> {
                         onPressed: () async {
                           await SaveEatHistory(
                               widget.resultFood.name, 1, 'ส่วน', widget.image);
-                          Navigator.of(context)
-                              .pushReplacement(MaterialPageRoute(
+                          Navigator.of(context).pushAndRemoveUntil(
+                              MaterialPageRoute(
                                   builder: (context) => AIOutputPage(
                                         foodImage: widget.image,
                                         food: widget.resultFood,
-                                      )));
+                                      )),
+                              (route) => route.isFirst);
                         },
                         style: ElevatedButton.styleFrom(
                           backgroundColor:

@@ -24,7 +24,6 @@ class AppLogo extends StatelessWidget {
           left: screenWidth * 0.5 - 200 / 2,
           child: const SizedBox(
             width: 200,
-            
             child: Text(
               "กินดี",
               textAlign: TextAlign.left,
@@ -49,9 +48,7 @@ class AppLogo extends StatelessWidget {
             )),
         Positioned(
           top: 100,
-          left: screenWidth * 0.5 -
-              200 / 2 +
-              screenWidth * 0.25,
+          left: screenWidth * 0.5 - 200 / 2 + screenWidth * 0.25,
           child: const SizedBox(
             width: 200,
             child: Text(
@@ -85,7 +82,6 @@ class WelcomePage extends StatelessWidget {
         //backgroundColor: const Color.fromRGBO(240, 255, 231, 1),
         body: LayoutBuilder(
             builder: (BuildContext context, BoxConstraints constraints) {
-      
       return SafeArea(
         child: Container(
           color: screenSizeData.screenWidth <= screenSizeData.maxWidth
@@ -151,9 +147,9 @@ class ButtonStart extends StatelessWidget {
       padding: const EdgeInsets.symmetric(vertical: 22),
       child: GestureDetector(
         onTap: () {
-            Navigator.of(context).push(MaterialPageRoute(
-                      settings: const RouteSettings(name: "home"),
-                      builder: (context) => const LandingPage()));
+          Navigator.of(context).pushReplacement(MaterialPageRoute(
+              settings: const RouteSettings(name: "home"),
+              builder: (context) => const LandingPage()));
         },
         child: const Text(
           "เริ่มต้นใช้งาน",
