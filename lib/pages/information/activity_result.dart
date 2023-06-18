@@ -1,15 +1,18 @@
+import 'package:appfood2/pages/home.dart';
+import 'package:appfood2/pages/information/save_data_success.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:appfood2/db.dart';
 import 'package:appfood2/pages/information/milk.dart';
-import 'package:appfood2/widgets/shaker.dart';
 import 'package:appfood2/screen_size.dart';
 
 class ActivityResult extends StatelessWidget {
   final User user;
+  final bool isConfig;
   const ActivityResult({
     super.key,
     required this.user,
+    this.isConfig = false,
   });
   @override
   Widget build(BuildContext context) {
@@ -30,9 +33,12 @@ class ActivityResult extends StatelessWidget {
             child: Center(
               child: Column(
                 children: [
-                  ActivityResultHeader(width: screenSizeData.screenSizeWidth, height: screenSizeData.screenHeight,),
+                  ActivityResultHeader(
+                    width: screenSizeData.screenSizeWidth,
+                    height: screenSizeData.screenHeight,
+                  ),
                   ActivityResultBody(user: user),
-                  ActivityResultFooter(user: user),
+                  ActivityResultFooter(user: user, isConfig: isConfig),
                 ],
               ),
             ),
@@ -103,15 +109,22 @@ class _ActivityResultBodyState extends State<ActivityResultBody> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Padding(
-                    padding: EdgeInsets.only(left: MediaQuery.of(context).size.width < 600 ? 8 : 25, bottom: 20),
+                    padding: EdgeInsets.only(
+                        left: MediaQuery.of(context).size.width < 600 ? 8 : 25,
+                        bottom: 20),
                     child: Text("กิจกรรมที่ทำ",
                         style: TextStyle(
-                            fontSize: MediaQuery.of(context).size.width < 600 ? 22 : 28 , fontWeight: FontWeight.bold)),
+                            fontSize: MediaQuery.of(context).size.width < 600
+                                ? 22
+                                : 28,
+                            fontWeight: FontWeight.bold)),
                   ),
                   Padding(
-                    padding: EdgeInsets.only(left:  MediaQuery.of(context).size.width < 600 ? 8 : 25),
+                    padding: EdgeInsets.only(
+                        left: MediaQuery.of(context).size.width < 600 ? 8 : 25),
                     child: SizedBox(
-                      height: MediaQuery.of(context).size.width < 550 ? 220 : 350,
+                      height:
+                          MediaQuery.of(context).size.width < 550 ? 220 : 350,
                       child: Scrollbar(
                         child: ListView.builder(
                           itemCount: activities.length,
@@ -134,10 +147,18 @@ class _ActivityResultBodyState extends State<ActivityResultBody> {
                                         horizontal: 12, vertical: 9),
                                     decoration: BoxDecoration(
                                         color: activitiesColor[index % 2],
-                                        borderRadius: BorderRadius.circular(40)),
+                                        borderRadius:
+                                            BorderRadius.circular(40)),
                                     child: Text(activities[index],
                                         textAlign: TextAlign.center,
-                                        style: TextStyle(fontSize: MediaQuery.of(context).size.width < 600 ? 20 : 28, fontWeight: FontWeight.w400)),
+                                        style: TextStyle(
+                                            fontSize: MediaQuery.of(context)
+                                                        .size
+                                                        .width <
+                                                    600
+                                                ? 20
+                                                : 28,
+                                            fontWeight: FontWeight.w400)),
                                   ),
                                 ],
                               ),
@@ -166,7 +187,8 @@ class _ActivityResultBodyState extends State<ActivityResultBody> {
 }
 
 class ActivityResultHeader extends StatelessWidget {
-  const ActivityResultHeader({super.key, required this.width, required this.height});
+  const ActivityResultHeader(
+      {super.key, required this.width, required this.height});
   final double width;
   final double height;
 
@@ -174,7 +196,7 @@ class ActivityResultHeader extends StatelessWidget {
   Widget build(BuildContext context) {
     return Expanded(
       flex: 1,
-      child: SizedBox(        
+      child: SizedBox(
         child: Padding(
           padding: EdgeInsets.symmetric(horizontal: width * 0.1),
           child: Align(
@@ -188,10 +210,10 @@ class ActivityResultHeader extends StatelessWidget {
               child: Text(
                 "สรุปกิจกรรมประจำวัน",
                 style: TextStyle(
-                    fontSize: width < 600 ?  24 : 32,
+                    fontSize: width < 600 ? 24 : 32,
                     color: Colors.white,
                     fontWeight: FontWeight.bold),
-                    //textAlign: TextAlign.center,
+                //textAlign: TextAlign.center,
               ),
             ),
           ),
@@ -284,9 +306,11 @@ class SmileFace extends StatelessWidget {
 
 class ActivityResultFooter extends StatefulWidget {
   final User user;
+  final bool isConfig;
   const ActivityResultFooter({
     super.key,
     required this.user,
+    this.isConfig = false,
   });
 
   @override
@@ -295,14 +319,12 @@ class ActivityResultFooter extends StatefulWidget {
 
 class _ActivityResultFooterState extends State<ActivityResultFooter> {
   bool isChecked = false;
-  bool checkboxError = false;
-  final GlobalKey<ShakerState> _shakeKey = GlobalKey<ShakerState>();
-  
 
   @override
   Widget build(BuildContext context) {
     final double sizeText = MediaQuery.of(context).size.width < 600 ? 16 : 20;
-    final double sizeTextButton = MediaQuery.of(context).size.width < 600 ? 24 : 32;
+    final double sizeTextButton =
+        MediaQuery.of(context).size.width < 600 ? 24 : 32;
     return Expanded(
       flex: 3,
       child: Padding(
@@ -312,12 +334,18 @@ class _ActivityResultFooterState extends State<ActivityResultFooter> {
             Padding(
               padding: const EdgeInsets.symmetric(vertical: 4.0),
               child: Text("กิจกรรมของคุณแจ่มใส",
-                  style: TextStyle(fontSize:  MediaQuery.of(context).size.width < 600 ? 20 : 24), textAlign: TextAlign.center),
+                  style: TextStyle(
+                      fontSize:
+                          MediaQuery.of(context).size.width < 600 ? 20 : 24),
+                  textAlign: TextAlign.center),
             ),
             Padding(
               padding: const EdgeInsets.symmetric(vertical: 4.0),
               child: Text("อยู่ในระดับ",
-                  style: TextStyle(fontSize: MediaQuery.of(context).size.width < 600 ? 20 : 24), textAlign: TextAlign.center),
+                  style: TextStyle(
+                      fontSize:
+                          MediaQuery.of(context).size.width < 600 ? 20 : 24),
+                  textAlign: TextAlign.center),
             ),
             Padding(
               padding: const EdgeInsets.symmetric(vertical: 12.0),
@@ -328,7 +356,9 @@ class _ActivityResultFooterState extends State<ActivityResultFooter> {
                 padding:
                     const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
                 child: Text("กิจกรรมระดับปานกลาง",
-                    style: TextStyle(fontSize: MediaQuery.of(context).size.width < 600 ? 20 : 24)),
+                    style: TextStyle(
+                        fontSize:
+                            MediaQuery.of(context).size.width < 600 ? 20 : 24)),
               ),
             ),
             Padding(
@@ -339,31 +369,21 @@ class _ActivityResultFooterState extends State<ActivityResultFooter> {
                   SizedBox(
                     height: 30,
                     width: 30,
-                    child: Shaker(
-                      key: _shakeKey,
-                      speed: 8,
-                      duration: const Duration(milliseconds: 500),
-                      range: 5,
-                      child: Checkbox(
-                          side: !checkboxError
-                              ? const BorderSide(
-                                  color: Colors.black38, width: 2)
-                              : const BorderSide(color: Colors.red, width: 2),
-                          overlayColor:
-                              const MaterialStatePropertyAll(Color(0xFFC6FF9A)),
-                          value: isChecked,
-                          activeColor: const Color(0xFFBAEBC8),
-                          onChanged: (bool? val) {
-                            setState(() {
-                              checkboxError = false;
-                              isChecked = val!;
-                            });
-                          }),
-                    ),
+                    child: Checkbox(
+                        overlayColor:
+                            const MaterialStatePropertyAll(Color(0xFFC6FF9A)),
+                        value: isChecked,
+                        activeColor: const Color(0xFFBAEBC8),
+                        onChanged: (bool? val) {
+                          setState(() {
+                            isChecked = val!;
+                          });
+                        }),
                   ),
                   Text(
                     "ต้องการให้ระบบบันทึกกิจกรรมสำหรับวันถัดไป",
-                    style: TextStyle(fontSize: sizeText, fontWeight: FontWeight.w400),
+                    style: TextStyle(
+                        fontSize: sizeText, fontWeight: FontWeight.w400),
                   ),
                 ],
               ),
@@ -372,7 +392,8 @@ class _ActivityResultFooterState extends State<ActivityResultFooter> {
               padding: const EdgeInsets.symmetric(vertical: 2.0),
               child: Text(
                 "เพื่อคำนวณค่าพลังงานความต้องการเบิ้องต้นหรือไม่",
-                style: TextStyle(fontSize:  sizeText, fontWeight: FontWeight.w400),
+                style:
+                    TextStyle(fontSize: sizeText, fontWeight: FontWeight.w400),
               ),
             ),
             Padding(
@@ -386,36 +407,47 @@ class _ActivityResultFooterState extends State<ActivityResultFooter> {
                     padding: const MaterialStatePropertyAll(
                         EdgeInsets.symmetric(horizontal: 20, vertical: 10))),
                 onPressed: () {
-                  if (isChecked) {
-                    setState(() {
-                      for (var element in widget.user.extraLightActivities!) {
-                        if (element.activityName != "") {
-                          widget.user.activityLevel = 1;
-                        }
+                  setState(() {
+                    for (var element in widget.user.extraLightActivities!) {
+                      if (element.activityName != "") {
+                        widget.user.activityLevel = 1;
                       }
-                      for (var element in widget.user.lightActivities!) {
-                        if (element.activityName != "") {
-                          widget.user.activityLevel = 2;
-                        }
+                    }
+                    for (var element in widget.user.lightActivities!) {
+                      if (element.activityName != "") {
+                        widget.user.activityLevel = 2;
                       }
-                      for (var element in widget.user.mediumActivities!) {
-                        if (element.activityName != "") {
-                          widget.user.activityLevel = 3;
-                        }
+                    }
+                    for (var element in widget.user.mediumActivities!) {
+                      if (element.activityName != "") {
+                        widget.user.activityLevel = 3;
                       }
+                    }
+                    widget.user.activityInputTime =
+                        DateTime.now().millisecondsSinceEpoch;
+                    if (isChecked) {
+                      widget.user.saveActivity = true;
+                    } else {
+                      widget.user.saveActivity = false;
+                    }
+                    if (!widget.isConfig) {
                       Navigator.of(context).push(MaterialPageRoute(
                           builder: (context) => MilkPage(user: widget.user)));
-                    });
-                  } else {
-                    _shakeKey.currentState?.shake();
-                    setState(() {
-                      checkboxError = true;
-                    });
-                  }
+                    } else {
+                      Navigator.of(context).pushAndRemoveUntil(
+                          MaterialPageRoute(
+                              builder: (context) => SaveDataSuccessPage(
+                                    user: widget.user,
+                                    isConfig: true,
+                                  )),
+                          (route) => route.isFirst);
+                    }
+                  });
                 },
                 child: Text(
                   "บันทึก",
-                  style: TextStyle(fontSize: sizeTextButton, fontWeight: FontWeight.w400),
+                  style: TextStyle(
+                      fontSize: sizeTextButton, fontWeight: FontWeight.w400),
                 ),
               ),
             ),

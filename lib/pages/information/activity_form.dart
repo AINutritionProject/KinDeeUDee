@@ -17,9 +17,12 @@ List<String> lightActivitiesData = [
 
 class ActivityForm extends StatefulWidget {
   final User user;
+  final bool
+      isConfig; //this variable is use to determine if to write to db when finish result
   const ActivityForm({
     super.key,
     required this.user,
+    this.isConfig = false,
   });
 
   @override
@@ -59,7 +62,8 @@ class _ActivityFormState extends State<ActivityForm> {
                           ActivityFormHeader(
                             username: widget.user.username,
                           ),
-                          ActivityFormBody(user: widget.user),
+                          ActivityFormBody(
+                              user: widget.user, isConfig: widget.isConfig),
                         ],
                       ),
                     ),
@@ -76,9 +80,11 @@ class _ActivityFormState extends State<ActivityForm> {
 
 class ActivityFormBody extends StatefulWidget {
   final User user;
+  final bool isConfig;
   const ActivityFormBody({
     super.key,
     required this.user,
+    this.isConfig = false,
   });
 
   @override
@@ -515,8 +521,8 @@ class _ActivityFormBodyState extends State<ActivityFormBody> {
                       }
                       widget.user.customActivities = customActivities;
                       Navigator.of(context).push(MaterialPageRoute(
-                          builder: (context) =>
-                              ActivityResult(user: widget.user)));
+                          builder: (context) => ActivityResult(
+                              user: widget.user, isConfig: widget.isConfig)));
                     });
                   },
                   child: const Padding(
