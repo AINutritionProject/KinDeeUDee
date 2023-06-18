@@ -1,20 +1,16 @@
+import 'dart:io';
+
+import 'package:appfood2/ai.dart';
 import 'package:flutter/material.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:appfood2/pages/eat_confirm.dart';
+import 'package:image/image.dart' as img;
 import 'package:camera/camera.dart';
 
 class CameraPage extends StatefulWidget {
-  const CameraPage(
-      {super.key,
-      required this.replaceWhenNavigate,
-      this.quantiy,
-      this.foodName,
-      this.unit});
-  final bool replaceWhenNavigate;
-  final int? quantiy;
-  final String? foodName;
-  final String? unit;
+  const CameraPage({
+    super.key,
+  });
 
   @override
   State<CameraPage> createState() => _CameraPageState();
@@ -24,11 +20,42 @@ class _CameraPageState extends State<CameraPage> {
   late List<CameraDescription> cameras;
   late CameraController camController;
   FlashMode _flashMode = FlashMode.off;
+  final TFModel _tfModel = TFModel();
 
   Future<void> _initCamera() async {
     cameras = await availableCameras();
     camController = CameraController(cameras[0], ResolutionPreset.high);
+    await _tfModel.init();
     await camController.initialize();
+  }
+
+  Future<void> _next(XFile image) async {
+    final img.Image decodeImage =
+        img.decodeImage(File(image.path).readAsBytesSync())!;
+    try {
+      final result = await _tfModel.runModel(decodeImage);
+      Navigator.of(context).push(MaterialPageRoute(
+          builder: (context) => EatConfirmPage(
+                image: image,
+                resultFood: result!,
+              )));
+    } catch (error) {
+      await showDialog(
+          context: context,
+          builder: (context) {
+            return AlertDialog(
+              title: const Text("ไม่พบข้อมูล"),
+              content: Text("กรุรณาลองใหม่อีกครั้ง"),
+              actions: [
+                TextButton(
+                    onPressed: () {
+                      Navigator.of(context).pop();
+                    },
+                    child: const Text("ตกลง"))
+              ],
+            );
+          });
+    }
   }
 
   Future<void> takePicture() async {
@@ -36,22 +63,7 @@ class _CameraPageState extends State<CameraPage> {
     if (!context.mounted) {
       return;
     }
-    if (widget.replaceWhenNavigate) {
-      Navigator.of(context).pushReplacement(MaterialPageRoute(
-          builder: (context) => EatConfirmPage(
-              image: image,
-              name: widget.foodName,
-              quantity: widget.quantiy,
-              unit: widget.unit)));
-      return;
-    } else {
-      Navigator.of(context).push(MaterialPageRoute(
-          builder: (context) => EatConfirmPage(
-              image: image,
-              name: widget.foodName,
-              quantity: widget.quantiy,
-              unit: widget.unit)));
-    }
+    _next(image);
   }
 
   Future<void> getImageFromGallery() async {
@@ -63,13 +75,7 @@ class _CameraPageState extends State<CameraPage> {
     if (!context.mounted) {
       return;
     }
-    Navigator.of(context).push(MaterialPageRoute(
-        builder: (context) => EatConfirmPage(
-              image: image,
-              quantity: widget.quantiy,
-              name: widget.foodName,
-              unit: widget.unit,
-            )));
+    _next(image);
   }
 
   @override
