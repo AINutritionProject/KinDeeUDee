@@ -2,6 +2,7 @@ import 'package:appfood2/pages/information/activity_form.dart';
 import 'package:appfood2/pages/information/information.dart';
 import 'package:appfood2/pages/information/nutrition.dart';
 import 'package:appfood2/pages/information/bmi.dart';
+import 'package:appfood2/widgets/error_dialog.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:appfood2/pages/menu.dart';
@@ -12,6 +13,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:appfood2/pages/register_success.dart';
 import 'package:appfood2/pages/eat_history.dart';
 import 'package:firebase_storage/firebase_storage.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:image_picker/image_picker.dart';
 import 'dart:io';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -56,16 +58,7 @@ class _HomePageState extends State<HomePage> {
       builder: (context, snapshot) {
         if (snapshot.hasData) {
           if (snapshot.data?.hasData == true) {
-            if (!snapshot.data!.saveActivity &&
-                DateTime.now().millisecondsSinceEpoch -
-                        snapshot.data!.activityInputTime >=
-                    const Duration(days: 7).inMilliseconds) {
-              return ActivityForm(user: snapshot.data!, isConfig: true);
-            } else {
-              return Home(
-                user: snapshot.data!,
-              );
-            }
+            return Home(user: snapshot.data!);
           } else {
             return const RegisterSuccesPage();
           }
@@ -84,12 +77,80 @@ class _HomeState extends State<Home> {
   final String assetName = 'assets/icons/book-1.svg';
 
   @override
+  void initState() {
+    WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
+      if (!widget.user.saveActivity &&
+          DateTime.now().millisecondsSinceEpoch -
+                  widget.user.activityInputTime >=
+              const Duration(days: 7).inMilliseconds) {
+        showDialog(
+            barrierDismissible: false,
+            context: context,
+            builder: (context) {
+              return WillPopScope(
+                onWillPop: () => Future.value(false),
+                child: AlertDialog(
+                  title: const Row(
+                    children: [
+                      Padding(
+                        padding: EdgeInsets.only(right: 20.0),
+                        child: FaIcon(FontAwesomeIcons.circleExclamation,
+                            color: Colors.black38),
+                      ),
+                      Text(
+                        "ข้อมูลกิจกรรม",
+                        style: TextStyle(fontSize: 25),
+                      ),
+                    ],
+                  ),
+                  actionsPadding: const EdgeInsets.only(right: 20, bottom: 10),
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(30),
+                  ),
+                  actions: [
+                    TextButton(
+                        onPressed: () {
+                          Navigator.of(context).push(MaterialPageRoute(
+                              builder: (context) => ActivityForm(
+                                    user: widget.user,
+                                    isConfig: true,
+                                  )));
+                        },
+                        child: const Text(
+                          "OK",
+                          style: TextStyle(fontSize: 18),
+                        )),
+                  ],
+                  content: Container(
+                    padding: const EdgeInsets.all(20),
+                    decoration: BoxDecoration(
+                      color: Colors.white,
+                      borderRadius: BorderRadius.circular(30),
+                    ),
+                    height: 140,
+                    child: const Center(
+                      child: Text(
+                        "กรุณากรอกข้อมูลกิจกรรมประจำสัปดาห์ของท่าน",
+                        style: TextStyle(fontSize: 18),
+                      ),
+                    ),
+                  ),
+                ),
+              );
+            });
+      }
+    });
+    super.initState();
+  }
+
+  @override
   Widget build(BuildContext context) {
     final mediaQueryData = MediaQuery.of(context);
     final screenSizeData = ScreenSizeData(
       screenWidth: mediaQueryData.size.width,
       screenHeight: mediaQueryData.size.height,
     );
+
     return Scaffold(
       endDrawer: SafeArea(
         child: Drawer(
