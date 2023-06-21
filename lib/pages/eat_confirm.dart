@@ -70,7 +70,7 @@ class _EatConfirmPageState extends State<EatConfirmPage> {
                       padding: const EdgeInsets.fromLTRB(50, 10, 0, 0),
                       child: ElevatedButton(
                         onPressed: () async {
-                          await SaveEatHistory(
+                          await SaveEatHistoryToLocal(
                               widget.resultFood.name, 1, 'ส่วน', widget.image);
                           Navigator.of(context).pushAndRemoveUntil(
                               MaterialPageRoute(

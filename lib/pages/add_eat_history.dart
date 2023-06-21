@@ -1,3 +1,4 @@
+import 'dart:convert';
 import 'dart:io';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -10,6 +11,7 @@ import 'package:appfood2/pages/eat_confirm.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:appfood2/screen_size.dart';
 import 'package:appfood2/widgets/button_back.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 Future<void> SaveEatHistory(
     String name, int quantiy, String unit, XFile image) async {
@@ -27,6 +29,30 @@ Future<void> SaveEatHistory(
     "unit": unit,
     "foodPhoto": downloadUrl,
   });
+}
+
+Future<void> SaveEatHistoryToLocal(
+    String name, int quantiy, String unit, XFile image) async {
+  final pref = await SharedPreferences.getInstance();
+  final uid = FirebaseAuth.instance.currentUser!.uid;
+  final List<String> currentHistory =
+      pref.getStringList("EatHistoryOf-$uid") ?? [];
+  final nowTimestamp = DateTime.now().millisecondsSinceEpoch;
+  final imageBytes = await image.readAsBytes();
+  String base64Image = base64Encode(imageBytes);
+  currentHistory.add("EatHistoryOf-$uid-$nowTimestamp");
+
+  Map<String, dynamic> history = {
+    "timestamp": nowTimestamp,
+    "foodName": name,
+    "quantity": quantiy,
+    "unit": unit,
+    "foodPhoto": base64Image,
+  };
+  final String historyString = jsonEncode(history);
+  // print('saving history: $historyString');
+  await pref.setString("EatHistoryOf-$uid-$nowTimestamp", historyString);
+  await pref.setStringList("EatHistoryOf-$uid", currentHistory);
 }
 
 class AddEatHistoryPage extends StatefulWidget {
@@ -50,7 +76,7 @@ class _AddEatHistoryPageState extends State<AddEatHistoryPage> {
     if (image == null) {
       return;
     }
-    SaveEatHistory(_foodNameController.value.text,
+    SaveEatHistoryToLocal(_foodNameController.value.text,
             int.parse(_quantityController.value.text), _unit, image)
         .then((value) {
       Navigator.pop(context);
