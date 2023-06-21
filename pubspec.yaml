@@ -51,6 +51,7 @@ dependencies:
   image: ^4.0.17
   native_image: ^1.0.2
   vector_math: ^2.1.4
+  shared_preferences: ^2.1.2
 
 dev_dependencies:
   flutter_test:

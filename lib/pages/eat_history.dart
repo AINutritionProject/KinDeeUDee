@@ -1,3 +1,6 @@
+import 'dart:convert';
+import 'dart:typed_data';
+
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:appfood2/pages/add_eat_history.dart';
@@ -5,6 +8,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:appfood2/widgets/button_back.dart';
 import 'package:intl/intl.dart' show DateFormat;
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:syncfusion_flutter_datepicker/datepicker.dart';
 import 'package:appfood2/screen_size.dart';
 
@@ -16,7 +20,7 @@ class History {
     required this.quantity,
     required this.timestamp,
   });
-  final String image;
+  final Uint8List image;
   final String unit;
   final String foodName;
   final int quantity;
@@ -53,6 +57,37 @@ class _EatHistoryPageState extends State<EatHistoryPage> {
     return historySlots;
   }
 
+  Future<List<History>> _getHistoryDataFromLocal() async {
+    final uid = FirebaseAuth.instance.currentUser!.uid;
+    final prefs = await SharedPreferences.getInstance();
+    final List<String> historyKeys =
+        prefs.getStringList("EatHistoryOf-$uid") ?? [];
+    List<History> historySlots = [];
+    for (var i = 0; i < historyKeys.length; i++) {
+      final String? historyRaw = prefs.getString(historyKeys[i]);
+      if (historyRaw == null) {
+        continue;
+      }
+      final Map<String, dynamic> history = jsonDecode(historyRaw);
+      print("history: $history");
+      try {
+        historySlots.add(History(
+          image: base64Decode(history["foodPhoto"]),
+          unit: history["unit"],
+          foodName: history["foodName"],
+          quantity: history["quantity"],
+          timestamp: history["timestamp"],
+        ));
+      } catch (e) {
+        print("Error when convert history data: $e");
+        continue;
+      }
+    }
+    // sort by timestamp
+    historySlots.sort((a, b) => a.timestamp.compareTo(b.timestamp));
+    return historySlots;
+  }
+
   @override
   Widget build(BuildContext context) {
     final mediaQueryData = MediaQuery.of(context);
@@ -63,8 +98,8 @@ class _EatHistoryPageState extends State<EatHistoryPage> {
     return Scaffold(
       body: Container(
         color: screenSizeData.screenWidth <= screenSizeData.maxWidth
-                    ? Colors.white
-                    : Colors.black,
+            ? Colors.white
+            : Colors.black,
         child: Center(
           child: Container(
             color: Colors.white,
@@ -80,7 +115,7 @@ class _EatHistoryPageState extends State<EatHistoryPage> {
                   return const Center(child: CircularProgressIndicator());
                 }
               },
-              future: _getHistoryData(),
+              future: _getHistoryDataFromLocal(),
             ),
           ),
         ),
@@ -391,7 +426,8 @@ class _EatHistoryComponentState extends State<EatHistoryComponent> {
                     Padding(
                       padding: const EdgeInsets.only(top: 15),
                       child: Container(
-                        padding: const EdgeInsets.symmetric(vertical: 5, horizontal: 15),
+                          padding: const EdgeInsets.symmetric(
+                              vertical: 5, horizontal: 15),
                           //alignment: Alignment.center,
                           //width: double.infinity,
                           //height: 47,
@@ -483,7 +519,7 @@ class HistorySlot extends StatefulWidget {
       required this.unit,
       required this.oneDay });
   final int number;
-  final String image;
+  final Uint8List image;
   final String foodName;
   final int quantity;
   final int timestamp;
@@ -523,7 +559,7 @@ class _HistorySlotState extends State<HistorySlot> {
             child: SizedBox.fromSize(
               size: const Size.fromRadius(15 * 3),
               child: Image(
-                image: NetworkImage(widget.image),
+                image: Image(image: MemoryImage(widget.image)).image,
                 fit: BoxFit.cover,
               ),
             ),
