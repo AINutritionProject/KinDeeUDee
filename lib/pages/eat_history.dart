@@ -486,8 +486,10 @@ class _EatHistoryComponentState extends State<EatHistoryComponent> {
                           .then((value) {
                         widget.history.clear();
                         getEatHistoryDataFromLocal().then((value) {
-                          value.forEach((element) {
-                            widget.history.add(element);
+                          setState(() {
+                            value.forEach((element) {
+                              widget.history.add(element);
+                            });
                           });
                         });
                       });
