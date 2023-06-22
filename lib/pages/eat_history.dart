@@ -484,12 +484,13 @@ class _EatHistoryComponentState extends State<EatHistoryComponent> {
                           .push(MaterialPageRoute(
                               builder: (context) => const AddEatHistoryPage()))
                           .then((value) {
-                        widget.history.clear();
+                        
                         getEatHistoryDataFromLocal().then((value) {
                           setState(() {
-                            value.forEach((element) {
+                            widget.history.clear();
+                            for (var element in value) {
                               widget.history.add(element);
-                            });
+                            }
                           });
                         });
                       });
@@ -583,14 +584,14 @@ class _HistorySlotState extends State<HistorySlot> {
                 Text(
                   "${widget.foodName} ${widget.quantity} ${widget.unit}",
                   style: const TextStyle(
-                      fontSize: 20, fontWeight: FontWeight.bold),
+                      fontSize: 18, fontWeight: FontWeight.bold),
                 ),
                 Text(
                     widget.oneDay
                         ? "เวลา ${DateTime.fromMillisecondsSinceEpoch(widget.timestamp).hour}:${DateTime.fromMillisecondsSinceEpoch(widget.timestamp).minute}น."
                         : "วันที่ ${DateTime.fromMillisecondsSinceEpoch(widget.timestamp).day}/${DateTime.fromMillisecondsSinceEpoch(widget.timestamp).month}/${DateTime.fromMillisecondsSinceEpoch(widget.timestamp).year + 543} ${DateTime.fromMillisecondsSinceEpoch(widget.timestamp).hour}:${DateTime.fromMillisecondsSinceEpoch(widget.timestamp).minute}",
                     style: const TextStyle(
-                        fontWeight: FontWeight.bold, fontSize: 20),
+                        fontWeight: FontWeight.bold, fontSize: 18),
                     overflow: TextOverflow.ellipsis)
               ],
             ),
