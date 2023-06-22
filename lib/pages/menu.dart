@@ -200,7 +200,7 @@ class _TextFieldExampleState extends State<TextFieldExample> {
         name: element[1],
         type: element[11],
         detail: FoodNutritionDetail(
-            name: element[3],
+            name: element[3].replaceAll("_", ","),
             giIndex: element[5],
             benefit: element[9],
             power: element[6],
@@ -210,10 +210,11 @@ class _TextFieldExampleState extends State<TextFieldExample> {
             protein: element[12],
             fat: element[13],
             carbo: element[14],
-            // ignore: prefer_interpolation_to_compose_strings
-            realImageAssetPath: "assets/images/RealFruit/" + element[4]),
-        // ignore: prefer_interpolation_to_compose_strings
-        imageAssetPath: "assets/images/Fruit/" + element[2],
+            realImageAssetPath:
+                "assets/images/Real${element[11]}/" + element[4]),
+        imageAssetPath:
+            "assets/images/${element[11] == 'Fruit' ? 'Fruit' : 'RiceFlour'}/" +
+                element[2],
       ));
     }
     return foodList;
