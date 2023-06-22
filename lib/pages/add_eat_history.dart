@@ -69,10 +69,10 @@ class _AddEatHistoryPageState extends State<AddEatHistoryPage> {
       TextEditingController(text: '1');
   String _unit = "ผล";
 
-  Future<void> _next() async {
+  Future<void> _next(ImageSource source) async {
     final ImagePicker picker = ImagePicker();
-    final XFile? image = await picker.pickImage(
-        source: ImageSource.camera, maxWidth: 320, maxHeight: 320);
+    final XFile? image =
+        await picker.pickImage(source: source, maxWidth: 320, maxHeight: 320);
     if (image == null) {
       return;
     }
@@ -341,7 +341,7 @@ class _AddEatHistoryPageState extends State<AddEatHistoryPage> {
                       alignment: Alignment.centerLeft,
                       child: GestureDetector(
                           onTap: () {
-                            _next();
+                            _next(ImageSource.gallery);
                           },
                           child: Padding(
                             padding: EdgeInsets.only(
@@ -389,7 +389,7 @@ class _AddEatHistoryPageState extends State<AddEatHistoryPage> {
                             if (!_formKey.currentState!.validate()) {
                               return;
                             }
-                            _next();
+                            _next(ImageSource.camera);
                           },
                           icon: const Icon(
                             Icons.camera_alt,
