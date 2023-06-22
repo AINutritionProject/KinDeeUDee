@@ -34,27 +34,31 @@ class EatHistoryPage extends StatefulWidget {
   State<EatHistoryPage> createState() => _EatHistoryPageState();
 }
 
+Future<List<History>> getEatHistoryDataFromLocal() async {
+  final uid = FirebaseAuth.instance.currentUser!.uid;
+  final historyData = await FirebaseFirestore.instance
+      .collection("eatHistory")
+      .where("uid", isEqualTo: uid)
+      .get();
+  List<History> historySlots = [];
+  for (var i = 0; i < historyData.docs.length; i++) {
+    final history = historyData.docs[i];
+    historySlots.add(History(
+      image: history["foodPhoto"],
+      unit: history["unit"],
+      foodName: history["foodName"],
+      quantity: history["quantity"],
+      timestamp: history["timestamp"],
+    ));
+  }
+  // sort by timestamp
+  historySlots.sort((a, b) => a.timestamp.compareTo(b.timestamp));
+  return historySlots;
+}
+
 class _EatHistoryPageState extends State<EatHistoryPage> {
   Future<List<History>> _getHistoryData() async {
-    final uid = FirebaseAuth.instance.currentUser!.uid;
-    final historyData = await FirebaseFirestore.instance
-        .collection("eatHistory")
-        .where("uid", isEqualTo: uid)
-        .get();
-    List<History> historySlots = [];
-    for (var i = 0; i < historyData.docs.length; i++) {
-      final history = historyData.docs[i];
-      historySlots.add(History(
-        image: history["foodPhoto"],
-        unit: history["unit"],
-        foodName: history["foodName"],
-        quantity: history["quantity"],
-        timestamp: history["timestamp"],
-      ));
-    }
-    // sort by timestamp
-    historySlots.sort((a, b) => a.timestamp.compareTo(b.timestamp));
-    return historySlots;
+    return await getEatHistoryDataFromLocal();
   }
 
   Future<List<History>> _getHistoryDataFromLocal() async {
@@ -332,21 +336,20 @@ class _EatHistoryComponentState extends State<EatHistoryComponent> {
         int count = 0;
         for (var i = 0; i < widget.history.length; i++) {
           print(checkend);
-          if ((widget.history[i].timestamp  >= checkstart)&&
-              (checkend  >= widget.history[i].timestamp)) {
+          if ((widget.history[i].timestamp >= checkstart) &&
+              (checkend >= widget.history[i].timestamp)) {
             filteredHistorySlots.add(HistorySlot(
-              number: count,
-              image: widget.history[i].image,
-              foodName: widget.history[i].foodName,
-              quantity: widget.history[i].quantity,
-              timestamp: widget.history[i].timestamp,
-              unit: widget.history[i].unit,
-              oneDay: true
-            ));
+                number: count,
+                image: widget.history[i].image,
+                foodName: widget.history[i].foodName,
+                quantity: widget.history[i].quantity,
+                timestamp: widget.history[i].timestamp,
+                unit: widget.history[i].unit,
+                oneDay: true));
             count++;
           }
         }
-      } else if (_endDate != _startDate){
+      } else if (_endDate != _startDate) {
         int checkstart = DateTime.parse(
                 "${_startDate[6]}${_startDate[7]}${_startDate[8]}${_startDate[9]}-${_startDate[3]}${_startDate[4]}-${_startDate[0]}${_startDate[1]} 00:00:00")
             .millisecondsSinceEpoch;
@@ -359,14 +362,13 @@ class _EatHistoryComponentState extends State<EatHistoryComponent> {
           if (widget.history[i].timestamp >= checkstart &&
               checkend >= widget.history[i].timestamp) {
             filteredHistorySlots.add(HistorySlot(
-              number: count,
-              image: widget.history[i].image,
-              foodName: widget.history[i].foodName,
-              quantity: widget.history[i].quantity,
-              timestamp: widget.history[i].timestamp,
-              unit: widget.history[i].unit,
-              oneDay: false
-            ));
+                number: count,
+                image: widget.history[i].image,
+                foodName: widget.history[i].foodName,
+                quantity: widget.history[i].quantity,
+                timestamp: widget.history[i].timestamp,
+                unit: widget.history[i].unit,
+                oneDay: false));
             count++;
           }
         }
@@ -478,8 +480,17 @@ class _EatHistoryComponentState extends State<EatHistoryComponent> {
                   ),
                   GestureDetector(
                     onTap: () {
-                      Navigator.of(context).push(MaterialPageRoute(
-                          builder: (context) => const AddEatHistoryPage()));
+                      Navigator.of(context)
+                          .push(MaterialPageRoute(
+                              builder: (context) => const AddEatHistoryPage()))
+                          .then((value) {
+                        widget.history.clear();
+                        getEatHistoryDataFromLocal().then((value) {
+                          value.forEach((element) {
+                            widget.history.add(element);
+                          });
+                        });
+                      });
                     },
                     child: const Row(
                       children: [
@@ -517,7 +528,7 @@ class HistorySlot extends StatefulWidget {
       required this.quantity,
       required this.timestamp,
       required this.unit,
-      required this.oneDay });
+      required this.oneDay});
   final int number;
   final Uint8List image;
   final String foodName;
@@ -531,8 +542,6 @@ class HistorySlot extends StatefulWidget {
 }
 
 class _HistorySlotState extends State<HistorySlot> {
-
-
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -575,13 +584,12 @@ class _HistorySlotState extends State<HistorySlot> {
                       fontSize: 20, fontWeight: FontWeight.bold),
                 ),
                 Text(
-                  widget.oneDay? 
-                  "เวลา ${DateTime.fromMillisecondsSinceEpoch(widget.timestamp).hour}:${DateTime.fromMillisecondsSinceEpoch(widget.timestamp).minute}น."
-                  :"วันที่ ${DateTime.fromMillisecondsSinceEpoch(widget.timestamp).day}/${DateTime.fromMillisecondsSinceEpoch(widget.timestamp).month}/${DateTime.fromMillisecondsSinceEpoch(widget.timestamp).year + 543} ${DateTime.fromMillisecondsSinceEpoch(widget.timestamp).hour}:${DateTime.fromMillisecondsSinceEpoch(widget.timestamp).minute}",
-                  style: const TextStyle(
-                      fontWeight: FontWeight.bold, fontSize: 20),
-                      overflow: TextOverflow.ellipsis
-                )
+                    widget.oneDay
+                        ? "เวลา ${DateTime.fromMillisecondsSinceEpoch(widget.timestamp).hour}:${DateTime.fromMillisecondsSinceEpoch(widget.timestamp).minute}น."
+                        : "วันที่ ${DateTime.fromMillisecondsSinceEpoch(widget.timestamp).day}/${DateTime.fromMillisecondsSinceEpoch(widget.timestamp).month}/${DateTime.fromMillisecondsSinceEpoch(widget.timestamp).year + 543} ${DateTime.fromMillisecondsSinceEpoch(widget.timestamp).hour}:${DateTime.fromMillisecondsSinceEpoch(widget.timestamp).minute}",
+                    style: const TextStyle(
+                        fontWeight: FontWeight.bold, fontSize: 20),
+                    overflow: TextOverflow.ellipsis)
               ],
             ),
           )
