@@ -21,7 +21,7 @@ class AppLogo extends StatelessWidget {
       children: [
         Positioned(
           top: 40,
-          left: screenWidth * 0.5 - 200 / 2,
+          left: screenWidth * 0.5 - 200 / 2 + 30,
           child: const SizedBox(
             width: 200,
             child: Text(
@@ -37,7 +37,7 @@ class AppLogo extends StatelessWidget {
         ),
         Positioned(
             top: 110,
-            left: screenWidth * 0.5 - 155 / 2 - 40,
+            left: screenWidth * 0.5 - 155 / 2,
             child: Container(
               width: 155,
               alignment: Alignment.center,
@@ -48,7 +48,7 @@ class AppLogo extends StatelessWidget {
             )),
         Positioned(
           top: 100,
-          left: screenWidth * 0.5 - 200 / 2 + screenWidth * 0.25,
+          left: screenWidth * 0.5 - 200 / 2 + 60 + 70,
           child: const SizedBox(
             width: 200,
             child: Text(
