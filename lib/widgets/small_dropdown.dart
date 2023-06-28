@@ -55,9 +55,11 @@ class _SmallDropDownState extends State<SmallDropDown> {
           value: selectedItem,
           onChanged: (Object? val) {
             widget.setSelectedItem(val.toString());
-            setState(() {
-              selectedItem = val.toString();
-            });
+            if (mounted) {
+              setState(() {
+                selectedItem = val.toString();
+              });
+            }
           },
           items: widget.data.map<DropdownMenuItem<String>>((String value) {
             return DropdownMenuItem<String>(

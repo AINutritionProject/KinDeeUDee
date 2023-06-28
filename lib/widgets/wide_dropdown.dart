@@ -133,15 +133,20 @@ class _WideDropDownState extends State<WideDropDown> {
                                 ),
                                 onPressed: () {
                                   widget.setSelectedItem(widget.data[index]);
-                                  setState(() {
-                                    selectedItem = widget.data[index];
-                                    Future.delayed(
-                                        const Duration(milliseconds: 100), () {
-                                      setState(() {
-                                        boxOpen = false;
+                                  if (mounted) {
+                                    setState(() {
+                                      selectedItem = widget.data[index];
+                                      Future.delayed(
+                                          const Duration(milliseconds: 100),
+                                          () {
+                                        if (mounted) {
+                                          setState(() {
+                                            boxOpen = false;
+                                          });
+                                        }
                                       });
                                     });
-                                  });
+                                  }
                                 },
                                 child: Align(
                                   alignment: Alignment.centerLeft,
