@@ -177,6 +177,8 @@ class _ActivityFormBodyState extends State<ActivityFormBody> {
                       extraLightActivities[index].activityName == ""
                           ? null
                           : extraLightActivities[index].activityName,
+                  initialSelectedFrequency:
+                      extraLightActivities[index].frequency,
                   setSelectedName: (String val) {
                     setState(() {
                       val != "-----"
@@ -192,7 +194,7 @@ class _ActivityFormBodyState extends State<ActivityFormBody> {
                                       parent: animation, curve: Curves.linear),
                                 ));
                       }
-                      if (extraLightActivities.last.activityName != "-----" &&
+                      if (extraLightActivities.last.activityName != "" &&
                           extraLightActivities.length < 3) {
                         extraLightActivities.add(UserActivity());
                         extraLightListKey.currentState!.insertItem(
@@ -201,9 +203,6 @@ class _ActivityFormBodyState extends State<ActivityFormBody> {
                         );
                       }
                     });
-                    for (var item in extraLightActivities) {
-                      print(item.activityName);
-                    }
                   },
                   setSelectedFrequency: (String val) {
                     extraLightActivities[index].frequency = int.parse(val);
@@ -235,23 +234,35 @@ class _ActivityFormBodyState extends State<ActivityFormBody> {
                     CurvedAnimation(parent: animation, curve: Curves.linear),
                 child: ActivityDisplay(
                   nameColor: const Color(0xFFFFD7D7),
+                  frequencyColor: const Color(0xFFFFEBEB),
+                  data: lightActivitiesData,
                   initialSelectedName: lightActivities[index].activityName == ""
                       ? null
                       : lightActivities[index].activityName,
-                  frequencyColor: const Color(0xFFFFEBEB),
-                  data: lightActivitiesData,
+                  initialSelectedFrequency: lightActivities[index].frequency,
                   setSelectedName: (String val) {
                     setState(() {
-                      if (val != "-----" &&
-                          lightActivities.length < 3 &&
-                          index == lightActivities.length - 1) {
+                      val != "-----"
+                          ? lightActivities[index].activityName = val
+                          : lightActivities[index].activityName = "";
+                      if (val == "-----" &&
+                          index < lightActivities.length - 1) {
+                        lightActivities.removeAt(index);
+                        lightListKey.currentState!.removeItem(
+                            index,
+                            (context, animation) => FadeTransition(
+                                  opacity: CurvedAnimation(
+                                      parent: animation, curve: Curves.linear),
+                                ));
+                      }
+                      if (lightActivities.last.activityName != "" &&
+                          lightActivities.length < 3) {
                         lightActivities.add(UserActivity());
                         lightListKey.currentState!.insertItem(
                           index + 1,
                           duration: const Duration(milliseconds: 500),
                         );
                       }
-                      lightActivities[index].activityName = val;
                     });
                   },
                   setSelectedFrequency: (String val) {
@@ -285,23 +296,37 @@ class _ActivityFormBodyState extends State<ActivityFormBody> {
                     CurvedAnimation(parent: animation, curve: Curves.linear),
                 child: ActivityDisplay(
                   nameColor: const Color(0xFFFFD7D7),
+                  frequencyColor: const Color(0xFFFFEBEB),
+                  data: lightActivitiesData,
                   initialSelectedName:
                       mediumActivities[index].activityName == ""
                           ? null
                           : mediumActivities[index].activityName,
-                  frequencyColor: const Color(0xFFFFEBEB),
-                  data: lightActivitiesData,
+                  initialSelectedFrequency: mediumActivities[index].frequency,
                   setSelectedName: (String val) {
-                    if (val != "-----" &&
-                        mediumActivities.length < 3 &&
-                        index == mediumActivities.length - 1) {
-                      mediumActivities.add(UserActivity());
-                      mediumListKey.currentState!.insertItem(
-                        index + 1,
-                        duration: const Duration(milliseconds: 500),
-                      );
-                    }
-                    mediumActivities[index].activityName = val;
+                    setState(() {
+                      val != "-----"
+                          ? mediumActivities[index].activityName = val
+                          : mediumActivities[index].activityName = "";
+                      if (val == "-----" &&
+                          index < lightActivities.length - 1) {
+                        mediumActivities.removeAt(index);
+                        mediumListKey.currentState!.removeItem(
+                            index,
+                            (context, animation) => FadeTransition(
+                                  opacity: CurvedAnimation(
+                                      parent: animation, curve: Curves.linear),
+                                ));
+                      }
+                      if (mediumActivities.last.activityName != "" &&
+                          mediumActivities.length < 3) {
+                        mediumActivities.add(UserActivity());
+                        mediumListKey.currentState!.insertItem(
+                          index + 1,
+                          duration: const Duration(milliseconds: 500),
+                        );
+                      }
+                    });
                   },
                   setSelectedFrequency: (String val) {
                     mediumActivities[index].frequency = int.parse(val);
@@ -556,7 +581,7 @@ class ActivityDisplay extends StatefulWidget {
   final Function(String val) setSelectedName;
   final Function(String val) setSelectedFrequency;
   final String? initialSelectedName;
-  final int? initialLength;
+  final int? initialSelectedFrequency;
   final Color nameColor;
   final Color frequencyColor;
   final List<String> data;
@@ -565,8 +590,8 @@ class ActivityDisplay extends StatefulWidget {
     required this.setSelectedName,
     required this.setSelectedFrequency,
     required this.data,
+    this.initialSelectedFrequency,
     this.initialSelectedName,
-    this.initialLength,
     this.nameColor = Colors.white,
     this.frequencyColor = Colors.white,
   });
@@ -576,76 +601,54 @@ class ActivityDisplay extends StatefulWidget {
 }
 
 class _ActivityDisplayState extends State<ActivityDisplay> {
-  late String? initialSelectedName;
-
-  final List<GlobalKey<WideDropDownState>> wideDropdownKeys = [
-    GlobalKey<WideDropDownState>(),
-    GlobalKey<WideDropDownState>(),
-    GlobalKey<WideDropDownState>(),
-  ];
-
-  @override
-  void initState() {
-    super.initState();
-    initialSelectedName = widget.initialSelectedName;
-  }
-
   @override
   Widget build(BuildContext context) {
-    return AnimatedList(
-        shrinkWrap: true,
-        physics: const NeverScrollableScrollPhysics(),
-        initialItemCount:
-            widget.initialLength == null ? 1 : widget.initialLength!,
-        itemBuilder: (context, index, animation) {
-          return FadeTransition(
-            opacity: CurvedAnimation(parent: animation, curve: Curves.linear),
-            child: Column(
-              children: [
-                Row(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                  children: [
-                    Expanded(
-                      flex: 5,
-                      child: Padding(
-                        padding: const EdgeInsets.only(top: 3.0),
-                        child: WideDropDown(
-                          key: wideDropdownKeys[index],
-                          data: widget.data,
-                          border: const BorderSide(color: Colors.black38),
-                          color: widget.nameColor,
-                          initialValue: initialSelectedName,
-                          setSelectedItem: widget.setSelectedName,
-                        ),
-                      ),
-                    ),
-                    Expanded(
-                      flex: 2,
-                      child: SmallDropDown(
-                        data: frequency,
-                        border: Border.all(color: Colors.black38),
-                        dropdownColor: widget.frequencyColor,
-                        buttonColor: widget.frequencyColor,
-                        setSelectedItem: widget.setSelectedFrequency,
-                      ),
-                    ),
-                    const Expanded(
-                      flex: 3,
-                      child: Padding(
-                        padding: EdgeInsets.only(left: 8.0, top: 15),
-                        child: Text(
-                          "ครั้ง/สัปดาห์",
-                          style: TextStyle(fontSize: 18),
-                        ),
-                      ),
-                    ),
-                  ],
+    return Column(
+      children: [
+        Row(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          children: [
+            Expanded(
+              flex: 5,
+              child: Padding(
+                padding: const EdgeInsets.only(top: 3.0),
+                child: WideDropDown(
+                  key: ValueKey(widget.initialSelectedName),
+                  data: widget.data,
+                  border: const BorderSide(color: Colors.black38),
+                  color: widget.nameColor,
+                  initialValue: widget.initialSelectedName,
+                  setSelectedItem: widget.setSelectedName,
                 ),
-              ],
+              ),
             ),
-          );
-        });
+            Expanded(
+              flex: 2,
+              child: SmallDropDown(
+                key: ValueKey(widget.initialSelectedFrequency),
+                data: frequency,
+                border: Border.all(color: Colors.black38),
+                dropdownColor: widget.frequencyColor,
+                buttonColor: widget.frequencyColor,
+                initialValue: widget.initialSelectedFrequency,
+                setSelectedItem: widget.setSelectedFrequency,
+              ),
+            ),
+            const Expanded(
+              flex: 3,
+              child: Padding(
+                padding: EdgeInsets.only(left: 8.0, top: 15),
+                child: Text(
+                  "ครั้ง/สัปดาห์",
+                  style: TextStyle(fontSize: 18),
+                ),
+              ),
+            ),
+          ],
+        ),
+      ],
+    );
   }
 }
 
