@@ -26,7 +26,7 @@ List<String> lightActivitiesData = [
   "รดน้ำต้นไม้",
   "ยืนบนรถโดยสาร",
 ];
-List<String> mediumActivities = [
+List<String> mediumActivitiesData = [
   "-----",
   "เดินเร็ว",
   "ปั่นจักรยาน",
@@ -190,7 +190,7 @@ class _ActivityFormBodyState extends State<ActivityFormBody> {
                 child: ActivityDisplay(
                   nameColor: const Color(0xFFFFD7D7),
                   frequencyColor: const Color(0xFFFFEBEB),
-                  data: lightActivitiesData,
+                  data: extraLightActivitiesData,
                   initialSelectedName:
                       extraLightActivities[index].activityName == ""
                           ? null
@@ -215,7 +215,7 @@ class _ActivityFormBodyState extends State<ActivityFormBody> {
                             child: ActivityDisplay(
                               nameColor: const Color(0xFFFFD7D7),
                               frequencyColor: const Color(0xFFFFEBEB),
-                              data: lightActivitiesData,
+                              data: extraLightActivitiesData,
                               initialSelectedName: tempActiviyName,
                               initialSelectedFrequency: tempActiviyFrequency,
                               setSelectedFrequency: (val) {},
@@ -341,7 +341,7 @@ class _ActivityFormBodyState extends State<ActivityFormBody> {
                 child: ActivityDisplay(
                   nameColor: const Color(0xFFFFD7D7),
                   frequencyColor: const Color(0xFFFFEBEB),
-                  data: lightActivitiesData,
+                  data: mediumActivitiesData,
                   initialSelectedName:
                       mediumActivities[index].activityName == ""
                           ? null
@@ -365,7 +365,7 @@ class _ActivityFormBodyState extends State<ActivityFormBody> {
                             child: ActivityDisplay(
                               nameColor: const Color(0xFFFFD7D7),
                               frequencyColor: const Color(0xFFFFEBEB),
-                              data: lightActivitiesData,
+                              data: mediumActivitiesData,
                               initialSelectedName: tempActiviyName,
                               initialSelectedFrequency: tempActiviyFrequency,
                               setSelectedFrequency: (val) {},
