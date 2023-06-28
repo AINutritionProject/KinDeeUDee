@@ -671,7 +671,7 @@ class _ActivityDisplayState extends State<ActivityDisplay> {
     return Column(
       children: [
         Row(
-          crossAxisAlignment: CrossAxisAlignment.center,
+          crossAxisAlignment: CrossAxisAlignment.start,
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: [
             Expanded(
@@ -703,7 +703,7 @@ class _ActivityDisplayState extends State<ActivityDisplay> {
             const Expanded(
               flex: 2,
               child: Padding(
-                padding: EdgeInsets.only(left: 8.0, top: 15),
+                padding: EdgeInsets.only(left: 8.0, top: 5),
                 child: Text(
                   "ครั้ง/สัปดาห์",
                   style: TextStyle(fontSize: 18),
