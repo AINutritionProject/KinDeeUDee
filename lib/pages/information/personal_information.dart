@@ -6,7 +6,7 @@ import 'package:appfood2/pages/information/activity_form.dart';
 import 'package:appfood2/screen_size.dart';
 
 List<String> careers = <String>[
-  "------------",
+  "-----",
   "รับข้าราชการ",
   "ข้าราชการบำนาญ",
   "เกษตรกร",
@@ -17,7 +17,7 @@ List<String> careers = <String>[
 ];
 
 List<String> chronicDiseases = <String>[
-  "-------------",
+  "-----",
   "โรคเบาหวาน",
   "โรคความดันโลหิตสูง",
   "โรคหัวใจ",
@@ -345,6 +345,8 @@ class _PersonalBodyState extends State<PersonalBody> {
                         data: careers,
                         title: "อาชีพ",
                         border: const BorderSide(color: Colors.black38),
+                        initialValue:
+                            selectedCareer == "" ? "-----" : selectedCareer,
                         setSelectedItem: (String val) {
                           setState(() {
                             selectedCareer = val;
@@ -357,6 +359,9 @@ class _PersonalBodyState extends State<PersonalBody> {
                         data: chronicDiseases,
                         title: "โรคประจำตัว",
                         border: const BorderSide(color: Colors.black38),
+                        initialValue: selectedChronicDisease == ""
+                            ? "-----"
+                            : selectedChronicDisease,
                         setSelectedItem: (String val) {
                           setState(() {
                             selectedChronicDisease = val;
@@ -421,6 +426,12 @@ class _PersonalBodyState extends State<PersonalBody> {
                             double.parse(_weightTextController.text);
                         widget.user.height =
                             double.parse(_heightTextController.text);
+                        widget.user.career =
+                            selectedCareer == "-----" ? "" : selectedCareer;
+                        widget.user.chronicDisease =
+                            selectedChronicDisease == "-----"
+                                ? ""
+                                : selectedChronicDisease;
                         widget.user.foodAllergy =
                             _foodAllergyTextController.text;
                         Navigator.of(context).push(MaterialPageRoute(
