@@ -671,11 +671,11 @@ class _ActivityDisplayState extends State<ActivityDisplay> {
     return Column(
       children: [
         Row(
-          crossAxisAlignment: CrossAxisAlignment.start,
+          crossAxisAlignment: CrossAxisAlignment.center,
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: [
             Expanded(
-              flex: 5,
+              flex: 6,
               child: Padding(
                 padding: const EdgeInsets.only(top: 3.0),
                 child: WideDropDown(
@@ -701,7 +701,7 @@ class _ActivityDisplayState extends State<ActivityDisplay> {
               ),
             ),
             const Expanded(
-              flex: 3,
+              flex: 2,
               child: Padding(
                 padding: EdgeInsets.only(left: 8.0, top: 15),
                 child: Text(
