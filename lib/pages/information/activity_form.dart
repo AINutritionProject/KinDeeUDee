@@ -419,23 +419,30 @@ class _ActivityFormBodyState extends State<ActivityFormBody> {
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
-                              Row(
-                                crossAxisAlignment: CrossAxisAlignment.center,
-                                children: [
-                                  const Padding(
-                                    padding:
-                                        EdgeInsets.symmetric(horizontal: 8.0),
-                                    child: Icon(
-                                      Icons.circle,
-                                      color: Color(0xFF636363),
-                                      size: 16,
+                              SizedBox(
+                                child: Row(
+                                  crossAxisAlignment: CrossAxisAlignment.center,
+                                  children: [
+                                    const Padding(
+                                      padding:
+                                          EdgeInsets.symmetric(horizontal: 8.0),
+                                      child: Icon(
+                                        Icons.circle,
+                                        color: Color(0xFF636363),
+                                        size: 16,
+                                      ),
                                     ),
-                                  ),
-                                  Text(
-                                    customActivities[index].activityName,
-                                    style: const TextStyle(fontSize: 18),
-                                  ),
-                                ],
+                                    SizedBox(
+                                      width: 180,
+                                      child: Text(
+                                        customActivities[index].activityName,
+                                        style: const TextStyle(fontSize: 18),
+                                        maxLines: 2,
+                                        overflow: TextOverflow.ellipsis,
+                                      ),
+                                    ),
+                                  ],
+                                ),
                               ),
                               TextButton(
                                 onPressed: () {
