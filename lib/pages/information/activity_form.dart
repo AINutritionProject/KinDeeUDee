@@ -104,7 +104,6 @@ class _ActivityFormBodyState extends State<ActivityFormBody> {
   List<UserActivity> mediumActivities = [UserActivity()];
   List<UserActivity> customActivities = [];
 
-  int tempFrequency = 1;
   final TextEditingController _popupController = TextEditingController();
   final _popupFormKey = GlobalKey<FormState>();
 
@@ -166,9 +165,8 @@ class _ActivityFormBodyState extends State<ActivityFormBody> {
             physics: const NeverScrollableScrollPhysics(),
             initialItemCount: extraLightActivities.length,
             itemBuilder: (BuildContext context, int index, animation) {
-              return FadeTransition(
-                opacity:
-                    CurvedAnimation(parent: animation, curve: Curves.linear),
+              return SizeTransition(
+                sizeFactor: animation,
                 child: ActivityDisplay(
                   nameColor: const Color(0xFFFFD7D7),
                   frequencyColor: const Color(0xFFFFEBEB),
@@ -186,20 +184,34 @@ class _ActivityFormBodyState extends State<ActivityFormBody> {
                           : extraLightActivities[index].activityName = "";
                       if (val == "-----" &&
                           index < extraLightActivities.length - 1) {
-                        extraLightActivities.removeAt(index);
+                        final tempActiviyName =
+                            extraLightActivities[index].activityName;
+                        final tempActiviyFrequency =
+                            extraLightActivities[index].frequency;
                         extraLightListKey.currentState!.removeItem(
-                            index,
-                            (context, animation) => FadeTransition(
-                                  opacity: CurvedAnimation(
-                                      parent: animation, curve: Curves.linear),
-                                ));
+                          index,
+                          (context, animation) => SizeTransition(
+                            sizeFactor: animation,
+                            child: ActivityDisplay(
+                              nameColor: const Color(0xFFFFD7D7),
+                              frequencyColor: const Color(0xFFFFEBEB),
+                              data: lightActivitiesData,
+                              initialSelectedName: tempActiviyName,
+                              initialSelectedFrequency: tempActiviyFrequency,
+                              setSelectedFrequency: (val) {},
+                              setSelectedName: (val) {},
+                            ),
+                          ),
+                          duration: const Duration(milliseconds: 300),
+                        );
+                        extraLightActivities.removeAt(index);
                       }
                       if (extraLightActivities.last.activityName != "" &&
                           extraLightActivities.length < 3) {
                         extraLightActivities.add(UserActivity());
                         extraLightListKey.currentState!.insertItem(
                           index + 1,
-                          duration: const Duration(milliseconds: 500),
+                          duration: const Duration(milliseconds: 300),
                         );
                       }
                     });
@@ -229,9 +241,8 @@ class _ActivityFormBodyState extends State<ActivityFormBody> {
             physics: const NeverScrollableScrollPhysics(),
             initialItemCount: lightActivities.length,
             itemBuilder: (BuildContext context, int index, animation) {
-              return FadeTransition(
-                opacity:
-                    CurvedAnimation(parent: animation, curve: Curves.linear),
+              return SizeTransition(
+                sizeFactor: animation,
                 child: ActivityDisplay(
                   nameColor: const Color(0xFFFFD7D7),
                   frequencyColor: const Color(0xFFFFEBEB),
@@ -247,20 +258,34 @@ class _ActivityFormBodyState extends State<ActivityFormBody> {
                           : lightActivities[index].activityName = "";
                       if (val == "-----" &&
                           index < lightActivities.length - 1) {
-                        lightActivities.removeAt(index);
+                        final tempActiviyName =
+                            lightActivities[index].activityName;
+                        final tempActiviyFrequency =
+                            lightActivities[index].frequency;
                         lightListKey.currentState!.removeItem(
-                            index,
-                            (context, animation) => FadeTransition(
-                                  opacity: CurvedAnimation(
-                                      parent: animation, curve: Curves.linear),
-                                ));
+                          index,
+                          (context, animation) => SizeTransition(
+                            sizeFactor: animation,
+                            child: ActivityDisplay(
+                              nameColor: const Color(0xFFFFD7D7),
+                              frequencyColor: const Color(0xFFFFEBEB),
+                              data: lightActivitiesData,
+                              initialSelectedName: tempActiviyName,
+                              initialSelectedFrequency: tempActiviyFrequency,
+                              setSelectedFrequency: (val) {},
+                              setSelectedName: (val) {},
+                            ),
+                          ),
+                          duration: const Duration(milliseconds: 300),
+                        );
+                        lightActivities.removeAt(index);
                       }
                       if (lightActivities.last.activityName != "" &&
                           lightActivities.length < 3) {
                         lightActivities.add(UserActivity());
                         lightListKey.currentState!.insertItem(
                           index + 1,
-                          duration: const Duration(milliseconds: 500),
+                          duration: const Duration(milliseconds: 300),
                         );
                       }
                     });
@@ -291,9 +316,8 @@ class _ActivityFormBodyState extends State<ActivityFormBody> {
             physics: const NeverScrollableScrollPhysics(),
             initialItemCount: mediumActivities.length,
             itemBuilder: (BuildContext context, int index, animation) {
-              return FadeTransition(
-                opacity:
-                    CurvedAnimation(parent: animation, curve: Curves.linear),
+              return SizeTransition(
+                sizeFactor: animation,
                 child: ActivityDisplay(
                   nameColor: const Color(0xFFFFD7D7),
                   frequencyColor: const Color(0xFFFFEBEB),
@@ -309,21 +333,35 @@ class _ActivityFormBodyState extends State<ActivityFormBody> {
                           ? mediumActivities[index].activityName = val
                           : mediumActivities[index].activityName = "";
                       if (val == "-----" &&
-                          index < lightActivities.length - 1) {
-                        mediumActivities.removeAt(index);
+                          index < mediumActivities.length - 1) {
+                        final tempActiviyName =
+                            mediumActivities[index].activityName;
+                        final tempActiviyFrequency =
+                            mediumActivities[index].frequency;
                         mediumListKey.currentState!.removeItem(
-                            index,
-                            (context, animation) => FadeTransition(
-                                  opacity: CurvedAnimation(
-                                      parent: animation, curve: Curves.linear),
-                                ));
+                          index,
+                          (context, animation) => SizeTransition(
+                            sizeFactor: animation,
+                            child: ActivityDisplay(
+                              nameColor: const Color(0xFFFFD7D7),
+                              frequencyColor: const Color(0xFFFFEBEB),
+                              data: lightActivitiesData,
+                              initialSelectedName: tempActiviyName,
+                              initialSelectedFrequency: tempActiviyFrequency,
+                              setSelectedFrequency: (val) {},
+                              setSelectedName: (val) {},
+                            ),
+                          ),
+                          duration: const Duration(milliseconds: 300),
+                        );
+                        mediumActivities.removeAt(index);
                       }
                       if (mediumActivities.last.activityName != "" &&
                           mediumActivities.length < 3) {
                         mediumActivities.add(UserActivity());
                         mediumListKey.currentState!.insertItem(
                           index + 1,
-                          duration: const Duration(milliseconds: 500),
+                          duration: const Duration(milliseconds: 300),
                         );
                       }
                     });
