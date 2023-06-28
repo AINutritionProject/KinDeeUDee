@@ -22,21 +22,24 @@ class WideDropDown extends StatefulWidget {
   });
 
   @override
-  State<WideDropDown> createState() => _WideDropDownState();
+  State<WideDropDown> createState() => WideDropDownState();
 }
 
-class _WideDropDownState extends State<WideDropDown> {
+class WideDropDownState extends State<WideDropDown> {
   late String selectedItem;
   bool boxOpen = false;
 
+  late String? initialValue;
+
   @override
   void initState() {
-    if (widget.initialValue != null) {
-      selectedItem = widget.initialValue!;
+    super.initState();
+    initialValue = widget.initialValue;
+    if (initialValue != null) {
+      selectedItem = initialValue!;
     } else {
       selectedItem = widget.data.first;
     }
-    super.initState();
   }
 
   @override

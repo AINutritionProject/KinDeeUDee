@@ -172,24 +172,38 @@ class _ActivityFormBodyState extends State<ActivityFormBody> {
                 child: ActivityDisplay(
                   nameColor: const Color(0xFFFFD7D7),
                   frequencyColor: const Color(0xFFFFEBEB),
+                  data: lightActivitiesData,
                   initialSelectedName:
                       extraLightActivities[index].activityName == ""
                           ? null
                           : extraLightActivities[index].activityName,
-                  data: lightActivitiesData,
                   setSelectedName: (String val) {
                     setState(() {
-                      if (val != "-----" &&
-                          extraLightActivities.length < 3 &&
-                          index == extraLightActivities.length - 1) {
+                      val != "-----"
+                          ? extraLightActivities[index].activityName = val
+                          : extraLightActivities[index].activityName = "";
+                      if (val == "-----" &&
+                          index < extraLightActivities.length - 1) {
+                        extraLightActivities.removeAt(index);
+                        extraLightListKey.currentState!.removeItem(
+                            index,
+                            (context, animation) => FadeTransition(
+                                  opacity: CurvedAnimation(
+                                      parent: animation, curve: Curves.linear),
+                                ));
+                      }
+                      if (extraLightActivities.last.activityName != "-----" &&
+                          extraLightActivities.length < 3) {
                         extraLightActivities.add(UserActivity());
                         extraLightListKey.currentState!.insertItem(
                           index + 1,
                           duration: const Duration(milliseconds: 500),
                         );
                       }
-                      extraLightActivities[index].activityName = val;
                     });
+                    for (var item in extraLightActivities) {
+                      print(item.activityName);
+                    }
                   },
                   setSelectedFrequency: (String val) {
                     extraLightActivities[index].frequency = int.parse(val);
@@ -278,18 +292,16 @@ class _ActivityFormBodyState extends State<ActivityFormBody> {
                   frequencyColor: const Color(0xFFFFEBEB),
                   data: lightActivitiesData,
                   setSelectedName: (String val) {
-                    setState(() {
-                      if (val != "-----" &&
-                          mediumActivities.length < 3 &&
-                          index == mediumActivities.length - 1) {
-                        mediumActivities.add(UserActivity());
-                        mediumListKey.currentState!.insertItem(
-                          index + 1,
-                          duration: const Duration(milliseconds: 500),
-                        );
-                      }
-                      mediumActivities[index].activityName = val;
-                    });
+                    if (val != "-----" &&
+                        mediumActivities.length < 3 &&
+                        index == mediumActivities.length - 1) {
+                      mediumActivities.add(UserActivity());
+                      mediumListKey.currentState!.insertItem(
+                        index + 1,
+                        duration: const Duration(milliseconds: 500),
+                      );
+                    }
+                    mediumActivities[index].activityName = val;
                   },
                   setSelectedFrequency: (String val) {
                     mediumActivities[index].frequency = int.parse(val);
@@ -311,7 +323,7 @@ class _ActivityFormBodyState extends State<ActivityFormBody> {
                       child: Text(
                         "กิจกรรมที่บันทึกเพิ่มเติม",
                         style: TextStyle(
-                            fontSize: 22, fontWeight: FontWeight.bold),
+                            fontSize: 21, fontWeight: FontWeight.bold),
                       ),
                     ),
                     ListView.builder(
@@ -500,30 +512,28 @@ class _ActivityFormBodyState extends State<ActivityFormBody> {
                         borderRadius: BorderRadius.circular(30),
                       ))),
                   onPressed: () {
-                    setState(() {
-                      widget.user.extraLightActivities = [];
-                      widget.user.lightActivities = [];
-                      widget.user.mediumActivities = [];
-                      for (var element in extraLightActivities) {
-                        if (element.activityName != "") {
-                          widget.user.extraLightActivities!.add(element);
-                        }
+                    widget.user.extraLightActivities = [];
+                    widget.user.lightActivities = [];
+                    widget.user.mediumActivities = [];
+                    for (var element in extraLightActivities) {
+                      if (element.activityName != "") {
+                        widget.user.extraLightActivities!.add(element);
                       }
-                      for (var element in lightActivities) {
-                        if (element.activityName != "") {
-                          widget.user.lightActivities!.add(element);
-                        }
+                    }
+                    for (var element in lightActivities) {
+                      if (element.activityName != "") {
+                        widget.user.lightActivities!.add(element);
                       }
-                      for (var element in mediumActivities) {
-                        if (element.activityName != "") {
-                          widget.user.mediumActivities!.add(element);
-                        }
+                    }
+                    for (var element in mediumActivities) {
+                      if (element.activityName != "") {
+                        widget.user.mediumActivities!.add(element);
                       }
-                      widget.user.customActivities = customActivities;
-                      Navigator.of(context).push(MaterialPageRoute(
-                          builder: (context) => ActivityResult(
-                              user: widget.user, isConfig: widget.isConfig)));
-                    });
+                    }
+                    widget.user.customActivities = customActivities;
+                    Navigator.of(context).push(MaterialPageRoute(
+                        builder: (context) => ActivityResult(
+                            user: widget.user, isConfig: widget.isConfig)));
                   },
                   child: const Padding(
                     padding: EdgeInsets.symmetric(vertical: 3, horizontal: 15),
@@ -546,6 +556,7 @@ class ActivityDisplay extends StatefulWidget {
   final Function(String val) setSelectedName;
   final Function(String val) setSelectedFrequency;
   final String? initialSelectedName;
+  final int? initialLength;
   final Color nameColor;
   final Color frequencyColor;
   final List<String> data;
@@ -555,6 +566,7 @@ class ActivityDisplay extends StatefulWidget {
     required this.setSelectedFrequency,
     required this.data,
     this.initialSelectedName,
+    this.initialLength,
     this.nameColor = Colors.white,
     this.frequencyColor = Colors.white,
   });
@@ -564,51 +576,76 @@ class ActivityDisplay extends StatefulWidget {
 }
 
 class _ActivityDisplayState extends State<ActivityDisplay> {
+  late String? initialSelectedName;
+
+  final List<GlobalKey<WideDropDownState>> wideDropdownKeys = [
+    GlobalKey<WideDropDownState>(),
+    GlobalKey<WideDropDownState>(),
+    GlobalKey<WideDropDownState>(),
+  ];
+
+  @override
+  void initState() {
+    super.initState();
+    initialSelectedName = widget.initialSelectedName;
+  }
+
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: [
-        Row(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-          children: [
-            Expanded(
-              flex: 5,
-              child: Padding(
-                padding: const EdgeInsets.only(top: 3.0),
-                child: WideDropDown(
-                  data: widget.data,
-                  border: const BorderSide(color: Colors.black38),
-                  color: widget.nameColor,
-                  initialValue: widget.initialSelectedName,
-                  setSelectedItem: widget.setSelectedName,
+    return AnimatedList(
+        shrinkWrap: true,
+        physics: const NeverScrollableScrollPhysics(),
+        initialItemCount:
+            widget.initialLength == null ? 1 : widget.initialLength!,
+        itemBuilder: (context, index, animation) {
+          return FadeTransition(
+            opacity: CurvedAnimation(parent: animation, curve: Curves.linear),
+            child: Column(
+              children: [
+                Row(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  children: [
+                    Expanded(
+                      flex: 5,
+                      child: Padding(
+                        padding: const EdgeInsets.only(top: 3.0),
+                        child: WideDropDown(
+                          key: wideDropdownKeys[index],
+                          data: widget.data,
+                          border: const BorderSide(color: Colors.black38),
+                          color: widget.nameColor,
+                          initialValue: initialSelectedName,
+                          setSelectedItem: widget.setSelectedName,
+                        ),
+                      ),
+                    ),
+                    Expanded(
+                      flex: 2,
+                      child: SmallDropDown(
+                        data: frequency,
+                        border: Border.all(color: Colors.black38),
+                        dropdownColor: widget.frequencyColor,
+                        buttonColor: widget.frequencyColor,
+                        setSelectedItem: widget.setSelectedFrequency,
+                      ),
+                    ),
+                    const Expanded(
+                      flex: 3,
+                      child: Padding(
+                        padding: EdgeInsets.only(left: 8.0, top: 15),
+                        child: Text(
+                          "ครั้ง/สัปดาห์",
+                          style: TextStyle(fontSize: 18),
+                        ),
+                      ),
+                    ),
+                  ],
                 ),
-              ),
+              ],
             ),
-            Expanded(
-              flex: 2,
-              child: SmallDropDown(
-                data: frequency,
-                border: Border.all(color: Colors.black38),
-                dropdownColor: widget.frequencyColor,
-                buttonColor: widget.frequencyColor,
-                setSelectedItem: widget.setSelectedFrequency,
-              ),
-            ),
-            const Expanded(
-              flex: 3,
-              child: Padding(
-                padding: EdgeInsets.only(left: 8.0, top: 15),
-                child: Text(
-                  "ครั้ง/สัปดาห์",
-                  style: TextStyle(fontSize: 18),
-                ),
-              ),
-            ),
-          ],
-        ),
-      ],
-    );
+          );
+        });
   }
 }
 
