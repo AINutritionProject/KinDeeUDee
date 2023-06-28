@@ -155,7 +155,7 @@ class AIOutputPage extends StatelessWidget {
                       foodImage: foodImage,
                       width: screenSizeData.screenSizeWidth,
                     ),
-                    PartOfObject(width: screenSizeData.screenSizeWidth),
+                    PartOfObject(width: screenSizeData.screenSizeWidth,realimagesLeft:foodImage,realimagesRight:food.detail.realImageAssetPath.toString()),
                     SugestBox(
                       width: screenSizeData.screenSizeWidth,
                     ),
@@ -179,9 +179,10 @@ class AIOutputPage extends StatelessWidget {
 }
 
 class PartOfObject extends StatelessWidget {
-  const PartOfObject({super.key, required this.width});
+  const PartOfObject({super.key, required this.width,required this.realimagesLeft,required this.realimagesRight});
   final double width;
-
+  final XFile? realimagesLeft;
+  final String realimagesRight;
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -204,8 +205,9 @@ class PartOfObject extends StatelessWidget {
                 alignment: const AlignmentDirectional(-0.7, 0.6),
                 child: ClipRRect(
                   borderRadius: BorderRadius.circular(20),
-                  child: Image.asset(
-                    't1',
+                  child:  
+                  Image.file(
+                    File(realimagesLeft!.path),
                     width: 120,
                     height: 130,
                     fit: BoxFit.cover,
@@ -216,7 +218,7 @@ class PartOfObject extends StatelessWidget {
                 child: ClipRRect(
                   borderRadius: BorderRadius.circular(20),
                   child: Image.asset(
-                    't2',
+                    realimagesRight,
                     width: 120,
                     height: 130,
                     fit: BoxFit.cover,
