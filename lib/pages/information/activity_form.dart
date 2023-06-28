@@ -8,11 +8,31 @@ import 'package:appfood2/screen_size.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 List<String> frequency = ["1", "2", "3", "4", "5", "6", "7"];
+List<String> extraLightActivitiesData = [
+  "-----",
+  "นั่งเฉยๆ",
+  "นั่งดูทีวี",
+  "นอนหลับ",
+  "นั่งประชุม",
+  "นั่งขับรถ",
+  "นั่งสวดมนต์",
+];
 List<String> lightActivitiesData = [
   "-----",
-  "ดูโทรทัศน์",
-  "นอนหลับ",
-  "สวดมนต์",
+  "เดินทางระยะสั้นๆ",
+  "ล้างจาน",
+  "พับผ้า",
+  "โยคะ",
+  "รดน้ำต้นไม้",
+  "ยืนบนรถโดยสาร",
+];
+List<String> mediumActivities = [
+  "-----",
+  "เดินเร็ว",
+  "ปั่นจักรยาน",
+  "เดินขึ้นลงบันได้",
+  "ทำสวน",
+  "การเสิร์ฟอาหาร",
 ];
 
 class ActivityForm extends StatefulWidget {
