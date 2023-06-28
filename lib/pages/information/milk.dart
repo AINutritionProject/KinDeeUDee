@@ -97,7 +97,9 @@ class _MilkPageState extends State<MilkPage> {
                           )),
                     ),
                     Padding(
-                        padding: EdgeInsets.only(top: screenSizeData.screenHeight * 0.05, bottom: screenSizeData.screenHeight * 0.05),
+                        padding: EdgeInsets.only(
+                            top: screenSizeData.screenHeight * 0.05,
+                            bottom: screenSizeData.screenHeight * 0.05),
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.spaceAround,
                           children: [
@@ -149,7 +151,7 @@ class _MilkPageState extends State<MilkPage> {
                               },
                               child: Text("ไม่ดื่ม",
                                   style: TextStyle(
-                                      fontSize: fontSize ,
+                                      fontSize: fontSize,
                                       fontWeight: FontWeight.bold,
                                       color: Colors.black)),
                             ),
@@ -185,7 +187,7 @@ class _MilkPageState extends State<MilkPage> {
                                 child: Text(
                                   "ไม่ทาน",
                                   style: TextStyle(
-                                      fontSize: fontSize ,
+                                      fontSize: fontSize,
                                       fontWeight: FontWeight.bold,
                                       color: Colors.black),
                                 )),
@@ -230,7 +232,7 @@ class _MilkPageState extends State<MilkPage> {
                                 child: Text(
                                   "1 แก้ว",
                                   style: TextStyle(
-                                      fontSize: fontSize ,
+                                      fontSize: fontSize,
                                       fontWeight: FontWeight.bold,
                                       color: Colors.black),
                                 )),
@@ -269,7 +271,7 @@ class _MilkPageState extends State<MilkPage> {
                                       fontSize: fontSize,
                                       fontWeight: FontWeight.bold,
                                       color: Colors.black),
-                                      textAlign: TextAlign.center,
+                                  textAlign: TextAlign.center,
                                 )),
                           )
                         ],
@@ -322,8 +324,7 @@ class _MilkPageState extends State<MilkPage> {
                             height: screenSizeData.screenSizeWidth * 0.1,
                             alignment: Alignment.center,
                             decoration: BoxDecoration(
-                              color:
-                                  const Color.fromRGBO(255, 251, 242, 1),
+                              color: const Color.fromRGBO(255, 251, 242, 1),
                               borderRadius: BorderRadius.circular(30),
                             ),
                             child: Text(
@@ -338,13 +339,23 @@ class _MilkPageState extends State<MilkPage> {
                       ),
                     ),
                     Padding(
-                      padding: EdgeInsets.only(top: screenSizeData.screenHeight * 0.05),
+                      padding: EdgeInsets.only(
+                          top: screenSizeData.screenHeight * 0.05),
                       child: Visibility(
+                          replacement: SizedBox(
+                            height: screenSizeData.screenWidth < 600
+                                ? screenSizeData.screenHeight * 0.075
+                                : screenSizeData.screenHeight * 0.05,
+                          ),
                           visible: ((status_eat0 || status_eat1) &&
                               (status_milk0 || status_milk1 || status_milk2)),
                           child: Container(
-                            height: screenSizeData.screenWidth < 600 ? screenSizeData.screenHeight * 0.075 : screenSizeData.screenHeight * 0.05,
-                            margin: EdgeInsets.symmetric(horizontal: screenSizeData.screenSizeWidth * 0.38),
+                            height: screenSizeData.screenWidth < 600
+                                ? screenSizeData.screenHeight * 0.075
+                                : screenSizeData.screenHeight * 0.05,
+                            margin: EdgeInsets.symmetric(
+                                horizontal:
+                                    screenSizeData.screenSizeWidth * 0.38),
                             child: ElevatedButton(
                                 style: ElevatedButton.styleFrom(
                                     backgroundColor:
@@ -369,8 +380,8 @@ class _MilkPageState extends State<MilkPage> {
                                         }
                                         Navigator.of(context).push(
                                             MaterialPageRoute(
-                                                builder: (context) =>
-                                                    BMIPage(user: widget.user)));
+                                                builder: (context) => BMIPage(
+                                                    user: widget.user)));
                                       })
                                     },
                                 child: Text(
