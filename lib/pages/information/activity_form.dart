@@ -132,19 +132,34 @@ class _ActivityFormBodyState extends State<ActivityFormBody> {
     if (widget.user.extraLightActivities != null) {
       extraLightActivities = widget.user.extraLightActivities!;
       if (extraLightActivities.length < 3) {
-        extraLightActivities.add(UserActivity());
+        if (extraLightActivities.isEmpty) {
+          extraLightActivities.add(UserActivity());
+        } else if (extraLightActivities.isNotEmpty &&
+            extraLightActivities.last.activityName != "") {
+          extraLightActivities.add(UserActivity());
+        }
       }
     }
     if (widget.user.lightActivities != null) {
       lightActivities = widget.user.lightActivities!;
       if (lightActivities.length < 3) {
-        lightActivities.add(UserActivity());
+        if (lightActivities.isEmpty) {
+          lightActivities.add(UserActivity());
+        } else if (lightActivities.isNotEmpty &&
+            lightActivities.last.activityName != "") {
+          lightActivities.add(UserActivity());
+        }
       }
     }
     if (widget.user.mediumActivities != null) {
       mediumActivities = widget.user.mediumActivities!;
       if (mediumActivities.length < 3) {
-        mediumActivities.add(UserActivity());
+        if (mediumActivities.isEmpty) {
+          mediumActivities.add(UserActivity());
+        } else if (mediumActivities.isNotEmpty &&
+            mediumActivities.last.activityName != "") {
+          mediumActivities.add(UserActivity());
+        }
       }
     }
     if (widget.user.customActivities != null) {
