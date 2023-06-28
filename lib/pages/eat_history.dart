@@ -484,15 +484,8 @@ class _EatHistoryComponentState extends State<EatHistoryComponent> {
                           .push(MaterialPageRoute(
                               builder: (context) => const AddEatHistoryPage()))
                           .then((value) {
-                        
-                        getEatHistoryDataFromLocal().then((value) {
-                          setState(() {
-                            widget.history.clear();
-                            for (var element in value) {
-                              widget.history.add(element);
-                            }
-                          });
-                        });
+                        Navigator.of(context).pushReplacement(MaterialPageRoute(
+                            builder: (context) => const EatHistoryPage()));
                       });
                     },
                     child: const Row(
