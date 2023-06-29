@@ -1,7 +1,6 @@
 import 'package:appfood2/pages/all_food.dart';
 import 'package:appfood2/pages/camera.dart';
 import 'package:appfood2/pages/food_detailed.dart';
-import 'package:appfood2/pages/information/information.dart';
 import 'package:csv/csv.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -211,8 +210,10 @@ class _TextFieldExampleState extends State<TextFieldExample> {
             fat: element[13],
             carbo: element[14],
             realImageAssetPath:
+                // ignore: prefer_interpolation_to_compose_strings
                 "assets/images/Real${element[11]}/" + element[4]),
         imageAssetPath:
+            // ignore: prefer_interpolation_to_compose_strings
             "assets/images/${element[11] == 'Fruit' ? 'Fruit' : 'RiceFlour'}/" +
                 element[2],
       ));
@@ -222,15 +223,16 @@ class _TextFieldExampleState extends State<TextFieldExample> {
 
   List<Food> getFoodQuery(String query) {
     List<Food> foodList = [];
-    allFoodData.forEach((f) {
+    for (var f in allFoodData) {
       if (f.name.toLowerCase().contains(query.toLowerCase())) {
         foodList.add(f);
       }
-    });
+    }
 
     return foodList;
   }
 
+  // ignore: non_constant_identifier_names
   String text_seach = "";
   @override
   Widget build(BuildContext context) {
@@ -293,16 +295,17 @@ class _TextFieldExampleState extends State<TextFieldExample> {
                   padding: const EdgeInsets.only(top: 15),
                   child: GridView.count(
                     crossAxisCount: 2,
-                    children: foodQuery
-                        .map((food) => Expanded(
-                              child: Center(
-                                  child: FoodIcons(
-                                food: food,
-                                width: screenSizeData.screenSizeWidth,
-                              )),
-                            ))
-                        .toList(),
-                  ),
+                  crossAxisSpacing: 4.0,  
+                  mainAxisSpacing: 4.0 ,
+                    children:[
+                    for (var item in foodQuery) 
+                      Padding(padding: const EdgeInsets.only(left: 15,right: 15,),
+                      child:FoodIcons(
+                        food: item,
+                        width: screenSizeData.screenSizeWidth,
+                      )),
+  ],),
+                          
                 ),
               )
             : Padding(

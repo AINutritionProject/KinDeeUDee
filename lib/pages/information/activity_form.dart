@@ -8,11 +8,31 @@ import 'package:appfood2/screen_size.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 List<String> frequency = ["1", "2", "3", "4", "5", "6", "7"];
+List<String> extraLightActivitiesData = [
+  "-----",
+  "นั่งเฉยๆ",
+  "นั่งดูทีวี",
+  "นอนหลับ",
+  "นั่งประชุม",
+  "นั่งขับรถ",
+  "นั่งสวดมนต์",
+];
 List<String> lightActivitiesData = [
   "-----",
-  "ดูโทรทัศน์",
-  "นอนหลับ",
-  "สวดมนต์",
+  "เดินทางระยะสั้นๆ",
+  "ล้างจาน",
+  "พับผ้า",
+  "โยคะ",
+  "รดน้ำต้นไม้",
+  "ยืนบนรถโดยสาร",
+];
+List<String> mediumActivitiesData = [
+  "-----",
+  "เดินเร็ว",
+  "ปั่นจักรยาน",
+  "เดินขึ้นลงบันได้",
+  "ทำสวน",
+  "การเสิร์ฟอาหาร",
 ];
 
 class ActivityForm extends StatefulWidget {
@@ -104,7 +124,6 @@ class _ActivityFormBodyState extends State<ActivityFormBody> {
   List<UserActivity> mediumActivities = [UserActivity()];
   List<UserActivity> customActivities = [];
 
-  int tempFrequency = 1;
   final TextEditingController _popupController = TextEditingController();
   final _popupFormKey = GlobalKey<FormState>();
 
@@ -113,19 +132,34 @@ class _ActivityFormBodyState extends State<ActivityFormBody> {
     if (widget.user.extraLightActivities != null) {
       extraLightActivities = widget.user.extraLightActivities!;
       if (extraLightActivities.length < 3) {
-        extraLightActivities.add(UserActivity());
+        if (extraLightActivities.isEmpty) {
+          extraLightActivities.add(UserActivity());
+        } else if (extraLightActivities.isNotEmpty &&
+            extraLightActivities.last.activityName != "") {
+          extraLightActivities.add(UserActivity());
+        }
       }
     }
     if (widget.user.lightActivities != null) {
       lightActivities = widget.user.lightActivities!;
       if (lightActivities.length < 3) {
-        lightActivities.add(UserActivity());
+        if (lightActivities.isEmpty) {
+          lightActivities.add(UserActivity());
+        } else if (lightActivities.isNotEmpty &&
+            lightActivities.last.activityName != "") {
+          lightActivities.add(UserActivity());
+        }
       }
     }
     if (widget.user.mediumActivities != null) {
       mediumActivities = widget.user.mediumActivities!;
       if (mediumActivities.length < 3) {
-        mediumActivities.add(UserActivity());
+        if (mediumActivities.isEmpty) {
+          mediumActivities.add(UserActivity());
+        } else if (mediumActivities.isNotEmpty &&
+            mediumActivities.last.activityName != "") {
+          mediumActivities.add(UserActivity());
+        }
       }
     }
     if (widget.user.customActivities != null) {
@@ -166,29 +200,55 @@ class _ActivityFormBodyState extends State<ActivityFormBody> {
             physics: const NeverScrollableScrollPhysics(),
             initialItemCount: extraLightActivities.length,
             itemBuilder: (BuildContext context, int index, animation) {
-              return FadeTransition(
-                opacity:
-                    CurvedAnimation(parent: animation, curve: Curves.linear),
+              return SizeTransition(
+                sizeFactor: animation,
                 child: ActivityDisplay(
                   nameColor: const Color(0xFFFFD7D7),
                   frequencyColor: const Color(0xFFFFEBEB),
+                  data: extraLightActivitiesData,
                   initialSelectedName:
                       extraLightActivities[index].activityName == ""
                           ? null
                           : extraLightActivities[index].activityName,
-                  data: lightActivitiesData,
+                  initialSelectedFrequency:
+                      extraLightActivities[index].frequency,
                   setSelectedName: (String val) {
                     setState(() {
-                      if (val != "-----" &&
-                          extraLightActivities.length < 3 &&
-                          index == extraLightActivities.length - 1) {
+                      val != "-----"
+                          ? extraLightActivities[index].activityName = val
+                          : extraLightActivities[index].activityName = "";
+                      if (val == "-----" &&
+                          index < extraLightActivities.length - 1) {
+                        final tempActiviyName =
+                            extraLightActivities[index].activityName;
+                        final tempActiviyFrequency =
+                            extraLightActivities[index].frequency;
+                        extraLightListKey.currentState!.removeItem(
+                          index,
+                          (context, animation) => SizeTransition(
+                            sizeFactor: animation,
+                            child: ActivityDisplay(
+                              nameColor: const Color(0xFFFFD7D7),
+                              frequencyColor: const Color(0xFFFFEBEB),
+                              data: extraLightActivitiesData,
+                              initialSelectedName: tempActiviyName,
+                              initialSelectedFrequency: tempActiviyFrequency,
+                              setSelectedFrequency: (val) {},
+                              setSelectedName: (val) {},
+                            ),
+                          ),
+                          duration: const Duration(milliseconds: 300),
+                        );
+                        extraLightActivities.removeAt(index);
+                      }
+                      if (extraLightActivities.last.activityName != "" &&
+                          extraLightActivities.length < 3) {
                         extraLightActivities.add(UserActivity());
                         extraLightListKey.currentState!.insertItem(
                           index + 1,
-                          duration: const Duration(milliseconds: 500),
+                          duration: const Duration(milliseconds: 300),
                         );
                       }
-                      extraLightActivities[index].activityName = val;
                     });
                   },
                   setSelectedFrequency: (String val) {
@@ -216,28 +276,53 @@ class _ActivityFormBodyState extends State<ActivityFormBody> {
             physics: const NeverScrollableScrollPhysics(),
             initialItemCount: lightActivities.length,
             itemBuilder: (BuildContext context, int index, animation) {
-              return FadeTransition(
-                opacity:
-                    CurvedAnimation(parent: animation, curve: Curves.linear),
+              return SizeTransition(
+                sizeFactor: animation,
                 child: ActivityDisplay(
                   nameColor: const Color(0xFFFFD7D7),
+                  frequencyColor: const Color(0xFFFFEBEB),
+                  data: lightActivitiesData,
                   initialSelectedName: lightActivities[index].activityName == ""
                       ? null
                       : lightActivities[index].activityName,
-                  frequencyColor: const Color(0xFFFFEBEB),
-                  data: lightActivitiesData,
+                  initialSelectedFrequency: lightActivities[index].frequency,
                   setSelectedName: (String val) {
                     setState(() {
-                      if (val != "-----" &&
-                          lightActivities.length < 3 &&
-                          index == lightActivities.length - 1) {
+                      val != "-----"
+                          ? lightActivities[index].activityName = val
+                          : lightActivities[index].activityName = "";
+                      if (val == "-----" &&
+                          index < lightActivities.length - 1) {
+                        final tempActiviyName =
+                            lightActivities[index].activityName;
+                        final tempActiviyFrequency =
+                            lightActivities[index].frequency;
+                        lightListKey.currentState!.removeItem(
+                          index,
+                          (context, animation) => SizeTransition(
+                            sizeFactor: animation,
+                            child: ActivityDisplay(
+                              nameColor: const Color(0xFFFFD7D7),
+                              frequencyColor: const Color(0xFFFFEBEB),
+                              data: lightActivitiesData,
+                              initialSelectedName: tempActiviyName,
+                              initialSelectedFrequency: tempActiviyFrequency,
+                              setSelectedFrequency: (val) {},
+                              setSelectedName: (val) {},
+                            ),
+                          ),
+                          duration: const Duration(milliseconds: 300),
+                        );
+                        lightActivities.removeAt(index);
+                      }
+                      if (lightActivities.last.activityName != "" &&
+                          lightActivities.length < 3) {
                         lightActivities.add(UserActivity());
                         lightListKey.currentState!.insertItem(
                           index + 1,
-                          duration: const Duration(milliseconds: 500),
+                          duration: const Duration(milliseconds: 300),
                         );
                       }
-                      lightActivities[index].activityName = val;
                     });
                   },
                   setSelectedFrequency: (String val) {
@@ -266,29 +351,54 @@ class _ActivityFormBodyState extends State<ActivityFormBody> {
             physics: const NeverScrollableScrollPhysics(),
             initialItemCount: mediumActivities.length,
             itemBuilder: (BuildContext context, int index, animation) {
-              return FadeTransition(
-                opacity:
-                    CurvedAnimation(parent: animation, curve: Curves.linear),
+              return SizeTransition(
+                sizeFactor: animation,
                 child: ActivityDisplay(
                   nameColor: const Color(0xFFFFD7D7),
+                  frequencyColor: const Color(0xFFFFEBEB),
+                  data: mediumActivitiesData,
                   initialSelectedName:
                       mediumActivities[index].activityName == ""
                           ? null
                           : mediumActivities[index].activityName,
-                  frequencyColor: const Color(0xFFFFEBEB),
-                  data: lightActivitiesData,
+                  initialSelectedFrequency: mediumActivities[index].frequency,
                   setSelectedName: (String val) {
                     setState(() {
-                      if (val != "-----" &&
-                          mediumActivities.length < 3 &&
-                          index == mediumActivities.length - 1) {
+                      val != "-----"
+                          ? mediumActivities[index].activityName = val
+                          : mediumActivities[index].activityName = "";
+                      if (val == "-----" &&
+                          index < mediumActivities.length - 1) {
+                        final tempActiviyName =
+                            mediumActivities[index].activityName;
+                        final tempActiviyFrequency =
+                            mediumActivities[index].frequency;
+                        mediumListKey.currentState!.removeItem(
+                          index,
+                          (context, animation) => SizeTransition(
+                            sizeFactor: animation,
+                            child: ActivityDisplay(
+                              nameColor: const Color(0xFFFFD7D7),
+                              frequencyColor: const Color(0xFFFFEBEB),
+                              data: mediumActivitiesData,
+                              initialSelectedName: tempActiviyName,
+                              initialSelectedFrequency: tempActiviyFrequency,
+                              setSelectedFrequency: (val) {},
+                              setSelectedName: (val) {},
+                            ),
+                          ),
+                          duration: const Duration(milliseconds: 300),
+                        );
+                        mediumActivities.removeAt(index);
+                      }
+                      if (mediumActivities.last.activityName != "" &&
+                          mediumActivities.length < 3) {
                         mediumActivities.add(UserActivity());
                         mediumListKey.currentState!.insertItem(
                           index + 1,
-                          duration: const Duration(milliseconds: 500),
+                          duration: const Duration(milliseconds: 300),
                         );
                       }
-                      mediumActivities[index].activityName = val;
                     });
                   },
                   setSelectedFrequency: (String val) {
@@ -311,7 +421,7 @@ class _ActivityFormBodyState extends State<ActivityFormBody> {
                       child: Text(
                         "กิจกรรมที่บันทึกเพิ่มเติม",
                         style: TextStyle(
-                            fontSize: 22, fontWeight: FontWeight.bold),
+                            fontSize: 21, fontWeight: FontWeight.bold),
                       ),
                     ),
                     ListView.builder(
@@ -324,23 +434,30 @@ class _ActivityFormBodyState extends State<ActivityFormBody> {
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
-                              Row(
-                                crossAxisAlignment: CrossAxisAlignment.center,
-                                children: [
-                                  const Padding(
-                                    padding:
-                                        EdgeInsets.symmetric(horizontal: 8.0),
-                                    child: Icon(
-                                      Icons.circle,
-                                      color: Color(0xFF636363),
-                                      size: 16,
+                              SizedBox(
+                                child: Row(
+                                  crossAxisAlignment: CrossAxisAlignment.center,
+                                  children: [
+                                    const Padding(
+                                      padding:
+                                          EdgeInsets.symmetric(horizontal: 8.0),
+                                      child: Icon(
+                                        Icons.circle,
+                                        color: Color(0xFF636363),
+                                        size: 16,
+                                      ),
                                     ),
-                                  ),
-                                  Text(
-                                    customActivities[index].activityName,
-                                    style: const TextStyle(fontSize: 18),
-                                  ),
-                                ],
+                                    SizedBox(
+                                      width: 180,
+                                      child: Text(
+                                        customActivities[index].activityName,
+                                        style: const TextStyle(fontSize: 18),
+                                        maxLines: 2,
+                                        overflow: TextOverflow.ellipsis,
+                                      ),
+                                    ),
+                                  ],
+                                ),
                               ),
                               TextButton(
                                 onPressed: () {
@@ -500,30 +617,28 @@ class _ActivityFormBodyState extends State<ActivityFormBody> {
                         borderRadius: BorderRadius.circular(30),
                       ))),
                   onPressed: () {
-                    setState(() {
-                      widget.user.extraLightActivities = [];
-                      widget.user.lightActivities = [];
-                      widget.user.mediumActivities = [];
-                      for (var element in extraLightActivities) {
-                        if (element.activityName != "") {
-                          widget.user.extraLightActivities!.add(element);
-                        }
+                    widget.user.extraLightActivities = [];
+                    widget.user.lightActivities = [];
+                    widget.user.mediumActivities = [];
+                    for (var element in extraLightActivities) {
+                      if (element.activityName != "") {
+                        widget.user.extraLightActivities!.add(element);
                       }
-                      for (var element in lightActivities) {
-                        if (element.activityName != "") {
-                          widget.user.lightActivities!.add(element);
-                        }
+                    }
+                    for (var element in lightActivities) {
+                      if (element.activityName != "") {
+                        widget.user.lightActivities!.add(element);
                       }
-                      for (var element in mediumActivities) {
-                        if (element.activityName != "") {
-                          widget.user.mediumActivities!.add(element);
-                        }
+                    }
+                    for (var element in mediumActivities) {
+                      if (element.activityName != "") {
+                        widget.user.mediumActivities!.add(element);
                       }
-                      widget.user.customActivities = customActivities;
-                      Navigator.of(context).push(MaterialPageRoute(
-                          builder: (context) => ActivityResult(
-                              user: widget.user, isConfig: widget.isConfig)));
-                    });
+                    }
+                    widget.user.customActivities = customActivities;
+                    Navigator.of(context).push(MaterialPageRoute(
+                        builder: (context) => ActivityResult(
+                            user: widget.user, isConfig: widget.isConfig)));
                   },
                   child: const Padding(
                     padding: EdgeInsets.symmetric(vertical: 3, horizontal: 15),
@@ -546,6 +661,7 @@ class ActivityDisplay extends StatefulWidget {
   final Function(String val) setSelectedName;
   final Function(String val) setSelectedFrequency;
   final String? initialSelectedName;
+  final int? initialSelectedFrequency;
   final Color nameColor;
   final Color frequencyColor;
   final List<String> data;
@@ -554,6 +670,7 @@ class ActivityDisplay extends StatefulWidget {
     required this.setSelectedName,
     required this.setSelectedFrequency,
     required this.data,
+    this.initialSelectedFrequency,
     this.initialSelectedName,
     this.nameColor = Colors.white,
     this.frequencyColor = Colors.white,
@@ -573,10 +690,11 @@ class _ActivityDisplayState extends State<ActivityDisplay> {
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: [
             Expanded(
-              flex: 5,
+              flex: 6,
               child: Padding(
                 padding: const EdgeInsets.only(top: 3.0),
                 child: WideDropDown(
+                  key: ValueKey(widget.initialSelectedName),
                   data: widget.data,
                   border: const BorderSide(color: Colors.black38),
                   color: widget.nameColor,
@@ -588,17 +706,19 @@ class _ActivityDisplayState extends State<ActivityDisplay> {
             Expanded(
               flex: 2,
               child: SmallDropDown(
+                key: ValueKey(widget.initialSelectedFrequency),
                 data: frequency,
                 border: Border.all(color: Colors.black38),
                 dropdownColor: widget.frequencyColor,
                 buttonColor: widget.frequencyColor,
+                initialValue: widget.initialSelectedFrequency,
                 setSelectedItem: widget.setSelectedFrequency,
               ),
             ),
             const Expanded(
-              flex: 3,
+              flex: 2,
               child: Padding(
-                padding: EdgeInsets.only(left: 8.0, top: 15),
+                padding: EdgeInsets.only(left: 8.0, top: 5),
                 child: Text(
                   "ครั้ง/สัปดาห์",
                   style: TextStyle(fontSize: 18),

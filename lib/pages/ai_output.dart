@@ -5,7 +5,6 @@ import 'package:appfood2/pages/food_detailed.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:appfood2/screen_size.dart';
-import 'package:appfood2/pages/food_detailed.dart';
 import 'package:appfood2/widgets/button_back.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
@@ -13,6 +12,7 @@ class AIOutputPage extends StatelessWidget {
   const AIOutputPage({super.key, required this.foodImage, required this.food});
   final XFile? foodImage;
   final Food food;
+
 
   @override
   Widget build(BuildContext context) {
@@ -154,8 +154,9 @@ class AIOutputPage extends StatelessWidget {
                     AmountObjectofUser(
                       foodImage: foodImage,
                       width: screenSizeData.screenSizeWidth,
+                      foodname:food.name
                     ),
-                    PartOfObject(width: screenSizeData.screenSizeWidth),
+                    PartOfObject(width: screenSizeData.screenSizeWidth,realimagesLeft:foodImage,realimagesRight:food.detail.realImageAssetPath.toString(),foodname:food.name),
                     SugestBox(
                       width: screenSizeData.screenSizeWidth,
                     ),
@@ -179,9 +180,11 @@ class AIOutputPage extends StatelessWidget {
 }
 
 class PartOfObject extends StatelessWidget {
-  const PartOfObject({super.key, required this.width});
+  const PartOfObject({super.key, required this.width,required this.realimagesLeft,required this.realimagesRight, required this.foodname});
   final double width;
-
+  final XFile? realimagesLeft;
+  final String realimagesRight;
+  final String foodname;
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -194,18 +197,19 @@ class PartOfObject extends StatelessWidget {
             borderRadius: BorderRadius.all(Radius.circular(20))),
         child: Stack(
           children: [
-            const Align(
-                alignment: AlignmentDirectional(0, -0.8),
+            Align(
+                alignment: const AlignmentDirectional(0, -0.8),
                 child: Text(
-                  'แอปเปิ้ล 1 ส่วน',
-                  style: TextStyle(fontSize: 32, fontWeight: FontWeight.bold),
+                  '$foodname 1 ส่วน',
+                  style: const TextStyle(fontSize: 32, fontWeight: FontWeight.bold),
                 )),
             Align(
                 alignment: const AlignmentDirectional(-0.7, 0.6),
                 child: ClipRRect(
                   borderRadius: BorderRadius.circular(20),
-                  child: Image.asset(
-                    't1',
+                  child:  
+                  Image.file(
+                    File(realimagesLeft!.path),
                     width: 120,
                     height: 130,
                     fit: BoxFit.cover,
@@ -216,7 +220,7 @@ class PartOfObject extends StatelessWidget {
                 child: ClipRRect(
                   borderRadius: BorderRadius.circular(20),
                   child: Image.asset(
-                    't2',
+                    realimagesRight,
                     width: 120,
                     height: 130,
                     fit: BoxFit.cover,
@@ -231,10 +235,11 @@ class PartOfObject extends StatelessWidget {
 
 class AmountObjectofUser extends StatelessWidget {
   const AmountObjectofUser(
-      {super.key, required this.foodImage, required this.width});
+      {super.key, required this.foodImage, required this.width, required this.foodname});
 
   final XFile? foodImage;
   final double width;
+  final String foodname;
 
   @override
   Widget build(BuildContext context) {
@@ -253,9 +258,9 @@ class AmountObjectofUser extends StatelessWidget {
               "ปริมาณแอฟเปิ้ล",
               style: TextStyle(fontSize: 32, fontWeight: FontWeight.bold),
             ),
-            const Text(
+             const Text(
               "ของคุณแจ่มใส",
-              style: TextStyle(fontSize: 32, fontWeight: FontWeight.bold),
+              style:  TextStyle(fontSize: 32, fontWeight: FontWeight.bold),
             ),
             Padding(
               padding: const EdgeInsets.fromLTRB(0, 20, 0, 15),

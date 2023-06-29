@@ -44,33 +44,36 @@ class _BMIState extends State<BMIPage> {
         child: Container(
           //height: screenSizeData.screenHeight,
           color: screenSizeData.screenWidth <= screenSizeData.maxWidth
-            ? Colors.white
-            : Colors.black,
+              ? Colors.white
+              : Colors.black,
           child: Center(
             child: Container(
-              constraints: BoxConstraints(
-                minHeight: screenSizeData.screenHeight
-              ),
+              constraints:
+                  BoxConstraints(minHeight: screenSizeData.screenHeight),
               color: (valBMI >= 30)
                   ? const Color.fromRGBO(255, 175, 175, 1)
                   : (valBMI >= 25 && valBMI <= 29.9)
-            ? const Color.fromRGBO(255, 208, 193, 1)
-            : (valBMI >= 23 && valBMI <= 24.9)
-                ? const Color.fromRGBO(255, 245, 220, 1)
-                : (valBMI >= 18.5 && valBMI <= 22.9)
-                    ? const Color.fromRGBO(217, 255, 200, 1)
-                    : const Color.fromRGBO(255, 245, 220, 1),
+                      ? const Color.fromRGBO(255, 208, 193, 1)
+                      : (valBMI >= 23 && valBMI <= 24.9)
+                          ? const Color.fromRGBO(255, 245, 220, 1)
+                          : (valBMI >= 18.5 && valBMI <= 22.9)
+                              ? const Color.fromRGBO(217, 255, 200, 1)
+                              : const Color.fromRGBO(255, 245, 220, 1),
               width: screenSizeData.screenSizeWidth,
               height: screenSizeData.screenHeight,
               child: SingleChildScrollView(
                 child: Column(
                   children: [
                     Padding(
-                        padding: EdgeInsets.only( top:  screenSizeData.maxWidth < 600 ? screenSizeData.screenHeight * 0.1 : screenSizeData.screenHeight * 0.18),
+                        padding: EdgeInsets.only(
+                            top: screenSizeData.maxWidth < 600
+                                ? screenSizeData.screenHeight * 0.1
+                                : screenSizeData.screenHeight * 0.08),
                         child: Stack(
                           children: [
                             Padding(
-                              padding: EdgeInsets.only(right: screenSizeData.screenSizeWidth * 0.4),
+                              padding: EdgeInsets.only(
+                                  right: screenSizeData.screenSizeWidth * 0.4),
                               child: Align(
                                 alignment: Alignment.center,
                                 child: Container(
@@ -79,7 +82,8 @@ class _BMIState extends State<BMIPage> {
                                   height: 150,
                                   decoration: BoxDecoration(
                                     borderRadius: BorderRadius.circular(150),
-                                    color: const Color.fromRGBO(177, 222, 255, 1),
+                                    color:
+                                        const Color.fromRGBO(177, 222, 255, 1),
                                   ),
                                   child: Image.asset(
                                     'assets/images/BMI/weighing.png',
@@ -91,19 +95,20 @@ class _BMIState extends State<BMIPage> {
                               ),
                             ),
                             Padding(
-                              padding: EdgeInsets.only(left: screenSizeData.screenSizeWidth * 0.4),
+                              padding: EdgeInsets.only(
+                                  left: screenSizeData.screenSizeWidth * 0.4),
                               child: Align(
                                 alignment: Alignment.center,
                                 child: SizedBox(
-                                  
                                   width: 150,
                                   height: 150,
                                   child: Center(
                                     child: Text(
                                       "“$username”",
                                       style: const TextStyle(
-                                          fontSize: 36, fontWeight: FontWeight.bold),
-                                          textAlign: TextAlign.center,
+                                          fontSize: 36,
+                                          fontWeight: FontWeight.bold),
+                                      textAlign: TextAlign.center,
                                     ),
                                   ),
                                 ),
@@ -112,7 +117,8 @@ class _BMIState extends State<BMIPage> {
                           ],
                         )),
                     Padding(
-                      padding: const EdgeInsets.only(left: 15, right: 15, top: 50),
+                      padding:
+                          const EdgeInsets.only(left: 15, right: 15, top: 50),
                       child: Container(
                         //height: 92,
                         padding: const EdgeInsets.symmetric(vertical: 25),
@@ -146,7 +152,8 @@ class _BMIState extends State<BMIPage> {
                                 mainAxisAlignment: MainAxisAlignment.center,
                                 children: [
                                   Padding(
-                                      padding: EdgeInsets.only(left: 24, right: 31),
+                                      padding:
+                                          EdgeInsets.only(left: 24, right: 31),
                                       child: Text("=",
                                           style: TextStyle(
                                               fontSize: 20,
@@ -166,7 +173,8 @@ class _BMIState extends State<BMIPage> {
                                                     offset: Offset(0, -10),
                                                     color: Colors.black),
                                               ],
-                                              decoration: TextDecoration.underline,
+                                              decoration:
+                                                  TextDecoration.underline,
                                               decorationColor: Colors.black,
                                               decorationThickness: 3))),
                                   Padding(
@@ -184,7 +192,8 @@ class _BMIState extends State<BMIPage> {
                         alignment: Alignment.center,
                         child: Text(
                           "น้ำหนักของคุณอยู่ในเกณฑ์",
-                          style: TextStyle(fontSize: 24, fontWeight: FontWeight.w700),
+                          style: TextStyle(
+                              fontSize: 24, fontWeight: FontWeight.w700),
                         ),
                       ),
                     ),
@@ -194,16 +203,19 @@ class _BMIState extends State<BMIPage> {
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
                             Container(
-                              padding: const EdgeInsets.symmetric(vertical: 15, horizontal: 20),
+                              padding: const EdgeInsets.symmetric(
+                                  vertical: 15, horizontal: 20),
                               decoration: BoxDecoration(
                                   color: (valBMI >= 30)
                                       ? const Color.fromRGBO(255, 59, 59, 1)
                                       : (valBMI >= 25 && valBMI <= 29.9)
-                                          ? const Color.fromRGBO(255, 148, 87, 1)
+                                          ? const Color.fromRGBO(
+                                              255, 148, 87, 1)
                                           : (valBMI >= 23 && valBMI <= 24.9)
                                               ? const Color.fromRGBO(
                                                   255, 208, 87, 1)
-                                              : (valBMI >= 18.5 && valBMI <= 22.9)
+                                              : (valBMI >= 18.5 &&
+                                                      valBMI <= 22.9)
                                                   ? const Color.fromRGBO(
                                                       98, 233, 35, 1)
                                                   : const Color.fromRGBO(
@@ -220,11 +232,13 @@ class _BMIState extends State<BMIPage> {
                                           ? "25 - 29.9 โรคอ้วน"
                                           : (valBMI >= 23 && valBMI <= 24.9)
                                               ? "23 - 24.9 น้ำหนักเกิน"
-                                              : (valBMI >= 18.5 && valBMI <= 22.9)
+                                              : (valBMI >= 18.5 &&
+                                                      valBMI <= 22.9)
                                                   ? "18.5 - 22.9 ปกติ"
                                                   : "< 18.5 ต่ำกว่าเกณฑ์",
                                   style: const TextStyle(
-                                      fontSize: 24, fontWeight: FontWeight.bold),
+                                      fontSize: 24,
+                                      fontWeight: FontWeight.bold),
                                 ), //wait data from database
                               ),
                             ),
@@ -238,34 +252,34 @@ class _BMIState extends State<BMIPage> {
                                     : (valBMI >= 25 && valBMI <= 29.9)
                                         ? const FaIcon(
                                             FontAwesomeIcons.thumbsUp,
-                                            color: Color.fromRGBO(206, 101, 25, 1),
+                                            color:
+                                                Color.fromRGBO(206, 101, 25, 1),
                                           )
                                         : (valBMI >= 23 && valBMI <= 24.9)
                                             ? const FaIcon(
                                                 FontAwesomeIcons.thumbsUp,
-                                                color:
-                                                    Color.fromRGBO(222, 192, 32, 1),
+                                                color: Color.fromRGBO(
+                                                    222, 192, 32, 1),
                                               )
                                             : (valBMI >= 18.5 && valBMI <= 22.9)
                                                 ? const FaIcon(
                                                     FontAwesomeIcons.thumbsUp,
-                                                    
                                                     color: Color.fromRGBO(
                                                         44, 169, 13, 1),
                                                   )
                                                 : const FaIcon(
-                                                    
                                                     FontAwesomeIcons.thumbsUp,
-                                                    
                                                     color: Color.fromRGBO(
                                                         222, 192, 32, 1)))
                           ],
                         )),
                     Padding(
-                      padding: const EdgeInsets.only(left: 15, right: 15, top: 30),
+                      padding:
+                          const EdgeInsets.only(left: 15, right: 15, top: 30),
                       child: Container(
                         //height: 158,
-                        padding: const EdgeInsets.symmetric(vertical: 20, horizontal: 15),
+                        padding: const EdgeInsets.symmetric(
+                            vertical: 20, horizontal: 15),
                         //margin: EdgeInsets.symmetric(horizontal: 10),
                         width: screenSizeData.screenSizeWidth * 0.9,
                         decoration: BoxDecoration(
@@ -282,11 +296,12 @@ class _BMIState extends State<BMIPage> {
                                   child: SizedBox(
                                     height: 56,
                                     child: Padding(
-                                      padding:
-                                          EdgeInsets.only(left: 7, top: 23, right: 1),
+                                      padding: EdgeInsets.only(
+                                          left: 7, top: 23, right: 1),
                                       child: DecoratedBox(
                                         decoration: BoxDecoration(
-                                            color: Color.fromRGBO(255, 208, 87, 1),
+                                            color:
+                                                Color.fromRGBO(255, 208, 87, 1),
                                             borderRadius: BorderRadius.all(
                                               Radius.circular(20),
                                             )),
@@ -306,11 +321,12 @@ class _BMIState extends State<BMIPage> {
                                   child: SizedBox(
                                     height: 56,
                                     child: Padding(
-                                      padding:
-                                          EdgeInsets.only(left: 1, top: 23, right: 7),
+                                      padding: EdgeInsets.only(
+                                          left: 1, top: 23, right: 7),
                                       child: DecoratedBox(
                                         decoration: BoxDecoration(
-                                            color: Color.fromRGBO(255, 208, 87, 1),
+                                            color:
+                                                Color.fromRGBO(255, 208, 87, 1),
                                             borderRadius: BorderRadius.all(
                                               Radius.circular(20),
                                             )),
@@ -335,11 +351,12 @@ class _BMIState extends State<BMIPage> {
                                   child: SizedBox(
                                     height: 40,
                                     child: Padding(
-                                      padding:
-                                          EdgeInsets.only(left: 7, top: 7, right: 1),
+                                      padding: EdgeInsets.only(
+                                          left: 7, top: 7, right: 1),
                                       child: DecoratedBox(
                                         decoration: BoxDecoration(
-                                            color: Color.fromRGBO(98, 233, 35, 1),
+                                            color:
+                                                Color.fromRGBO(98, 233, 35, 1),
                                             borderRadius: BorderRadius.all(
                                               Radius.circular(20),
                                             )),
@@ -359,11 +376,12 @@ class _BMIState extends State<BMIPage> {
                                   child: SizedBox(
                                     height: 40,
                                     child: Padding(
-                                      padding:
-                                          EdgeInsets.only(left: 1, top: 7, right: 7),
+                                      padding: EdgeInsets.only(
+                                          left: 1, top: 7, right: 7),
                                       child: DecoratedBox(
                                         decoration: BoxDecoration(
-                                            color: Color.fromRGBO(255, 148, 87, 1),
+                                            color:
+                                                Color.fromRGBO(255, 148, 87, 1),
                                             borderRadius: BorderRadius.all(
                                               Radius.circular(20),
                                             )),
@@ -388,11 +406,12 @@ class _BMIState extends State<BMIPage> {
                                   child: SizedBox(
                                     height: 40,
                                     child: Padding(
-                                      padding:
-                                          EdgeInsets.only(left: 7, top: 7, right: 1),
+                                      padding: EdgeInsets.only(
+                                          left: 7, top: 7, right: 1),
                                       child: DecoratedBox(
                                         decoration: BoxDecoration(
-                                            color: Color.fromRGBO(249, 255, 226, 1),
+                                            color: Color.fromRGBO(
+                                                249, 255, 226, 1),
                                             borderRadius: BorderRadius.all(
                                               Radius.circular(20),
                                             )),
@@ -405,11 +424,12 @@ class _BMIState extends State<BMIPage> {
                                   child: SizedBox(
                                     height: 38,
                                     child: Padding(
-                                      padding:
-                                          EdgeInsets.only(left: 1, top: 5, right: 7),
+                                      padding: EdgeInsets.only(
+                                          left: 1, top: 5, right: 7),
                                       child: DecoratedBox(
                                         decoration: BoxDecoration(
-                                            color: Color.fromRGBO(255, 60, 60, 1),
+                                            color:
+                                                Color.fromRGBO(255, 60, 60, 1),
                                             borderRadius: BorderRadius.all(
                                               Radius.circular(20),
                                             )),
@@ -430,7 +450,6 @@ class _BMIState extends State<BMIPage> {
                         ),
                       ),
                     ),
-                    
                     Padding(
                       padding: const EdgeInsets.only(bottom: 20),
                       child: Visibility(
@@ -439,14 +458,15 @@ class _BMIState extends State<BMIPage> {
                           padding: const EdgeInsets.only(top: 50, bottom: 46),
                           child: ElevatedButton(
                             style: ButtonStyle(
-                                backgroundColor:
-                                    const MaterialStatePropertyAll(Color(0xFFED7E7E)),
-                                shape: MaterialStateProperty.all(RoundedRectangleBorder(
+                                backgroundColor: const MaterialStatePropertyAll(
+                                    Color(0xFFED7E7E)),
+                                shape: MaterialStateProperty.all(
+                                    RoundedRectangleBorder(
                                   borderRadius: BorderRadius.circular(30),
                                 ))),
                             onPressed: () {
-                              widget.user.bmi =
-                                  calculateBMI(widget.user.weight, widget.user.height);
+                              widget.user.bmi = calculateBMI(
+                                  widget.user.weight, widget.user.height);
                               widget.user.bmr = calculateBMR(
                                   widget.user.bmi, widget.user.activityLevel);
                               setState(() {
@@ -458,10 +478,12 @@ class _BMIState extends State<BMIPage> {
                               });
                             },
                             child: Container(
-                              padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 15),
+                              padding: const EdgeInsets.symmetric(
+                                  vertical: 10, horizontal: 15),
                               child: const Text(
                                 "ถัดไป",
-                                style: TextStyle(fontSize: 32, fontWeight: FontWeight.w400),
+                                style: TextStyle(
+                                    fontSize: 32, fontWeight: FontWeight.w400),
                               ),
                             ),
                           ),

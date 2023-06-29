@@ -22,21 +22,24 @@ class WideDropDown extends StatefulWidget {
   });
 
   @override
-  State<WideDropDown> createState() => _WideDropDownState();
+  State<WideDropDown> createState() => WideDropDownState();
 }
 
-class _WideDropDownState extends State<WideDropDown> {
+class WideDropDownState extends State<WideDropDown> {
   late String selectedItem;
   bool boxOpen = false;
 
+  late String? initialValue;
+
   @override
   void initState() {
-    if (widget.initialValue != null) {
-      selectedItem = widget.initialValue!;
+    super.initState();
+    initialValue = widget.initialValue;
+    if (initialValue != null) {
+      selectedItem = initialValue!;
     } else {
       selectedItem = widget.data.first;
     }
-    super.initState();
   }
 
   @override
@@ -60,6 +63,7 @@ class _WideDropDownState extends State<WideDropDown> {
                         fontSize: 24,
                         fontWeight: widget.fontWeight,
                       ),
+                      overflow: TextOverflow.ellipsis,
                     ),
                   );
                 } else {
@@ -83,14 +87,24 @@ class _WideDropDownState extends State<WideDropDown> {
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    Text(selectedItem,
+                    Flexible(
+                      flex: 8,
+                      child: Text(
+                        selectedItem,
                         style: TextStyle(
                             fontSize: 20,
                             color: Colors.black,
-                            fontFamily: widget.fontFamily)),
-                    const Icon(
-                      Icons.arrow_drop_down,
-                      color: Colors.black,
+                            fontFamily: widget.fontFamily),
+                        maxLines: 2,
+                        overflow: TextOverflow.ellipsis,
+                      ),
+                    ),
+                    const Flexible(
+                      flex: 1,
+                      child: Icon(
+                        Icons.arrow_drop_down,
+                        color: Colors.black,
+                      ),
                     ),
                   ],
                 ),
@@ -116,7 +130,7 @@ class _WideDropDownState extends State<WideDropDown> {
                             right: 15, top: 10, bottom: 10, left: 5),
                         child: Scrollbar(
                           radius: const Radius.circular(30),
-                          thickness: 12,
+                          thickness: 6,
                           thumbVisibility: true,
                           child: ListView.builder(
                             itemExtent: 30,
@@ -133,15 +147,20 @@ class _WideDropDownState extends State<WideDropDown> {
                                 ),
                                 onPressed: () {
                                   widget.setSelectedItem(widget.data[index]);
-                                  setState(() {
-                                    selectedItem = widget.data[index];
-                                    Future.delayed(
-                                        const Duration(milliseconds: 100), () {
-                                      setState(() {
-                                        boxOpen = false;
+                                  if (mounted) {
+                                    setState(() {
+                                      selectedItem = widget.data[index];
+                                      Future.delayed(
+                                          const Duration(milliseconds: 100),
+                                          () {
+                                        if (mounted) {
+                                          setState(() {
+                                            boxOpen = false;
+                                          });
+                                        }
                                       });
                                     });
-                                  });
+                                  }
                                 },
                                 child: Align(
                                   alignment: Alignment.centerLeft,
@@ -151,6 +170,7 @@ class _WideDropDownState extends State<WideDropDown> {
                                         fontSize: 20,
                                         color: Colors.black,
                                         fontFamily: widget.fontFamily),
+                                    overflow: TextOverflow.ellipsis,
                                   ),
                                 ),
                               );

@@ -5,6 +5,7 @@ class SmallDropDown extends StatefulWidget {
   final Function(String val) setSelectedItem;
   final Color buttonColor;
   final Color dropdownColor;
+  final int? initialValue;
   final Border border;
   final BorderRadius borderRadius;
   final String fontFamily;
@@ -14,6 +15,7 @@ class SmallDropDown extends StatefulWidget {
     required this.data,
     required this.setSelectedItem,
     required this.border,
+    this.initialValue,
     this.buttonColor = Colors.white,
     this.dropdownColor = Colors.white,
     this.borderRadius = BorderRadius.zero,
@@ -30,7 +32,12 @@ class _SmallDropDownState extends State<SmallDropDown> {
 
   @override
   void initState() {
-    selectedItem = widget.data.first;
+    if (widget.initialValue != null) {
+      selectedItem = widget.data[widget.initialValue! - 1];
+    } else {
+      selectedItem = widget.data.first;
+    }
+
     super.initState();
   }
 
@@ -55,9 +62,11 @@ class _SmallDropDownState extends State<SmallDropDown> {
           value: selectedItem,
           onChanged: (Object? val) {
             widget.setSelectedItem(val.toString());
-            setState(() {
-              selectedItem = val.toString();
-            });
+            if (mounted) {
+              setState(() {
+                selectedItem = val.toString();
+              });
+            }
           },
           items: widget.data.map<DropdownMenuItem<String>>((String value) {
             return DropdownMenuItem<String>(
