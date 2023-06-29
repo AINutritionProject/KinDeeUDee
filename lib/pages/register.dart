@@ -105,6 +105,7 @@ class _RegisterFormState extends State<RegisterForm> {
   }
 
   bool? isAccept = false;
+  bool isObscure=true;
   bool checkboxError = false;
   List<String> usernames = [];
   List<String> emails = [];
@@ -216,11 +217,28 @@ class _RegisterFormState extends State<RegisterForm> {
                                 })),
                         Padding(
                             padding: const EdgeInsets.symmetric(horizontal: 14),
-                            child: TextFormSlot(
-                              controller: _passwordController,
-                              name: "รหัสผ่าน",
-                              validator: _passwordValidator,
-                            )),
+                            child: TextFormField(
+                    controller: _passwordController,
+                    validator: _passwordValidator,
+                    autovalidateMode: AutovalidateMode.onUserInteraction,
+                    obscureText: isObscure,
+                    decoration: InputDecoration(
+                        // this button is used to toggle the password visibility
+                        errorStyle:
+                            const TextStyle(fontSize: 18, color: Colors.red),
+                        errorMaxLines: 2,
+                        suffixIcon: IconButton(
+                            icon: Icon(isObscure
+                                ? Icons.visibility_off
+                                // ignore: dead_code
+                                : Icons.visibility),
+                            onPressed: () {
+                              setState(() {
+                                isObscure = !isObscure;
+                              });
+                            })),
+                    style: const TextStyle(fontSize: 20))
+                            ),
                         Row(
                           children: [
                             Shaker(
