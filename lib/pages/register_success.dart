@@ -16,9 +16,9 @@ class RegisterSuccesPage extends StatelessWidget {
     return Scaffold(
       body: Container(
         height: screenSizeData.screenHeight,
-          color: screenSizeData.screenWidth <= screenSizeData.maxWidth
-              ? Colors.white
-              : Colors.black,
+        color: screenSizeData.screenWidth <= screenSizeData.maxWidth
+            ? Colors.white
+            : Colors.black,
         child: Center(
           child: Container(
             width: screenSizeData.screenSizeWidth,
@@ -48,7 +48,8 @@ class RegisterSuccesPage extends StatelessWidget {
                         child: DecoratedBox(
                           decoration: BoxDecoration(
                               color: Color.fromRGBO(254, 158, 158, 1),
-                              borderRadius: BorderRadius.all(Radius.circular(30))),
+                              borderRadius:
+                                  BorderRadius.all(Radius.circular(30))),
                           child: Align(
                             alignment: Alignment.center,
                             child: Text(
@@ -65,11 +66,14 @@ class RegisterSuccesPage extends StatelessWidget {
                     child: Stack(alignment: Alignment.center, children: [
                       ElevatedButton(
                           onPressed: () {
-                            Navigator.of(context).(MaterialPageRoute(
-                                builder: (context) => const InformationPage()));
+                            Navigator.of(context).pushReplacement(
+                                MaterialPageRoute(
+                                    builder: (context) =>
+                                        const InformationPage()));
                           },
                           style: ElevatedButton.styleFrom(
-                              backgroundColor: const Color.fromRGBO(174, 144, 144, 1),
+                              backgroundColor:
+                                  const Color.fromRGBO(174, 144, 144, 1),
                               shape: RoundedRectangleBorder(
                                 borderRadius: BorderRadius.circular(25),
                               )),
@@ -80,8 +84,10 @@ class RegisterSuccesPage extends StatelessWidget {
                           )),
                       ElevatedButton(
                           onPressed: () {
-                            Navigator.of(context).pushReplacement(MaterialPageRoute(
-                                builder: (context) => const InformationPage()));
+                            Navigator.of(context).pushReplacement(
+                                MaterialPageRoute(
+                                    builder: (context) =>
+                                        const InformationPage()));
                           },
                           style: ElevatedButton.styleFrom(
                               backgroundColor: Colors.white,
@@ -102,8 +108,10 @@ class RegisterSuccesPage extends StatelessWidget {
                             color: Color.fromRGBO(174, 144, 144, 1),
                           ),
                           onPressed: () {
-                            Navigator.of(context).pushReplacement(MaterialPageRoute(
-                                builder: (context) => const InformationPage()));
+                            Navigator.of(context).pushReplacement(
+                                MaterialPageRoute(
+                                    builder: (context) =>
+                                        const InformationPage()));
                           })
                     ])),
               ],
