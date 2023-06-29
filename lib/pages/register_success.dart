@@ -65,7 +65,7 @@ class RegisterSuccesPage extends StatelessWidget {
                     child: Stack(alignment: Alignment.center, children: [
                       ElevatedButton(
                           onPressed: () {
-                            Navigator.of(context).push(MaterialPageRoute(
+                            Navigator.of(context).(MaterialPageRoute(
                                 builder: (context) => const InformationPage()));
                           },
                           style: ElevatedButton.styleFrom(
@@ -80,7 +80,7 @@ class RegisterSuccesPage extends StatelessWidget {
                           )),
                       ElevatedButton(
                           onPressed: () {
-                            Navigator.of(context).push(MaterialPageRoute(
+                            Navigator.of(context).pushReplacement(MaterialPageRoute(
                                 builder: (context) => const InformationPage()));
                           },
                           style: ElevatedButton.styleFrom(
@@ -102,7 +102,7 @@ class RegisterSuccesPage extends StatelessWidget {
                             color: Color.fromRGBO(174, 144, 144, 1),
                           ),
                           onPressed: () {
-                            Navigator.of(context).push(MaterialPageRoute(
+                            Navigator.of(context).pushReplacement(MaterialPageRoute(
                                 builder: (context) => const InformationPage()));
                           })
                     ])),
