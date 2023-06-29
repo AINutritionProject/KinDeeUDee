@@ -69,10 +69,11 @@ class SaveDataSuccessPage extends StatelessWidget {
                                 ),
                                 ElevatedButton(
                                     onPressed: () {
-                                      Navigator.of(context).pushReplacement(
+                                      Navigator.of(context).pushAndRemoveUntil(
                                           MaterialPageRoute(
                                               builder: (context) =>
-                                                  const LandingPage()));
+                                                  const LandingPage()),
+                                          (route) => route.isFirst);
                                     },
                                     style: ElevatedButton.styleFrom(
                                         backgroundColor: const Color.fromRGBO(
