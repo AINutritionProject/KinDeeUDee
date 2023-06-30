@@ -272,7 +272,7 @@ class _RegisterFormState extends State<RegisterForm> {
                                     builder: (context) {
                                     return  Container(
                                       padding: const EdgeInsets.only(left: 10,right: 10),
-                                      height: MediaQuery.of(context).size.height*0.9,
+                                      height: MediaQuery.of(context).size.height*0.93,
                                     child:  Column(
                                       children: [
                                         const Padding(
@@ -282,14 +282,14 @@ class _RegisterFormState extends State<RegisterForm> {
                                         Padding(
                                           padding: const EdgeInsets.all(8.0),
                                           child: Container(
-                                            height: MediaQuery.of(context).size.height*0.75  ,
-                                            width: MediaQuery.of(context).size.width*1.0,
+                                            height: MediaQuery.of(context).size.height*0.75,
+                                            width: MediaQuery.of(context).size.width*0.9,
                                             decoration:  BoxDecoration(
                                             color: const Color.fromRGBO(255, 251, 236,1),
                                             borderRadius: BorderRadius.circular(40)),
                                             child:Container(margin: const EdgeInsets.only(top: 20,bottom: 20), 
-                                              padding:const EdgeInsets.only(left: 10,right: 10),
-                                              child:const Text("55555555555"))),
+                                              padding:const EdgeInsets.only(left: 20,right: 20),
+                                              child:const Text(""))),
                                         )
                                         ],)
                                     );
