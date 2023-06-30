@@ -264,10 +264,36 @@ class _RegisterFormState extends State<RegisterForm> {
                             GestureDetector(
                               onTap: () {
                                 showModalBottomSheet(
+                                    shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(20.0),
+                                    ),
                                     context: context,
+                                    isScrollControlled: true,
                                     builder: (context) {
-                                      return const SizedBox(height: 400);
-                                    });
+                                    return  Container(
+                                      padding: const EdgeInsets.only(left: 10,right: 10),
+                                      height: MediaQuery.of(context).size.height*0.9,
+                                    child:  Column(
+                                      children: [
+                                        const Padding(
+                                          padding: EdgeInsets.only(top: 40,bottom: 10),
+                                          child: Text("นโยบายความเป็นส่วนตัว",style: TextStyle(fontSize: 28,fontWeight: FontWeight.w700),),
+                                        ),
+                                        Padding(
+                                          padding: const EdgeInsets.all(8.0),
+                                          child: Container(
+                                            height: MediaQuery.of(context).size.height*0.75  ,
+                                            width: MediaQuery.of(context).size.width*1.0,
+                                            decoration:  BoxDecoration(
+                                            color: const Color.fromRGBO(255, 251, 236,1),
+                                            borderRadius: BorderRadius.circular(40)),
+                                            child:Container(margin: const EdgeInsets.only(top: 20,bottom: 20), 
+                                              padding:const EdgeInsets.only(left: 10,right: 10),
+                                              child:const Text("55555555555"))),
+                                        )
+                                        ],)
+                                    );
+                                  });
                               },
                               child: Container(
                                   margin:
