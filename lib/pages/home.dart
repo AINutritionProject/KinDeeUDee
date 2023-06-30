@@ -2,6 +2,7 @@ import 'package:appfood2/pages/information/activity_form.dart';
 import 'package:appfood2/pages/information/information.dart';
 import 'package:appfood2/pages/information/nutrition.dart';
 import 'package:appfood2/pages/information/bmi.dart';
+import 'package:appfood2/pages/login.dart';
 import 'package:appfood2/widgets/error_dialog.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
@@ -62,6 +63,14 @@ class _HomePageState extends State<HomePage> {
           } else {
             return const RegisterSuccesPage();
           }
+        } else if (snapshot.hasError) {
+          return AlertDialog(
+            actions: [
+              TextButton(onPressed: () {}, child: const Text("go back"))
+            ],
+            content: const Text("ERRR"),
+            title: const Text("Error naja"),
+          );
         } else {
           return const Center(
             child: CircularProgressIndicator(),
