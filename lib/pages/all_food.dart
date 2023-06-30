@@ -42,12 +42,11 @@ class _RealAllFoodPageState extends State<RealAllFoodPage> {
             realImageAssetPath: "assets/images/Real$type/" + element[4]),
         // ignore: prefer_interpolation_to_compose_strings
         imageAssetPath:
-            "assets/images/${type == 'Fruit' ? 'Fruit' : 'RiceFlour'}/" +
-                element[2],
+            "assets/images/${type == 'Fruit' ? 'Fruit' : 'RiceFlour'}/" + element[2],
       ));
     }
     List<List<Food>> dataIndex = [];
-    for (int i = 0; i < foodList.length / 2 - 1; i++) {
+    for (int i = 0; i < foodList.length / 2; i++) {
       dataIndex.add([foodList[i * 2], foodList[i * 2 + 1]]);
     }
     if (foodList.length % 2 != 0) {
