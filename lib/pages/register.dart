@@ -105,7 +105,6 @@ class _RegisterFormState extends State<RegisterForm> {
   }
 
   bool? isAccept = false;
-  bool isObscure=true;
   bool checkboxError = false;
   List<String> usernames = [];
   List<String> emails = [];
@@ -217,27 +216,12 @@ class _RegisterFormState extends State<RegisterForm> {
                                 })),
                         Padding(
                             padding: const EdgeInsets.symmetric(horizontal: 14),
-                            child: TextFormField(
-                    controller: _passwordController,
-                    validator: _passwordValidator,
-                    autovalidateMode: AutovalidateMode.onUserInteraction,
-                    obscureText: isObscure,
-                    decoration: InputDecoration(
-                        // this button is used to toggle the password visibility
-                        errorStyle:
-                            const TextStyle(fontSize: 18, color: Colors.red),
-                        errorMaxLines: 2,
-                        suffixIcon: IconButton(
-                            icon: Icon(isObscure
-                                ? Icons.visibility_off
-                                // ignore: dead_code
-                                : Icons.visibility),
-                            onPressed: () {
-                              setState(() {
-                                isObscure = !isObscure;
-                              });
-                            })),
-                    style: const TextStyle(fontSize: 20))
+                            child: TextFormSlot(
+                                controller: _passwordController,
+                                name: "รหัสผ่าน",
+                                validator: _passwordValidator,
+                                hidden: true,
+                                )
                             ),
                         Row(
                           children: [
@@ -358,19 +342,32 @@ class _RegisterFormState extends State<RegisterForm> {
   }
 }
 
-class TextFormSlot extends StatelessWidget {
+
+
+
+
+
+class TextFormSlot extends StatefulWidget {
   const TextFormSlot({
     super.key,
     required this.controller,
     required this.name,
     required this.validator,
     this.autovalidateMode = AutovalidateMode.onUserInteraction,
+    this.hidden=false
   });
   final TextEditingController controller;
   final String name;
   final String? Function(String? val) validator;
   final AutovalidateMode autovalidateMode;
+  final bool hidden;
 
+  @override
+  State<TextFormSlot> createState() => _TextFormSlotState();
+}
+
+class _TextFormSlotState extends State<TextFormSlot> {
+  bool isObscure=true;
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -378,19 +375,33 @@ class TextFormSlot extends StatelessWidget {
         Align(
             alignment: Alignment.centerLeft,
             child: Text(
-              name,
+              widget.name,
               style: const TextStyle(fontSize: 24, fontWeight: FontWeight.w500),
             )),
         TextFormField(
-          controller: controller,
-          validator: validator,
-          autovalidateMode: autovalidateMode,
+          controller: widget.controller,
+          validator: widget.validator,
+          autovalidateMode: widget.autovalidateMode,
           style: const TextStyle(fontSize: 23),
-          decoration: const InputDecoration(
+          decoration: widget.hidden? InputDecoration(
+                        // this button is used to toggle the password visibility
+                        errorStyle:
+                            const TextStyle(fontSize: 18, color: Colors.red),
+                        errorMaxLines: 2,
+                        suffixIcon: IconButton(
+                            icon: Icon(isObscure
+                                ? Icons.visibility_off
+                                // ignore: dead_code
+                                : Icons.visibility),
+                            onPressed: () {
+                              setState(() {
+                                isObscure = !isObscure;
+                              });
+                            })):const InputDecoration(
             errorStyle: TextStyle(fontSize: 18, color: Colors.red),
             errorMaxLines: 2,
           ),
-          obscureText: name == "รหัสผ่าน" ? true : false,
+          obscureText: widget.hidden&&(isObscure)? true : false,
         ),
       ],
     );
