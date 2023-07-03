@@ -79,6 +79,7 @@ class RepassWord extends StatelessWidget {
                         Container(
                           padding: EdgeInsets.only(left: MediaQuery.of(context).size.width*0.05,right: MediaQuery.of(context).size.width*0.05),
                           child: TextField(
+                          style: const TextStyle(fontSize: 23),
                           decoration: InputDecoration(
                             enabledBorder: OutlineInputBorder(
                               borderRadius: BorderRadius.circular(15.0),
