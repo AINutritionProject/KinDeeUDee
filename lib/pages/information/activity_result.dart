@@ -5,6 +5,7 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:appfood2/db.dart';
 import 'package:appfood2/pages/information/milk.dart';
 import 'package:appfood2/screen_size.dart';
+import 'package:appfood2/widgets/button_back.dart';
 
 class ActivityResult extends StatelessWidget {
   final User user;
@@ -200,10 +201,19 @@ class ActivityResultHeader extends StatelessWidget {
   Widget build(BuildContext context) {
     return Expanded(
       flex: 1,
-      child: SizedBox(
-        child: Padding(
-          padding: EdgeInsets.symmetric(horizontal: width * 0.1),
-          child: Align(
+      child: Stack(
+        children: [
+          const Padding(
+            padding: EdgeInsets.only(left: 10),
+            child: Align(
+              alignment: Alignment.centerLeft,
+              child: ButtonBack(
+                color: Colors.white,
+                colorCircle: Colors.orange,
+              )
+              ),
+          ),
+          Align(
             alignment: Alignment.center,
             child: Container(
               padding: const EdgeInsets.symmetric(vertical: 15, horizontal: 25),
@@ -214,14 +224,14 @@ class ActivityResultHeader extends StatelessWidget {
               child: Text(
                 "สรุปกิจกรรมประจำวัน",
                 style: TextStyle(
-                    fontSize: width < 600 ? 24 : 32,
+                    fontSize: width < 600 ? 22 : 30,
                     color: Colors.white,
                     fontWeight: FontWeight.bold),
                 //textAlign: TextAlign.center,
               ),
             ),
           ),
-        ),
+        ],
       ),
     );
   }
