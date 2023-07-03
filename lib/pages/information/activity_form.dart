@@ -718,7 +718,7 @@ class _ActivityDisplayState extends State<ActivityDisplay> {
             const Expanded(
               flex: 2,
               child: Padding(
-                padding: EdgeInsets.only(left: 8.0, top: 5),
+                padding: EdgeInsets.only(left: 6.0, top: 5),
                 child: Text(
                   "ครั้ง/สัปดาห์",
                   style: TextStyle(fontSize: 18),
