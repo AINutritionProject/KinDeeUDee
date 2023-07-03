@@ -150,25 +150,13 @@ class ButtonStart extends StatelessWidget {
         onTap: () {
           Navigator.of(context).pushNamed("/landing");
         },
-        child: Column(
-          children: [
-            const Text(
+        child:
+           const  Text(
               "เริ่มต้นใช้งาน",
               style: TextStyle(
                   fontSize: 32, color: Colors.black, fontWeight: FontWeight.bold),
               textAlign: TextAlign.center,
             ),
-            ElevatedButton(
-              onPressed: () {
-  Navigator.push(
-    context,
-    MaterialPageRoute(builder: (context) => const VerifyPage()),
-  );
-  
-}, child: Text("5555"),
-            )
-          ],
-        ),
       ),
     );
   }
