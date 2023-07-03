@@ -38,6 +38,32 @@ class Auth {
     return null;
   }
 
+  Future<void> sendVerificationEmail() async {
+    try {
+      final user = currentUser!;
+      await user.sendEmailVerification();
+    } catch (error) {
+      print("Got error when sending verification email");
+      print(error);
+    }
+  }
+
+  Future<bool?> emailIsVerified() async {
+    try {
+      final user = currentUser!;
+      await user.reload();
+      if (user.emailVerified) {
+        return true;
+      } else {
+        return false;
+      }
+    } catch (error) {
+      print("Got error when checking verified email");
+      print(error);
+      return null;
+    }
+  }
+
   Future<String?> signInWithUsername(String username, String password) async {
     try {
       // get email from username
