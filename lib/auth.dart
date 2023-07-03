@@ -60,8 +60,21 @@ class Auth {
     } catch (error) {
       print("Got error when checking verified email");
       print(error);
-      return null;
     }
+    return null;
+  }
+
+  Future<String?> resetPassword(String email) async {
+    try {
+      final firebaseAuth = _firebaseAuth;
+      await firebaseAuth.sendPasswordResetEmail(email: email);
+    } on FirebaseAuthException catch (error) {
+      print("Got FirebaseAuthException when try resetting paasword");
+      print(error);
+      return error.code;
+    }
+
+    return null;
   }
 
   Future<String?> signInWithUsername(String username, String password) async {
