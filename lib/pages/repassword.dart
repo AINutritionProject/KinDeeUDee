@@ -1,16 +1,37 @@
 import 'package:flutter/material.dart';
 import 'create_newpassword.dart';
 import '../widgets/button_back.dart';
- 
+import 'package:appfood2/screen_size.dart';
+
 
 class RepassWord extends StatelessWidget {
   const RepassWord({super.key});
 
   @override
   Widget build(BuildContext context) {
+    final mediaQueryData = MediaQuery.of(context);
+    final screenSizeData = ScreenSizeData(
+      screenWidth: mediaQueryData.size.width,
+      screenHeight: mediaQueryData.size.height,
+    );
     return Scaffold(
-            body: SafeArea(
-            child: Container(
+      body: SafeArea(
+        child: LayoutBuilder(
+            builder: (BuildContext context, BoxConstraints constraints) {
+          return Container(
+            height: screenSizeData.screenHeight,
+            color: screenSizeData.screenWidth <= screenSizeData.maxWidth
+                ? Colors.white
+                : Colors.black,
+            child: Center(
+              child: Container(
+                color: const Color.fromRGBO(255, 251, 242, 1),
+                width: screenSizeData.screenSizeWidth,
+                child: SingleChildScrollView(
+                  child: ConstrainedBox(
+                    constraints:
+                        BoxConstraints(minHeight: constraints.maxHeight),
+                    child:Container(
                 color: const Color.fromARGB(255, 241, 238, 228),
                 width: MediaQuery.of(context).size.width,
                 child:  Column(
@@ -88,6 +109,8 @@ class RepassWord extends StatelessWidget {
                 )
                 )
             )
-          );
+          ))));
+    }
+        )));
   }
 }
