@@ -147,9 +147,7 @@ class ButtonStart extends StatelessWidget {
       padding: const EdgeInsets.symmetric(vertical: 22),
       child: GestureDetector(
         onTap: () {
-          Navigator.of(context).pushReplacement(MaterialPageRoute(
-              settings: const RouteSettings(name: "home"),
-              builder: (context) => const LandingPage()));
+          Navigator.of(context).pushNamed("/landing");
         },
         child: const Text(
           "เริ่มต้นใช้งาน",
