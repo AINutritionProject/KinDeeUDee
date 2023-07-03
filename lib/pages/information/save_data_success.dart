@@ -1,3 +1,4 @@
+import 'package:appfood2/pages/home.dart';
 import 'package:appfood2/pages/landing.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -69,11 +70,10 @@ class SaveDataSuccessPage extends StatelessWidget {
                                 ),
                                 ElevatedButton(
                                     onPressed: () {
-                                      Navigator.of(context).pushAndRemoveUntil(
+                                      Navigator.of(context).pushReplacement(
                                           MaterialPageRoute(
                                               builder: (context) =>
-                                                  const LandingPage()),
-                                          (route) => route.isFirst);
+                                                  const HomePage()));
                                     },
                                     style: ElevatedButton.styleFrom(
                                         backgroundColor: const Color.fromRGBO(
