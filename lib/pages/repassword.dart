@@ -74,7 +74,7 @@ class RepassWord extends StatelessWidget {
                                 borderRadius: BorderRadius.circular(15.0),
                               )
                             ),
-                            onPressed: (){MaterialPageRoute(builder: (context) => const NewPassword());},
+                            onPressed: (){Navigator.push(context,MaterialPageRoute(builder: (context) => const NewPassword()));},
                             child: const Text('ยืนยัน',style: TextStyle(fontSize: 24),),
                           ),
                         ),
