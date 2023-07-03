@@ -19,13 +19,17 @@ class VerifyPage extends StatelessWidget {
                       child: const Text('ยืนยันอีเมลของคุณ',style: TextStyle(fontSize: 20,fontWeight: FontWeight.w600),)
                       ),
                        Container(
-                        padding: EdgeInsets.zero,
+                        padding: EdgeInsets.only(top: MediaQuery.of(context).size.height*0.02),
                         margin: EdgeInsets.symmetric(horizontal: MediaQuery.of(context).size.width)*0.2,
                         child: const Text('ขอบคุณสำหรับการเข้าร่วมเป็นสมาชิก โปรดยืนยันตัวตนให้สำเร็จเพื่อเริ่มต้นใช้งาน'),
                       ),
                       Container(
-                        padding: EdgeInsets.zero,
+                        padding: EdgeInsets.only(top: MediaQuery.of(context).size.height*0.02),
+                        margin: EdgeInsets.symmetric(horizontal: MediaQuery.of(context).size.width)*0.15,
                         child: ElevatedButton(
+                          style: ElevatedButton.styleFrom(
+                            backgroundColor: Colors.black,
+                            minimumSize: const Size.fromHeight(50),),
                           onPressed: (){},
                           child: const Text('ยืนยันอีเมล'),
                         ),
