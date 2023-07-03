@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 class VerifyPage extends StatelessWidget {
   const VerifyPage({super.key});
@@ -9,29 +10,39 @@ class VerifyPage extends StatelessWidget {
     return Scaffold(
             body: SafeArea(
             child: Container(
-                color: Colors.amber[100],
+                color: const Color.fromARGB(255, 241, 238, 228),
                 width: MediaQuery.of(context).size.width,
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
+                      const FaIcon(
+                        FontAwesomeIcons.envelope,
+                        color: Colors.green,
+                        size: 150,
+                      ),
                     Container(
-                      padding: const EdgeInsets.all(2),
-                      child: const Text('ยืนยันอีเมลของคุณ',style: TextStyle(fontSize: 20,fontWeight: FontWeight.w600),)
+                      padding:  EdgeInsets.only(top:  MediaQuery.of(context).size.height*0.05),
+                      child: const Text('ยืนยันอีเมลของคุณ',style: TextStyle(fontSize: 36,fontWeight: FontWeight.w700),)
                       ),
                        Container(
                         padding: EdgeInsets.only(top: MediaQuery.of(context).size.height*0.02),
                         margin: EdgeInsets.symmetric(horizontal: MediaQuery.of(context).size.width)*0.2,
-                        child: const Text('ขอบคุณสำหรับการเข้าร่วมเป็นสมาชิก โปรดยืนยันตัวตนให้สำเร็จเพื่อเริ่มต้นใช้งาน'),
+                        child: const Text('โปรดยืนยันตัวตนให้สำเร็จเพื่อเริ่มต้นใช้งาน',style: TextStyle(fontSize: 26),textAlign: TextAlign.center,),
                       ),
                       Container(
-                        padding: EdgeInsets.only(top: MediaQuery.of(context).size.height*0.02),
-                        margin: EdgeInsets.symmetric(horizontal: MediaQuery.of(context).size.width)*0.15,
+                        padding: EdgeInsets.only(top: MediaQuery.of(context).size.height*0.041),
+                        margin: EdgeInsets.symmetric(horizontal: MediaQuery.of(context).size.width)*0.25,
                         child: ElevatedButton(
                           style: ElevatedButton.styleFrom(
-                            backgroundColor: Colors.black,
-                            minimumSize: const Size.fromHeight(50),),
+                            backgroundColor: const Color.fromARGB(255, 238, 158, 93),
+                            minimumSize: const Size.fromHeight(70),
+                            shadowColor: Colors.yellowAccent,
+                            shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(30.0),
+                            )
+                            ),
                           onPressed: (){},
-                          child: const Text('ยืนยันอีเมล'),
+                          child: const Text('ยืนยันอีเมล',style: TextStyle(fontSize: 24),),
                         ),
                       )
 
