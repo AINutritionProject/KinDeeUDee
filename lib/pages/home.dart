@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:appfood2/pages/information/activity_form.dart';
 import 'package:appfood2/pages/information/information.dart';
 import 'package:appfood2/pages/information/nutrition.dart';
@@ -688,6 +690,22 @@ class UserAvatar extends StatefulWidget {
 }
 
 class _UserAvatarState extends State<UserAvatar> {
+  late Timer a;
+  @override
+  void initState() {
+    super.initState();
+    // settime interval
+    Timer a = Timer.periodic(const Duration(seconds: 2), (timer) {
+      setState(() {});
+    });
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
+    a.cancel();
+  }
+
   Future<void> _updateProfilePicture() async {
     final picker = ImagePicker();
     final filename = FirebaseAuth.instance.currentUser!.uid;
