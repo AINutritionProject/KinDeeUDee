@@ -483,14 +483,14 @@ class _PersonalHeaderState extends State<PersonalHeader> {
           mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
-            Stack(
+            const Stack(
               children: [
                 Align(
                     alignment: Alignment.topLeft,
                     child: ButtonBack(
                       colorCircle: Color(0xFFF8FFDD),
                     )),
-                const Center(child: UserAvatar()),
+                Center(child: UserAvatar()),
               ],
             ),
             Expanded(
