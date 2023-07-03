@@ -78,7 +78,7 @@ class _EatConfirmPageState extends State<EatConfirmPage> {
                                         foodImage: widget.image,
                                         food: widget.resultFood,
                                       )),
-                              (route) => route.isFirst);
+                              ModalRoute.withName("/landing"));
                         },
                         style: ElevatedButton.styleFrom(
                           backgroundColor:
