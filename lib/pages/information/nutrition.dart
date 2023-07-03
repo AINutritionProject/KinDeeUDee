@@ -147,56 +147,54 @@ class Nutrition extends StatelessWidget {
     return Scaffold(
         //appBar: AppBar(title: const Text("nutririon")),
         body: SafeArea(
+      child: Container(
+        color: screenSizeData.screenWidth <= screenSizeData.maxWidth
+            ? Colors.white
+            : Colors.black,
+        child: Center(
           child: Container(
-            color: screenSizeData.screenWidth <= screenSizeData.maxWidth
-              ? Colors.white
-              : Colors.black,
-            child: Center(
-              child: Container(
-                color: Colors.white,
-                width: screenSizeData.screenSizeWidth,
-                height: screenSizeData.screenHeight,
-                child: ListView.builder(
-                  itemCount: dataInSection.length + 2,
-                  itemBuilder: (context, index) {
-                    if (index == dataInSection.length + 1) {
-                      return Padding(
-                        padding: const EdgeInsets.only(bottom: 20),
-                        child: Visibility(
-                          visible: !isDrawer,
-                          child: ButtonSave(user: user, isDrawer: isDrawer,)),
-                      ) ;
-                    } else if (index == 0) {
-                      return ContainerHeader(
-                        bmr: user.bmr,
-                      );
-                    } else {
-                      return SectionNutrition(
-                          imgTypeNutritionPath: dataInSection[index - 1]
-                              ['imgTypeNutritionPath'],
-                          nameTypeNutrition: dataInSection[index - 1]['name'],
-                          amount: widgetList[index - 1],
-                          nameAmount: dataInSection[index - 1]['nameAmount'],
-                          widget: dataInSection[index - 1]['amountWiget']
-                              [widgetList[index - 1]]);
-                    }
-                  },
-                ),
-              ),
+            color: Colors.white,
+            width: screenSizeData.screenSizeWidth,
+            height: screenSizeData.screenHeight,
+            child: ListView.builder(
+              itemCount: dataInSection.length + 2,
+              itemBuilder: (context, index) {
+                if (index == dataInSection.length + 1) {
+                  return Padding(
+                    padding: const EdgeInsets.only(bottom: 20),
+                    child: Visibility(
+                        visible: !isDrawer,
+                        child: ButtonSave(
+                          user: user,
+                          isDrawer: isDrawer,
+                        )),
+                  );
+                } else if (index == 0) {
+                  return ContainerHeader(
+                    bmr: user.bmr,
+                  );
+                } else {
+                  return SectionNutrition(
+                      imgTypeNutritionPath: dataInSection[index - 1]
+                          ['imgTypeNutritionPath'],
+                      nameTypeNutrition: dataInSection[index - 1]['name'],
+                      amount: widgetList[index - 1],
+                      nameAmount: dataInSection[index - 1]['nameAmount'],
+                      widget: dataInSection[index - 1]['amountWiget']
+                          [widgetList[index - 1]]);
+                }
+              },
             ),
           ),
-        ));
+        ),
+      ),
+    ));
   }
 }
 
 class ButtonSave extends StatelessWidget {
   final User user;
-  const ButtonSave({
-    super.key,
-    required this.user,
-    this.isDrawer = false
-    
-  });
+  const ButtonSave({super.key, required this.user, this.isDrawer = false});
   final bool isDrawer;
 
   @override
@@ -220,8 +218,15 @@ class ButtonSave extends StatelessWidget {
               borderRadius: BorderRadius.circular(30)),
           child: GestureDetector(
             onTap: () {
-              Navigator.of(context).push(MaterialPageRoute(
-                  builder: (context) => SaveDataSuccessPage(user: user)));
+              Navigator.of(context).pushAndRemoveUntil(
+                  MaterialPageRoute(builder: (context) {
+                return SaveDataSuccessPage(
+                  user: user,
+                  isConfig: isDrawer,
+                );
+              }), (route) {
+                return route.isFirst;
+              });
             },
             child: const Center(
               child: Text(

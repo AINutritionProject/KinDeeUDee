@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:appfood2/pages/landing.dart';
 import 'package:appfood2/screen_size.dart';
+import 'verify_page.dart';
 
 class AppLogo extends StatelessWidget {
   const AppLogo({
@@ -149,12 +150,13 @@ class ButtonStart extends StatelessWidget {
         onTap: () {
           Navigator.of(context).pushNamed("/landing");
         },
-        child: const Text(
-          "เริ่มต้นใช้งาน",
-          style: TextStyle(
-              fontSize: 32, color: Colors.black, fontWeight: FontWeight.bold),
-          textAlign: TextAlign.center,
-        ),
+        child:
+           const  Text(
+              "เริ่มต้นใช้งาน",
+              style: TextStyle(
+                  fontSize: 32, color: Colors.black, fontWeight: FontWeight.bold),
+              textAlign: TextAlign.center,
+            ),
       ),
     );
   }

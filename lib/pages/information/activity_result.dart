@@ -22,24 +22,27 @@ class ActivityResult extends StatelessWidget {
       screenHeight: mediaQueryData.size.height,
     );
     return Scaffold(
-      body: Container(
-        color: screenSizeData.screenWidth <= screenSizeData.maxWidth
-            ? Colors.white
-            : Colors.black,
-        child: Center(
-          child: Container(
-            width: screenSizeData.screenSizeWidth,
-            color: const Color.fromRGBO(255, 251, 242, 1),
-            child: Center(
-              child: Column(
-                children: [
-                  ActivityResultHeader(
-                    width: screenSizeData.screenSizeWidth,
-                    height: screenSizeData.screenHeight,
-                  ),
-                  ActivityResultBody(user: user),
-                  ActivityResultFooter(user: user, isConfig: isConfig),
-                ],
+      body: SafeArea(
+        child: Container(
+          color: screenSizeData.screenWidth <= screenSizeData.maxWidth
+              ? Colors.white
+              : Colors.black,
+          child: Center(
+            child: Container(
+              width: screenSizeData.screenSizeWidth,
+              height: screenSizeData.screenHeight,
+              color: const Color.fromRGBO(255, 251, 242, 1),
+              child: Center(
+                child: Column(
+                  children: [
+                    ActivityResultHeader(
+                      width: screenSizeData.screenSizeWidth,
+                      height: screenSizeData.screenHeight,
+                    ),
+                    ActivityResultBody(user: user),
+                    ActivityResultFooter(user: user, isConfig: isConfig),
+                  ],
+                ),
               ),
             ),
           ),
@@ -123,8 +126,9 @@ class _ActivityResultBodyState extends State<ActivityResultBody> {
                     padding: EdgeInsets.only(
                         left: MediaQuery.of(context).size.width < 600 ? 8 : 25),
                     child: SizedBox(
-                      height:
-                          MediaQuery.of(context).size.width < 550 ? 220 : 350,
+                      height: MediaQuery.of(context).size.width < 550
+                          ? MediaQuery.of(context).size.height * 0.26
+                          : MediaQuery.of(context).size.height * 0.35,
                       child: Scrollbar(
                         child: ListView.builder(
                           itemCount: activities.length,
@@ -200,7 +204,7 @@ class ActivityResultHeader extends StatelessWidget {
         child: Padding(
           padding: EdgeInsets.symmetric(horizontal: width * 0.1),
           child: Align(
-            alignment: Alignment.bottomLeft,
+            alignment: Alignment.center,
             child: Container(
               padding: const EdgeInsets.symmetric(vertical: 15, horizontal: 25),
               decoration: BoxDecoration(
@@ -328,27 +332,21 @@ class _ActivityResultFooterState extends State<ActivityResultFooter> {
     return Expanded(
       flex: 3,
       child: Padding(
-        padding: const EdgeInsets.symmetric(vertical: 8.0),
+        padding: const EdgeInsets.symmetric(vertical: 4.0),
         child: Column(
           children: [
+            Text("กิจกรรมของคุณแจ่มใส",
+                style: TextStyle(
+                    fontSize:
+                        MediaQuery.of(context).size.width < 600 ? 20 : 24),
+                textAlign: TextAlign.center),
+            Text("อยู่ในระดับ",
+                style: TextStyle(
+                    fontSize:
+                        MediaQuery.of(context).size.width < 600 ? 20 : 24),
+                textAlign: TextAlign.center),
             Padding(
-              padding: const EdgeInsets.symmetric(vertical: 4.0),
-              child: Text("กิจกรรมของคุณแจ่มใส",
-                  style: TextStyle(
-                      fontSize:
-                          MediaQuery.of(context).size.width < 600 ? 20 : 24),
-                  textAlign: TextAlign.center),
-            ),
-            Padding(
-              padding: const EdgeInsets.symmetric(vertical: 4.0),
-              child: Text("อยู่ในระดับ",
-                  style: TextStyle(
-                      fontSize:
-                          MediaQuery.of(context).size.width < 600 ? 20 : 24),
-                  textAlign: TextAlign.center),
-            ),
-            Padding(
-              padding: const EdgeInsets.symmetric(vertical: 12.0),
+              padding: const EdgeInsets.symmetric(vertical: 10.0),
               child: Container(
                 decoration: BoxDecoration(
                     color: const Color(0xFFF9FFB5),
