@@ -16,12 +16,15 @@ class RepassWord extends StatelessWidget {
                 child:  Column(
                   mainAxisAlignment: MainAxisAlignment.start,
                   children: [
-                    const Row(
+                     Row(
                       children: [
-                        ButtonBack(
-                          colorCircle: Color.fromRGBO(130, 151, 223, 1),
-                          color: Colors.white,
-                          ),
+                        Padding(
+                          padding: EdgeInsets.only(left: MediaQuery.of(context).size.width*0.02,top: MediaQuery.of(context).size.height*0.02),
+                          child:const ButtonBack(
+                            colorCircle: Color.fromRGBO(130, 151, 223, 1),
+                            color: Colors.white,
+                            ),
+                        ),
                       ],
                       
                     ),
@@ -31,40 +34,41 @@ class RepassWord extends StatelessWidget {
                         Row(
                           children: [
                             Container(
-                              padding: EdgeInsets.only(left: MediaQuery.of(context).size.width*0.05,right: MediaQuery.of(context).size.width*0.2),
-                              child: const Text("ตั้งค่ารหัสผ่านใหม่")),
+                              padding: EdgeInsets.only(left: MediaQuery.of(context).size.width*0.05,right: MediaQuery.of(context).size.width*0.2,top: MediaQuery.of(context).size.height*0.04),
+                              child: const Text("ตั้งค่ารหัสผ่านใหม่",style: TextStyle(fontSize: 24,fontWeight: FontWeight.w700))),
                           ],
                         ),
                         Column(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
                             Container(
-                              padding: EdgeInsets.only(left: MediaQuery.of(context).size.width*0.05,right: MediaQuery.of(context).size.width*0.2),
-                              child: const Text("กรุณาใส่อีเมลของคุณ เราจะทำการส่งคำขอการตั้งรหัสผ่านใหม่ไปยังอีเมลของคุณ")
+                              padding: EdgeInsets.only(left: MediaQuery.of(context).size.width*0.05,right: MediaQuery.of(context).size.width*0.18,top: MediaQuery.of(context).size.height*0.02),
+                              child: const Text("กรุณาใส่อีเมลของคุณ เราจะทำการส่งคำขอการตั้งรหัสผ่านใหม่ไปยังอีเมลของคุณ",style: TextStyle(fontSize: 18))
                             ),
                           ],
                         ),
                         Row(
                           children: [
                             Container(
-                              padding: EdgeInsets.only(left: MediaQuery.of(context).size.width*0.05,right: MediaQuery.of(context).size.width*0.2),
-                              child: const Text("ที่อยู่อีเมล์")
+                              padding: EdgeInsets.only(left: MediaQuery.of(context).size.width*0.05,right: MediaQuery.of(context).size.width*0.2,top: MediaQuery.of(context).size.height*0.03),
+                              child: const Text("ที่อยู่อีเมล์",style: TextStyle(fontSize: 22))
                             ),
                           ],
                         ),
                         Container(
                           padding: EdgeInsets.only(left: MediaQuery.of(context).size.width*0.05,right: MediaQuery.of(context).size.width*0.05),
-                          child: const TextField(
+                          child: TextField(
                           decoration: InputDecoration(
                             enabledBorder: OutlineInputBorder(
-                              borderSide: BorderSide(
-                                  width: 3, color: Colors.grey), //<-- SEE HERE
+                              borderRadius: BorderRadius.circular(15.0),
+                              borderSide: const BorderSide(
+                                  width: 2, color: Colors.grey),  
                             ),
                           ),
                                               ),
                         ),
                         Padding(
-                          padding: EdgeInsets.only(left: MediaQuery.of(context).size.width*0.05,right: MediaQuery.of(context).size.width*0.05),
+                          padding: EdgeInsets.only(left: MediaQuery.of(context).size.width*0.05,right: MediaQuery.of(context).size.width*0.05,top: MediaQuery.of(context).size.height*0.03),
                           child: ElevatedButton(
                             style: ElevatedButton.styleFrom(
                               backgroundColor: const Color.fromARGB(255, 238, 158, 93),
