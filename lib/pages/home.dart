@@ -4,7 +4,6 @@ import 'package:appfood2/pages/information/activity_form.dart';
 import 'package:appfood2/pages/information/information.dart';
 import 'package:appfood2/pages/information/nutrition.dart';
 import 'package:appfood2/pages/information/bmi.dart';
-import 'package:appfood2/pages/information/personal_information.dart';
 import 'package:appfood2/pages/login.dart';
 import 'package:appfood2/pages/verify_page.dart';
 import 'package:appfood2/widgets/error_dialog.dart';
@@ -236,9 +235,7 @@ class _HomeState extends State<Home> {
                       ),
                       onTap: () {
                         Navigator.of(context).push(MaterialPageRoute(
-                            builder: (context) => PersonalInformation(
-                                  user: widget.user,
-                                )));
+                            builder: (context) => const InformationPage()));
                       },
                     ),
                     ListTile(
