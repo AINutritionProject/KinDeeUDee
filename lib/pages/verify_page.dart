@@ -19,7 +19,7 @@ class _VerifyPageState extends State<VerifyPage> {
   bool canResendEmail = true;
   final user = Auth().currentUser;
   late Timer timer;
-  final int cooldownTime = 30;
+  final int cooldownTime = 60;
 
   Future emailVerification() async {
     setState(() {
@@ -30,7 +30,8 @@ class _VerifyPageState extends State<VerifyPage> {
   void _showDialog(String errorCode) {
     String errorString = "พบปัญหาโปรดลองอีกครั้ง";
     if (errorCode == "too-many-requests") {
-      errorString = "ส่งอีเมลซ้ำหลายครั้ง\nโปรดลองอีกครั้งในภายหลัง";
+      errorString =
+          "พบการส่งอีเมลซ้ำหลายครั้ง\nบนเครื่องของคุณ\nโปรดลองอีกครั้งในภายหลัง";
     }
     showDialog(
       context: context,
@@ -55,6 +56,7 @@ class _VerifyPageState extends State<VerifyPage> {
 
     if (!isEmailVerified) {
       _sendVerificationEmail();
+      canResendEmail = false;
 
       timer = Timer.periodic(const Duration(seconds: 3), (timer) async {
         Auth().reloadUser();
