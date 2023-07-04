@@ -41,6 +41,16 @@ class _VerifyPageState extends State<VerifyPage> {
     );
   }
 
+  String _maskEmail(String email) {
+    var nameuser = email.split("@")[0];
+    if (nameuser.length <= 2) {
+      return email;
+    }
+    var maskedEmail =
+        email.replaceRange(2, nameuser.length, "*" * (nameuser.length - 2));
+    return maskedEmail;
+  }
+
   void _sendVerificationEmail() {
     var result = Auth().sendVerificationEmail();
     result.then((errorCode) {
@@ -114,7 +124,9 @@ class _VerifyPageState extends State<VerifyPage> {
                       horizontal: MediaQuery.of(context).size.width) *
                   0.2,
               child: Text(
-                user != null ? 'ส่งลิ้งยืนยันตัวตนไปที่ ${user!.email}' : "",
+                user != null
+                    ? 'ส่งลิ้งยืนยันตัวตนไปที่ ${_maskEmail(user!.email!)}'
+                    : "",
                 style: const TextStyle(fontSize: 26),
                 textAlign: TextAlign.center,
               ),
