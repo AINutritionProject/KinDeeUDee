@@ -1,14 +1,15 @@
-import 'package:appfood2/db.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:flutter/material.dart';
-import 'package:appfood2/pages/register_success.dart';
 import 'package:appfood2/auth.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:email_validator/email_validator.dart';
+import 'package:appfood2/db.dart';
+import 'package:appfood2/pages/register_success.dart';
+import 'package:appfood2/screen_size.dart';
 import 'package:appfood2/widgets/button_back.dart';
 import 'package:appfood2/widgets/shaker.dart';
-import 'package:appfood2/screen_size.dart';
+import 'package:appfood2/pages/verify_page.dart';
+import 'package:email_validator/email_validator.dart';
+import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
+
 import '../widgets/error_dialog.dart';
 
 class RegisterPage extends StatelessWidget {
@@ -97,7 +98,7 @@ class _RegisterFormState extends State<RegisterForm> {
         Navigator.pushReplacement(
           context,
           MaterialPageRoute(
-            builder: (context) => const RegisterSuccesPage(),
+            builder: (context) => const VerifyPage(),
           ),
         );
       }
