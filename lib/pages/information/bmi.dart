@@ -3,6 +3,7 @@ import 'package:appfood2/pages/information/nutrition.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:appfood2/db.dart' as db;
 import 'package:appfood2/screen_size.dart';
+import 'package:appfood2/widgets/button_back.dart';
 
 class BMIPage extends StatefulWidget {
   final db.User user;
@@ -64,58 +65,67 @@ class _BMIState extends State<BMIPage> {
               child: SingleChildScrollView(
                 child: Column(
                   children: [
+                    const Padding(
+                      padding: EdgeInsets.only(top: 20 ,left: 15),
+                      child: Align(
+                        alignment: Alignment.topLeft,
+                        child: ButtonBack()),
+                    ),
                     Padding(
-                        padding: EdgeInsets.only(
+                      padding: EdgeInsets.only(
                             top: screenSizeData.maxWidth < 600
-                                ? screenSizeData.screenHeight * 0.1
+                                ? screenSizeData.screenHeight * 0.01
                                 : screenSizeData.screenHeight * 0.08),
-                        child: Stack(
-                          children: [
-                            Padding(
-                              padding: EdgeInsets.only(
-                                  right: screenSizeData.screenSizeWidth * 0.4),
-                              child: Align(
+                      child: Stack(
+                        children: [
+                          Padding(
+                            padding: EdgeInsets.only(
+                                right: screenSizeData.screenSizeWidth * 0.4),
+                            child: Align(
+                              alignment: Alignment.center,
+                              child: Container(
                                 alignment: Alignment.center,
-                                child: Container(
-                                  alignment: Alignment.center,
-                                  width: 150,
-                                  height: 150,
-                                  decoration: BoxDecoration(
-                                    borderRadius: BorderRadius.circular(150),
-                                    color:
-                                        const Color.fromRGBO(177, 222, 255, 1),
-                                  ),
-                                  child: Image.asset(
-                                    'assets/images/BMI/weighing.png',
-                                    fit: BoxFit.cover,
-                                    width: 100,
-                                    height: 100,
-                                  ),
+                                width: 150,
+                                height: 150,
+                                decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(150),
+                                  color:
+                                      const Color.fromRGBO(177, 222, 255, 1),
+                                ),
+                                child: Image.asset(
+                                  'assets/images/BMI/weighing.png',
+                                  fit: BoxFit.cover,
+                                  width: 100,
+                                  height: 100,
                                 ),
                               ),
                             ),
-                            Padding(
-                              padding: EdgeInsets.only(
-                                  left: screenSizeData.screenSizeWidth * 0.4),
-                              child: Align(
-                                alignment: Alignment.center,
-                                child: SizedBox(
-                                  width: 150,
-                                  height: 150,
-                                  child: Center(
+                          ),
+                          Padding(
+                            padding: EdgeInsets.only(
+                                left: screenSizeData.screenSizeWidth * 0.4),
+                            child: Align(
+                              alignment: Alignment.center,
+                              child: SizedBox(
+                                width: 150,
+                                height: 150,
+                                child: Center(
+                                  child: Flexible(
                                     child: Text(
                                       "“$username”",
                                       style: const TextStyle(
-                                          fontSize: 36,
+                                          fontSize: 30,
                                           fontWeight: FontWeight.bold),
                                       textAlign: TextAlign.center,
                                     ),
                                   ),
                                 ),
                               ),
-                            )
-                          ],
-                        )),
+                            ),
+                          )
+                        ],
+                      ),
+                    ),
                     Padding(
                       padding:
                           const EdgeInsets.only(left: 15, right: 15, top: 50),
