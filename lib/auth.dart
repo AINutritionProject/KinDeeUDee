@@ -5,6 +5,12 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 class Auth {
   final FirebaseAuth _firebaseAuth = FirebaseAuth.instance;
   User? get currentUser => _firebaseAuth.currentUser;
+  Future reloadUser() async {
+    if (currentUser != null) {
+      currentUser!.reload();
+    }
+  }
+
   Stream<User?> get authStateChanges => _firebaseAuth.authStateChanges();
 
   Future<void> signInAnonymously() async {
@@ -38,20 +44,22 @@ class Auth {
     return null;
   }
 
-  Future<void> sendVerificationEmail() async {
+  Future<String?> sendVerificationEmail() async {
     try {
       final user = currentUser!;
       await user.sendEmailVerification();
+    } on FirebaseAuthException catch (error) {
+      print(error);
+      return error.code;
     } catch (error) {
       print("Got error when sending verification email");
       print(error);
     }
   }
 
-  Future<bool?> emailIsVerified() async {
+  bool emailIsVerified() {
     try {
       final user = currentUser!;
-      await user.reload();
       if (user.emailVerified) {
         return true;
       } else {
@@ -60,8 +68,8 @@ class Auth {
     } catch (error) {
       print("Got error when checking verified email");
       print(error);
+      return false;
     }
-    return null;
   }
 
   Future<String?> resetPassword(String email) async {
