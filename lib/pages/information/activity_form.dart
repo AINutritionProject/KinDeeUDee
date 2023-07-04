@@ -6,6 +6,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:appfood2/screen_size.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:appfood2/widgets/button_back.dart';
 
 List<String> frequency = ["1", "2", "3", "4", "5", "6", "7"];
 List<String> extraLightActivitiesData = [
@@ -79,6 +80,16 @@ class _ActivityFormState extends State<ActivityForm> {
                           BoxConstraints(minHeight: constraints.maxHeight),
                       child: Column(
                         children: [
+                          const Padding(
+                            padding: EdgeInsets.only(left: 10, top: 10),
+                            child: Align(
+                              alignment: Alignment.topLeft,
+                              child: ButtonBack(
+                                colorCircle: Colors.orange,
+                                color: Colors.white,
+                              )
+                              ),
+                          ),
                           ActivityFormHeader(
                             username: widget.user.username,
                           ),

@@ -4,6 +4,7 @@ import 'package:appfood2/widgets/wide_dropdown.dart';
 import 'package:appfood2/db.dart';
 import 'package:appfood2/pages/information/activity_form.dart';
 import 'package:appfood2/screen_size.dart';
+import 'package:appfood2/widgets/button_back.dart';
 
 List<String> careers = <String>[
   "-----",
@@ -482,7 +483,16 @@ class _PersonalHeaderState extends State<PersonalHeader> {
           mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
-            const Center(child: UserAvatar()),
+            const Stack(
+              children: [
+                Align(
+                    alignment: Alignment.topLeft,
+                    child: ButtonBack(
+                      colorCircle: Color(0xFFF8FFDD),
+                    )),
+                Center(child: UserAvatar()),
+              ],
+            ),
             Expanded(
               child: Padding(
                 padding: const EdgeInsets.only(top: 20.0),
