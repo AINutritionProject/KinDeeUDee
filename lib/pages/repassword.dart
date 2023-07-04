@@ -3,8 +3,15 @@ import 'create_newpassword.dart';
 import '../widgets/button_back.dart';
 import 'package:appfood2/screen_size.dart';
 
-class RepassWord extends StatelessWidget {
+class RepassWord extends StatefulWidget {
   const RepassWord({super.key});
+
+  @override
+  State<RepassWord> createState() => _RepassWordState();
+}
+
+class _RepassWordState extends State<RepassWord> {
+  final TextEditingController _emailController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -137,6 +144,7 @@ class RepassWord extends StatelessWidget {
                                                     .width *
                                                 0.05),
                                         child: TextField(
+                                          controller: _emailController,
                                           decoration: InputDecoration(
                                             enabledBorder: OutlineInputBorder(
                                               borderRadius:
