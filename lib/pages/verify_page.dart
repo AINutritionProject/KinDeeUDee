@@ -30,8 +30,7 @@ class _VerifyPageState extends State<VerifyPage> {
   void _showDialog(String errorCode) {
     String errorString = "พบปัญหาโปรดลองอีกครั้ง";
     if (errorCode == "too-many-requests") {
-      errorString =
-          "พบการส่งอีเมลซ้ำหลายครั้ง\nบนเครื่องของคุณ\nโปรดลองอีกครั้งในภายหลัง";
+      errorString = "พบการส่งอีเมลซ้ำหลายครั้ง\nโปรดลองอีกครั้งในภายหลัง";
     }
     showDialog(
       context: context,
@@ -154,7 +153,10 @@ class _VerifyPageState extends State<VerifyPage> {
                         ),
                       );
                     }
-                    return const SizedBox.shrink();
+                    return const SizedBox(
+                      height: 10,
+                      child: Text("hello"),
+                    );
                   }),
                   ElevatedButton(
                     style: ElevatedButton.styleFrom(
