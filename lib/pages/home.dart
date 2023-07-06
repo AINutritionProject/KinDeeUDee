@@ -5,6 +5,7 @@ import 'package:appfood2/pages/information/information.dart';
 import 'package:appfood2/pages/information/nutrition.dart';
 import 'package:appfood2/pages/information/bmi.dart';
 import 'package:appfood2/pages/login.dart';
+import 'package:appfood2/pages/verify_page.dart';
 import 'package:appfood2/widgets/error_dialog.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
@@ -60,6 +61,9 @@ class _HomePageState extends State<HomePage> {
     return FutureBuilder(
       builder: (context, snapshot) {
         if (snapshot.hasData) {
+          if (!Auth().emailIsVerified()) {
+            return const VerifyPage();
+          }
           if (snapshot.data?.hasData == true) {
             return Home(user: snapshot.data!);
           } else {

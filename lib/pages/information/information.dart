@@ -4,7 +4,9 @@ import 'package:appfood2/pages/information/personal_information.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
 
 class InformationPage extends StatelessWidget {
-  const InformationPage({super.key,});
+  const InformationPage({
+    super.key,
+  });
 
   @override
   Widget build(BuildContext context) {
