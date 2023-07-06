@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
-import 'create_newpassword.dart';
 import '../widgets/button_back.dart';
 import 'package:appfood2/screen_size.dart';
+import 'package:appfood2/auth.dart';
+
+import '../widgets/error_dialog.dart';
 
 class RepassWord extends StatefulWidget {
   const RepassWord({super.key});
@@ -12,6 +14,35 @@ class RepassWord extends StatefulWidget {
 
 class _RepassWordState extends State<RepassWord> {
   final TextEditingController _emailController = TextEditingController();
+
+  void _resetPassword() {
+    var result = Auth().resetPassword(_emailController.text.trim());
+    result.then((errorCode) {
+      if (errorCode != null) {
+        var errorString = "พบปัญหาโปรดลองอีกครั้ง";
+        if (errorCode == "invalid-email") {
+          errorString = "อีเมลไม่ถูกต้อง";
+        } else if (errorCode == "user-not-found") {
+          errorString = "ไม่มีบัญชีผู้ใช้ถูกผูกกับอีเมลนี้";
+        } else if (errorCode == "too-many-requests") {
+          errorString =
+              "พบการส่งอีเมลซ้ำหลายครั้ง\nบนเครื่องของคุณ\nโปรดลองอีกครั้งในภายหลัง";
+        }
+
+        showDialog(
+          context: context,
+          builder: (context) {
+            return ErrorDialog(errorString: errorString);
+          },
+        );
+      }
+    });
+  }
+
+  @override
+  void initState() {
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -182,11 +213,7 @@ class _RepassWordState extends State<RepassWord> {
                                                     BorderRadius.circular(15.0),
                                               )),
                                           onPressed: () {
-                                            Navigator.push(
-                                                context,
-                                                MaterialPageRoute(
-                                                    builder: (context) =>
-                                                        const NewPassword()));
+                                            _resetPassword();
                                           },
                                           child: const Text(
                                             'ยืนยัน',
@@ -201,4 +228,3 @@ class _RepassWordState extends State<RepassWord> {
     })));
   }
 }
-

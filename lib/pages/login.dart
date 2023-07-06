@@ -6,7 +6,7 @@ import 'package:google_sign_in/google_sign_in.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:appfood2/widgets/button_back.dart';
 import 'package:appfood2/screen_size.dart';
-import 'package:appfood2/pages/repassword.dart';
+import 'package:appfood2/pages/change_password.dart';
 import 'dart:async';
 
 class LogInForm extends StatefulWidget {
