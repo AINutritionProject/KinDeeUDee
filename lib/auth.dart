@@ -54,7 +54,9 @@ class Auth {
     } catch (error) {
       print("Got error when sending verification email");
       print(error);
+      return error.toString();
     }
+    return null;
   }
 
   bool emailIsVerified() {
