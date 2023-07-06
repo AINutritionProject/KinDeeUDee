@@ -54,7 +54,9 @@ class Auth {
     } catch (error) {
       print("Got error when sending verification email");
       print(error);
+      return error.toString();
     }
+    return null;
   }
 
   bool emailIsVerified() {
@@ -77,7 +79,7 @@ class Auth {
       final firebaseAuth = _firebaseAuth;
       await firebaseAuth.sendPasswordResetEmail(email: email);
     } on FirebaseAuthException catch (error) {
-      print("Got FirebaseAuthException when try resetting paasword");
+      print("Got FirebaseAuthException when try reseting paasword");
       print(error);
       return error.code;
     }
