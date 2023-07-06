@@ -1,6 +1,5 @@
 import 'package:appfood2/auth.dart';
 import 'package:appfood2/db.dart';
-import 'package:appfood2/pages/register_success.dart';
 import 'package:appfood2/screen_size.dart';
 import 'package:appfood2/widgets/button_back.dart';
 import 'package:appfood2/widgets/shaker.dart';

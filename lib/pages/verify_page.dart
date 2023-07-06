@@ -5,6 +5,7 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:appfood2/auth.dart';
 import 'package:appfood2/pages/register_success.dart';
 import 'package:appfood2/widgets/error_dialog.dart';
+import 'package:timer_count_down/timer_count_down.dart';
 
 class VerifyPage extends StatefulWidget {
   const VerifyPage({super.key});
@@ -16,7 +17,9 @@ class VerifyPage extends StatefulWidget {
 class _VerifyPageState extends State<VerifyPage> {
   bool isEmailVerified = false;
   bool canResendEmail = true;
+  final user = Auth().currentUser;
   late Timer timer;
+  final int cooldownTime = 60;
 
   Future emailVerification() async {
     setState(() {
@@ -27,7 +30,8 @@ class _VerifyPageState extends State<VerifyPage> {
   void _showDialog(String errorCode) {
     String errorString = "พบปัญหาโปรดลองอีกครั้ง";
     if (errorCode == "too-many-requests") {
-      errorString = "ส่งอีเมลซ้ำหลายครั้ง\nโปรดลองอีกครั้งในภายหลัง";
+      errorString =
+          "พบการส่งอีเมลซ้ำหลายครั้ง\nบนเครื่องของคุณ\nโปรดลองอีกครั้งในภายหลัง";
     }
     showDialog(
       context: context,
@@ -35,6 +39,16 @@ class _VerifyPageState extends State<VerifyPage> {
         return ErrorDialog(errorString: errorString);
       },
     );
+  }
+
+  String _maskEmail(String email) {
+    var nameuser = email.split("@")[0];
+    if (nameuser.length <= 2) {
+      return email;
+    }
+    var maskedEmail =
+        email.replaceRange(2, nameuser.length, "*" * (nameuser.length - 2));
+    return maskedEmail;
   }
 
   void _sendVerificationEmail() {
@@ -52,6 +66,7 @@ class _VerifyPageState extends State<VerifyPage> {
 
     if (!isEmailVerified) {
       _sendVerificationEmail();
+      canResendEmail = false;
 
       timer = Timer.periodic(const Duration(seconds: 3), (timer) async {
         Auth().reloadUser();
@@ -108,9 +123,11 @@ class _VerifyPageState extends State<VerifyPage> {
               margin: EdgeInsets.symmetric(
                       horizontal: MediaQuery.of(context).size.width) *
                   0.2,
-              child: const Text(
-                'เราจะส่งลิ้งยืนยันตัวตนไปที่อีเมลของท่าน',
-                style: TextStyle(fontSize: 26),
+              child: Text(
+                user != null
+                    ? 'ส่งลิ้งยืนยันตัวตนไปที่ ${_maskEmail(user!.email!)}'
+                    : "",
+                style: const TextStyle(fontSize: 26),
                 textAlign: TextAlign.center,
               ),
             ),
@@ -120,32 +137,50 @@ class _VerifyPageState extends State<VerifyPage> {
               margin: EdgeInsets.symmetric(
                       horizontal: MediaQuery.of(context).size.width) *
                   0.25,
-              child: ElevatedButton(
-                style: ElevatedButton.styleFrom(
-                    backgroundColor: canResendEmail
-                        ? const Color.fromARGB(255, 238, 158, 93)
-                        : Colors.grey,
-                    minimumSize: const Size.fromHeight(70),
-                    shadowColor: Colors.yellowAccent,
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(30.0),
-                    )),
-                onPressed: () async {
-                  if (canResendEmail) {
-                    setState(() {
-                      canResendEmail = false;
-                    });
-                    _sendVerificationEmail();
-                    await Future.delayed(const Duration(seconds: 30));
-                    setState(() {
-                      canResendEmail = true;
-                    });
-                  }
-                },
-                child: const Text(
-                  'ส่งอีกครั้ง',
-                  style: TextStyle(fontSize: 24),
-                ),
+              child: Column(
+                children: [
+                  Builder(builder: (context) {
+                    if (!canResendEmail) {
+                      return Countdown(
+                        seconds: cooldownTime,
+                        onFinished: () {
+                          setState(() {
+                            canResendEmail = true;
+                          });
+                        },
+                        build: (buildContext, time) => Text(
+                          "ส่งอีกครั้งได้ใน ${time.toInt().toString()} วินาที",
+                          style: const TextStyle(fontSize: 18),
+                        ),
+                      );
+                    }
+                    return const SizedBox.shrink();
+                  }),
+                  ElevatedButton(
+                    style: ElevatedButton.styleFrom(
+                        backgroundColor: canResendEmail
+                            ? const Color.fromARGB(255, 238, 158, 93)
+                            : Colors.grey,
+                        minimumSize: const Size.fromHeight(70),
+                        shadowColor: Colors.yellowAccent,
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(30.0),
+                        )),
+                    onPressed: () async {
+                      if (canResendEmail) {
+                        setState(() {
+                          canResendEmail = false;
+                        });
+                        _sendVerificationEmail();
+                        // **** start the timer ****
+                      }
+                    },
+                    child: const Text(
+                      'ส่งอีกครั้ง',
+                      style: TextStyle(fontSize: 24),
+                    ),
+                  ),
+                ],
               ),
             ),
             Container(
@@ -169,4 +204,3 @@ class _VerifyPageState extends State<VerifyPage> {
     ));
   }
 }
-
