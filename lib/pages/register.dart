@@ -8,6 +8,7 @@ import 'package:email_validator/email_validator.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
+import 'package:syncfusion_flutter_pdfviewer/pdfviewer.dart';
 
 import '../widgets/error_dialog.dart';
 
@@ -274,29 +275,39 @@ class _RegisterFormState extends State<RegisterForm> {
                                                 ),
                                               ),
                                               Padding(
-                                                padding:
-                                                    const EdgeInsets.all(8.0),
-                                                child: Container(
-                                                    height: MediaQuery.of(context)
-                                                            .size
-                                                            .height *
-                                                        0.75,
-                                                    width: MediaQuery.of(context).size.width *
-                                                        0.9,
+                                                  padding:
+                                                      const EdgeInsets.all(8.0),
+                                                  child: Container(
+                                                    height:
+                                                        MediaQuery.of(context)
+                                                                .size
+                                                                .height *
+                                                            0.75,
+                                                    width:
+                                                        MediaQuery.of(context)
+                                                                .size
+                                                                .width *
+                                                            0.9,
                                                     decoration: BoxDecoration(
-                                                        color: const Color.fromRGBO(
+                                                        color: const Color
+                                                                .fromRGBO(
                                                             255, 251, 236, 1),
                                                         borderRadius:
-                                                            BorderRadius.circular(
-                                                                40)),
+                                                            BorderRadius
+                                                                .circular(40)),
                                                     child: Container(
-                                                        margin:
-                                                            const EdgeInsets.only(
-                                                                top: 20,
-                                                                bottom: 20),
-                                                        padding: const EdgeInsets.only(left: 20, right: 20),
-                                                        child: const Text(""))),
-                                              )
+                                                        margin: const EdgeInsets
+                                                                .only(
+                                                            top: 20,
+                                                            bottom: 20),
+                                                        padding:
+                                                            const EdgeInsets
+                                                                    .only(
+                                                                left: 20,
+                                                                right: 20),
+                                                        child: SfPdfViewer.asset(
+                                                            "assets/documents/appfood_privacy_policy.pdf")),
+                                                  ))
                                             ],
                                           ));
                                     });
