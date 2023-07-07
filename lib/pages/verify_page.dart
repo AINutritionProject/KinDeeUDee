@@ -155,7 +155,6 @@ class _VerifyPageState extends State<VerifyPage> {
                     }
                     return const SizedBox(
                       height: 10,
-                      child: Text("hello"),
                     );
                   }),
                   ElevatedButton(

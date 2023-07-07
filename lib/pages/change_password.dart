@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import '../widgets/button_back.dart';
 import 'package:appfood2/screen_size.dart';
 import 'package:appfood2/auth.dart';
@@ -217,27 +216,37 @@ class _RepassWordState extends State<RepassWord> {
                                                 0.03),
                                         child: Column(
                                           children: [
-                                            Builder(builder: (context) {
-                                              if (!canResendEmail) {
-                                                return Countdown(
-                                                  seconds: 10,
-                                                  onFinished: () {
-                                                    setState(() {
-                                                      canResendEmail = true;
-                                                    });
-                                                  },
-                                                  build: (buildContext, time) =>
-                                                      Text(
-                                                    "ส่งอีกครั้งได้ใน ${time.toInt().toString()} วินาที",
-                                                    style: const TextStyle(
-                                                        fontSize: 18),
-                                                  ),
-                                                );
-                                              } else {
-                                                return const SizedBox(
-                                                    height: 10);
-                                              }
-                                            }),
+                                            SizedBox(
+                                              height: MediaQuery.of(context)
+                                                      .size
+                                                      .height *
+                                                  0.04,
+                                              child:
+                                                  Builder(builder: (context) {
+                                                if (!canResendEmail) {
+                                                  return Countdown(
+                                                    seconds: 10,
+                                                    onFinished: () {
+                                                      setState(() {
+                                                        canResendEmail = true;
+                                                      });
+                                                    },
+                                                    build:
+                                                        (buildContext, time) =>
+                                                            Text(
+                                                      "ส่งอีกครั้งได้ใน ${time.toInt().toString()} วินาที",
+                                                      style: TextStyle(
+                                                          color:
+                                                              Colors.blue[700],
+                                                          fontSize: 18),
+                                                    ),
+                                                  );
+                                                } else {
+                                                  return const SizedBox
+                                                      .shrink();
+                                                }
+                                              }),
+                                            ),
                                             ElevatedButton(
                                               style: ElevatedButton.styleFrom(
                                                   backgroundColor:
