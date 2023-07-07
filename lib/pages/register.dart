@@ -1,5 +1,6 @@
 import 'package:appfood2/auth.dart';
 import 'package:appfood2/db.dart';
+import 'package:appfood2/pages/privacy_policy.dart';
 import 'package:appfood2/screen_size.dart';
 import 'package:appfood2/widgets/button_back.dart';
 import 'package:appfood2/widgets/shaker.dart';
@@ -245,82 +246,22 @@ class _RegisterFormState extends State<RegisterForm> {
                                     });
                                   }),
                             ),
-                            GestureDetector(
-                              onTap: () {
-                                showModalBottomSheet(
-                                    shape: RoundedRectangleBorder(
-                                      borderRadius: BorderRadius.circular(20.0),
-                                    ),
-                                    context: context,
-                                    isScrollControlled: true,
-                                    builder: (context) {
-                                      return Container(
-                                          padding: const EdgeInsets.only(
-                                              left: 10, right: 10),
-                                          height: MediaQuery.of(context)
-                                                  .size
-                                                  .height *
-                                              0.93,
-                                          child: Column(
-                                            children: [
-                                              const Padding(
-                                                padding: EdgeInsets.only(
-                                                    top: 40, bottom: 10),
-                                                child: Text(
-                                                  "นโยบายความเป็นส่วนตัว",
-                                                  style: TextStyle(
-                                                      fontSize: 28,
-                                                      fontWeight:
-                                                          FontWeight.w700),
-                                                ),
-                                              ),
-                                              Padding(
-                                                  padding:
-                                                      const EdgeInsets.all(8.0),
-                                                  child: Container(
-                                                    height:
-                                                        MediaQuery.of(context)
-                                                                .size
-                                                                .height *
-                                                            0.75,
-                                                    width:
-                                                        MediaQuery.of(context)
-                                                                .size
-                                                                .width *
-                                                            0.9,
-                                                    decoration: BoxDecoration(
-                                                        color: const Color
-                                                                .fromRGBO(
-                                                            255, 251, 236, 1),
-                                                        borderRadius:
-                                                            BorderRadius
-                                                                .circular(40)),
-                                                    child: Container(
-                                                        margin: const EdgeInsets
-                                                                .only(
-                                                            top: 20,
-                                                            bottom: 20),
-                                                        padding:
-                                                            const EdgeInsets
-                                                                    .only(
-                                                                left: 20,
-                                                                right: 20),
-                                                        child: SfPdfViewer.asset(
-                                                            "assets/documents/appfood_privacy_policy.pdf")),
-                                                  ))
-                                            ],
-                                          ));
-                                    });
-                              },
-                              child: Container(
-                                  margin:
-                                      const EdgeInsets.symmetric(vertical: 30),
+                            Container(
+                                margin:
+                                    const EdgeInsets.symmetric(vertical: 30),
+                                child: TextButton(
+                                  onPressed: () {
+                                    Navigator.of(context).push(
+                                        MaterialPageRoute(
+                                            builder: (context) =>
+                                                const PrivacyPolicy()));
+                                  },
                                   child: const Text(
                                     "ฉันยอมรับข้อตกลงและเงื่อนไข นโยบายความเป็นส่วนตัว",
                                     style: TextStyle(
                                         color: Colors.blue, fontSize: 12),
-                                  )),
-                            ),
+                                  ),
+                                )),
                             const Padding(
                                 padding: EdgeInsets.symmetric(horizontal: 5),
                                 child: FaIcon(
