@@ -1,3 +1,4 @@
+import 'package:appfood2/pages/landing.dart';
 import 'package:flutter/material.dart';
 import 'package:appfood2/pages/login.dart';
 import 'package:appfood2/pages/welcome.dart';
@@ -26,16 +27,22 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       title: 'Flutter Demo',
       theme: ThemeData(fontFamily: "NotoSansThai"),
-      home: Container(
-        color: screenSizeData.screenWidth <= screenSizeData.maxWidth
-            ? Colors.white
-            : Colors.black,
-        child: Center(
-            child: SizedBox(
-                width: screenSizeData.screenSizeWidth,
-                height: screenSizeData.screenHeight,
-                child: const WelcomePage())),
-      ),
+      initialRoute: "/welcome",
+      routes: {
+        "/welcome": (context) {
+          return Container(
+            color: screenSizeData.screenWidth <= screenSizeData.maxWidth
+                ? Colors.white
+                : Colors.black,
+            child: Center(
+                child: SizedBox(
+                    width: screenSizeData.screenSizeWidth,
+                    height: screenSizeData.screenHeight,
+                    child: const WelcomePage())),
+          );
+        },
+        "/landing": (context) => const LandingPage()
+      },
     );
   }
 }

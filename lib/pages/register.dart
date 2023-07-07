@@ -1,14 +1,14 @@
-import 'package:appfood2/db.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:flutter/material.dart';
-import 'package:appfood2/pages/register_success.dart';
 import 'package:appfood2/auth.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:email_validator/email_validator.dart';
+import 'package:appfood2/db.dart';
+import 'package:appfood2/screen_size.dart';
 import 'package:appfood2/widgets/button_back.dart';
 import 'package:appfood2/widgets/shaker.dart';
-import 'package:appfood2/screen_size.dart';
+import 'package:appfood2/pages/verify_page.dart';
+import 'package:email_validator/email_validator.dart';
+import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
+
 import '../widgets/error_dialog.dart';
 
 class RegisterPage extends StatelessWidget {
@@ -94,10 +94,10 @@ class _RegisterFormState extends State<RegisterForm> {
         );
       } else {
         // ignore: use_build_context_synchronously
-        Navigator.push(
+        Navigator.pushReplacement(
           context,
           MaterialPageRoute(
-            builder: (context) => const RegisterSuccesPage(),
+            builder: (context) => const VerifyPage(),
           ),
         );
       }
@@ -105,7 +105,6 @@ class _RegisterFormState extends State<RegisterForm> {
   }
 
   bool? isAccept = false;
-  bool isObscure=true;
   bool checkboxError = false;
   List<String> usernames = [];
   List<String> emails = [];
@@ -217,28 +216,12 @@ class _RegisterFormState extends State<RegisterForm> {
                                 })),
                         Padding(
                             padding: const EdgeInsets.symmetric(horizontal: 14),
-                            child: TextFormField(
-                    controller: _passwordController,
-                    validator: _passwordValidator,
-                    autovalidateMode: AutovalidateMode.onUserInteraction,
-                    obscureText: isObscure,
-                    decoration: InputDecoration(
-                        // this button is used to toggle the password visibility
-                        errorStyle:
-                            const TextStyle(fontSize: 18, color: Colors.red),
-                        errorMaxLines: 2,
-                        suffixIcon: IconButton(
-                            icon: Icon(isObscure
-                                ? Icons.visibility_off
-                                // ignore: dead_code
-                                : Icons.visibility),
-                            onPressed: () {
-                              setState(() {
-                                isObscure = !isObscure;
-                              });
-                            })),
-                    style: const TextStyle(fontSize: 20))
-                            ),
+                            child: TextFormSlot(
+                              controller: _passwordController,
+                              name: "รหัสผ่าน",
+                              validator: _passwordValidator,
+                              hidden: true,
+                            )),
                         Row(
                           children: [
                             Shaker(
@@ -265,35 +248,58 @@ class _RegisterFormState extends State<RegisterForm> {
                               onTap: () {
                                 showModalBottomSheet(
                                     shape: RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.circular(20.0),
+                                      borderRadius: BorderRadius.circular(20.0),
                                     ),
                                     context: context,
                                     isScrollControlled: true,
                                     builder: (context) {
-                                    return  Container(
-                                      padding: const EdgeInsets.only(left: 10,right: 10),
-                                      height: MediaQuery.of(context).size.height*0.93,
-                                    child:  Column(
-                                      children: [
-                                        const Padding(
-                                          padding: EdgeInsets.only(top: 40,bottom: 10),
-                                          child: Text("นโยบายความเป็นส่วนตัว",style: TextStyle(fontSize: 28,fontWeight: FontWeight.w700),),
-                                        ),
-                                        Padding(
-                                          padding: const EdgeInsets.all(8.0),
-                                          child: Container(
-                                            height: MediaQuery.of(context).size.height*0.75,
-                                            width: MediaQuery.of(context).size.width*0.9,
-                                            decoration:  BoxDecoration(
-                                            color: const Color.fromRGBO(255, 251, 236,1),
-                                            borderRadius: BorderRadius.circular(40)),
-                                            child:Container(margin: const EdgeInsets.only(top: 20,bottom: 20), 
-                                              padding:const EdgeInsets.only(left: 20,right: 20),
-                                              child:const Text(""))),
-                                        )
-                                        ],)
-                                    );
-                                  });
+                                      return Container(
+                                          padding: const EdgeInsets.only(
+                                              left: 10, right: 10),
+                                          height: MediaQuery.of(context)
+                                                  .size
+                                                  .height *
+                                              0.93,
+                                          child: Column(
+                                            children: [
+                                              const Padding(
+                                                padding: EdgeInsets.only(
+                                                    top: 40, bottom: 10),
+                                                child: Text(
+                                                  "นโยบายความเป็นส่วนตัว",
+                                                  style: TextStyle(
+                                                      fontSize: 28,
+                                                      fontWeight:
+                                                          FontWeight.w700),
+                                                ),
+                                              ),
+                                              Padding(
+                                                padding:
+                                                    const EdgeInsets.all(8.0),
+                                                child: Container(
+                                                    height: MediaQuery.of(context)
+                                                            .size
+                                                            .height *
+                                                        0.75,
+                                                    width: MediaQuery.of(context).size.width *
+                                                        0.9,
+                                                    decoration: BoxDecoration(
+                                                        color: const Color.fromRGBO(
+                                                            255, 251, 236, 1),
+                                                        borderRadius:
+                                                            BorderRadius.circular(
+                                                                40)),
+                                                    child: Container(
+                                                        margin:
+                                                            const EdgeInsets.only(
+                                                                top: 20,
+                                                                bottom: 20),
+                                                        padding: const EdgeInsets.only(left: 20, right: 20),
+                                                        child: const Text(""))),
+                                              )
+                                            ],
+                                          ));
+                                    });
                               },
                               child: Container(
                                   margin:
@@ -358,19 +364,26 @@ class _RegisterFormState extends State<RegisterForm> {
   }
 }
 
-class TextFormSlot extends StatelessWidget {
-  const TextFormSlot({
-    super.key,
-    required this.controller,
-    required this.name,
-    required this.validator,
-    this.autovalidateMode = AutovalidateMode.onUserInteraction,
-  });
+class TextFormSlot extends StatefulWidget {
+  const TextFormSlot(
+      {super.key,
+      required this.controller,
+      required this.name,
+      required this.validator,
+      this.autovalidateMode = AutovalidateMode.onUserInteraction,
+      this.hidden = false});
   final TextEditingController controller;
   final String name;
   final String? Function(String? val) validator;
   final AutovalidateMode autovalidateMode;
+  final bool hidden;
 
+  @override
+  State<TextFormSlot> createState() => _TextFormSlotState();
+}
+
+class _TextFormSlotState extends State<TextFormSlot> {
+  bool isObscure = true;
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -378,19 +391,34 @@ class TextFormSlot extends StatelessWidget {
         Align(
             alignment: Alignment.centerLeft,
             child: Text(
-              name,
+              widget.name,
               style: const TextStyle(fontSize: 24, fontWeight: FontWeight.w500),
             )),
         TextFormField(
-          controller: controller,
-          validator: validator,
-          autovalidateMode: autovalidateMode,
+          controller: widget.controller,
+          validator: widget.validator,
+          autovalidateMode: widget.autovalidateMode,
           style: const TextStyle(fontSize: 23),
-          decoration: const InputDecoration(
-            errorStyle: TextStyle(fontSize: 18, color: Colors.red),
-            errorMaxLines: 2,
-          ),
-          obscureText: name == "รหัสผ่าน" ? true : false,
+          decoration: widget.hidden
+              ? InputDecoration(
+                  // this button is used to toggle the password visibility
+                  errorStyle: const TextStyle(fontSize: 18, color: Colors.red),
+                  errorMaxLines: 2,
+                  suffixIcon: IconButton(
+                      icon: Icon(isObscure
+                          ? Icons.visibility_off
+                          // ignore: dead_code
+                          : Icons.visibility),
+                      onPressed: () {
+                        setState(() {
+                          isObscure = !isObscure;
+                        });
+                      }))
+              : const InputDecoration(
+                  errorStyle: TextStyle(fontSize: 18, color: Colors.red),
+                  errorMaxLines: 2,
+                ),
+          obscureText: widget.hidden && (isObscure) ? true : false,
         ),
       ],
     );

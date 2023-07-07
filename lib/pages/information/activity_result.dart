@@ -5,6 +5,7 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:appfood2/db.dart';
 import 'package:appfood2/pages/information/milk.dart';
 import 'package:appfood2/screen_size.dart';
+import 'package:appfood2/widgets/button_back.dart';
 
 class ActivityResult extends StatelessWidget {
   final User user;
@@ -22,24 +23,27 @@ class ActivityResult extends StatelessWidget {
       screenHeight: mediaQueryData.size.height,
     );
     return Scaffold(
-      body: Container(
-        color: screenSizeData.screenWidth <= screenSizeData.maxWidth
-            ? Colors.white
-            : Colors.black,
-        child: Center(
-          child: Container(
-            width: screenSizeData.screenSizeWidth,
-            color: const Color.fromRGBO(255, 251, 242, 1),
-            child: Center(
-              child: Column(
-                children: [
-                  ActivityResultHeader(
-                    width: screenSizeData.screenSizeWidth,
-                    height: screenSizeData.screenHeight,
-                  ),
-                  ActivityResultBody(user: user),
-                  ActivityResultFooter(user: user, isConfig: isConfig),
-                ],
+      body: SafeArea(
+        child: Container(
+          color: screenSizeData.screenWidth <= screenSizeData.maxWidth
+              ? Colors.white
+              : Colors.black,
+          child: Center(
+            child: Container(
+              width: screenSizeData.screenSizeWidth,
+              height: screenSizeData.screenHeight,
+              color: const Color.fromRGBO(255, 251, 242, 1),
+              child: Center(
+                child: Column(
+                  children: [
+                    ActivityResultHeader(
+                      width: screenSizeData.screenSizeWidth,
+                      height: screenSizeData.screenHeight,
+                    ),
+                    ActivityResultBody(user: user),
+                    ActivityResultFooter(user: user, isConfig: isConfig),
+                  ],
+                ),
               ),
             ),
           ),
@@ -123,8 +127,9 @@ class _ActivityResultBodyState extends State<ActivityResultBody> {
                     padding: EdgeInsets.only(
                         left: MediaQuery.of(context).size.width < 600 ? 8 : 25),
                     child: SizedBox(
-                      height:
-                          MediaQuery.of(context).size.width < 550 ? 220 : 350,
+                      height: MediaQuery.of(context).size.width < 550
+                          ? MediaQuery.of(context).size.height * 0.26
+                          : MediaQuery.of(context).size.height * 0.35,
                       child: Scrollbar(
                         child: ListView.builder(
                           itemCount: activities.length,
@@ -196,11 +201,20 @@ class ActivityResultHeader extends StatelessWidget {
   Widget build(BuildContext context) {
     return Expanded(
       flex: 1,
-      child: SizedBox(
-        child: Padding(
-          padding: EdgeInsets.symmetric(horizontal: width * 0.1),
-          child: Align(
-            alignment: Alignment.bottomLeft,
+      child: Stack(
+        children: [
+          const Padding(
+            padding: EdgeInsets.only(left: 10),
+            child: Align(
+              alignment: Alignment.centerLeft,
+              child: ButtonBack(
+                color: Colors.white,
+                colorCircle: Colors.orange,
+              )
+              ),
+          ),
+          Align(
+            alignment: Alignment.center,
             child: Container(
               padding: const EdgeInsets.symmetric(vertical: 15, horizontal: 25),
               decoration: BoxDecoration(
@@ -210,14 +224,14 @@ class ActivityResultHeader extends StatelessWidget {
               child: Text(
                 "สรุปกิจกรรมประจำวัน",
                 style: TextStyle(
-                    fontSize: width < 600 ? 24 : 32,
+                    fontSize: width < 600 ? 22 : 30,
                     color: Colors.white,
                     fontWeight: FontWeight.bold),
                 //textAlign: TextAlign.center,
               ),
             ),
           ),
-        ),
+        ],
       ),
     );
   }
@@ -328,27 +342,21 @@ class _ActivityResultFooterState extends State<ActivityResultFooter> {
     return Expanded(
       flex: 3,
       child: Padding(
-        padding: const EdgeInsets.symmetric(vertical: 8.0),
+        padding: const EdgeInsets.symmetric(vertical: 4.0),
         child: Column(
           children: [
+            Text("กิจกรรมของคุณแจ่มใส",
+                style: TextStyle(
+                    fontSize:
+                        MediaQuery.of(context).size.width < 600 ? 20 : 24),
+                textAlign: TextAlign.center),
+            Text("อยู่ในระดับ",
+                style: TextStyle(
+                    fontSize:
+                        MediaQuery.of(context).size.width < 600 ? 20 : 24),
+                textAlign: TextAlign.center),
             Padding(
-              padding: const EdgeInsets.symmetric(vertical: 4.0),
-              child: Text("กิจกรรมของคุณแจ่มใส",
-                  style: TextStyle(
-                      fontSize:
-                          MediaQuery.of(context).size.width < 600 ? 20 : 24),
-                  textAlign: TextAlign.center),
-            ),
-            Padding(
-              padding: const EdgeInsets.symmetric(vertical: 4.0),
-              child: Text("อยู่ในระดับ",
-                  style: TextStyle(
-                      fontSize:
-                          MediaQuery.of(context).size.width < 600 ? 20 : 24),
-                  textAlign: TextAlign.center),
-            ),
-            Padding(
-              padding: const EdgeInsets.symmetric(vertical: 12.0),
+              padding: const EdgeInsets.symmetric(vertical: 10.0),
               child: Container(
                 decoration: BoxDecoration(
                     color: const Color(0xFFF9FFB5),

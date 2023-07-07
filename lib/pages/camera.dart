@@ -34,6 +34,9 @@ class _CameraPageState extends State<CameraPage> {
         img.decodeImage(File(image.path).readAsBytesSync())!;
     try {
       final result = await _tfModel.runModel(decodeImage);
+      if (result == null) {
+        throw Error();
+      }
       Navigator.of(context).push(MaterialPageRoute(
           builder: (context) => EatConfirmPage(
                 image: image,

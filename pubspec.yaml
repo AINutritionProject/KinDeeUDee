@@ -52,6 +52,7 @@ dependencies:
   native_image: ^1.0.2
   vector_math: ^2.1.4
   shared_preferences: ^2.1.2
+  timer_count_down: ^2.2.2
 
 dev_dependencies:
   flutter_test:

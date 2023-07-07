@@ -1,8 +1,11 @@
+import 'dart:async';
+
 import 'package:appfood2/pages/information/activity_form.dart';
 import 'package:appfood2/pages/information/information.dart';
 import 'package:appfood2/pages/information/nutrition.dart';
 import 'package:appfood2/pages/information/bmi.dart';
 import 'package:appfood2/pages/login.dart';
+import 'package:appfood2/pages/verify_page.dart';
 import 'package:appfood2/widgets/error_dialog.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
@@ -58,6 +61,9 @@ class _HomePageState extends State<HomePage> {
     return FutureBuilder(
       builder: (context, snapshot) {
         if (snapshot.hasData) {
+          if (!Auth().emailIsVerified()) {
+            return const VerifyPage();
+          }
           if (snapshot.data?.hasData == true) {
             return Home(user: snapshot.data!);
           } else {
@@ -688,6 +694,22 @@ class UserAvatar extends StatefulWidget {
 }
 
 class _UserAvatarState extends State<UserAvatar> {
+  late Timer a;
+  @override
+  void initState() {
+    super.initState();
+    // settime interval
+    Timer a = Timer.periodic(const Duration(seconds: 2), (timer) {
+      setState(() {});
+    });
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
+    a.cancel();
+  }
+
   Future<void> _updateProfilePicture() async {
     final picker = ImagePicker();
     final filename = FirebaseAuth.instance.currentUser!.uid;

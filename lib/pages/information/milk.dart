@@ -103,16 +103,17 @@ class _MilkPageState extends State<MilkPage> {
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.spaceAround,
                           children: [
-                            (status_milk0)
-                                ? Image.asset(
-                                    "assets/images/drink_eat/no_drink.png")
-                                : Image.asset(
-                                    "assets/images/drink_eat/drink.png"),
-                            (status_eat0)
-                                ? Image.asset(
-                                    "assets/images/drink_eat/no_eat.png")
-                                : Image.asset("assets/images/drink_eat/eat.png")
-                          ],
+                                Image.asset(
+                                    status_milk0? "assets/images/drink_eat/no_drink.png":"assets/images/drink_eat/drink.png",    
+                                    height: 120,
+                                    width: 120,
+                                    fit: BoxFit.fitWidth,),
+                                Image.asset(
+                                    status_eat0? "assets/images/drink_eat/no_eat.png":"assets/images/drink_eat/eat.png",    
+                                    height: 100,
+                                    width: 170,
+                                    fit: BoxFit.fitWidth,)
+                                    ],
                         )),
                     Padding(
                       padding: const EdgeInsets.symmetric(vertical: 10),
