@@ -28,10 +28,10 @@ class _PrivacyPolicyState extends State<PrivacyPolicy> {
                     )),
               ),
               const Padding(
-                padding: EdgeInsets.only(top: 20, bottom: 10),
+                padding: EdgeInsets.only(top: 30, bottom: 10),
                 child: Text(
                   "นโยบายความเป็นส่วนตัว",
-                  style: TextStyle(fontSize: 28, fontWeight: FontWeight.w700),
+                  style: TextStyle(fontSize: 30, fontWeight: FontWeight.w700),
                 ),
               ),
               Padding(
@@ -44,6 +44,8 @@ class _PrivacyPolicyState extends State<PrivacyPolicy> {
                     ),
                     child: SfPdfViewer.asset(
                       "assets/documents/appfood_privacy_policy.pdf",
+                      initialZoomLevel: 1.2,
+                      initialScrollOffset: const Offset(28, 0),
                     )),
               )
             ],
