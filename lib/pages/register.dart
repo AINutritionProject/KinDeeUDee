@@ -224,52 +224,55 @@ class _RegisterFormState extends State<RegisterForm> {
                               validator: _passwordValidator,
                               hidden: true,
                             )),
-                        Row(
-                          children: [
-                            Shaker(
-                              key: _shakeKey,
-                              speed: 8,
-                              duration: const Duration(milliseconds: 500),
-                              range: 5,
-                              child: Checkbox(
-                                  side: !checkboxError
-                                      ? const BorderSide(
-                                          color: Colors.black38, width: 2)
-                                      : const BorderSide(
-                                          color: Colors.red, width: 2),
-                                  value: isAccept,
-                                  activeColor: Colors.blue,
-                                  onChanged: (newValue) {
-                                    setState(() {
-                                      checkboxError = false;
-                                      isAccept = newValue;
-                                    });
-                                  }),
-                            ),
-                            Container(
-                                margin:
-                                    const EdgeInsets.symmetric(vertical: 30),
-                                child: TextButton(
-                                  onPressed: () {
-                                    Navigator.of(context).push(
-                                        MaterialPageRoute(
-                                            builder: (context) =>
-                                                const PrivacyPolicy()));
-                                  },
-                                  child: const Text(
-                                    "ฉันยอมรับข้อตกลงและเงื่อนไข นโยบายความเป็นส่วนตัว",
-                                    style: TextStyle(
-                                        color: Colors.blue, fontSize: 12),
-                                  ),
-                                )),
-                            const Padding(
-                                padding: EdgeInsets.symmetric(horizontal: 5),
-                                child: FaIcon(
-                                  FontAwesomeIcons.circleQuestion,
-                                  color: Colors.blue,
-                                  size: 13,
-                                )),
-                          ],
+                        Padding(
+                          padding: const EdgeInsets.only(left: 8.0),
+                          child: Row(
+                            children: [
+                              Shaker(
+                                key: _shakeKey,
+                                speed: 8,
+                                duration: const Duration(milliseconds: 500),
+                                range: 5,
+                                child: Checkbox(
+                                    side: !checkboxError
+                                        ? const BorderSide(
+                                            color: Colors.black38, width: 2)
+                                        : const BorderSide(
+                                            color: Colors.red, width: 2),
+                                    value: isAccept,
+                                    activeColor: Colors.blue,
+                                    onChanged: (newValue) {
+                                      setState(() {
+                                        checkboxError = false;
+                                        isAccept = newValue;
+                                      });
+                                    }),
+                              ),
+                              Container(
+                                  margin:
+                                      const EdgeInsets.symmetric(vertical: 30),
+                                  child: GestureDetector(
+                                    onTap: () {
+                                      Navigator.of(context).push(
+                                          MaterialPageRoute(
+                                              builder: (context) =>
+                                                  const PrivacyPolicy()));
+                                    },
+                                    child: const Text(
+                                      "ฉันยอมรับข้อตกลงและเงื่อนไข นโยบายความเป็นส่วนตัว",
+                                      style: TextStyle(
+                                          color: Colors.blue, fontSize: 13),
+                                    ),
+                                  )),
+                              const Padding(
+                                  padding: EdgeInsets.symmetric(horizontal: 5),
+                                  child: FaIcon(
+                                    FontAwesomeIcons.circleQuestion,
+                                    color: Colors.blue,
+                                    size: 13,
+                                  )),
+                            ],
+                          ),
                         ),
                         Container(
                             margin: const EdgeInsets.symmetric(
