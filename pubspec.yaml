@@ -54,7 +54,6 @@ dependencies:
   shared_preferences: ^2.1.2
   timer_count_down: ^2.2.2
   syncfusion_flutter_pdfviewer: ^21.2.10
-  flutter_native_splash: ^2.3.1
 
 dev_dependencies:
   flutter_test:
@@ -93,7 +92,6 @@ flutter:
     - assets/images/Menu/
     - assets/models/
     - assets/documents/
-    - assets/launch/
   #   - images/a_dot_burr.jpeg
   #   - images/a_dot_ham.jpeg
 
@@ -151,11 +149,3 @@ flutter:
   #
   # For details regarding fonts from package dependencies,
   # see https://flutter.dev/custom-fonts/#from-packages
-#
-flutter_native_splash:
-  android: true
-  ios: true
-  web: false
-
-  image: "assets/launch/splash.png"
-  color: "#FFFFFF"
