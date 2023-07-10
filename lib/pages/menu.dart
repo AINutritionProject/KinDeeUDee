@@ -284,8 +284,6 @@ class _TextFieldExampleState extends State<TextFieldExample> {
                                   _active = true;
                                 }
                                 text_seach = text;
-                                print('First text field: $text');
-                                print(' $_active............');
                                 foodQuery = getFoodQuery(text);
                               },
                             );
