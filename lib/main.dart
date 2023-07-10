@@ -1,6 +1,7 @@
 import 'package:appfood2/pages/landing.dart';
 import 'package:flutter/material.dart';
 import 'package:appfood2/pages/login.dart';
+import 'package:flutter/services.dart';
 import 'package:appfood2/pages/welcome.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:appfood2/firebase_options.dart';
@@ -10,6 +11,10 @@ import 'package:appfood2/screen_size.dart';
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
+  SystemChrome.setPreferredOrientations([
+    DeviceOrientation.portraitUp,
+    DeviceOrientation.portraitDown,
+  ]).then((value) => runApp(const MyApp()));
   runApp(const MyApp());
 }
 
