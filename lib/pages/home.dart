@@ -330,6 +330,7 @@ class _HomeState extends State<Home> {
                     child: SectionButtonClick(
                       width: screenSizeData.screenSizeWidth,
                       height: screenSizeData.screenHeight,
+                      user: widget.user,
                     ),
                   ),
                   //
@@ -372,9 +373,13 @@ class FooterSection extends StatelessWidget {
 
 class SectionButtonClick extends StatelessWidget {
   const SectionButtonClick(
-      {super.key, required this.width, required this.height});
+      {super.key,
+      required this.width,
+      required this.height,
+      required this.user});
   final double width;
   final double height;
+  final db.User user;
 
   @override
   Widget build(BuildContext context) {
@@ -397,6 +402,7 @@ class SectionButtonClick extends StatelessWidget {
                     child: SearchMenuBox(
                       width: width,
                       height: height,
+                      user: user,
                     )),
                 Expanded(
                     flex: 18,
@@ -505,16 +511,25 @@ class HistoryBox extends StatelessWidget {
 }
 
 class SearchMenuBox extends StatelessWidget {
-  const SearchMenuBox({super.key, required this.width, required this.height});
+  const SearchMenuBox(
+      {super.key,
+      required this.width,
+      required this.height,
+      required this.user});
   final double width;
   final double height;
+  final db.User user;
 
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () {
         Navigator.push(
-            context, MaterialPageRoute(builder: (context) => const MenuPage()));
+            context,
+            MaterialPageRoute(
+                builder: (context) => MenuPage(
+                      user: user,
+                    )));
       },
       child: SizedBox(
         width: width,

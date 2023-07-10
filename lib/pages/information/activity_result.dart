@@ -157,13 +157,15 @@ class _ActivityResultBodyState extends State<ActivityResultBody> {
                                     child: Text(activities[index],
                                         textAlign: TextAlign.center,
                                         style: TextStyle(
-                                            fontSize: MediaQuery.of(context)
-                                                        .size
-                                                        .width <
-                                                    600
-                                                ? 20
-                                                : 28,
-                                            fontWeight: FontWeight.w400)),
+                                          fontSize: MediaQuery.of(context)
+                                                      .size
+                                                      .width <
+                                                  600
+                                              ? 20
+                                              : 28,
+                                          fontWeight: FontWeight.w400,
+                                          overflow: TextOverflow.ellipsis,
+                                        )),
                                   ),
                                 ],
                               ),
@@ -206,12 +208,11 @@ class ActivityResultHeader extends StatelessWidget {
           const Padding(
             padding: EdgeInsets.only(left: 10),
             child: Align(
-              alignment: Alignment.centerLeft,
-              child: ButtonBack(
-                color: Colors.white,
-                colorCircle: Colors.orange,
-              )
-              ),
+                alignment: Alignment.centerLeft,
+                child: ButtonBack(
+                  color: Colors.white,
+                  colorCircle: Colors.orange,
+                )),
           ),
           Align(
             alignment: Alignment.center,
@@ -345,16 +346,20 @@ class _ActivityResultFooterState extends State<ActivityResultFooter> {
         padding: const EdgeInsets.symmetric(vertical: 4.0),
         child: Column(
           children: [
-            Text("กิจกรรมของคุณแจ่มใส",
-                style: TextStyle(
-                    fontSize:
-                        MediaQuery.of(context).size.width < 600 ? 20 : 24),
-                textAlign: TextAlign.center),
-            Text("อยู่ในระดับ",
-                style: TextStyle(
-                    fontSize:
-                        MediaQuery.of(context).size.width < 600 ? 20 : 24),
-                textAlign: TextAlign.center),
+            Text(
+              "กิจกรรมของคุณ \"${widget.user.username}\"",
+              style: TextStyle(
+                  fontSize: MediaQuery.of(context).size.width < 600 ? 20 : 24),
+              textAlign: TextAlign.center,
+              overflow: TextOverflow.ellipsis,
+            ),
+            Text(
+              "อยู่ในระดับ",
+              style: TextStyle(
+                  fontSize: MediaQuery.of(context).size.width < 600 ? 20 : 24),
+              textAlign: TextAlign.center,
+              overflow: TextOverflow.ellipsis,
+            ),
             Padding(
               padding: const EdgeInsets.symmetric(vertical: 10.0),
               child: Container(
@@ -365,8 +370,10 @@ class _ActivityResultFooterState extends State<ActivityResultFooter> {
                     const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
                 child: Text("กิจกรรมระดับปานกลาง",
                     style: TextStyle(
-                        fontSize:
-                            MediaQuery.of(context).size.width < 600 ? 20 : 24)),
+                      fontSize:
+                          MediaQuery.of(context).size.width < 600 ? 20 : 24,
+                      overflow: TextOverflow.ellipsis,
+                    )),
               ),
             ),
             Padding(
