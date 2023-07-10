@@ -1,4 +1,5 @@
 import 'dart:io';
+import 'package:appfood2/db.dart';
 import 'package:appfood2/pages/all_food.dart';
 import 'package:appfood2/pages/food_advance_detail.dart';
 import 'package:appfood2/pages/food_detailed.dart';
@@ -9,10 +10,15 @@ import 'package:appfood2/widgets/button_back.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 class AIOutputPage extends StatelessWidget {
-  const AIOutputPage({super.key, required this.foodImage, required this.food});
+  const AIOutputPage({
+    super.key,
+    required this.foodImage,
+    required this.food,
+    required this.user,
+  });
   final XFile? foodImage;
   final Food food;
-
+  final User user;
 
   @override
   Widget build(BuildContext context) {
@@ -33,7 +39,8 @@ class AIOutputPage extends StatelessWidget {
             child: Center(
               child: Container(
                 width: screenSizeData.screenSizeWidth,
-                color: FoodDetailPage(detail: food.detail).getGIColor(food.detail.giIndex),
+                color: FoodDetailPage(detail: food.detail)
+                    .getGIColor(food.detail.giIndex),
                 child: Column(
                   children: [
                     Padding(
@@ -41,7 +48,8 @@ class AIOutputPage extends StatelessWidget {
                       child: Container(
                         width: screenSizeData.screenSizeWidth,
                         height: screenSizeData.screenHeight * 0.15,
-                        color: FoodDetailPage(detail: food.detail).getBarColor(food.detail.giIndex),
+                        color: FoodDetailPage(detail: food.detail)
+                            .getBarColor(food.detail.giIndex),
                         child: Stack(
                           clipBehavior: Clip.none,
                           children: [
@@ -50,8 +58,10 @@ class AIOutputPage extends StatelessWidget {
                               child: Align(
                                   alignment: Alignment.centerLeft,
                                   child: ButtonBack(
-                                    colorCircle: const Color.fromRGBO(86, 61, 51, 1),
-                                    color: FoodDetailPage(detail: food.detail).getColorIconBack(food.detail.giIndex),
+                                    colorCircle:
+                                        const Color.fromRGBO(86, 61, 51, 1),
+                                    color: FoodDetailPage(detail: food.detail)
+                                        .getColorIconBack(food.detail.giIndex),
                                   )),
                             ),
                             Positioned(
@@ -134,7 +144,8 @@ class AIOutputPage extends StatelessWidget {
                       child: ImageContainer(
                         pathImage: food.detail.realImageAssetPath ?? "t",
                         width: screenSizeData.screenSizeWidth,
-                        color: FoodDetailPage(detail: food.detail).getBarColor(food.detail.giIndex),
+                        color: FoodDetailPage(detail: food.detail)
+                            .getBarColor(food.detail.giIndex),
                       ),
                     ),
                     const TextDataNutrition(),
@@ -148,15 +159,20 @@ class AIOutputPage extends StatelessWidget {
                       child: ChemicalDetail(
                           power: food.detail.power,
                           fiber: food.detail.fiber,
-                          sugar: food.detail.sugar
-                          ),
+                          sugar: food.detail.sugar),
                     ),
                     AmountObjectofUser(
                       foodImage: foodImage,
                       width: screenSizeData.screenSizeWidth,
-                      foodname:food.name
+                      foodname: food.name,
+                      user: user,
                     ),
-                    PartOfObject(width: screenSizeData.screenSizeWidth,realimagesLeft:foodImage,realimagesRight:food.detail.realImageAssetPath.toString(),foodname:food.name),
+                    PartOfObject(
+                        width: screenSizeData.screenSizeWidth,
+                        realimagesLeft: foodImage,
+                        realimagesRight:
+                            food.detail.realImageAssetPath.toString(),
+                        foodname: food.name),
                     SugestBox(
                       width: screenSizeData.screenSizeWidth,
                     ),
@@ -180,7 +196,12 @@ class AIOutputPage extends StatelessWidget {
 }
 
 class PartOfObject extends StatelessWidget {
-  const PartOfObject({super.key, required this.width,required this.realimagesLeft,required this.realimagesRight, required this.foodname});
+  const PartOfObject(
+      {super.key,
+      required this.width,
+      required this.realimagesLeft,
+      required this.realimagesRight,
+      required this.foodname});
   final double width;
   final XFile? realimagesLeft;
   final String realimagesRight;
@@ -201,14 +222,14 @@ class PartOfObject extends StatelessWidget {
                 alignment: const AlignmentDirectional(0, -0.8),
                 child: Text(
                   '$foodname 1 ส่วน',
-                  style: const TextStyle(fontSize: 32, fontWeight: FontWeight.bold),
+                  style: const TextStyle(
+                      fontSize: 32, fontWeight: FontWeight.bold),
                 )),
             Align(
                 alignment: const AlignmentDirectional(-0.7, 0.6),
                 child: ClipRRect(
                   borderRadius: BorderRadius.circular(20),
-                  child:  
-                  Image.file(
+                  child: Image.file(
                     File(realimagesLeft!.path),
                     width: 120,
                     height: 130,
@@ -234,12 +255,18 @@ class PartOfObject extends StatelessWidget {
 }
 
 class AmountObjectofUser extends StatelessWidget {
-  const AmountObjectofUser(
-      {super.key, required this.foodImage, required this.width, required this.foodname});
+  const AmountObjectofUser({
+    super.key,
+    required this.foodImage,
+    required this.width,
+    required this.foodname,
+    required this.user,
+  });
 
   final XFile? foodImage;
   final double width;
   final String foodname;
+  final User user;
 
   @override
   Widget build(BuildContext context) {
@@ -254,13 +281,13 @@ class AmountObjectofUser extends StatelessWidget {
           mainAxisSize: MainAxisSize.max,
           mainAxisAlignment: MainAxisAlignment.start,
           children: [
-            const Text(
-              "ปริมาณแอฟเปิ้ล",
-              style: TextStyle(fontSize: 32, fontWeight: FontWeight.bold),
+            Text(
+              "ปริมาณ$foodname",
+              style: const TextStyle(fontSize: 32, fontWeight: FontWeight.bold),
             ),
-             const Text(
-              "ของคุณแจ่มใส",
-              style:  TextStyle(fontSize: 32, fontWeight: FontWeight.bold),
+            Text(
+              "ของคุณ \"${user.username}\"",
+              style: const TextStyle(fontSize: 32, fontWeight: FontWeight.bold),
             ),
             Padding(
               padding: const EdgeInsets.fromLTRB(0, 20, 0, 15),
@@ -345,7 +372,10 @@ class TextDataNutrition extends StatelessWidget {
 
 class ImageContainer extends StatelessWidget {
   const ImageContainer(
-      {super.key, required this.pathImage, required this.width, required this.color});
+      {super.key,
+      required this.pathImage,
+      required this.width,
+      required this.color});
   final String pathImage;
   final double width;
   final Color color;

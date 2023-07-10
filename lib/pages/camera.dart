@@ -1,6 +1,7 @@
 import 'dart:io';
 
 import 'package:appfood2/ai.dart';
+import 'package:appfood2/db.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:appfood2/pages/eat_confirm.dart';
@@ -8,8 +9,10 @@ import 'package:image/image.dart' as img;
 import 'package:camera/camera.dart';
 
 class CameraPage extends StatefulWidget {
+  final User user;
   const CameraPage({
     super.key,
+    required this.user,
   });
 
   @override
@@ -33,14 +36,15 @@ class _CameraPageState extends State<CameraPage> {
     final img.Image decodeImage =
         img.decodeImage(File(image.path).readAsBytesSync())!;
     try {
-      final result = await _tfModel.runModel(decodeImage);
+      final result = _tfModel.runModel(decodeImage);
       if (result == null) {
         throw Error();
       }
       Navigator.of(context).push(MaterialPageRoute(
           builder: (context) => EatConfirmPage(
                 image: image,
-                resultFood: result!,
+                resultFood: result,
+                user: widget.user,
               )));
     } catch (error) {
       await showDialog(
@@ -48,7 +52,7 @@ class _CameraPageState extends State<CameraPage> {
           builder: (context) {
             return AlertDialog(
               title: const Text("ไม่พบข้อมูล"),
-              content: Text("กรุรณาลองใหม่อีกครั้ง"),
+              content: const Text("กรุรณาลองใหม่อีกครั้ง"),
               actions: [
                 TextButton(
                     onPressed: () {

@@ -1,4 +1,5 @@
 import 'dart:io';
+import 'package:appfood2/db.dart';
 import 'package:appfood2/pages/add_eat_history.dart';
 import 'package:appfood2/pages/all_food.dart';
 import 'package:flutter/material.dart';
@@ -8,10 +9,15 @@ import 'package:image/image.dart' as img;
 import 'package:appfood2/screen_size.dart';
 
 class EatConfirmPage extends StatefulWidget {
-  const EatConfirmPage(
-      {super.key, required this.image, required this.resultFood});
+  const EatConfirmPage({
+    super.key,
+    required this.image,
+    required this.resultFood,
+    required this.user,
+  });
   final XFile image;
   final Food resultFood;
+  final User user;
 
   @override
   State<EatConfirmPage> createState() => _EatConfirmPageState();
@@ -77,6 +83,7 @@ class _EatConfirmPageState extends State<EatConfirmPage> {
                                   builder: (context) => AIOutputPage(
                                         foodImage: widget.image,
                                         food: widget.resultFood,
+                                        user: widget.user,
                                       )),
                               ModalRoute.withName("/landing"));
                         },

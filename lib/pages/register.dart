@@ -1,5 +1,6 @@
 import 'package:appfood2/auth.dart';
 import 'package:appfood2/db.dart';
+import 'package:appfood2/pages/privacy_policy.dart';
 import 'package:appfood2/screen_size.dart';
 import 'package:appfood2/widgets/button_back.dart';
 import 'package:appfood2/widgets/shaker.dart';
@@ -8,6 +9,7 @@ import 'package:email_validator/email_validator.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
+import 'package:syncfusion_flutter_pdfviewer/pdfviewer.dart';
 
 import '../widgets/error_dialog.dart';
 
@@ -222,102 +224,55 @@ class _RegisterFormState extends State<RegisterForm> {
                               validator: _passwordValidator,
                               hidden: true,
                             )),
-                        Row(
-                          children: [
-                            Shaker(
-                              key: _shakeKey,
-                              speed: 8,
-                              duration: const Duration(milliseconds: 500),
-                              range: 5,
-                              child: Checkbox(
-                                  side: !checkboxError
-                                      ? const BorderSide(
-                                          color: Colors.black38, width: 2)
-                                      : const BorderSide(
-                                          color: Colors.red, width: 2),
-                                  value: isAccept,
-                                  activeColor: Colors.blue,
-                                  onChanged: (newValue) {
-                                    setState(() {
-                                      checkboxError = false;
-                                      isAccept = newValue;
-                                    });
-                                  }),
-                            ),
-                            GestureDetector(
-                              onTap: () {
-                                showModalBottomSheet(
-                                    shape: RoundedRectangleBorder(
-                                      borderRadius: BorderRadius.circular(20.0),
-                                    ),
-                                    context: context,
-                                    isScrollControlled: true,
-                                    builder: (context) {
-                                      return Container(
-                                          padding: const EdgeInsets.only(
-                                              left: 10, right: 10),
-                                          height: MediaQuery.of(context)
-                                                  .size
-                                                  .height *
-                                              0.93,
-                                          child: Column(
-                                            children: [
-                                              const Padding(
-                                                padding: EdgeInsets.only(
-                                                    top: 40, bottom: 10),
-                                                child: Text(
-                                                  "นโยบายความเป็นส่วนตัว",
-                                                  style: TextStyle(
-                                                      fontSize: 28,
-                                                      fontWeight:
-                                                          FontWeight.w700),
-                                                ),
-                                              ),
-                                              Padding(
-                                                padding:
-                                                    const EdgeInsets.all(8.0),
-                                                child: Container(
-                                                    height: MediaQuery.of(context)
-                                                            .size
-                                                            .height *
-                                                        0.75,
-                                                    width: MediaQuery.of(context).size.width *
-                                                        0.9,
-                                                    decoration: BoxDecoration(
-                                                        color: const Color.fromRGBO(
-                                                            255, 251, 236, 1),
-                                                        borderRadius:
-                                                            BorderRadius.circular(
-                                                                40)),
-                                                    child: Container(
-                                                        margin:
-                                                            const EdgeInsets.only(
-                                                                top: 20,
-                                                                bottom: 20),
-                                                        padding: const EdgeInsets.only(left: 20, right: 20),
-                                                        child: const Text(""))),
-                                              )
-                                            ],
-                                          ));
-                                    });
-                              },
-                              child: Container(
+                        Padding(
+                          padding: const EdgeInsets.only(left: 8.0),
+                          child: Row(
+                            children: [
+                              Shaker(
+                                key: _shakeKey,
+                                speed: 8,
+                                duration: const Duration(milliseconds: 500),
+                                range: 5,
+                                child: Checkbox(
+                                    side: !checkboxError
+                                        ? const BorderSide(
+                                            color: Colors.black38, width: 2)
+                                        : const BorderSide(
+                                            color: Colors.red, width: 2),
+                                    value: isAccept,
+                                    activeColor: Colors.blue,
+                                    onChanged: (newValue) {
+                                      setState(() {
+                                        checkboxError = false;
+                                        isAccept = newValue;
+                                      });
+                                    }),
+                              ),
+                              Container(
                                   margin:
                                       const EdgeInsets.symmetric(vertical: 30),
-                                  child: const Text(
-                                    "ฉันยอมรับข้อตกลงและเงื่อนไข นโยบายความเป็นส่วนตัว",
-                                    style: TextStyle(
-                                        color: Colors.blue, fontSize: 12),
+                                  child: GestureDetector(
+                                    onTap: () {
+                                      Navigator.of(context).push(
+                                          MaterialPageRoute(
+                                              builder: (context) =>
+                                                  const PrivacyPolicy()));
+                                    },
+                                    child: const Text(
+                                      "ฉันยอมรับข้อตกลงและเงื่อนไข นโยบายความเป็นส่วนตัว",
+                                      style: TextStyle(
+                                          color: Colors.blue, fontSize: 13),
+                                    ),
                                   )),
-                            ),
-                            const Padding(
-                                padding: EdgeInsets.symmetric(horizontal: 5),
-                                child: FaIcon(
-                                  FontAwesomeIcons.circleQuestion,
-                                  color: Colors.blue,
-                                  size: 13,
-                                )),
-                          ],
+                              const Padding(
+                                  padding: EdgeInsets.symmetric(horizontal: 5),
+                                  child: FaIcon(
+                                    FontAwesomeIcons.circleQuestion,
+                                    color: Colors.blue,
+                                    size: 13,
+                                  )),
+                            ],
+                          ),
                         ),
                         Container(
                             margin: const EdgeInsets.symmetric(

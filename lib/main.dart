@@ -5,11 +5,17 @@ import 'package:flutter/services.dart';
 import 'package:appfood2/pages/welcome.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:appfood2/firebase_options.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:appfood2/screen_size.dart';
+import 'package:flutter_native_splash/flutter_native_splash.dart';
 
 Future<void> main() async {
-  WidgetsFlutterBinding.ensureInitialized();
+  WidgetsBinding widgetsBinding = WidgetsFlutterBinding.ensureInitialized();
+  FlutterNativeSplash.preserve(widgetsBinding: widgetsBinding);
+
+  Future.delayed(const Duration(milliseconds: 1300), () {
+    FlutterNativeSplash.remove();
+  });
+
   await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
   SystemChrome.setPreferredOrientations([
     DeviceOrientation.portraitUp,

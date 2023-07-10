@@ -9,7 +9,7 @@
       "client_info": {
         "mobilesdk_app_id": "1:865205219140:android:864763e8c8fcabf0e6f111",
         "android_client_info": {
-          "package_name": "com.example.appfood2"
+          "package_name": "com.package.appfood"
         }
       },
       "oauth_client": [
@@ -34,7 +34,7 @@
               "client_id": "865205219140-351afj3pb3jghlnttbm9qk4ifjrvsnt7.apps.googleusercontent.com",
               "client_type": 2,
               "ios_info": {
-                "bundle_id": "com.example.appfood2"
+                "bundle_id": "com.package.appfood"
               }
             }
           ]

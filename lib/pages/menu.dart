@@ -1,3 +1,4 @@
+import 'package:appfood2/db.dart';
 import 'package:appfood2/pages/all_food.dart';
 import 'package:appfood2/pages/camera.dart';
 import 'package:appfood2/pages/food_detailed.dart';
@@ -7,7 +8,11 @@ import 'package:flutter/services.dart';
 import 'package:appfood2/screen_size.dart';
 
 class MenuPage extends StatelessWidget {
-  const MenuPage({super.key});
+  final User user;
+  const MenuPage({
+    super.key,
+    required this.user,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -59,7 +64,9 @@ class MenuPage extends StatelessWidget {
                             child: InkWell(
                               onTap: () => {
                                 Navigator.of(context).push(MaterialPageRoute(
-                                    builder: (context) => const CameraPage()))
+                                    builder: (context) => CameraPage(
+                                          user: user,
+                                        )))
                               },
                               child: Container(
                                 padding: const EdgeInsets.all(10),
@@ -295,17 +302,21 @@ class _TextFieldExampleState extends State<TextFieldExample> {
                   padding: const EdgeInsets.only(top: 15),
                   child: GridView.count(
                     crossAxisCount: 2,
-                  crossAxisSpacing: 4.0,  
-                  mainAxisSpacing: 4.0 ,
-                    children:[
-                    for (var item in foodQuery) 
-                      Padding(padding: const EdgeInsets.only(left: 15,right: 15,),
-                      child:FoodIcons(
-                        food: item,
-                        width: screenSizeData.screenSizeWidth,
-                      )),
-  ],),
-                          
+                    crossAxisSpacing: 4.0,
+                    mainAxisSpacing: 4.0,
+                    children: [
+                      for (var item in foodQuery)
+                        Padding(
+                            padding: const EdgeInsets.only(
+                              left: 15,
+                              right: 15,
+                            ),
+                            child: FoodIcons(
+                              food: item,
+                              width: screenSizeData.screenSizeWidth,
+                            )),
+                    ],
+                  ),
                 ),
               )
             : Padding(
