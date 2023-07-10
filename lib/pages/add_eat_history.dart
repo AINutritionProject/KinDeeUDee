@@ -6,14 +6,12 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:appfood2/pages/camera.dart';
-import 'package:appfood2/pages/eat_confirm.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:appfood2/screen_size.dart';
 import 'package:appfood2/widgets/button_back.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-Future<void> SaveEatHistory(
+Future<void> saveEatHistory(
     String name, int quantiy, String unit, XFile image) async {
   final uid = FirebaseAuth.instance.currentUser!.uid;
   final nowTimestamp = DateTime.now().millisecondsSinceEpoch;
@@ -31,7 +29,7 @@ Future<void> SaveEatHistory(
   });
 }
 
-Future<void> SaveEatHistoryToLocal(
+Future<void> saveEatHistoryToLocal(
     String name, int quantiy, String unit, XFile image) async {
   final pref = await SharedPreferences.getInstance();
   final uid = FirebaseAuth.instance.currentUser!.uid;
@@ -76,7 +74,7 @@ class _AddEatHistoryPageState extends State<AddEatHistoryPage> {
     if (image == null) {
       return;
     }
-    SaveEatHistoryToLocal(_foodNameController.value.text,
+    saveEatHistoryToLocal(_foodNameController.value.text,
             int.parse(_quantityController.value.text), _unit, image)
         .then((value) {
       Navigator.pop(context);
