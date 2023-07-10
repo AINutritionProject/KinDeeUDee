@@ -699,7 +699,7 @@ class _UserAvatarState extends State<UserAvatar> {
   void initState() {
     super.initState();
     // settime interval
-    Timer a = Timer.periodic(const Duration(seconds: 2), (timer) {
+    a = Timer.periodic(const Duration(seconds: 2), (timer) {
       setState(() {});
     });
   }
