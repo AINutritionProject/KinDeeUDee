@@ -90,7 +90,7 @@ class AIOutputPage extends StatelessWidget {
                                   child: Text(
                                     FoodDetailPage(
                                       detail: food.detail,
-                                    ).get_glycemic_index(food.detail.giIndex),
+                                    ).getGlycemicIndex(food.detail.giIndex),
                                     style: const TextStyle(
                                         fontSize: 13,
                                         fontWeight: FontWeight.bold),
