@@ -57,9 +57,9 @@ Future<List<History>> getEatHistoryDataFromLocal() async {
 }
 
 class _EatHistoryPageState extends State<EatHistoryPage> {
-  Future<List<History>> _getHistoryData() async {
-    return await getEatHistoryDataFromLocal();
-  }
+  // Future<List<History>> _getHistoryData() async {
+  //   return await getEatHistoryDataFromLocal();
+  // }
 
   Future<List<History>> _getHistoryDataFromLocal() async {
     final uid = FirebaseAuth.instance.currentUser!.uid;
@@ -73,7 +73,6 @@ class _EatHistoryPageState extends State<EatHistoryPage> {
         continue;
       }
       final Map<String, dynamic> history = jsonDecode(historyRaw);
-      print("history: $history");
       try {
         historySlots.add(History(
           image: base64Decode(history["foodPhoto"]),
@@ -83,7 +82,6 @@ class _EatHistoryPageState extends State<EatHistoryPage> {
           timestamp: history["timestamp"],
         ));
       } catch (e) {
-        print("Error when convert history data: $e");
         continue;
       }
     }
@@ -335,7 +333,6 @@ class _EatHistoryComponentState extends State<EatHistoryComponent> {
             .millisecondsSinceEpoch;
         int count = 0;
         for (var i = 0; i < widget.history.length; i++) {
-          print(checkend);
           if ((widget.history[i].timestamp >= checkstart) &&
               (checkend >= widget.history[i].timestamp)) {
             filteredHistorySlots.add(HistorySlot(
@@ -358,7 +355,6 @@ class _EatHistoryComponentState extends State<EatHistoryComponent> {
             .millisecondsSinceEpoch;
         int count = 0;
         for (var i = 0; i < widget.history.length; i++) {
-          print(checkend);
           if (widget.history[i].timestamp >= checkstart &&
               checkend >= widget.history[i].timestamp) {
             filteredHistorySlots.add(HistorySlot(

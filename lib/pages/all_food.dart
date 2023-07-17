@@ -42,7 +42,7 @@ class _RealAllFoodPageState extends State<RealAllFoodPage> {
             realImageAssetPath: "assets/images/Real$type/" + element[4]),
         // ignore: prefer_interpolation_to_compose_strings
         imageAssetPath:
-            "assets/images/${type == 'Fruit' ? 'Fruit' : 'RiceFlour'}/" + element[2],
+            "assets/images/${type == 'Fruit' ? 'Fruit' : 'RiceFlour'}/${element[2]}",
       ));
     }
     List<List<Food>> dataIndex = [];
@@ -76,7 +76,6 @@ class AllFoodPage extends StatelessWidget {
   const AllFoodPage({super.key, required this.type, required this.foodData});
   final String type;
   final List<List<Food>> foodData;
-  
 
   @override
   Widget build(BuildContext context) {
@@ -91,14 +90,13 @@ class AllFoodPage extends StatelessWidget {
         child: SingleChildScrollView(
           child: Container(
             color: screenSizeData.screenWidth <= screenSizeData.maxWidth
-              ? Colors.white
-              : Colors.black,
+                ? Colors.white
+                : Colors.black,
             child: Center(
               child: Container(
                 width: screenSizeData.screenSizeWidth,
                 decoration: const BoxDecoration(
                   color: Color.fromRGBO(255, 241, 224, 1),
-                  
                 ),
                 child: Column(
                   children: [
@@ -114,8 +112,10 @@ class AllFoodPage extends StatelessWidget {
                               height: 130,
                               decoration: BoxDecoration(
                                   color: type == "Fruit"
-                                      ? const Color.fromRGBO(198, 242, 178, 0.65)
-                                      : const Color.fromRGBO(255, 115, 55, 0.65)),
+                                      ? const Color.fromRGBO(
+                                          198, 242, 178, 0.65)
+                                      : const Color.fromRGBO(
+                                          255, 115, 55, 0.65)),
                             ),
                           ),
                           Padding(
@@ -143,7 +143,8 @@ class AllFoodPage extends StatelessWidget {
                       padding: EdgeInsets.symmetric(vertical: 10),
                       child: Text(
                         "GI = ค่าดัชนีน้ำตาล",
-                        style: TextStyle(fontSize: 24, fontWeight: FontWeight.w700),
+                        style: TextStyle(
+                            fontSize: 24, fontWeight: FontWeight.w700),
                       ),
                     ),
                     const Padding(
@@ -158,13 +159,19 @@ class AllFoodPage extends StatelessWidget {
                               Expanded(
                                   flex: 1,
                                   child: Align(
-                                    alignment: Alignment.center,
-                                    child: FoodIcons(food: e[0], width: screenSizeData.screenSizeWidth,))),
+                                      alignment: Alignment.center,
+                                      child: FoodIcons(
+                                        food: e[0],
+                                        width: screenSizeData.screenSizeWidth,
+                                      ))),
                               Expanded(
                                   flex: 1,
                                   child: Align(
-                                    alignment: Alignment.center,
-                                    child: FoodIcons(food: e[1], width: screenSizeData.screenSizeWidth,))),
+                                      alignment: Alignment.center,
+                                      child: FoodIcons(
+                                        food: e[1],
+                                        width: screenSizeData.screenSizeWidth,
+                                      ))),
                             ]);
                       } else {
                         return Row(
@@ -173,15 +180,16 @@ class AllFoodPage extends StatelessWidget {
                               Expanded(
                                   flex: 1,
                                   child: Align(
-                                    alignment: Alignment.center,
-                                    child: FoodIcons(food: e[0], width: screenSizeData.screenSizeWidth,))),
+                                      alignment: Alignment.center,
+                                      child: FoodIcons(
+                                        food: e[0],
+                                        width: screenSizeData.screenSizeWidth,
+                                      ))),
                               const Expanded(
                                   flex: 1,
                                   child: Align(
-                                    alignment: Alignment.center,
-                                    child: SizedBox()
-                                  )
-                              )
+                                      alignment: Alignment.center,
+                                      child: SizedBox()))
                             ]);
                       }
                     })
@@ -282,15 +290,17 @@ class BoxContainSmileIcon extends StatelessWidget {
                   children: [
                     Padding(
                       padding: EdgeInsets.only(bottom: 2),
-                      child: Text("ต่ำ", style: TextStyle(
-                        fontSize: 20,
-                        fontWeight: FontWeight.bold
-                      ),),
+                      child: Text(
+                        "ต่ำ",
+                        style: TextStyle(
+                            fontSize: 20, fontWeight: FontWeight.bold),
+                      ),
                     ),
-                    Text("GI<55", style: TextStyle(
-                        fontSize: 16,
-                        fontWeight: FontWeight.bold
-                      ),),
+                    Text(
+                      "GI<55",
+                      style:
+                          TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+                    ),
                   ],
                 ),
               ),
@@ -307,15 +317,17 @@ class BoxContainSmileIcon extends StatelessWidget {
                   children: [
                     Padding(
                       padding: EdgeInsets.only(bottom: 2),
-                      child: Text("กลาง", style: TextStyle(
-                      fontSize: 20,
-                      fontWeight: FontWeight.bold
-                    ),),
+                      child: Text(
+                        "กลาง",
+                        style: TextStyle(
+                            fontSize: 20, fontWeight: FontWeight.bold),
+                      ),
                     ),
-                    Text("GI 55-69", style: TextStyle(
-                      fontSize: 16,
-                      fontWeight: FontWeight.bold
-                    ),)
+                    Text(
+                      "GI 55-69",
+                      style:
+                          TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+                    )
                   ],
                 ),
               ),
@@ -332,15 +344,17 @@ class BoxContainSmileIcon extends StatelessWidget {
                   children: [
                     Padding(
                       padding: EdgeInsets.only(bottom: 2),
-                      child: Text("สูง", style: TextStyle(
-                        fontSize: 20,
-                        fontWeight: FontWeight.bold
-                      ),),
+                      child: Text(
+                        "สูง",
+                        style: TextStyle(
+                            fontSize: 20, fontWeight: FontWeight.bold),
+                      ),
                     ),
-                    Text("GI>70", style: TextStyle(
-                        fontSize: 16,
-                        fontWeight: FontWeight.bold
-                      ),)
+                    Text(
+                      "GI>70",
+                      style:
+                          TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+                    )
                   ],
                 ),
               )
@@ -410,7 +424,7 @@ class FoodIcons extends StatelessWidget {
               builder: (context) => FoodDetailPage(detail: food.detail)));
         },
         child: SizedBox(
-          width: width* 0.42,
+          width: width * 0.42,
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             //crossAxisAlignment: CrossAxisAlignment.start,
@@ -425,7 +439,8 @@ class FoodIcons extends StatelessWidget {
                 child: Column(children: [
                   Align(
                     child: Container(
-                      padding: EdgeInsets.symmetric(vertical: 10, horizontal: 15),
+                      padding: const EdgeInsets.symmetric(
+                          vertical: 10, horizontal: 15),
                       //margin: const EdgeInsets.symmetric(vertical: 10),
                       width: 120,
                       height: 120,

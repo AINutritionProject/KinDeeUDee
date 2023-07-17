@@ -76,7 +76,6 @@ class _CameraPageState extends State<CameraPage> {
   Future<void> getImageFromGallery() async {
     XFile? image = await ImagePicker().pickImage(source: ImageSource.gallery);
     if (image == null) {
-      print("Not get image");
       return;
     }
     if (!context.mounted) {

@@ -66,11 +66,10 @@ class TFModel {
             fat: row[13],
             carbo: row[14],
             nutrition: row[10],
-            realImageAssetPath: "assets/images/Real${row[11]}/" + row[4],
+            realImageAssetPath: "assets/images/Real${row[11]}/${row[4]}",
           ),
           imageAssetPath:
-              "assets/images/${row[11] == 'Fruit' ? 'Fruit' : 'RiceFlour'}/" +
-                  row[2]);
+              "assets/images/${row[11] == 'Fruit' ? 'Fruit' : 'RiceFlour'}/${row[2]}");
       foodMap[row[0].toString().trim()] = food;
     }
     this.foodMap = foodMap;
@@ -78,7 +77,7 @@ class TFModel {
 
   Food? runModel(imglib.Image baseImage) {
     // convert image to input tensor
-    var _start = DateTime.now().millisecondsSinceEpoch;
+    // var start = DateTime.now().millisecondsSinceEpoch;
     int imageSize = 320;
     final imglib.Image resizedImage =
         imglib.copyResize(baseImage, width: imageSize, height: imageSize);
@@ -95,16 +94,15 @@ class TFModel {
     _interpreter.runForMultipleInputs(inputs, outputs);
     // get result
     int result = outputs[3]?[0][0].toInt();
-    double confidence = outputs[0]?[0][0];
-    print("confidence is $confidence");
-    print("raw resource is $result, label is ${labels[result]}");
-    print(foodMap[labels[result]]);
-    var _diff = DateTime.now().millisecondsSinceEpoch - _start;
-    print("run model time: $_diff");
+    // double confidence = outputs[0]?[0][0];
+    // print("confidence is $confidence");
+    // print("raw resource is $result, label is ${labels[result]}");
+    // print(foodMap[labels[result]]);
+    // var _diff = DateTime.now().millisecondsSinceEpoch - start;
+    // print("run model time: $_diff");
     try {
       return foodMap[labels[result]];
     } catch (e) {
-      print(e);
       return null;
     }
   }
