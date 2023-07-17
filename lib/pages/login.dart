@@ -205,6 +205,26 @@ class _LogInFormState extends State<LogInForm> {
 class _LoginPageState extends State<LoginPage> {
   final GoogleSignIn _googleSignIn = GoogleSignIn();
 
+  void _onGoogleSignIn() {
+    Future<String?> result = Auth().signInWithGoogle(_googleSignIn);
+    result.then((errorCode) {
+      if (errorCode != null) {
+        var errorString = "พบปัญหาโปรดลองอีกครั้ง";
+        if (errorCode == "account-exists-with-different-credential") {
+          errorString = "อีเมลนี้มีอยู่แล้วในระบบ";
+        } else if (errorCode == "user-disabled") {
+          errorString = "บัญชีนี้ถูกระงับการใช้งาน";
+        }
+        showDialog(
+          context: context,
+          builder: (context) {
+            return ErrorDialog(errorString: errorString);
+          },
+        );
+      }
+    });
+  }
+
   // function to random color
 
   // random backgroundColor every 0.2 second when start Widget
@@ -289,7 +309,7 @@ class _LoginPageState extends State<LoginPage> {
                             // ),
                             GestureDetector(
                               onTap: () async {
-                                await Auth().signInWithGoogle(_googleSignIn);
+                                await _onGoogleSignIn();
                               },
                               child: const FaIcon(
                                 FontAwesomeIcons.google,
