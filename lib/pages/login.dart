@@ -308,8 +308,8 @@ class _LoginPageState extends State<LoginPage> {
                             //   size: 37,
                             // ),
                             GestureDetector(
-                              onTap: () async {
-                                await _onGoogleSignIn();
+                              onTap: () {
+                                _onGoogleSignIn();
                               },
                               child: const FaIcon(
                                 FontAwesomeIcons.google,
