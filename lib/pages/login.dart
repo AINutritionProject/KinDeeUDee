@@ -272,21 +272,21 @@ class _LoginPageState extends State<LoginPage> {
                           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                           mainAxisSize: MainAxisSize.max,
                           children: [
-                            const FaIcon(
-                              FontAwesomeIcons.line,
-                              color: Colors.green,
-                              size: 35,
-                            ),
-                            const FaIcon(
-                              FontAwesomeIcons.squareFacebook,
-                              color: Colors.blue,
-                              size: 37,
-                            ),
-                            const FaIcon(
-                              FontAwesomeIcons.instagram,
-                              color: Colors.deepOrangeAccent,
-                              size: 37,
-                            ),
+                            // const FaIcon(
+                            //   FontAwesomeIcons.line,
+                            //   color: Colors.green,
+                            //   size: 35,
+                            // ),
+                            // const FaIcon(
+                            //   FontAwesomeIcons.squareFacebook,
+                            //   color: Colors.blue,
+                            //   size: 37,
+                            // ),
+                            // const FaIcon(
+                            //   FontAwesomeIcons.instagram,
+                            //   color: Colors.deepOrangeAccent,
+                            //   size: 37,
+                            // ),
                             GestureDetector(
                               onTap: () async {
                                 await Auth().signInWithGoogle(_googleSignIn);
@@ -297,11 +297,11 @@ class _LoginPageState extends State<LoginPage> {
                                 size: 34,
                               ),
                             ),
-                            const FaIcon(
-                              FontAwesomeIcons.envelope,
-                              color: Colors.indigo,
-                              size: 37,
-                            )
+                            // const FaIcon(
+                            //   FontAwesomeIcons.envelope,
+                            //   color: Colors.indigo,
+                            //   size: 37,
+                            // )
                           ],
                         ),
                       ),
