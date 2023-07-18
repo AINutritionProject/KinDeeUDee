@@ -15,13 +15,6 @@ class RegisterSuccesPage extends StatelessWidget {
       screenHeight: mediaQueryData.size.height,
     );
     return Scaffold(
-      floatingActionButton: FloatingActionButton.small(
-        onPressed: () {
-          Auth().signOut();
-        },
-        child: const Icon(Icons.logout),
-      ),
-      floatingActionButtonLocation: FloatingActionButtonLocation.endTop,
       body: Container(
         height: screenSizeData.screenHeight,
         color: screenSizeData.screenWidth <= screenSizeData.maxWidth
