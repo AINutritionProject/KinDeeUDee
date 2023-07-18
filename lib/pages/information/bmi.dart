@@ -32,15 +32,6 @@ class _BMIState extends State<BMIPage> {
       screenHeight: mediaQueryData.size.height,
     );
     return Scaffold(
-      // backgroundColor: (valBMI >= 30)
-      //     ? const Color.fromRGBO(255, 175, 175, 1)
-      //     : (valBMI >= 25 && valBMI <= 29.9)
-      //         ? const Color.fromRGBO(255, 208, 193, 1)
-      //         : (valBMI >= 23 && valBMI <= 24.9)
-      //             ? const Color.fromRGBO(255, 245, 220, 1)
-      //             : (valBMI >= 18.5 && valBMI <= 22.9)
-      //                 ? const Color.fromRGBO(217, 255, 200, 1)
-      //                 : const Color.fromRGBO(255, 245, 220, 1),
       body: SafeArea(
         child: Container(
           //height: screenSizeData.screenHeight,
