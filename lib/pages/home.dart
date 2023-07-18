@@ -294,8 +294,10 @@ class _HomeState extends State<Home> {
                   'ออกจากระบบ',
                   style: TextStyle(fontSize: 18),
                 ),
-                onTap: () async {
-                  await Auth().signOut();
+                onTap: () {
+                  Auth().signOut().then((value) {
+                    Navigator.popUntil(context, (route) => route.isFirst);
+                  });
                 },
               )
             ],
