@@ -63,6 +63,7 @@ class DefaultFirebaseOptions {
     messagingSenderId: '292622561727',
     projectId: 'appfood-741d2',
     storageBucket: 'appfood-741d2.appspot.com',
+    androidClientId: '292622561727-ikvknn7545m3hbt8iojsp4hfc50rm39o.apps.googleusercontent.com',
     iosClientId: '292622561727-e1ja6tfhn00dj0udqt0q0ooppqp1lk75.apps.googleusercontent.com',
     iosBundleId: 'com.example.appfood2',
   );
