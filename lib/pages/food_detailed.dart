@@ -47,7 +47,7 @@ class FoodDetailPage extends StatelessWidget {
     }
   }
 
-  String get_glycemic_index(num giIndex) {
+  String getGlycemicIndex(num giIndex) {
     if (giIndex < 55) {
       return "ดัชนีน้ำตาล<55";
     } else if (giIndex < 70 && giIndex >= 55) {
@@ -122,7 +122,7 @@ class FoodDetailPage extends StatelessWidget {
                             child: Align(
                               alignment: Alignment.topCenter,
                               child: SmileFace(
-                                  SmileColor: getBarsmilColor(detail.giIndex)),
+                                  smileColor: getBarsmilColor(detail.giIndex)),
                             ),
                           ),
                           Padding(
@@ -138,7 +138,7 @@ class FoodDetailPage extends StatelessWidget {
                                   color: Colors.white,
                                 ),
                                 child: Text(
-                                  get_glycemic_index(detail.giIndex),
+                                  getGlycemicIndex(detail.giIndex),
                                   style: TextStyle(
                                       fontSize:
                                           screenSizeData.screenSizeWidth < 600
@@ -395,8 +395,8 @@ class FoodNutritionDetail {
 }
 
 class SmileFace extends StatelessWidget {
-  const SmileFace({super.key, required this.SmileColor});
-  final Color SmileColor;
+  const SmileFace({super.key, required this.smileColor});
+  final Color smileColor;
 
   @override
   Widget build(BuildContext context) {
@@ -404,7 +404,7 @@ class SmileFace extends StatelessWidget {
       children: [
         Container(
           decoration: BoxDecoration(
-            color: SmileColor,
+            color: smileColor,
             shape: BoxShape.circle,
           ),
           child: const FaIcon(

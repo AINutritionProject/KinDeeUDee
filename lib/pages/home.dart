@@ -4,16 +4,12 @@ import 'package:appfood2/pages/information/activity_form.dart';
 import 'package:appfood2/pages/information/information.dart';
 import 'package:appfood2/pages/information/nutrition.dart';
 import 'package:appfood2/pages/information/bmi.dart';
-import 'package:appfood2/pages/login.dart';
 import 'package:appfood2/pages/verify_page.dart';
-import 'package:appfood2/widgets/error_dialog.dart';
-import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:appfood2/pages/menu.dart';
 import 'package:appfood2/pages/flag_nutrition.dart';
 import 'package:appfood2/auth.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:appfood2/pages/register_success.dart';
 import 'package:appfood2/pages/eat_history.dart';
 import 'package:firebase_storage/firebase_storage.dart';
@@ -298,8 +294,10 @@ class _HomeState extends State<Home> {
                   'ออกจากระบบ',
                   style: TextStyle(fontSize: 18),
                 ),
-                onTap: () async {
-                  await Auth().signOut();
+                onTap: () {
+                  Auth().signOut().then((value) {
+                    Navigator.popUntil(context, (route) => route.isFirst);
+                  });
                 },
               )
             ],

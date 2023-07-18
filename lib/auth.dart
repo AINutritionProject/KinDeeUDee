@@ -34,11 +34,9 @@ class Auth {
             appFoodUser.toMap(),
           );
     } on FirebaseAuthException catch (error) {
-      print(error);
       return error.code;
     } catch (error) {
-      print("Got error when create user with email & password");
-      print(error);
+      return error.toString();
     }
 
     return null;
@@ -49,11 +47,8 @@ class Auth {
       final user = currentUser!;
       await user.sendEmailVerification();
     } on FirebaseAuthException catch (error) {
-      print(error);
       return error.code;
     } catch (error) {
-      print("Got error when sending verification email");
-      print(error);
       return error.toString();
     }
     return null;
@@ -68,8 +63,6 @@ class Auth {
         return false;
       }
     } catch (error) {
-      print("Got error when checking verified email");
-      print(error);
       return false;
     }
   }
@@ -79,8 +72,6 @@ class Auth {
       final firebaseAuth = _firebaseAuth;
       await firebaseAuth.sendPasswordResetEmail(email: email);
     } on FirebaseAuthException catch (error) {
-      print("Got FirebaseAuthException when try reseting paasword");
-      print(error);
       return error.code;
     }
 
@@ -97,28 +88,23 @@ class Auth {
               .get();
       String email = querySnapshot.docs.first.get("email");
 
-      UserCredential firebaseUser = await _firebaseAuth
-          .signInWithEmailAndPassword(email: email, password: password);
-      print(firebaseUser.user!.uid);
+      await _firebaseAuth.signInWithEmailAndPassword(
+          email: email, password: password);
     } on StateError catch (error) {
-      print("Doc could not be found in firestore");
       return error.message;
     } on FirebaseAuthException catch (error) {
-      print("Got firebase auth error when sign in with username & password");
-      print(error);
       return error.code;
     } catch (error) {
-      print("Got error when sign in with username & password");
-      print(error);
+      return error.toString();
     }
     return null;
   }
 
-  Future<void> signInWithGoogle(GoogleSignIn googleSignIn) async {
+  Future<String?> signInWithGoogle(GoogleSignIn googleSignIn) async {
     try {
       GoogleSignInAccount? user = await googleSignIn.signIn();
       if (user == null) {
-        return;
+        return null;
       }
       GoogleSignInAuthentication? userAuth = await user.authentication;
       final credential = GoogleAuthProvider.credential(
@@ -130,16 +116,21 @@ class Auth {
       if (firebaseUser.additionalUserInfo!.isNewUser) {
         AppFoodUser appFoodUser = AppFoodUser(
             uid: firebaseUser.user!.uid,
-            email: firebaseUser.user!.email ?? "email boom",
+            email: firebaseUser.user!.email!,
             username: firebaseUser.user!.displayName,
             hasData: false);
         await FirebaseFirestore.instance
             .collection("users")
             .add(appFoodUser.toMap());
       }
+    } on FirebaseAuthException catch (error) {
+      print(error.code);
+      return error.code;
     } catch (error) {
-      print(error);
+      print(error.toString());
+      return error.toString();
     }
+    return null;
   }
 
   Future<void> signOut() async {

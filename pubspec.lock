@@ -481,7 +481,7 @@ packages:
     source: hosted
     version: "2.6.3"
   intl:
-    dependency: transitive
+    dependency: "direct main"
     description:
       name: intl
       sha256: "3bc132a9dbce73a7e4a21a17d06e1878839ffbf975568bc875c60537824b0c4d"
@@ -758,7 +758,7 @@ packages:
     source: hosted
     version: "21.2.10"
   syncfusion_flutter_datepicker:
-    dependency: "direct dev"
+    dependency: "direct main"
     description:
       name: syncfusion_flutter_datepicker
       sha256: "2d0b69106152be3cbabf97e43e03b414ff650eeb91f6b17e7d24b7fade0a9ce9"

@@ -1,4 +1,3 @@
-import 'package:appfood2/pages/information/personal_information.dart';
 import 'package:appfood2/pages/information/save_data_success.dart';
 import 'package:flutter/material.dart';
 import 'package:appfood2/db.dart';
