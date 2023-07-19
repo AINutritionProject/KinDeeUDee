@@ -1,6 +1,5 @@
 import 'package:appfood2/pages/landing.dart';
 import 'package:flutter/material.dart';
-import 'package:appfood2/pages/login.dart';
 import 'package:flutter/services.dart';
 import 'package:appfood2/pages/welcome.dart';
 import 'package:firebase_core/firebase_core.dart';
@@ -36,7 +35,7 @@ class MyApp extends StatelessWidget {
     );
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      title: 'Flutter Demo',
+      title: 'กินดีอยู่ดี',
       theme: ThemeData(fontFamily: "NotoSansThai"),
       initialRoute: "/welcome",
       routes: {
