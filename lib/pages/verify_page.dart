@@ -51,6 +51,7 @@ class _VerifyPageState extends State<VerifyPage> {
   }
 
   void _sendVerificationEmail() {
+    print("กด");
     var result = Auth().sendVerificationEmail();
     result.then((errorCode) {
       if (errorCode != null) {
@@ -68,20 +69,21 @@ class _VerifyPageState extends State<VerifyPage> {
       canResendEmail = false;
 
       timer = Timer.periodic(const Duration(seconds: 3), (timer) async {
-        Auth().reloadUser();
-        setState(() {
-          isEmailVerified = Auth().emailIsVerified();
-        });
+        Auth().reloadUser().then((value) {
+          setState(() {
+            isEmailVerified = Auth().emailIsVerified();
+          });
 
-        if (isEmailVerified) {
-          Navigator.pushReplacement(
-            context,
-            MaterialPageRoute(
-              builder: (context) => const RegisterSuccesPage(),
-            ),
-          );
-          timer.cancel();
-        }
+          if (isEmailVerified) {
+            timer.cancel();
+            Navigator.pushReplacement(
+              context,
+              MaterialPageRoute(
+                builder: (context) => const RegisterSuccesPage(),
+              ),
+            );
+          }
+        });
       });
     }
     super.initState();
