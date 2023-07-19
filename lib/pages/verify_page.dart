@@ -189,7 +189,9 @@ class _VerifyPageState extends State<VerifyPage> {
             Container(
               padding: const EdgeInsets.only(top: 7),
               child: TextButton(
-                onPressed: () => Auth().signOut(),
+                onPressed: () => Auth().signOut().then((value) {
+                  Navigator.of(context).popUntil((route) => route.isFirst);
+                }),
                 child: const Text(
                   "ยกเลิก",
                   style: TextStyle(
