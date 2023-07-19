@@ -51,7 +51,6 @@ class _VerifyPageState extends State<VerifyPage> {
   }
 
   void _sendVerificationEmail() {
-    print("กด");
     var result = Auth().sendVerificationEmail();
     result.then((errorCode) {
       if (errorCode != null) {
