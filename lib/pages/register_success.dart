@@ -29,12 +29,18 @@ class RegisterSuccesPage extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.start,
                 children: [
                   const Padding(
-                    padding:  EdgeInsets.only(left: 20,top:20),
-                    child:  Row(children: [ButtonBack(colorCircle: Color.fromRGBO(130, 151, 223, 1)
-                    ,color: Colors.white,option:'logout')],),
+                    padding: EdgeInsets.only(left: 20, top: 20),
+                    child: Row(
+                      children: [
+                        ButtonBack(
+                            colorCircle: Color.fromRGBO(130, 151, 223, 1),
+                            color: Colors.white,
+                            option: 'logout')
+                      ],
+                    ),
                   ),
-                  Container(
-                    height: mediaQueryData.size.height*0.8,
+                  SizedBox(
+                    height: mediaQueryData.size.height * 0.8,
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
@@ -53,21 +59,23 @@ class RegisterSuccesPage extends StatelessWidget {
                                         fontSize: 35,
                                         fontWeight: FontWeight.w600)))),
                         const Padding(
-                            padding: EdgeInsets.only(top: 50, left: 30, right: 30),
+                            padding:
+                                EdgeInsets.only(top: 50, left: 30, right: 30),
                             child: SizedBox(
                                 width: double.infinity,
                                 height: 104,
                                 child: DecoratedBox(
                                   decoration: BoxDecoration(
                                       color: Color.fromRGBO(254, 158, 158, 1),
-                                      borderRadius:
-                                          BorderRadius.all(Radius.circular(30))),
+                                      borderRadius: BorderRadius.all(
+                                          Radius.circular(30))),
                                   child: Align(
                                     alignment: Alignment.center,
                                     child: Text(
                                       "กรอกข้อมูลส่วนตัว",
                                       style: TextStyle(
-                                          fontSize: 35, fontWeight: FontWeight.w600),
+                                          fontSize: 35,
+                                          fontWeight: FontWeight.w600),
                                     ),
                                   ),
                                 ))),
@@ -75,7 +83,8 @@ class RegisterSuccesPage extends StatelessWidget {
                             padding: const EdgeInsets.only(
                               top: 30,
                             ),
-                            child: Stack(alignment: Alignment.center, children: [
+                            child:
+                                Stack(alignment: Alignment.center, children: [
                               ElevatedButton(
                                   onPressed: () {
                                     Navigator.of(context).pushReplacement(
@@ -84,8 +93,8 @@ class RegisterSuccesPage extends StatelessWidget {
                                                 const InformationPage()));
                                   },
                                   style: ElevatedButton.styleFrom(
-                                      backgroundColor:
-                                          const Color.fromRGBO(174, 144, 144, 1),
+                                      backgroundColor: const Color.fromRGBO(
+                                          174, 144, 144, 1),
                                       shape: RoundedRectangleBorder(
                                         borderRadius: BorderRadius.circular(25),
                                       )),

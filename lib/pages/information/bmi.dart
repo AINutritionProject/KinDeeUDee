@@ -110,14 +110,14 @@ class _BMIState extends State<BMIPage> {
                                 width: 150,
                                 height: 150,
                                 child: Center(
-                                  child: Flexible(
-                                    child: Text(
-                                      "“$username”",
-                                      style: const TextStyle(
-                                          fontSize: 30,
-                                          fontWeight: FontWeight.bold),
-                                      textAlign: TextAlign.center,
-                                    ),
+                                  child: Text(
+                                    "“$username”",
+                                    style: const TextStyle(
+                                        fontSize: 30,
+                                        fontWeight: FontWeight.bold),
+                                    textAlign: TextAlign.center,
+                                    overflow: TextOverflow.ellipsis,
+                                    maxLines: 1,
                                   ),
                                 ),
                               ),
