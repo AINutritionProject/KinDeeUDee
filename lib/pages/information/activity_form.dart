@@ -8,7 +8,6 @@ import 'package:appfood2/screen_size.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:appfood2/widgets/button_back.dart';
 
-
 List<String> frequency = ["1", "2", "3", "4", "5", "6", "7"];
 List<String> extraLightActivitiesData = [
   "-----",
@@ -32,7 +31,7 @@ List<String> mediumActivitiesData = [
   "-----",
   "เดินเร็ว",
   "ปั่นจักรยาน",
-  "เดินขึ้นลงบันได้",
+  "เดินขึ้นลงบันได",
   "ทำสวน",
   "การเสิร์ฟอาหาร",
 ];
@@ -86,22 +85,28 @@ class _ActivityFormState extends State<ActivityForm> {
                               const Padding(
                                 padding: EdgeInsets.only(left: 10, top: 10),
                                 child: Align(
-                                  alignment: Alignment.topLeft,
-                                  child: ButtonBack(
-                                    colorCircle: Colors.orange,
-                                    color: Colors.white,
-                                  )
-                                  ),
+                                    alignment: Alignment.topLeft,
+                                    child: ButtonBack(
+                                      colorCircle: Colors.orange,
+                                      color: Colors.white,
+                                    )),
                               ),
-                            Container(
-                              margin:const EdgeInsets.only(left: 12,top:10),
-                              padding: const EdgeInsets.symmetric(horizontal: 20,vertical: 12),
+                              Container(
+                                margin:
+                                    const EdgeInsets.only(left: 12, top: 10),
+                                padding: const EdgeInsets.symmetric(
+                                    horizontal: 20, vertical: 12),
                                 decoration: BoxDecoration(
                                   borderRadius: BorderRadius.circular(50),
                                   color: Colors.grey.shade300,
                                 ),
-                              child: const Text("ย้อนกลับ",style: TextStyle(fontSize: 20,fontWeight :FontWeight.w500),),
-                            )
+                                child: const Text(
+                                  "ย้อนกลับ",
+                                  style: TextStyle(
+                                      fontSize: 20,
+                                      fontWeight: FontWeight.w500),
+                                ),
+                              )
                             ],
                           ),
                           ActivityFormHeader(

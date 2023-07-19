@@ -9,7 +9,6 @@ import 'package:email_validator/email_validator.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
-import 'package:syncfusion_flutter_pdfviewer/pdfviewer.dart';
 
 import '../widgets/error_dialog.dart';
 
@@ -78,7 +77,6 @@ class _RegisterFormState extends State<RegisterForm> {
 
     result.then((errorCode) {
       if (errorCode != null) {
-        print("Value :$errorCode");
         var errorString = "พบปัญหาโปรดลองอีกครั้ง";
         if (errorCode == "email-already-in-use") {
           errorString = "อีเมลนี้ถูกใช้สมัครไปแล้ว";

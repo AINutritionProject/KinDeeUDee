@@ -5,7 +5,6 @@ import 'package:appfood2/pages/all_food.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:appfood2/pages/ai_output.dart';
-import 'package:image/image.dart' as img;
 import 'package:appfood2/screen_size.dart';
 
 class EatConfirmPage extends StatefulWidget {
@@ -76,7 +75,7 @@ class _EatConfirmPageState extends State<EatConfirmPage> {
                       padding: const EdgeInsets.fromLTRB(50, 10, 0, 0),
                       child: ElevatedButton(
                         onPressed: () async {
-                          await SaveEatHistoryToLocal(
+                          await saveEatHistoryToLocal(
                               widget.resultFood.name, 1, 'ส่วน', widget.image);
                           Navigator.of(context).pushAndRemoveUntil(
                               MaterialPageRoute(
