@@ -80,16 +80,21 @@ class Auth {
 
   Future<String?> signInWithUsername(String username, String password) async {
     try {
-      // get email from username
-      QuerySnapshot<Map<String, dynamic>> querySnapshot =
-          await FirebaseFirestore.instance
-              .collection("users")
-              .where("username", isEqualTo: username)
-              .get();
-      String email = querySnapshot.docs.first.get("email");
+      if (username.contains("@")) {
+        await _firebaseAuth.signInWithEmailAndPassword(
+            email: username, password: password);
+      } else {
+        // get email from username
+        QuerySnapshot<Map<String, dynamic>> querySnapshot =
+            await FirebaseFirestore.instance
+                .collection("users")
+                .where("username", isEqualTo: username)
+                .get();
+        String email = querySnapshot.docs.first.get("email");
 
-      await _firebaseAuth.signInWithEmailAndPassword(
-          email: email, password: password);
+        await _firebaseAuth.signInWithEmailAndPassword(
+            email: email, password: password);
+      }
     } on StateError catch (error) {
       return error.message;
     } on FirebaseAuthException catch (error) {
