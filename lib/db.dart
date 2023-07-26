@@ -53,10 +53,8 @@ Future<bool> updateDoc(User user) async {
   try {
     await userRef.update(userData);
   } catch (e) {
-    print(e);
     return false;
   }
-  print("write to doc success");
   return true;
 }
 
@@ -67,10 +65,8 @@ Future<bool> updateActivityDoc(User user) async {
   try {
     await userRef.update(userData);
   } catch (e) {
-    print(e);
     return false;
   }
-  print("write to doc success");
   return true;
 }
 

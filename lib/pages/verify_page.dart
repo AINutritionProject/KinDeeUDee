@@ -68,20 +68,21 @@ class _VerifyPageState extends State<VerifyPage> {
       canResendEmail = false;
 
       timer = Timer.periodic(const Duration(seconds: 3), (timer) async {
-        Auth().reloadUser();
-        setState(() {
-          isEmailVerified = Auth().emailIsVerified();
-        });
+        Auth().reloadUser().then((value) {
+          setState(() {
+            isEmailVerified = Auth().emailIsVerified();
+          });
 
-        if (isEmailVerified) {
-          Navigator.pushReplacement(
-            context,
-            MaterialPageRoute(
-              builder: (context) => const RegisterSuccesPage(),
-            ),
-          );
-          timer.cancel();
-        }
+          if (isEmailVerified) {
+            timer.cancel();
+            Navigator.pushReplacement(
+              context,
+              MaterialPageRoute(
+                builder: (context) => const RegisterSuccesPage(),
+              ),
+            );
+          }
+        });
       });
     }
     super.initState();
@@ -187,7 +188,9 @@ class _VerifyPageState extends State<VerifyPage> {
             Container(
               padding: const EdgeInsets.only(top: 7),
               child: TextButton(
-                onPressed: () => Auth().signOut(),
+                onPressed: () => Auth().signOut().then((value) {
+                  Navigator.of(context).popUntil((route) => route.isFirst);
+                }),
                 child: const Text(
                   "ยกเลิก",
                   style: TextStyle(
