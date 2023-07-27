@@ -94,7 +94,11 @@ class TFModel {
     _interpreter.runForMultipleInputs(inputs, outputs);
     // get result
     int result = outputs[3]?[0][0].toInt();
-    // double confidence = outputs[0]?[0][0];
+    double confidence = outputs[0]?[0][0];
+    if (confidence < 0.3) {
+      throw Exception("Confidence is too low");
+    }
+
     // print("confidence is $confidence");
     // print("raw resource is $result, label is ${labels[result]}");
     // print(foodMap[labels[result]]);
