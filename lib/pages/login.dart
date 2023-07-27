@@ -37,7 +37,8 @@ class _LogInFormState extends State<LogInForm> {
         if (errorCode != null) {
           var errorString = "พบปัญหาโปรดลองอีกครั้ง";
           if (errorCode == "No element") {
-            errorString = "ไม่มีชื่อผู้ใช้นี้อยู่ในระบบ\nกรุณาสร้างบัญชีผู้ใช้";
+            errorString =
+                "ไม่มีชื่อผู้ใช้หรืออีเมลนี้อยู่ในระบบ\nกรุณาสร้างบัญชีผู้ใช้";
           } else if (errorCode == "wrong-password") {
             errorString = "รหัสผ่านไม่ถูกต้อง";
           } else if (errorCode == "too-many-requests") {
@@ -70,7 +71,7 @@ class _LogInFormState extends State<LogInForm> {
             const Padding(
               padding: EdgeInsets.only(left: 30, top: 34),
               child: Text(
-                "ชื่อผู้ใช้",
+                "ชื่อผู้ใช้/อีเมล",
                 style: TextStyle(fontSize: 24, fontWeight: FontWeight.w400),
               ),
             ),
@@ -341,7 +342,7 @@ String? _usernameValidator(String? val) {
   if (val != null) {
     String text = val.trim();
     if (text.isEmpty) {
-      return "กรุณากรอกชื่อผู้ใช้ของท่าน";
+      return "กรุณากรอกชื่อผู้ใช้หรืออีเมลของท่าน";
     }
   }
   return null;
