@@ -351,6 +351,7 @@ class _ActivityResultFooterState extends State<ActivityResultFooter> {
                   fontSize: MediaQuery.of(context).size.width < 600 ? 20 : 24),
               textAlign: TextAlign.center,
               overflow: TextOverflow.ellipsis,
+              maxLines: 1,
             ),
             Text(
               "อยู่ในระดับ",

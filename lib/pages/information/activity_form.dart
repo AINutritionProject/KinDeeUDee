@@ -803,6 +803,8 @@ class ActivityFormHeader extends StatelessWidget {
                 child: Center(
                     child: Text(
                   "ของคุณ\"$username\"",
+                  maxLines: 1,
+                  overflow: TextOverflow.ellipsis,
                   style: const TextStyle(
                       fontSize: 26, fontWeight: FontWeight.w700),
                 ))),

@@ -204,6 +204,8 @@ class _HomeState extends State<Home> {
                       padding: const EdgeInsets.only(top: 15),
                       child: Text(
                         widget.user.username,
+                        maxLines: 1,
+                        overflow: TextOverflow.ellipsis,
                         style: const TextStyle(
                           fontSize: 18,
                         ),
@@ -591,6 +593,8 @@ class HeaderSection extends StatelessWidget {
                 padding: const EdgeInsets.symmetric(vertical: 10),
                 child: Text(
                   '"${widget.user.username}"',
+                  maxLines: 1,
+                  overflow: TextOverflow.ellipsis,
                   style: const TextStyle(
                       fontSize: 20, fontWeight: FontWeight.bold),
                 ),
