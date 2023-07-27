@@ -200,8 +200,21 @@ class _HomeState extends State<Home> {
                       ),
                     ),
                     const UserAvatar(),
-                    Text(widget.user.username),
-                    Text(widget.user.email),
+                    Padding(
+                      padding: const EdgeInsets.only(top: 15),
+                      child: Text(
+                        widget.user.username,
+                        maxLines: 1,
+                        overflow: TextOverflow.ellipsis,
+                        style: const TextStyle(
+                          fontSize: 18,
+                        ),
+                      ),
+                    ),
+                    Text(
+                      widget.user.email,
+                      style: const TextStyle(fontSize: 16),
+                    ),
                   ],
                 ),
               ),
@@ -221,10 +234,8 @@ class _HomeState extends State<Home> {
                     //   },
                     // ),
                     ListTile(
-                      leading: const Icon(
-                        Icons.assignment_ind_rounded,
-                        size: 32,
-                      ),
+                      leading: Icon(Icons.assignment_ind_rounded,
+                          size: 32, color: Colors.grey[700]),
                       title: const Text(
                         "แก้ไขข้อมูลส่วนตัว",
                         style: TextStyle(fontSize: 18),
@@ -235,10 +246,8 @@ class _HomeState extends State<Home> {
                       },
                     ),
                     ListTile(
-                      leading: const Icon(
-                        Icons.assignment_ind_rounded,
-                        size: 32,
-                      ),
+                      leading: Icon(Icons.assignment_ind_rounded,
+                          size: 32, color: Colors.grey[700]),
                       title: const Text(
                         "กิจกรรมประจำวันของฉัน",
                         style: TextStyle(fontSize: 18),
@@ -250,10 +259,8 @@ class _HomeState extends State<Home> {
                       },
                     ),
                     ListTile(
-                      leading: const Icon(
-                        Icons.assignment_ind_rounded,
-                        size: 32,
-                      ),
+                      leading: Icon(Icons.assignment_ind_rounded,
+                          size: 32, color: Colors.grey[700]),
                       title: const Text(
                         "ค่าดัชนีมวลกายของฉัน",
                         style: TextStyle(fontSize: 18),
@@ -268,9 +275,10 @@ class _HomeState extends State<Home> {
                       },
                     ),
                     ListTile(
-                      leading: const Icon(
+                      leading: Icon(
                         Icons.assignment_ind_rounded,
                         size: 32,
+                        color: Colors.grey[700],
                       ),
                       title: const Text(
                         "ข้อมูลทางโภชนาการของฉัน",
@@ -286,10 +294,10 @@ class _HomeState extends State<Home> {
                 ),
               ),
               ListTile(
-                leading: const Icon(
-                  Icons.logout_outlined,
-                  size: 32,
-                ),
+                leading: Icon(Icons.logout_outlined,
+                    size: 32, color: Colors.grey[700]
+                    //color: Colors.red[400],
+                    ),
                 title: const Text(
                   'ออกจากระบบ',
                   style: TextStyle(fontSize: 18),
@@ -585,6 +593,8 @@ class HeaderSection extends StatelessWidget {
                 padding: const EdgeInsets.symmetric(vertical: 10),
                 child: Text(
                   '"${widget.user.username}"',
+                  maxLines: 1,
+                  overflow: TextOverflow.ellipsis,
                   style: const TextStyle(
                       fontSize: 20, fontWeight: FontWeight.bold),
                 ),

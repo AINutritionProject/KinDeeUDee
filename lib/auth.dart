@@ -129,10 +129,8 @@ class Auth {
             .add(appFoodUser.toMap());
       }
     } on FirebaseAuthException catch (error) {
-      print(error.code);
       return error.code;
     } catch (error) {
-      print(error.toString());
       return error.toString();
     }
     return null;

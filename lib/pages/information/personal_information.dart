@@ -510,6 +510,8 @@ class _PersonalHeaderState extends State<PersonalHeader> {
                         margin: const EdgeInsets.all(8.0),
                         child: Text(
                           "\"${widget.user.username}\"",
+                          maxLines: 1,
+                          overflow: TextOverflow.ellipsis,
                           style: const TextStyle(
                               fontSize: 24, fontWeight: FontWeight.w600),
                         )),
