@@ -53,11 +53,11 @@ class _BMIState extends State<BMIPage> {
                   BoxConstraints(minHeight: screenSizeData.screenHeight),
               color: (valBMI >= 30)
                   ? const Color.fromRGBO(255, 175, 175, 1)
-                  : (valBMI >= 25 && valBMI <= 29.9)
+                  : (valBMI >= 25 && valBMI < 30)
                       ? const Color.fromRGBO(255, 208, 193, 1)
-                      : (valBMI >= 23 && valBMI <= 24.9)
+                      : (valBMI >= 23 && valBMI < 25)
                           ? const Color.fromRGBO(255, 245, 220, 1)
-                          : (valBMI >= 18.5 && valBMI <= 22.9)
+                          : (valBMI >= 18.5 && valBMI < 23)
                               ? const Color.fromRGBO(217, 255, 200, 1)
                               : const Color.fromRGBO(255, 245, 220, 1),
               width: screenSizeData.screenSizeWidth,
@@ -66,16 +66,15 @@ class _BMIState extends State<BMIPage> {
                 child: Column(
                   children: [
                     const Padding(
-                      padding: EdgeInsets.only(top: 20 ,left: 15),
+                      padding: EdgeInsets.only(top: 20, left: 15),
                       child: Align(
-                        alignment: Alignment.topLeft,
-                        child: ButtonBack()),
+                          alignment: Alignment.topLeft, child: ButtonBack()),
                     ),
                     Padding(
                       padding: EdgeInsets.only(
-                            top: screenSizeData.maxWidth < 600
-                                ? screenSizeData.screenHeight * 0.01
-                                : screenSizeData.screenHeight * 0.08),
+                          top: screenSizeData.maxWidth < 600
+                              ? screenSizeData.screenHeight * 0.01
+                              : screenSizeData.screenHeight * 0.08),
                       child: Stack(
                         children: [
                           Padding(
@@ -89,8 +88,7 @@ class _BMIState extends State<BMIPage> {
                                 height: 150,
                                 decoration: BoxDecoration(
                                   borderRadius: BorderRadius.circular(150),
-                                  color:
-                                      const Color.fromRGBO(177, 222, 255, 1),
+                                  color: const Color.fromRGBO(177, 222, 255, 1),
                                 ),
                                 child: Image.asset(
                                   'assets/images/BMI/weighing.png',
@@ -218,14 +216,13 @@ class _BMIState extends State<BMIPage> {
                               decoration: BoxDecoration(
                                   color: (valBMI >= 30)
                                       ? const Color.fromRGBO(255, 59, 59, 1)
-                                      : (valBMI >= 25 && valBMI <= 29.9)
+                                      : (valBMI >= 25 && valBMI < 30)
                                           ? const Color.fromRGBO(
                                               255, 148, 87, 1)
-                                          : (valBMI >= 23 && valBMI <= 24.9)
+                                          : (valBMI >= 23 && valBMI < 25)
                                               ? const Color.fromRGBO(
                                                   255, 208, 87, 1)
-                                              : (valBMI >= 18.5 &&
-                                                      valBMI <= 22.9)
+                                              : (valBMI >= 18.5 && valBMI < 23)
                                                   ? const Color.fromRGBO(
                                                       98, 233, 35, 1)
                                                   : const Color.fromRGBO(
@@ -238,12 +235,11 @@ class _BMIState extends State<BMIPage> {
                                 child: Text(
                                   (valBMI >= 30)
                                       ? ">= 30 โรคอ้วน"
-                                      : (valBMI >= 25 && valBMI <= 29.9)
+                                      : (valBMI >= 25 && valBMI < 30)
                                           ? "25 - 29.9 โรคอ้วน"
-                                          : (valBMI >= 23 && valBMI <= 24.9)
+                                          : (valBMI >= 23 && valBMI < 25)
                                               ? "23 - 24.9 น้ำหนักเกิน"
-                                              : (valBMI >= 18.5 &&
-                                                      valBMI <= 22.9)
+                                              : (valBMI >= 18.5 && valBMI < 23)
                                                   ? "18.5 - 22.9 ปกติ"
                                                   : "< 18.5 ต่ำกว่าเกณฑ์",
                                   style: const TextStyle(
