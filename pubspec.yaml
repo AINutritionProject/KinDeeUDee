@@ -57,6 +57,7 @@ dependencies:
   flutter_native_splash: ^2.3.1
   syncfusion_flutter_datepicker: ^21.2.9
   intl: ^0.18.1
+  flutter_login_facebook: ^1.8.0
 
 dev_dependencies:
   flutter_test:
