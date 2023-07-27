@@ -1,7 +1,9 @@
 import 'package:appfood2/auth.dart';
 import 'package:appfood2/widgets/error_dialog.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:appfood2/pages/register.dart';
+import 'package:flutter_login_facebook/flutter_login_facebook.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:appfood2/widgets/button_back.dart';
@@ -298,11 +300,50 @@ class _LoginPageState extends State<LoginPage> {
                             //   color: Colors.green,
                             //   size: 35,
                             // ),
-                            // const FaIcon(
-                            //   FontAwesomeIcons.squareFacebook,
-                            //   color: Colors.blue,
-                            //   size: 37,
-                            // ),
+                            GestureDetector(
+                              child: const FaIcon(
+                                FontAwesomeIcons.squareFacebook,
+                                color: Colors.blue,
+                                size: 37,
+                              ),
+                              onTap: () async {
+                                print("LOG");
+                                try {
+                                  final FacebookLogin facebookLogin =
+                                      FacebookLogin();
+                                  FacebookLoginResult result =
+                                      await facebookLogin.logIn(permissions: [
+                                    FacebookPermission.publicProfile,
+                                    FacebookPermission.email
+                                  ]);
+                                  print("Result is");
+                                  print(result);
+                                  switch (result.status) {
+                                    case FacebookLoginStatus.success:
+                                      String? token = result.accessToken?.token;
+                                      print("token: $token");
+                                      if (token == null) {
+                                        return;
+                                      }
+                                      final AuthCredential credential =
+                                          FacebookAuthProvider.credential(
+                                              token);
+                                      await FirebaseAuth.instance
+                                          .signInWithCredential(credential);
+                                      print("Login facebook sucess");
+                                      break;
+                                    case FacebookLoginStatus.cancel:
+                                      print("Login facebook got cancel!");
+                                      break;
+                                    case FacebookLoginStatus.error:
+                                      print("error when login with facebook");
+                                      break;
+                                  }
+                                } catch (e) {
+                                  print(e);
+                                }
+                              },
+                            ),
                             // const FaIcon(
                             //   FontAwesomeIcons.instagram,
                             //   color: Colors.deepOrangeAccent,
