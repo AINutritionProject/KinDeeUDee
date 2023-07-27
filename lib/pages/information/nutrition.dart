@@ -2,6 +2,7 @@ import 'package:appfood2/pages/information/save_data_success.dart';
 import 'package:flutter/material.dart';
 import 'package:appfood2/db.dart';
 import 'package:appfood2/screen_size.dart';
+import 'package:appfood2/widgets/button_back.dart';
 
 class Nutrition extends StatelessWidget {
   final User user;
@@ -756,22 +757,32 @@ class ContainerHeader extends StatelessWidget {
   final double bmr;
   @override
   Widget build(BuildContext context) {
-    return SizedBox(
-      width: MediaQuery.of(context).size.width,
-      height: 280,
-      child: Column(
-        children: [
-          const Padding(
-            padding: EdgeInsets.fromLTRB(10, 40, 10, 10),
-            child: TitleHeader(),
+    return Column(
+      children: [
+        Padding(
+          padding: const EdgeInsets.only(top: 25, left: 15),
+          child: Align(
+            alignment: Alignment.centerLeft,
+            child: ButtonBack(colorCircle: Colors.orange[400],)),
+        ),
+        SizedBox(
+          width: MediaQuery.of(context).size.width,
+          height: 280,
+          child: Column(
+            children: [
+              const Padding(
+                padding: EdgeInsets.fromLTRB(10, 40, 10, 10),
+                child: TitleHeader(),
+              ),
+              const Padding(
+                padding: EdgeInsets.fromLTRB(20, 10, 10, 30),
+                child: TextCalRequire(),
+              ),
+              calList[0][calAmountValue(bmr)]
+            ],
           ),
-          const Padding(
-            padding: EdgeInsets.fromLTRB(20, 10, 10, 30),
-            child: TextCalRequire(),
-          ),
-          calList[0][calAmountValue(bmr)]
-        ],
-      ),
+        ),
+      ],
     );
   }
 }
